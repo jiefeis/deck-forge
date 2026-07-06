@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lumen · 2026 增长策略</title>
+
+<!-- Fonts: distinctive editorial pairing — serif display + grotesk accent (never system fonts) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@500;700;900&amp;family=Space+Grotesk:wght@500;700&amp;family=Noto+Sans+SC:wght@400;500;700&amp;display=swap" rel="stylesheet">
+
+<style>
+/* ===========================================
+   THEME TOKENS — "Ink & Amber" editorial
+   =========================================== */
+:root{
+  --ink:#0e1014;            /* deep ink background */
+  --ink-2:#15181f;
+  --paper:#f4efe6;          /* warm off-white text */
+  --paper-dim:#a59f93;
+  --amber:#e8b04b;          /* primary accent */
+  --amber-soft:rgba(232,176,75,.16);
+  --rust:#c4623b;           /* secondary accent */
+  --line:rgba(244,239,230,.14);
+  --font-serif:'Noto Serif SC', serif;
+  --font-sans:'Noto Sans SC', sans-serif;
+  --font-latin:'Space Grotesk', sans-serif;
+  --stage-bg:#000;
+  --slide-bg:var(--ink);
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+
+/* ===========================================
+   viewport-base.css (FULL — mandatory fixed stage)
+   =========================================== */
+html,body{width:100%;height:100%;margin:0;overflow:hidden;background:var(--stage-bg,#000);}
+.deck-viewport{position:fixed;inset:0;overflow:hidden;background:var(--stage-bg,#000);}
+.deck-stage{position:absolute;left:0;top:0;width:1920px;height:1080px;overflow:hidden;transform-origin:0 0;background:var(--slide-bg,#fff);}
+.slide{position:absolute;inset:0;width:1920px;height:1080px;overflow:hidden;display:block;visibility:hidden;opacity:0;pointer-events:none;background:var(--slide-bg,#fff);}
+.slide.active,.slide.visible{visibility:visible;opacity:1;pointer-events:auto;z-index:1;}
+img,video,canvas,svg{max-width:100%;max-height:100%;}
+.deck-controls{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:1000;}
+@media print{
+  html,body{width:1920px;height:auto;overflow:visible;background:#fff;}
+  .deck-viewport{position:static;overflow:visible;background:#fff;}
+  .deck-stage{position:static;width:auto;height:auto;transform:none!important;background:none;}
+  .slide{position:relative;display:block!important;visibility:visible!important;opacity:1!important;pointer-events:auto!important;width:1920px;height:1080px;break-after:page;page-break-after:always;}
+  .slide:last-child{break-after:auto;page-break-after:auto;}
+  .deck-controls{display:none!important;}
+}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.2s!important;}}
+
+/* ===========================================
+   SHARED SLIDE FURNITURE
+   =========================================== */
+.slide{color:var(--paper);font-family:var(--font-sans);}
+.pad{position:absolute;inset:0;padding:96px 120px;display:flex;flex-direction:column;}
+.grain{position:absolute;inset:0;pointer-events:none;opacity:.5;
+  background:radial-gradient(120% 90% at 85% 12%, rgba(232,176,75,.10), transparent 45%),
+             radial-gradient(120% 90% at 10% 95%, rgba(196,98,59,.12), transparent 50%);}
+.kicker{font-family:var(--font-latin);font-weight:700;font-size:22px;letter-spacing:.32em;text-transform:uppercase;color:var(--amber);}
+.foot{position:absolute;left:120px;right:120px;bottom:54px;display:flex;justify-content:space-between;
+  font-family:var(--font-latin);font-size:18px;letter-spacing:.14em;color:var(--paper-dim);text-transform:uppercase;}
+.pageno{font-variant-numeric:tabular-nums;}
+
+/* reveal animation: triggers on .slide.visible */
+.reveal{opacity:0;transform:translateY(34px);transition:opacity .7s var(--ease),transform .7s var(--ease);}
+.slide.visible .reveal{opacity:1;transform:none;}
+.slide.visible .reveal:nth-child(1){transition-delay:.05s;}
+.slide.visible .reveal:nth-child(2){transition-delay:.15s;}
+.slide.visible .reveal:nth-child(3){transition-delay:.25s;}
+.slide.visible .reveal:nth-child(4){transition-delay:.35s;}
+.slide.visible .reveal:nth-child(5){transition-delay:.45s;}
+
+/* ===========================================
+   1 — COVER
+   =========================================== */
+.cover .pad{justify-content:center;}
+.cover .mark{font-family:var(--font-latin);font-weight:700;letter-spacing:.4em;font-size:24px;color:var(--amber);margin-bottom:40px;}
+.cover h1{font-family:var(--font-serif);font-weight:900;font-size:168px;line-height:.96;letter-spacing:-.01em;}
+.cover h1 em{font-style:normal;color:var(--amber);}
+.cover .sub{font-family:var(--font-serif);font-weight:500;font-size:40px;color:var(--paper-dim);margin-top:36px;max-width:1100px;line-height:1.4;}
+.cover .rule{width:140px;height:6px;background:var(--amber);margin:48px 0 0;}
+.cover .meta{position:absolute;left:120px;bottom:96px;font-family:var(--font-latin);font-size:22px;letter-spacing:.16em;color:var(--paper-dim);}
+.cover .bigdisc{position:absolute;right:-220px;top:-220px;width:760px;height:760px;border-radius:50%;
+  background:conic-gradient(from 210deg, var(--amber), var(--rust), var(--amber));filter:blur(2px);opacity:.22;}
+
+/* ===========================================
+   2 — AGENDA
+   =========================================== */
+.agenda h2{font-family:var(--font-serif);font-weight:700;font-size:84px;margin:18px 0 56px;}
+.toc{display:flex;flex-direction:column;gap:0;border-top:1px solid var(--line);}
+.toc .row{display:grid;grid-template-columns:140px 1fr auto;align-items:center;gap:40px;
+  padding:34px 8px;border-bottom:1px solid var(--line);}
+.toc .n{font-family:var(--font-latin);font-weight:700;font-size:48px;color:var(--amber);font-variant-numeric:tabular-nums;}
+.toc .t{font-family:var(--font-serif);font-weight:500;font-size:46px;}
+.toc .en{font-family:var(--font-latin);font-size:22px;letter-spacing:.2em;color:var(--paper-dim);text-transform:uppercase;}
+
+/* ===========================================
+   3 — STATS / HERO
+   =========================================== */
+.hero .pad{justify-content:center;align-items:flex-start;}
+.hero .eyebrow{font-family:var(--font-sans);font-weight:500;font-size:34px;color:var(--paper-dim);margin-bottom:8px;}
+.hero .big{font-family:var(--font-latin);font-weight:700;font-size:420px;line-height:.82;letter-spacing:-.02em;color:var(--amber);}
+.hero .big .unit{font-size:120px;color:var(--paper);margin-left:8px;}
+.hero .say{font-family:var(--font-serif);font-weight:500;font-size:48px;line-height:1.45;max-width:1180px;margin-top:40px;}
+.hero .say b{color:var(--amber);font-weight:700;}
+
+/* ===========================================
+   4 — CONTENT / 3UP
+   =========================================== */
+.three h2{font-family:var(--font-serif);font-weight:700;font-size:76px;margin:14px 0 14px;}
+.three .lede{font-family:var(--font-sans);font-size:30px;color:var(--paper-dim);max-width:1200px;margin-bottom:52px;}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:34px;flex:1;}
+.card{background:linear-gradient(180deg,var(--ink-2),rgba(21,24,31,.4));border:1px solid var(--line);
+  border-radius:22px;padding:48px 42px;display:flex;flex-direction:column;}
+.card .num{font-family:var(--font-latin);font-weight:700;font-size:30px;color:var(--amber);}
+.card h3{font-family:var(--font-serif);font-weight:700;font-size:46px;margin:30px 0 20px;}
+.card p{font-family:var(--font-sans);font-size:28px;line-height:1.62;color:var(--paper);}
+.card .tag{margin-top:auto;font-family:var(--font-latin);font-size:18px;letter-spacing:.18em;
+  color:var(--paper-dim);text-transform:uppercase;padding-top:28px;}
+
+/* ===========================================
+   5 — BEFORE / AFTER
+   =========================================== */
+.ba h2{font-family:var(--font-serif);font-weight:700;font-size:76px;margin:14px 0 52px;}
+.split{display:grid;grid-template-columns:1fr 120px 1fr;align-items:stretch;gap:0;flex:1;}
+.col-ba{padding:44px 48px;border-radius:22px;display:flex;flex-direction:column;}
+.col-ba.before{background:rgba(196,98,59,.08);border:1px solid rgba(196,98,59,.3);}
+.col-ba.after{background:var(--amber-soft);border:1px solid rgba(232,176,75,.4);}
+.col-ba .h{font-family:var(--font-latin);font-weight:700;font-size:24px;letter-spacing:.2em;text-transform:uppercase;margin-bottom:32px;}
+.col-ba.before .h{color:var(--rust);}
+.col-ba.after .h{color:var(--amber);}
+.col-ba ul{list-style:none;display:flex;flex-direction:column;gap:26px;}
+.col-ba li{font-family:var(--font-sans);font-size:30px;line-height:1.4;display:flex;gap:18px;align-items:flex-start;}
+.col-ba li .i{font-family:var(--font-latin);font-weight:700;flex:none;width:34px;}
+.col-ba.before li .i{color:var(--rust);}
+.col-ba.after li .i{color:var(--amber);}
+.pivot{display:flex;align-items:center;justify-content:center;}
+.pivot .arr{font-family:var(--font-latin);font-weight:700;font-size:64px;color:var(--paper-dim);}
+
+/* ===========================================
+   6 — FLOW / TIMELINE
+   =========================================== */
+.tl h2{font-family:var(--font-serif);font-weight:700;font-size:76px;margin:14px 0 64px;}
+.track{position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:30px;flex:1;align-content:start;}
+.track::before{content:"";position:absolute;left:0;right:0;top:34px;height:2px;background:var(--line);}
+.node{position:relative;padding-top:78px;}
+.node .dot{position:absolute;top:22px;left:0;width:26px;height:26px;border-radius:50%;background:var(--amber);box-shadow:0 0 0 8px var(--amber-soft);}
+.node .when{font-family:var(--font-latin);font-weight:700;font-size:26px;color:var(--amber);letter-spacing:.08em;}
+.node .what{font-family:var(--font-serif);font-weight:700;font-size:40px;margin:16px 0 14px;}
+.node .desc{font-family:var(--font-sans);font-size:25px;line-height:1.55;color:var(--paper-dim);}
+
+/* ===========================================
+   7 — QUOTE
+   =========================================== */
+.quote .pad{justify-content:center;}
+.quote blockquote{font-family:var(--font-serif);font-weight:700;font-size:104px;line-height:1.18;max-width:1480px;}
+.quote blockquote .a{color:var(--amber);}
+.quote .cite{font-family:var(--font-latin);font-size:26px;letter-spacing:.16em;color:var(--paper-dim);margin-top:56px;text-transform:uppercase;}
+.quote .qmark{font-family:var(--font-serif);font-weight:900;font-size:300px;color:var(--amber);opacity:.18;line-height:.6;height:120px;}
+
+/* ===========================================
+   8 — END
+   =========================================== */
+.end .pad{justify-content:center;align-items:center;text-align:center;}
+.end .mark{font-family:var(--font-latin);font-weight:700;letter-spacing:.4em;font-size:24px;color:var(--amber);margin-bottom:36px;}
+.end h2{font-family:var(--font-serif);font-weight:900;font-size:132px;line-height:1;}
+.end .contact{font-family:var(--font-latin);font-size:30px;letter-spacing:.12em;color:var(--paper-dim);margin-top:46px;}
+.end .rule{width:120px;height:6px;background:var(--amber);margin:44px auto 0;}
+</style>
+</head>
+<body>
+<div class="deck-viewport">
+<main class="deck-stage" id="deckStage">
+
+  <!-- === 1 · COVER === -->
+  <section class="slide cover active">
+    <div class="grain"></div>
+    <div class="bigdisc"></div>
+    <div class="pad">
+      <div class="mark reveal" data-text-id="s01t01">LUMEN</div>
+      <h1 class="reveal" data-text-id="s01t02">把每一块钱<br><em>花在刀刃上</em></h1>
+      <p class="sub reveal" data-text-id="s01t03">2026 增长策略 · 这行字是通过 edit_texts 改的</p>
+      <div class="rule reveal"></div>
+    </div>
+    <div class="meta" data-text-id="s01t04">战略提案 · 2026.06</div>
+  </section>
+
+  <!-- === 2 · AGENDA === -->
+  <section class="slide agenda">
+    <div class="grain"></div>
+    <div class="pad">
+      <div class="kicker reveal" data-text-id="s02t01">议程</div>
+      <h2 class="reveal" data-text-id="s02t02">我们要讲清楚四件事</h2>
+      <div class="toc reveal">
+        <div class="row"><div class="n" data-text-id="s02t03">01</div><div class="t" data-text-id="s02t04">现状:增长在哪里失速</div><div class="en" data-text-id="s02t05">Where we stall</div></div>
+        <div class="row"><div class="n" data-text-id="s02t06">02</div><div class="t" data-text-id="s02t07">转向:从采买到复利</div><div class="en" data-text-id="s02t08">The pivot</div></div>
+        <div class="row"><div class="n" data-text-id="s02t09">03</div><div class="t" data-text-id="s02t10">三大支柱与节奏</div><div class="en" data-text-id="s02t11">Three pillars</div></div>
+        <div class="row"><div class="n" data-text-id="s02t12">04</div><div class="t" data-text-id="s02t13">落地路线图</div><div class="en" data-text-id="s02t14">Roadmap</div></div>
+      </div>
+    </div>
+    <div class="foot" data-text-id="s02t15"><span>LUMEN · 2026</span><span class="pageno">02</span></div>
+  </section>
+
+  <!-- === 3 · STATS / HERO === -->
+  <section class="slide hero">
+    <div class="grain"></div>
+    <div class="pad">
+      <div class="eyebrow reveal" data-text-id="s03t01">过去 12 个月,我们花在拉新上的钱里——</div>
+      <div class="big reveal" data-text-id="s03t02">72<span class="unit">%</span></div>
+      <div class="say reveal" data-text-id="s03t03">在 <b>30 天内流失</b>。增长的瓶颈不是流量不够,<br>而是<b>留不住</b>。这一页定义了整份提案要解决的问题。</div>
+    </div>
+    <div class="foot" data-text-id="s03t04"><span>现状 · WHERE WE STALL</span><span class="pageno">03</span></div>
+  </section>
+
+  <!-- === 4 · CONTENT / 3UP === -->
+  <section class="slide three">
+    <div class="grain"></div>
+    <div class="pad">
+      <div class="kicker reveal" data-text-id="s04t01">三大支柱</div>
+      <h2 class="reveal" data-text-id="s04t02">把预算从“买用户”挪到“养用户”</h2>
+      <p class="lede reveal" data-text-id="s04t03">同样的预算,重新分配到三个能产生复利的环节。每个支柱都有明确的负责人与季度目标。</p>
+      <div class="cards reveal">
+        <div class="card">
+          <div class="num" data-text-id="s04t04">01</div>
+          <h3 data-text-id="s04t05">激活前 7 天</h3>
+          <p data-text-id="s04t06">把新用户的“啊哈时刻”从第 9 天提前到第 2 天,首周留存预计 +18 个百分点。</p>
+          <div class="tag" data-text-id="s04t07">ONBOARDING</div>
+        </div>
+        <div class="card">
+          <div class="num" data-text-id="s04t08">02</div>
+          <h3 data-text-id="s04t09">内容飞轮</h3>
+          <p data-text-id="s04t10">用户产出的内容反向带来新用户,边际获客成本随规模下降而非上升。</p>
+          <div class="tag" data-text-id="s04t11">LOOPS</div>
+        </div>
+        <div class="card">
+          <div class="num" data-text-id="s04t12">03</div>
+          <h3 data-text-id="s04t13">付费转化</h3>
+          <p data-text-id="s04t14">在价值被感知的节点而非注册当天触发付费,转化率与口碑同时受益。</p>
+          <div class="tag" data-text-id="s04t15">MONETIZE</div>
+        </div>
+      </div>
+    </div>
+    <div class="foot" data-text-id="s04t16"><span>三大支柱 · THREE PILLARS</span><span class="pageno">04</span></div>
+  </section>
+
+  <!-- === 5 · BEFORE / AFTER === -->
+  <section class="slide ba">
+    <div class="grain"></div>
+    <div class="pad">
+      <div class="kicker reveal" data-text-id="s05t01">转向</div>
+      <h2 class="reveal" data-text-id="s05t02">同一笔钱,两种活法</h2>
+      <div class="split reveal">
+        <div class="col-ba before">
+          <div class="h" data-text-id="s05t03">现在 · 流量采买</div>
+          <ul>
+            <li data-text-id="s05t04"><span class="i">✕</span><span>获客成本逐季抬升,投入即消耗</span></li>
+            <li data-text-id="s05t05"><span class="i">✕</span><span>新用户首周流失超六成</span></li>
+            <li data-text-id="s05t06"><span class="i">✕</span><span>增长依赖持续输血,无法停</span></li>
+          </ul>
+        </div>
+        <div class="pivot"><div class="arr" data-text-id="s05t07">→</div></div>
+        <div class="col-ba after">
+          <div class="h" data-text-id="s05t08">转向 · 留存复利</div>
+          <ul>
+            <li data-text-id="s05t09"><span class="i">✓</span><span>老用户带新用户,成本随规模下降</span></li>
+            <li data-text-id="s05t10"><span class="i">✓</span><span>首周留存提升带动 LTV 翻倍</span></li>
+            <li data-text-id="s05t11"><span class="i">✓</span><span>飞轮一旦转起,增长可自持</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="foot" data-text-id="s05t12"><span>转向 · THE PIVOT</span><span class="pageno">05</span></div>
+  </section>
+
+  <!-- === 6 · FLOW / TIMELINE === -->
+  <section class="slide tl">
+    <div class="grain"></div>
+    <div class="pad">
+      <div class="kicker reveal" data-text-id="s06t01">路线图</div>
+      <h2 class="reveal" data-text-id="s06t02">四个季度,把飞轮转起来</h2>
+      <div class="track reveal">
+        <div class="node"><div class="dot"></div><div class="when" data-text-id="s06t03">Q1</div><div class="what" data-text-id="s06t04">激活重构</div><div class="desc" data-text-id="s06t05">重做前 7 天体验,埋点定义“啊哈时刻”。</div></div>
+        <div class="node"><div class="dot"></div><div class="when" data-text-id="s06t06">Q2</div><div class="what" data-text-id="s06t07">内容飞轮</div><div class="desc" data-text-id="s06t08">上线 UGC 激励,跑通第一个自传播闭环。</div></div>
+        <div class="node"><div class="dot"></div><div class="when" data-text-id="s06t09">Q3</div><div class="what" data-text-id="s06t10">付费节点</div><div class="desc" data-text-id="s06t11">按价值感知触发付费,测试三套定价。</div></div>
+        <div class="node"><div class="dot"></div><div class="when" data-text-id="s06t12">Q4</div><div class="what" data-text-id="s06t13">规模复利</div><div class="desc" data-text-id="s06t14">边际成本转负,采买预算下调四成。</div></div>
+      </div>
+    </div>
+    <div class="foot" data-text-id="s06t15"><span>路线图 · ROADMAP</span><span class="pageno">06</span></div>
+  </section>
+
+  <!-- === 7 · QUOTE === -->
+  <section class="slide quote">
+    <div class="grain"></div>
+    <div class="pad">
+      <div class="qmark reveal" data-text-id="s07t01">“</div>
+      <blockquote class="reveal" data-text-id="s07t02">增长不是把更多人<br>倒进漏斗,而是<span class="a">把漏斗补好</span>。</blockquote>
+      <div class="cite reveal" data-text-id="s07t03">— 本提案的一句话总结</div>
+    </div>
+    <div class="foot" data-text-id="s07t04"><span>LUMEN · 2026</span><span class="pageno">07</span></div>
+  </section>
+
+  <!-- === 8 · END === -->
+  <section class="slide end">
+    <div class="grain"></div>
+    <div class="pad">
+      <div class="mark reveal" data-text-id="s08t01">LUMEN</div>
+      <h2 class="reveal" data-text-id="s08t02">把钱花在<br>留得住的地方</h2>
+      <div class="contact reveal" data-text-id="s08t03">growth@lumen.example · 2026.06</div>
+      <div class="rule reveal"></div>
+    </div>
+  </section>
+
+</main>
+</div>
+
+<script>
+/* === SLIDE PRESENTATION CONTROLLER === */
+class SlidePresentation{
+  constructor(){
+    this.slides=document.querySelectorAll('.slide');
+    this.cur=0;
+    this.stage=document.getElementById('deckStage');
+    this.scale();
+    window.addEventListener('resize',()=>this.scale());
+    document.addEventListener('keydown',e=>{
+      if(['ArrowRight','ArrowDown',' ','PageDown'].includes(e.key)){e.preventDefault();this.go(this.cur+1);}
+      if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){e.preventDefault();this.go(this.cur-1);}
+    });
+    this.go(0);
+  }
+  scale(){
+    const f=Math.min(window.innerWidth/1920,window.innerHeight/1080);
+    const x=(window.innerWidth-1920*f)/2, y=(window.innerHeight-1080*f)/2;
+    this.stage.style.transform=`translate(${x}px,${y}px) scale(${f})`;
+  }
+  go(i){
+    this.cur=Math.max(0,Math.min(i,this.slides.length-1));
+    this.slides.forEach((s,k)=>{const on=k===this.cur;s.classList.toggle('active',on);s.classList.toggle('visible',on);});
+  }
+  goToSlide(i){this.go(i);}  /* exposed for export tooling */
+}
+window.presentation=new SlidePresentation();
+</script>
+</body>
+</html>
