@@ -197,15 +197,15 @@ components:
     description: "Small filled square preceding a mono legend label. 2px corner radius is the smallest radius in the system."
 ---
 
-## Frontend Slides Fixed-Stage Policy
+## deck-forge Fixed-Stage Policy
 
-When this design system is used by the `frontend-slides` skill, generate the final deck as a **fixed 1920×1080 stage** that scales uniformly to the browser viewport. The deck should preserve a 16:9 slide canvas on every screen, including phones; it may letterbox or pillarbox, but it should not reflow slide content for mobile.
+When this design system is used by the `deck-forge` skill, generate the final deck as a **fixed 1920×1080 stage** that scales uniformly to the browser viewport. The deck should preserve a 16:9 slide canvas on every screen, including phones; it may letterbox or pillarbox, but it should not reflow slide content for mobile.
 
-This policy has higher priority than any source-template responsive behavior described later in this file. If a later section says the original template is viewport-fluid, treat that as source history only, not as the target generation model for `frontend-slides`.
+This policy has higher priority than any source-template responsive behavior described later in this file. If a later section says the original template is viewport-fluid, treat that as source history only, not as the target generation model for `deck-forge`.
 
 This policy applies even if the source template was originally implemented with viewport-fluid CSS such as `100vw`, `100vh`, `vw`, `vh`, or `clamp()`. Treat those values as design proportions to translate into 1920×1080 stage coordinates, not as live responsive rules in the generated deck.
 
-Use `deck-stage.js` or an equivalent inline stage scaler for final output: render each slide at 1920×1080, scale the whole stage with one transform, and verify rendered screenshots for both text overflow and panel overlap.
+Author against the skill's fixed-stage model: full viewport-base.css inline, .slide/.active slides scaled as one unit (transform: scale(), origin 0 0) per html-template.md. Do not reference deck-stage.js (not bundled). Translate any data-anim/data-delay/.is-active entrance vocabulary from the source design into the deck's .reveal + .slide.visible convention. Render each slide at 1920×1080 and verify rendered screenshots for both text overflow and panel overlap.
 
 
 ## Overview
@@ -321,7 +321,7 @@ Italics are not used anywhere in the system. Underline is not used. Emphasis is 
 ## Layout
 
 ### Canvas System
-The system targets a fixed **1920×1080** canvas. Slides are `<section>` elements at exact width/height; rendering relies on `deck-stage.js` to scale the canvas to fit the viewport. The canvas is paper, not a viewport — designed for projector, printer, or PDF export.
+The system targets a fixed **1920×1080** canvas. Slides are `<section>` elements at exact width/height; rendering relies on the skill's fixed-stage scaler to fit the canvas to the viewport. The canvas is paper, not a viewport — designed for projector, printer, or PDF export.
 
 ### Slide Padding Scale
 | Token | Value | Use |
@@ -418,13 +418,13 @@ Borders take the region's accent color (`{colors.green}` on cream, `{colors.pink
 
 ## Responsive Behavior
 
-This is a **fixed 1920×1080 presentation system** rendered through `deck-stage.js`. The canvas is not responsive in the web sense — there are no media queries, no breakpoints, no fluid sizing. Every measurement is in fixed pixels at 1920×1080.
+This is a **fixed 1920×1080 presentation system** rendered through the skill's fixed-stage scaler. The canvas is not responsive in the web sense — there are no media queries, no breakpoints, no fluid sizing. Every measurement is in fixed pixels at 1920×1080.
 
 ### Scaling Behavior
-The `deck-stage.js` script wraps each `<section>` and scales the 1920×1080 canvas uniformly to fit the browser viewport, letterboxing as needed. Type, padding, gaps, and rule weights are all in pixels and scale proportionally with the canvas. Borders that read as 2px at 1920px will read as 1px at 960px viewport width — this is acceptable inside the system's tolerance.
+The fixed-stage wrapper (viewport-base.css) wraps each `<section>` and scales the 1920×1080 canvas uniformly to fit the browser viewport, letterboxing as needed. Type, padding, gaps, and rule weights are all in pixels and scale proportionally with the canvas. Borders that read as 2px at 1920px will read as 1px at 960px viewport width — this is acceptable inside the system's tolerance.
 
 ### Presenter Behavior
-Navigation is delegated to whatever wrapper `deck-stage.js` provides — there is no inline keyboard handler. Treat each `<section>` as a slide; the runtime handles transitions.
+Navigation is delegated to the deck's inline controller. Treat each `<section>` as a slide; the controller handles transitions.
 
 ### Print / Export
 Because every measurement is fixed-pixel inside a 1920×1080 canvas, the system exports cleanly to PDF at the same aspect ratio (16:9). Source Serif 4 with the optical-size axis renders well at print resolution because the small-sized variants pick up the print-appropriate letterform detail automatically.
@@ -499,10 +499,10 @@ LXGW WenKai's brushwork warmth is its strength at large display sizes, but at bo
 
 ## Known Gaps
 
-- The system depends on `deck-stage.js` for canvas scaling and slide navigation. The script is not described in this design.md — treat it as a runtime dependency.
+- Canvas scaling and slide navigation come from the skill's fixed-stage model (viewport-base.css plus the deck's inline controller), not an external script.
 - Source Serif 4 and JetBrains Mono are loaded from Google Fonts via `<link>`. Offline rendering will fall back to Georgia serif and Menlo mono respectively, which will preserve the rough character but lose the optical-size axis and the JetBrains Mono identity. Self-hosting recommended for offline / print reliability.
 - The Source Serif 4 optical-size axis (`opsz` 8..60) is critical to the system's quality — using a non-opsz fallback face flattens the size-aware letterform contrast.
 - The bar chart uses hand-set bar heights (`%` of a fixed 520px plot region). There is no data-binding — extending the chart requires manually computing heights.
 - The monogram circle, footline strings, and tile counters carry hardcoded text in the source. Replacing them with a deck's actual identity is required per-deck.
-- The system has no `@media print` rule and no responsive breakpoints — it is fixed 1920×1080 and relies on `deck-stage.js` for any viewport adaptation.
+- The system has no `@media print` rule and no responsive breakpoints — it is fixed 1920×1080 and relies on the fixed-stage transform for any viewport adaptation.
 - The green-on-pink and pink-on-green text contrast ratios are sufficient at the display sizes used (84px+) but would fail WCAG AA at body-text sizes. Do not put 26px body text in pink-on-green or green-on-pink — keep small text in cream-on-green or ink-on-cream.

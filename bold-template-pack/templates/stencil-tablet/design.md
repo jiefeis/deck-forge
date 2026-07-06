@@ -307,15 +307,15 @@ components:
     description: "Bottom chrome strip with date left and deck name right. Uppercase Barlow Condensed 600 at 0.75 opacity."
 ---
 
-## Frontend Slides Fixed-Stage Policy
+## deck-forge Fixed-Stage Policy
 
-When this design system is used by the `frontend-slides` skill, generate the final deck as a **fixed 1920×1080 stage** that scales uniformly to the browser viewport. The deck should preserve a 16:9 slide canvas on every screen, including phones; it may letterbox or pillarbox, but it should not reflow slide content for mobile.
+When this design system is used by the `deck-forge` skill, generate the final deck as a **fixed 1920×1080 stage** that scales uniformly to the browser viewport. The deck should preserve a 16:9 slide canvas on every screen, including phones; it may letterbox or pillarbox, but it should not reflow slide content for mobile.
 
-This policy has higher priority than any source-template responsive behavior described later in this file. If a later section says the original template is viewport-fluid, treat that as source history only, not as the target generation model for `frontend-slides`.
+This policy has higher priority than any source-template responsive behavior described later in this file. If a later section says the original template is viewport-fluid, treat that as source history only, not as the target generation model for `deck-forge`.
 
 This policy applies even if the source template was originally implemented with viewport-fluid CSS such as `100vw`, `100vh`, `vw`, `vh`, or `clamp()`. Treat those values as design proportions to translate into 1920×1080 stage coordinates, not as live responsive rules in the generated deck.
 
-Use `deck-stage.js` or an equivalent inline stage scaler for final output: render each slide at 1920×1080, scale the whole stage with one transform, and verify rendered screenshots for both text overflow and panel overlap.
+Author against the skill's fixed-stage model: full viewport-base.css inline, .slide/.active slides scaled as one unit (transform: scale(), origin 0 0) per html-template.md. Do not reference deck-stage.js (not bundled). Translate any data-anim/data-delay/.is-active entrance vocabulary from the source design into the deck's .reveal + .slide.visible convention. Render each slide at 1920×1080 and verify rendered screenshots for both text overflow and panel overlap.
 
 
 ## Overview
@@ -466,7 +466,7 @@ Bold within body is not used. Strong tags inside Inter remain at weight 400; emp
 
 ### Canvas System
 
-Stencil & Tablet targets a **fixed 1920×1080 canvas** via the `<deck-stage>` component. Layout uses absolute positioning from slide edges. Top chrome sits at top: 48px, left/right: 64px. Bottom chrome at bottom: 36px, left/right: 64px. Card grids inset from those chrome positions with 22–28px gaps between cards.
+Stencil & Tablet targets a **fixed 1920×1080 canvas** via the skill's fixed-stage wrapper. Layout uses absolute positioning from slide edges. Top chrome sits at top: 48px, left/right: 64px. Bottom chrome at bottom: 36px, left/right: 64px. Card grids inset from those chrome positions with 22–28px gaps between cards.
 
 ### Padding and Gap Scale
 
@@ -577,19 +577,19 @@ Cards are uniformly 22–26px rounded. Square corners appear only on chart plot 
 
 ## Responsive Behavior
 
-Stencil & Tablet is a **fixed 1920×1080** system rendered inside a `<deck-stage>` web component. Layout uses absolute pixel positioning; the deck-stage scales the entire 1920×1080 canvas uniformly to fit the viewport. There are no media queries.
+Stencil & Tablet is a **fixed 1920×1080** system rendered inside the skill's fixed-stage wrapper. Layout uses absolute pixel positioning; the stage transform scales the entire 1920×1080 canvas uniformly to fit the viewport. There are no media queries.
 
 ### Scaling Behavior
 
-All elements maintain relative position and size at any viewport. A 540px section numeral remains 540px on the deck-stage's internal canvas; the stage scales the canvas to the browser. The system depends on the deck-stage component for this scaling.
+All elements maintain relative position and size at any viewport. A 540px section numeral remains 540px on the stage's internal canvas; the stage scales the canvas to the browser. The skill's fixed-stage model provides this scaling.
 
 ### Presenter Behavior
 
-Navigation is handled by the external `deck-stage.js` script. Each slide carries a `data-label` attribute identifying it. Slides advance via the deck-stage's controls; some slides carry `data-om-validate="false"` to opt out of certain auto-validation.
+Navigation is handled by the deck's inline controller. Each slide carries a `data-label` attribute identifying it. Slides advance via the inline controller; some slides carry `data-om-validate="false"` to opt out of certain auto-validation.
 
 ### Print Behavior
 
-There is no embedded print stylesheet. Static export depends on the deck-stage component; for PDF generation, each slide renders as a single 1920×1080 page.
+Print/PDF export goes through the skill's export_pdf.py screenshot pipeline; each slide renders as a single 1920×1080 page.
 
 ## CJK & International Content
 
@@ -668,11 +668,11 @@ The 540px section-divider numeral pattern is one of the system's strongest momen
 
 ## Known Gaps
 
-- The system depends on the external `deck-stage.js` script for slide scaling and navigation. Without it, slides render at intrinsic 1920×1080.
+- Slide scaling and navigation come from the skill's fixed-stage model (viewport-base.css plus the deck's inline controller), not an external script.
 - All four font families (Stardos Stencil, Bowlby One, Barlow Condensed, Inter) load from Google Fonts. If fonts fail, fallbacks (serif, sans-serif, Helvetica, Arial) lose the stencil and condensed personality entirely.
 - Stardos Stencil is a single-weight typeface — there is no weight axis. The system uses font-weight: 700 as a label but the face actually has only one weight; specifying 400 in the quote-text token renders nearly identically.
 - Bowlby One appears in exactly one place (the 320px quote-mark). It is a heavyweight asset for a single glyph; if the quote panel is unused, Bowlby One is dead weight in the font load.
 - The organic-shape SVG blobs on the agenda slide are inline SVG paths with hand-tuned bezier curves — they are not parametric and adding a new shape requires drawing it.
 - The chart plot SVG uses hardcoded coordinates inside a fixed-aspect SVG; data updates require manually recomputing point positions.
 - The seven-accent palette doesn't strictly map colors to semantic roles outside the matrix. Decks may follow loose conventions (orange = primary, teal = secondary) but the system doesn't enforce them.
-- Cover hero, numeral-tablet, and section-headline all use generous letter-spacing in the negative direction — at very small viewport scaling, glyphs may touch. The deck-stage's uniform scaling avoids this in practice.
+- Cover hero, numeral-tablet, and section-headline all use generous letter-spacing in the negative direction — at very small viewport scaling, glyphs may touch. The stage's uniform scaling avoids this in practice.

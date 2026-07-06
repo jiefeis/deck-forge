@@ -77,34 +77,22 @@ Use this reference when generating presentations. Match animations to the intend
 
 ## Interactive Effects
 
-```javascript
-/* 3D Tilt on Hover — adds depth to cards/panels */
-class TiltEffect {
-    constructor(element) {
-        this.element = element;
-        this.element.style.transformStyle = 'preserve-3d';
-        this.element.style.perspective = '1000px';
+The deliverable is a static screenshot PDF — hover/cursor effects (3D tilt, cursor trails, magnetic buttons) are invisible in it. Skip them; add only when the user explicitly asks for an in-browser HTML presentation experience.
 
-        this.element.addEventListener('mousemove', (e) => {
-            const rect = this.element.getBoundingClientRect();
-            const x = (e.clientX - rect.left) / rect.width - 0.5;
-            const y = (e.clientY - rect.top) / rect.height - 0.5;
-            this.element.style.transform = `rotateY(${x * 10}deg) rotateX(${-y * 10}deg)`;
-        });
+## Export Contract (export_pdf.py)
 
-        this.element.addEventListener('mouseleave', () => {
-            this.element.style.transform = 'rotateY(0) rotateX(0)';
-        });
-    }
-}
-```
+The PDF exporter neutralizes animations so screenshots always capture the final state:
+
+- It globally deactivates CSS `transition`/`animation` (zero duration and delay), so entrance animations snap to their end state before capture.
+- It force-reveals elements matching `[class*="reveal"]`, `[data-reveal]`, `[data-anim]`, `.fade-in`, `.animate`, `.anim` (sets `opacity:1; transform:none; visibility:visible`).
+
+Therefore: name entrance-animation classes within this convention (`.reveal`, `.reveal-scale`, `.reveal-left`, `.reveal-blur`, or `data-reveal`/`data-anim` attributes). A hidden-by-default element with a name outside this list may be captured invisible.
 
 ## Troubleshooting
 
 | Problem | Fix |
 |---------|-----|
 | Fonts not loading | Check Fontshare/Google Fonts URL; ensure font names match in CSS |
-| Animations not triggering | Verify Intersection Observer is running; check `.visible` class is being added |
-| Scroll snap not working | Ensure `scroll-snap-type: y mandatory` on html; each slide needs `scroll-snap-align: start` |
-| Mobile issues | Disable heavy effects at 768px breakpoint; test touch events; reduce particle count |
+| Animations not triggering | Verify the navigation controller adds `.visible`/`.active` to the `.slide` when switching pages |
+| Mobile issues | The whole stage scales with one `transform` — do not write breakpoint media queries; reduce particle count if needed |
 | Performance issues | Use `will-change` sparingly; prefer `transform`/`opacity` animations; throttle scroll handlers |

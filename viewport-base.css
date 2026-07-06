@@ -76,7 +76,13 @@ svg {
     z-index: 1000;
 }
 
-/* 7. Print one fixed-size slide per page */
+/* 7. Print one fixed-size slide per page.
+   @page sits outside @media print per the CSS spec; it only applies when printing. */
+@page {
+    size: 1920px 1080px;
+    margin: 0;
+}
+
 @media print {
     html,
     body {
@@ -84,6 +90,12 @@ svg {
         height: auto;
         overflow: visible;
         background: #fff;
+    }
+
+    /* Chrome skips background graphics by default — dark themes would print white */
+    * {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
     }
 
     .deck-viewport {

@@ -174,20 +174,20 @@ components:
     description: "Hairline-bordered cream void with a centered mono label. Used until photography is dropped in."
 ---
 
-## Frontend Slides Fixed-Stage Policy
+## deck-forge Fixed-Stage Policy
 
-When this design system is used by the `frontend-slides` skill, generate the final deck as a **fixed 1920×1080 stage** that scales uniformly to the browser viewport. The deck should preserve a 16:9 slide canvas on every screen, including phones; it may letterbox or pillarbox, but it should not reflow slide content for mobile.
+When this design system is used by the `deck-forge` skill, generate the final deck as a **fixed 1920×1080 stage** that scales uniformly to the browser viewport. The deck should preserve a 16:9 slide canvas on every screen, including phones; it may letterbox or pillarbox, but it should not reflow slide content for mobile.
 
-This policy has higher priority than any source-template responsive behavior described later in this file. If a later section says the original template is viewport-fluid, treat that as source history only, not as the target generation model for `frontend-slides`.
+This policy has higher priority than any source-template responsive behavior described later in this file. If a later section says the original template is viewport-fluid, treat that as source history only, not as the target generation model for `deck-forge`.
 
 This policy applies even if the source template was originally implemented with viewport-fluid CSS such as `100vw`, `100vh`, `vw`, `vh`, or `clamp()`. Treat those values as design proportions to translate into 1920×1080 stage coordinates, not as live responsive rules in the generated deck.
 
-Use `deck-stage.js` or an equivalent inline stage scaler for final output: render each slide at 1920×1080, scale the whole stage with one transform, and verify rendered screenshots for both text overflow and panel overlap.
+Author against the skill's fixed-stage model: full viewport-base.css inline, .slide/.active slides scaled as one unit (transform: scale(), origin 0 0) per html-template.md. Do not reference deck-stage.js (not bundled). Translate any data-anim/data-delay/.is-active entrance vocabulary from the source design into the deck's .reveal + .slide.visible convention. Render each slide at 1920×1080 and verify rendered screenshots for both text overflow and panel overlap.
 
 
 ## Overview
 
-Monochrome (Ivory Ledger) is a **literary editorial system** built on a single material constraint: black ink on cream paper, and nothing else. The palette has eight tokens, but seven of them are tonal variations of cream or graphite. There is no chromatic accent — the "accent" color is just darker ink. The result is a system that reads as a carefully typeset research report or a quiet contemporary monograph, not a presentation.
+Monochrome (Ivory Ledger) is a **literary editorial system** built on a single material constraint: black ink on cream paper, and nothing else. The palette has seven tokens, all of them tonal variations of cream or graphite. There is no chromatic accent — the "accent" color is just darker ink. The result is a system that reads as a carefully typeset research report or a quiet contemporary monograph, not a presentation.
 
 The typeface stack is a three-voice editorial pairing. **Jost** at weights 200, 300, and 400 carries every display, headline, body, and label — its geometric sans construction stays calm at ultra-light weights and the contrast between weight 200 (display) and weight 300 (body) is the system's primary typographic rhythm. **Lora** italic serif is reserved for two specific moments: the body text of a pull-quote and the title of an insight card. The serif italic provides the only typographic warmth in the system — wherever it appears, it signals "this is the human voice." **JetBrains Mono** at weight 400 carries every structural marker: chrome labels, sidebar tags, version numbers, footer text, bullet dashes, axis labels, dates. Mono is uppercase and tracked at 0.12em or wider.
 

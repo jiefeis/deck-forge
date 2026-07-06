@@ -1,6 +1,6 @@
 # Style Presets Reference
 
-Curated visual styles for Frontend Slides. Each preset is inspired by real design references — no generic "AI slop" aesthetics. **Abstract shapes only — no illustrations.**
+Curated visual styles for deck-forge. Each preset is inspired by real design references — no generic "AI slop" aesthetics. **Abstract shapes only — no illustrations.**
 
 **Viewport CSS:** For mandatory base styles, see [viewport-base.css](viewport-base.css). Include in every presentation.
 
@@ -155,7 +155,7 @@ Curated visual styles for Frontend Slides. Each preset is inspired by real desig
 - Paper container with subtle shadow
 - Colorful section tabs on right edge (vertical text)
 - Binder hole decorations on left
-- Tab text must scale with viewport: `font-size: clamp(0.5rem, 1vh, 0.7rem)`
+- Tab text uses a fixed size calibrated to the 1920×1080 stage: `font-size: 18px` (no viewport units — the whole stage scales via transform)
 
 ---
 
@@ -312,6 +312,8 @@ Curated visual styles for Frontend Slides. Each preset is inspired by real desig
 | Vintage Editorial | Fraunces | Work Sans | Google |
 | Neon Cyber | Clash Display | Satoshi | Fontshare |
 | Terminal Green | JetBrains Mono | JetBrains Mono | JetBrains |
+| Swiss Modern | Archivo | Nunito | Google |
+| Paper & Ink | Cormorant Garamond | Source Serif 4 | Google |
 
 ---
 
@@ -333,14 +335,14 @@ Curated visual styles for Frontend Slides. Each preset is inspired by real desig
 
 **WRONG — silently ignored by browsers (no console error):**
 ```css
-right: -clamp(28px, 3.5vw, 44px);   /* Browser ignores this */
-margin-left: -min(10vw, 100px);      /* Browser ignores this */
+right: -clamp(28px, 32px, 44px);   /* Browser ignores this */
+margin-left: -min(80px, 100px);     /* Browser ignores this */
 ```
 
 **CORRECT — wrap in `calc()`:**
 ```css
-right: calc(-1 * clamp(28px, 3.5vw, 44px));  /* Works */
-margin-left: calc(-1 * min(10vw, 100px));     /* Works */
+right: calc(-1 * clamp(28px, 32px, 44px));  /* Works */
+margin-left: calc(-1 * min(80px, 100px));    /* Works */
 ```
 
 CSS does not allow a leading `-` before function names. The browser silently discards the entire declaration — no error, the element just appears in the wrong position. **Always use `calc(-1 * ...)` to negate CSS function values.**

@@ -11,8 +11,8 @@ user-provided references, or "only one final file" requirements.
   `v3`, `copy`, `(1)`, and `(2)` often do not encode the user's intended source.
 - Compare candidate sources by structure and visible content, not by timestamp or
   page number alone.
-- For PPTX, parse `ppt/presentation.xml` and relationships to get true slide
-  order. XML filenames such as `slide42.xml` are not reliable page numbers.
+- For PPTX, compare by true slide order, never by XML filenames; how to derive
+  it is in `references/pptx-native-editing.md` (Structural rules).
 - For PDF/HTML decks, render pages and compare visuals when content order or
   page mapping matters.
 
@@ -42,5 +42,8 @@ user-provided references, or "only one final file" requirements.
 - Use UTF-8 execution settings when reading/writing non-ASCII content.
 - If console output shows `????`, check for mojibake before concluding the path
   is wrong.
-- If symbols such as arrows become `?`, generate them by Unicode code point
-  inside the script instead of relying on shell encoding.
+- Arrow/symbol policy (shared with `references/translation-copyfit.md`):
+  prefer real Unicode arrows and verify them in rendered output; if shell
+  encoding corrupts them (symbols become `?`), generate the characters by
+  Unicode code point inside the script; fall back to ASCII arrows only as a
+  last resort.

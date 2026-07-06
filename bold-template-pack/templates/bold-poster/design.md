@@ -322,15 +322,15 @@ components:
     description: "A three-line stacked title where each line is a Shrikhand display element at a slightly different size. Two of the three lines carry rotation transforms (-4deg, +2deg) and one is set in red. The composition is the system's signature opener."
 ---
 
-## Frontend Slides Fixed-Stage Policy
+## deck-forge Fixed-Stage Policy
 
-When this design system is used by the `frontend-slides` skill, generate the final deck as a **fixed 1920×1080 stage** that scales uniformly to the browser viewport. The deck should preserve a 16:9 slide canvas on every screen, including phones; it may letterbox or pillarbox, but it should not reflow slide content for mobile.
+When this design system is used by the `deck-forge` skill, generate the final deck as a **fixed 1920×1080 stage** that scales uniformly to the browser viewport. The deck should preserve a 16:9 slide canvas on every screen, including phones; it may letterbox or pillarbox, but it should not reflow slide content for mobile.
 
-This policy has higher priority than any source-template responsive behavior described later in this file. If a later section says the original template is viewport-fluid, treat that as source history only, not as the target generation model for `frontend-slides`.
+This policy has higher priority than any source-template responsive behavior described later in this file. If a later section says the original template is viewport-fluid, treat that as source history only, not as the target generation model for `deck-forge`.
 
 This policy applies even if the source template was originally implemented with viewport-fluid CSS such as `100vw`, `100vh`, `vw`, `vh`, or `clamp()`. Treat those values as design proportions to translate into 1920×1080 stage coordinates, not as live responsive rules in the generated deck.
 
-Use `deck-stage.js` or an equivalent inline stage scaler for final output: render each slide at 1920×1080, scale the whole stage with one transform, and verify rendered screenshots for both text overflow and panel overlap.
+Author against the skill's fixed-stage model: full viewport-base.css inline, .slide/.active slides scaled as one unit (transform: scale(), origin 0 0) per html-template.md. Do not reference deck-stage.js (not bundled). Translate any data-anim/data-delay/.is-active entrance vocabulary from the source design into the deck's .reveal + .slide.visible convention. Render each slide at 1920×1080 and verify rendered screenshots for both text overflow and panel overlap.
 
 
 ## Overview
@@ -488,7 +488,7 @@ The system targets `100vw × 100vh` per slide. Slides are absolutely positioned 
 
 ### Persistent Chrome
 Three elements appear on every slide:
-- **Progress bar** at the bottom edge — a 5px thick `{colors.red}` strip that grows in width with slide index. The thickest, most visible piece of chrome; it functions as both progress indicator and bottom-edge poster trim.
+- **Progress bar** at the bottom edge — a 5px thick `{colors.red}` strip that grows in width with slide index. The thickest, most visible piece of chrome; it functions as both progress indicator and bottom-edge poster trim. Because this strip is part of the poster composition, implement it with a non-reserved class name such as `.poster-trim` — `.progress`/`.progress-bar` are reserved presentation-chrome class names that export_pdf.py hides at PDF export.
 - **Slide counter** at bottom-right (`bottom: 18px right: 24px`) — Space Grotesk weight 600 uppercase NN / NN at 50% opacity.
 - **Hint pill** at bottom-center — Space Grotesk uppercase text in an off-white pill, opacity 0 by default, fading to 50% on `body:hover`.
 

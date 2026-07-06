@@ -11,8 +11,8 @@ into an existing layout.
   footnote.
 - Do not turn a fused source title into a separated side note unless the source
   layout does that.
-- Avoid Chinglish, inflated noun clusters, and literal connectors that sound
-  machine-translated.
+- Avoid translationese in the target language: inflated noun clusters, literal
+  connectors, and phrasing no native presenter would say.
 
 ## Copy fitting workflow
 
@@ -28,13 +28,12 @@ into an existing layout.
 - Remove repeated qualifiers.
 - Replace long explanatory sentences with presenter-friendly phrases.
 - Keep labels and process steps parallel.
-- Prefer clear ASCII arrows in editable text when symbols are likely to break,
-  but verify rendered output if symbols are important.
+- For arrows and other symbol glyphs, follow the shared policy in
+  `references/source-contract.md`: real Unicode arrows first (verify rendered
+  output), code-point generation when shell encoding is unreliable, ASCII
+  arrows only as a last resort.
 
 ## Proofing marks
 
-If exported slides show spelling/grammar marks:
-
-- disable live proofing during export if possible
-- mark runs as no-proof in PPTX when appropriate
-- re-render and confirm marks are gone
+If exported slides show spelling/grammar marks, follow the proofing-marks
+procedure in `references/pptx-native-editing.md`.

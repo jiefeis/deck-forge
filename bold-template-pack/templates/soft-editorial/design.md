@@ -267,15 +267,15 @@ components:
     description: "Two-column italic serif footer running across the bottom — date left, publication name right."
 ---
 
-## Frontend Slides Fixed-Stage Policy
+## deck-forge Fixed-Stage Policy
 
-When this design system is used by the `frontend-slides` skill, generate the final deck as a **fixed 1920×1080 stage** that scales uniformly to the browser viewport. The deck should preserve a 16:9 slide canvas on every screen, including phones; it may letterbox or pillarbox, but it should not reflow slide content for mobile.
+When this design system is used by the `deck-forge` skill, generate the final deck as a **fixed 1920×1080 stage** that scales uniformly to the browser viewport. The deck should preserve a 16:9 slide canvas on every screen, including phones; it may letterbox or pillarbox, but it should not reflow slide content for mobile.
 
-This policy has higher priority than any source-template responsive behavior described later in this file. If a later section says the original template is viewport-fluid, treat that as source history only, not as the target generation model for `frontend-slides`.
+This policy has higher priority than any source-template responsive behavior described later in this file. If a later section says the original template is viewport-fluid, treat that as source history only, not as the target generation model for `deck-forge`.
 
 This policy applies even if the source template was originally implemented with viewport-fluid CSS such as `100vw`, `100vh`, `vw`, `vh`, or `clamp()`. Treat those values as design proportions to translate into 1920×1080 stage coordinates, not as live responsive rules in the generated deck.
 
-Use `deck-stage.js` or an equivalent inline stage scaler for final output: render each slide at 1920×1080, scale the whole stage with one transform, and verify rendered screenshots for both text overflow and panel overlap.
+Author against the skill's fixed-stage model: full viewport-base.css inline, .slide/.active slides scaled as one unit (transform: scale(), origin 0 0) per html-template.md. Do not reference deck-stage.js (not bundled). Translate any data-anim/data-delay/.is-active entrance vocabulary from the source design into the deck's .reveal + .slide.visible convention. Render each slide at 1920×1080 and verify rendered screenshots for both text overflow and panel overlap.
 
 
 ## Overview
@@ -410,7 +410,7 @@ Line-height runs tight at display scale (0.9–0.98) and opens to 1.4–1.55 on 
 
 ### Canvas System
 
-Soft Editorial targets a **fixed 1920×1080 canvas** via the `<deck-stage>` element. Layout is built on absolute positioning from the slide edges — every element is positioned via `position: absolute` with `top`/`left`/`right`/`bottom` offsets relative to the slide. The system does not use viewport-relative units; it relies on the deck-stage's scaling to handle viewport differences.
+Soft Editorial targets a **fixed 1920×1080 canvas** via the skill's fixed-stage wrapper. Layout is built on absolute positioning from the slide edges — every element is positioned via `position: absolute` with `top`/`left`/`right`/`bottom` offsets relative to the slide. The system does not use viewport-relative units; it relies on the fixed stage's uniform scaling to handle viewport differences.
 
 ### Padding and Gap Scale
 
@@ -525,19 +525,19 @@ There are **no square corners in the system**. Every container is at least 14px 
 
 ## Responsive Behavior
 
-Soft Editorial is a **fixed 1920×1080** system rendered inside a `<deck-stage>` web component. The deck-stage handles scaling: the slide content is laid out at exact 1920×1080 pixel dimensions and the component scales the entire stage to fit the viewport (letterboxing or fitting as configured by the stage). All `top`/`left`/`right`/`bottom`/`width`/`height` values inside slides are in pixels and assume the fixed 1920×1080 canvas.
+Soft Editorial is a **fixed 1920×1080** system rendered inside the skill's fixed-stage wrapper. The stage handles scaling: the slide content is laid out at exact 1920×1080 pixel dimensions and the component scales the entire stage to fit the viewport (letterboxing or fitting as configured by the stage). All `top`/`left`/`right`/`bottom`/`width`/`height` values inside slides are in pixels and assume the fixed 1920×1080 canvas.
 
 ### Scaling Behavior
 
-Because the deck-stage scales uniformly, all elements maintain their relative positions and sizes at any output viewport. A 232px display headline remains 232px on the deck-stage's internal canvas; the stage scales the entire canvas to fit the browser viewport.
+Because the stage scales uniformly, all elements maintain their relative positions and sizes at any output viewport. A 232px display headline remains 232px on the stage's internal canvas; the stage scales the entire canvas to fit the browser viewport.
 
 ### Presenter Behavior
 
-Navigation is handled by the `deck-stage.js` script (an external dependency, not embedded). Each slide carries a `data-label` attribute identifying it in the presenter UI. Slides advance via the deck-stage's own controls.
+Navigation is handled by the deck's inline controller. Each slide carries a `data-label` attribute identifying it in the presenter UI. Slides advance via the inline controller.
 
 ### Print Behavior
 
-There is no embedded print stylesheet. Static export depends on the deck-stage component's print/export behavior; for PDF generation, the deck-stage should render each slide as a single page at the 1920×1080 canvas size.
+Print/PDF export goes through the skill's export_pdf.py screenshot pipeline, which renders each slide as a single page at the 1920×1080 canvas size.
 
 ## CJK & International Content
 
@@ -617,7 +617,7 @@ The serif body switch (Work Sans → Noto Serif SC) is the most consequential ch
 
 ## Known Gaps
 
-- The system depends on the external `deck-stage.js` script for slide scaling and navigation. The script is referenced but not embedded; without it, slides will render at intrinsic 1920×1080 without viewport scaling.
+- Slide scaling and navigation come from the skill's fixed-stage model (viewport-base.css plus the deck's inline controller), not an external script.
 - Cormorant Garamond and Work Sans both load from Google Fonts. If fonts fail, the serif falls back to Garamond/serif and the sans falls back to Helvetica/sans-serif; the editorial character degrades significantly without Cormorant.
 - The full-bleed closer slide is the only place where a pastel covers the entire canvas. The pattern is intentional but should be used sparingly — every closer at full pink would diminish the cream-as-default identity.
 - The five pastels (`{colors.pink}`, `{colors.lemon}`, `{colors.blush}`, `{colors.sage}`, `{colors.lilac}`) are listed as semantically interchangeable, but the source template uses lemon = yes / blush = partial / pink = no inside the matrix layout. New decks may follow or ignore this convention.

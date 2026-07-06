@@ -1,7 +1,9 @@
 # PPTX native editing guardrails
 
-Read this before modifying a `.pptx` package, copying native slides, translating
-PPTX content, hiding backup pages, or comparing PPTX versions.
+Guardrails and audit checklist for when native PPTX edits are performed in this
+task (directly or via another tool). Read this before modifying a `.pptx`
+package, copying native slides, translating PPTX content, hiding backup pages,
+or comparing PPTX versions.
 
 ## Structural rules
 
@@ -52,7 +54,7 @@ When replacing page numbers with a custom direct shape:
 Useful command:
 
 ```bash
-python ~/.codex/skills/deck-forge/scripts/audit_pptx_page_numbers.py <deck.pptx> \
+python <skill-root>/scripts/audit_pptx_page_numbers.py <deck.pptx> \
   --expect-name dfn_page_number --expect-size 1100 --fail-on-inherited
 ```
 
@@ -74,6 +76,16 @@ After writing the PPTX:
 - check for duplicate zip entries
 - open or export the deck in PowerPoint/WPS/LibreOffice
 - verify page count and order
+
+## Proofing marks
+
+Canonical procedure when exported slides show spelling/grammar squiggles or
+other proofing artifacts (referenced from `translation-copyfit.md` and
+`visual-qa.md`):
+
+1. Disable live proofing in the exporting app during export if possible.
+2. Mark the affected runs as no-proof in the PPTX when appropriate.
+3. Re-render the affected pages and confirm the marks are gone.
 
 ## Visual regressions to watch
 

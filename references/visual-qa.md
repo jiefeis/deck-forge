@@ -1,6 +1,6 @@
 # Visual QA workflow
 
-Read this before declaring a deck, PDF, reformat, or translation complete.
+Read this for reformat, translation, or cross-format comparison tasks, before declaring the result complete. (Native deck generation runs are covered by workflow.md Phase 4's per-page verification.)
 
 ## Render-first verification
 
@@ -13,7 +13,7 @@ proof loop:
 4. Inspect full-size PNGs for every changed dense/suspect page.
 5. Fix and rerender until clean.
 
-If the user asks for full inspection, inspect every page. Do not sample.
+Always inspect every page before delivery; contact sheets are for triage only.
 
 ## What to check
 
@@ -28,7 +28,8 @@ If the user asks for full inspection, inspect every page. Do not sample.
 - chart and image visibility
 - color shifts or theme-fill regressions
 - hidden backup slides still hidden
-- proofing marks or app UI artifacts in exports
+- proofing marks or app UI artifacts in exports (handling: see
+  `references/pptx-native-editing.md`)
 
 ## Contact sheet usage
 

@@ -4,12 +4,12 @@
   "source_repo": "zarazhangrui/beautiful-html-templates",
   "template_count": 34,
   "usage": {
-    "selection": "Read this compact index first to shortlist bold templates from metadata.",
+    "selection": "Read this compact index first to shortlist bold templates from metadata. Avoid shortlisting two templates from the same aesthetic quadrant.",
     "previews": "For title-slide previews, read only the preview_md files for the shortlisted bold candidates.",
     "final_generation": "After the user chooses a bold template, read exactly that template design_md before generating the full deck.",
-    "never": "Do not bulk-read templates/*/design.md and do not read template.html unless the selected design.md is missing a critical implementation detail."
+    "never": "Do not bulk-read templates/*/design.md. template.html handling: see references/workflow.md Phase 2 (Preview file protocol)."
   },
-  "frontend_slides_policy": {
+  "deck_forge_policy": {
     "layout_model": "fixed-stage",
     "canvas_width": 1920,
     "canvas_height": 1080,
@@ -21,6 +21,7 @@
       "slug": "8-bit-orbit",
       "name": "8-Bit Orbit",
       "tagline": "Pixel-art neon arcade aesthetic on a deep navy void.",
+      "differs_from": "Only pixel-art CRT arcade look; louder than studio.",
       "mood": [
         "retro-tech",
         "playful",
@@ -45,6 +46,7 @@
       "slug": "biennale-yellow",
       "name": "Biennale Yellow",
       "tagline": "Solar yellow on warm parchment with deep indigo serif and atmospheric sun-glow gradients.",
+      "differs_from": "Sun-glow yellow on parchment; brighter than soft-editorial's pastel calm.",
       "mood": [
         "editorial",
         "atmospheric",
@@ -71,6 +73,7 @@
       "slug": "block-frame",
       "name": "BlockFrame",
       "tagline": "Neobrutalist deck with pastel-neon color blocks and chunky black borders.",
+      "differs_from": "Pastel-neon color blocks; softer palette than raw-grid's brutalism.",
       "mood": [
         "bold",
         "playful",
@@ -95,6 +98,7 @@
       "slug": "blue-professional",
       "name": "Blue Professional",
       "tagline": "Cream paper background with electric cobalt blue accents; clean modern professional.",
+      "differs_from": "Cleanest corporate cobalt; safer than cobalt-grid's glitch decor.",
       "mood": [
         "professional",
         "modern",
@@ -119,6 +123,7 @@
       "slug": "bold-poster",
       "name": "Bold Poster",
       "tagline": "Editorial poster aesthetic with massive Shrikhand display and a single fire-engine red accent.",
+      "differs_from": "Massive Shrikhand numerals, single red; louder than neo-grid-bold.",
       "mood": [
         "bold",
         "editorial",
@@ -143,6 +148,7 @@
       "slug": "broadside",
       "name": "Broadside",
       "tagline": "Dark editorial canvas with a single fire orange accent and bilingual Latin/Chinese type stack.",
+      "differs_from": "Dark bilingual editorial with fire orange; hotter than signal.",
       "mood": [
         "editorial",
         "dramatic",
@@ -167,6 +173,7 @@
       "slug": "capsule",
       "name": "Capsule",
       "tagline": "Modular pill-shaped cards on warm bone with a full pastel-pop palette.",
+      "differs_from": "Rounded pastel pill cards; friendlier than block-frame's hard blocks.",
       "mood": [
         "playful",
         "modern",
@@ -192,6 +199,7 @@
       "slug": "cartesian",
       "name": "Cartesian",
       "tagline": "Quiet warm-neutral palette with classical Playfair serifs; tasteful and unhurried.",
+      "differs_from": "Bare warm neutrals, Playfair calm; plainer than soft-editorial's accents.",
       "mood": [
         "quiet",
         "considered",
@@ -216,6 +224,7 @@
       "slug": "cobalt-grid",
       "name": "Cobalt Grid",
       "tagline": "Electric cobalt serifs on a graph-paper canvas, anchored by stair-stepped pixel-glitch decorations and slim hairline rules.",
+      "differs_from": "Graph-paper grid with pixel-glitch cobalt; techier than cartesian.",
       "mood": [
         "editorial",
         "design-research",
@@ -243,6 +252,7 @@
       "slug": "coral",
       "name": "Coral",
       "tagline": "Cream and coral on near-black, set in oversized Bebas Neue.",
+      "differs_from": "Oversized Bebas on near-black; simpler than broadside's bilingual system.",
       "mood": [
         "bold",
         "warm",
@@ -266,6 +276,7 @@
       "slug": "creative-mode",
       "name": "Creative Mode",
       "tagline": "Cream paper canvas with confident multi-color (green, pink, orange, yellow) accents and Archivo Black display.",
+      "differs_from": "Multi-color accents on cream; more playful than bold-poster's single red.",
       "mood": [
         "creative",
         "confident",
@@ -289,6 +300,7 @@
       "slug": "daisy-days",
       "name": "Daisy Days",
       "tagline": "Cheerful pastel deck with hand-drawn daisies, stars, and rainbows. Friendly, soft, and warm.",
+      "differs_from": "Hand-drawn daisies and rainbows; more childlike than playful.",
       "mood": [
         "cheerful",
         "playful",
@@ -315,6 +327,7 @@
       "slug": "editorial-forest",
       "name": "Editorial Forest",
       "tagline": "Forest green, dusty pink, and warm cream meet Source Serif 4 in a quiet, intentional quarterly-review deck.",
+      "differs_from": "Forest green with dusty pink; earthier than soft-editorial.",
       "mood": [
         "editorial",
         "quiet",
@@ -340,6 +353,7 @@
       "slug": "editorial-tri-tone",
       "name": "Editorial Tri-Tone",
       "tagline": "Three-color editorial system: dusty pink, mustard cream, and deep burgundy, set in Bricolage + Instrument Serif.",
+      "differs_from": "Pink/mustard/burgundy tri-tone; more chromatic than editorial-forest.",
       "mood": [
         "editorial",
         "warm",
@@ -364,6 +378,7 @@
       "slug": "emerald-editorial",
       "name": "Emerald Editorial",
       "tagline": "A magazine-cover business deck: emerald + navy + paper, double-rule masthead ornaments, and a bold Bodoni-style display serif.",
+      "differs_from": "Bodoni masthead magazine cover; more formal than editorial-tri-tone.",
       "mood": [
         "editorial",
         "considered",
@@ -388,6 +403,7 @@
       "slug": "grove",
       "name": "Grove",
       "tagline": "Forest-green canvas with cream type, classical Playfair serifs, and a single rust accent.",
+      "differs_from": "Dark forest canvas with cream Playfair; night-mode sibling of editorial-forest.",
       "mood": [
         "organic",
         "considered",
@@ -413,6 +429,7 @@
       "slug": "long-table",
       "name": "Long Table",
       "tagline": "Warm cream and rust-red supper-club aesthetic with bold uppercase grotesk headlines, Fraunces serifs, and pill-shaped outlined buttons.",
+      "differs_from": "Single rust ink on cream; one-ink where creative-mode is multi-color.",
       "mood": [
         "warm",
         "intimate",
@@ -442,6 +459,7 @@
       "slug": "mat",
       "name": "Mat",
       "tagline": "Dark sage canvas with bone paper and burnt-orange accent; mid-century modern with wood undertones.",
+      "differs_from": "Mid-century sage and wood-brown glow; warmer than grove.",
       "mood": [
         "warm-modern",
         "considered",
@@ -466,6 +484,7 @@
       "slug": "monochrome",
       "name": "Monochrome",
       "tagline": "Ivory ledger paper with all-black type; Lora serif headlines, Jost body, no color at all.",
+      "differs_from": "Zero color, pure ink on ivory; stricter than cartesian.",
       "mood": [
         "restrained",
         "literary",
@@ -490,6 +509,7 @@
       "slug": "neo-grid-bold",
       "name": "Neo-Grid Bold",
       "tagline": "Editorial neo-brutalism with a single neon yellow accent on off-white paper.",
+      "differs_from": "Exposed 12x8 grid with neon yellow; more structural than bold-poster.",
       "mood": [
         "confident",
         "punchy",
@@ -514,6 +534,7 @@
       "slug": "peoples-platform",
       "name": "People's Platform (Block & Bold)",
       "tagline": "Activist poster energy: blue, orange, red on cream, with Alfa Slab + Caveat Brush.",
+      "differs_from": "Activist slab-poster energy; rowdier than bold-poster.",
       "mood": [
         "activist",
         "loud",
@@ -538,6 +559,7 @@
       "slug": "pin-and-paper",
       "name": "Pin & Paper",
       "tagline": "Yellow paper with safety-pin illustrations, ink-blue handwritten Caveat, paper-grain texture.",
+      "differs_from": "Safety-pin doodles on yellow paper; tidier craft than scatterbrain.",
       "mood": [
         "crafted",
         "handmade",
@@ -563,6 +585,7 @@
       "slug": "pink-script",
       "name": "Pink Script — After Hours",
       "tagline": "Black canvas, hot pink accent, pearl-cream paper, Instrument Serif headlines: late-night editorial luxury.",
+      "differs_from": "Nocturnal fuchsia glow and grain; moodier than studio's flat yellow.",
       "mood": [
         "nocturnal",
         "moody",
@@ -588,6 +611,7 @@
       "slug": "playful",
       "name": "Playful",
       "tagline": "Sun-warm peach background with Syne display: a friendly indie launch deck.",
+      "differs_from": "Peach warmth with Syne; calmer than daisy-days' doodles.",
       "mood": [
         "warm",
         "approachable",
@@ -611,6 +635,7 @@
       "slug": "raw-grid",
       "name": "Raw Grid",
       "tagline": "Neo-brutalist deck with thick borders, offset shadows, and a pink/sage/ink palette.",
+      "differs_from": "Thick borders and offset shadows; harder-edged than block-frame.",
       "mood": [
         "raw",
         "punchy",
@@ -635,6 +660,7 @@
       "slug": "retro-windows",
       "name": "Retro Windows",
       "tagline": "Windows 95 chrome: gray title bars, MS Sans Serif, pixel typography, full nostalgia.",
+      "differs_from": "Windows 95 bevel chrome; UI nostalgia, not 8-bit-orbit's arcade neon.",
       "mood": [
         "nostalgic",
         "retro",
@@ -659,6 +685,7 @@
       "slug": "retro-zine",
       "name": "Retro Zine",
       "tagline": "Beige paper with green accent and Bebas Neue + Caveat: a riso-printed zine in HTML form.",
+      "differs_from": "Riso beige-green print zine; paper nostalgia, not retro-windows' UI.",
       "mood": [
         "crafted",
         "lo-fi",
@@ -683,6 +710,7 @@
       "slug": "sakura-chroma",
       "name": "Sakura Chroma",
       "tagline": "Vintage Japanese cassette-package aesthetic: cream paper, diagonal rainbow ribbons, condensed bold type, JIS-style spec checkboxes.",
+      "differs_from": "Japanese cassette rainbow ribbons; more graphic than retro-zine.",
       "mood": [
         "retro",
         "playful",
@@ -710,6 +738,7 @@
       "slug": "scatterbrain",
       "name": "Scatterbrain",
       "tagline": "Post-it inspired: pastel sticky notes, Caveat handwriting, Shrikhand and Zilla Slab type stack.",
+      "differs_from": "Cork board and sticky notes; messier than pin-and-paper.",
       "mood": [
         "playful",
         "creative",
@@ -735,6 +764,7 @@
       "slug": "signal",
       "name": "Signal",
       "tagline": "Deep navy canvas with bone paper and a single muted-gold accent; institutional with quiet weight.",
+      "differs_from": "Muted gold on institutional navy; graver than vellum's scholarship.",
       "mood": [
         "institutional",
         "trustworthy",
@@ -759,6 +789,7 @@
       "slug": "soft-editorial",
       "name": "Soft Editorial",
       "tagline": "Cormorant Garamond serif on warm paper with sage, blush, and lemon accents.",
+      "differs_from": "Sage/blush/lemon pastel accents; softer than cartesian's bare neutrals.",
       "mood": [
         "literary",
         "elegant",
@@ -783,6 +814,7 @@
       "slug": "stencil-tablet",
       "name": "Stencil & Tablet",
       "tagline": "Bone paper with stencil-cut headlines and a six-color earth palette: archaeology meets brand.",
+      "differs_from": "Stencil-cut headlines, six earth tones; more tactile than emerald-editorial.",
       "mood": [
         "archival",
         "earthy",
@@ -808,6 +840,7 @@
       "slug": "studio",
       "name": "Studio",
       "tagline": "Black canvas with electric-yellow type; high-voltage design studio aesthetic.",
+      "differs_from": "Flat electric yellow on black; louder and flatter than pink-script.",
       "mood": [
         "electric",
         "bold",
@@ -833,6 +866,7 @@
       "slug": "vellum",
       "name": "Vellum",
       "tagline": "Deep navy canvas with warm-yellow Cormorant serifs and a single dusty teal accent. A quiet, scholarly aesthetic.",
+      "differs_from": "Navy scholarly Cormorant warmth; the dark counterpart to cartesian.",
       "mood": [
         "scholarly",
         "literary",

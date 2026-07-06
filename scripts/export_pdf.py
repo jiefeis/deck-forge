@@ -55,6 +55,8 @@ except ImportError:
              "Run: pip install img2pdf")
 
 # Injected before any capture: pin the stage to native 1:1 and hide chrome.
+# The hide list below is a contract: reserved chrome class names, documented in
+# html-template.md; slide-internal design elements must not use these names.
 EXPORT_CSS = """
 /* deck-forge export: pin stage to native 1:1 so the clip is exactly the stage */
 .deck-stage{transform:none!important;left:0!important;top:0!important;margin:0!important;}
@@ -63,6 +65,9 @@ EXPORT_CSS = """
 .progress,.progress-bar,.slide-nav,.slide-counter,.page-counter,.nav-dots,
 .edit-toggle,.edit-hotzone,.edit-mode-banner,.boot-check,
 [data-export-hide],.no-export,.no-print{display:none!important;visibility:hidden!important;}
+/* deck-forge export: kill transitions/animations so every capture is at final
+   state, regardless of the deck's own duration/delay parameters */
+*,*::before,*::after{transition-duration:0s!important;transition-delay:0s!important;animation-duration:0s!important;animation-delay:0s!important;}
 """
 
 # Show exactly one slide, mechanism-agnostically.
@@ -90,7 +95,7 @@ _FORCE_REVEAL_JS = r"""
 (index) => {
   const cur = document.querySelectorAll('.slide')[index];
   if (!cur) return;
-  cur.querySelectorAll('.reveal,[data-reveal],.fade-in,.animate,.anim').forEach(el => {
+  cur.querySelectorAll('[class*="reveal"],[data-reveal],[data-anim],.fade-in,.animate,.anim').forEach(el => {
     el.classList.add('revealed','is-visible','in-view','show');
     el.style.opacity = '1';
     el.style.transform = 'none';
@@ -175,10 +180,11 @@ def main() -> None:
     ap = argparse.ArgumentParser(description="Export an HTML deck to a crisp screenshot PDF.")
     ap.add_argument("input_html")
     ap.add_argument("output_pdf", nargs="?")
-    ap.add_argument("--scale", type=int, default=2,
-                    help="device scale factor (default 2; sharper + larger)")
-    ap.add_argument("--compact", action="store_true",
-                    help="shortcut for --scale 1 (smaller file, still lossless)")
+    size = ap.add_mutually_exclusive_group()
+    size.add_argument("--scale", type=int, default=2,
+                      help="device scale factor (default 2; sharper + larger)")
+    size.add_argument("--compact", action="store_true",
+                      help="shortcut for --scale 1 (smaller file, still lossless)")
     args = ap.parse_args()
 
     input_html = Path(args.input_html).resolve()

@@ -273,15 +273,15 @@ components:
     description: "A full-bleed inverse panel (ink background) holding a single oversized Bodoni numeral (~460px weight 900) centered. Used as a section-opener device. Topbar / footline strings sit absolutely positioned in the panel corners."
 ---
 
-## Frontend Slides Fixed-Stage Policy
+## deck-forge Fixed-Stage Policy
 
-When this design system is used by the `frontend-slides` skill, generate the final deck as a **fixed 1920×1080 stage** that scales uniformly to the browser viewport. The deck should preserve a 16:9 slide canvas on every screen, including phones; it may letterbox or pillarbox, but it should not reflow slide content for mobile.
+When this design system is used by the `deck-forge` skill, generate the final deck as a **fixed 1920×1080 stage** that scales uniformly to the browser viewport. The deck should preserve a 16:9 slide canvas on every screen, including phones; it may letterbox or pillarbox, but it should not reflow slide content for mobile.
 
-This policy has higher priority than any source-template responsive behavior described later in this file. If a later section says the original template is viewport-fluid, treat that as source history only, not as the target generation model for `frontend-slides`.
+This policy has higher priority than any source-template responsive behavior described later in this file. If a later section says the original template is viewport-fluid, treat that as source history only, not as the target generation model for `deck-forge`.
 
 This policy applies even if the source template was originally implemented with viewport-fluid CSS such as `100vw`, `100vh`, `vw`, `vh`, or `clamp()`. Treat those values as design proportions to translate into 1920×1080 stage coordinates, not as live responsive rules in the generated deck.
 
-Use `deck-stage.js` or an equivalent inline stage scaler for final output: render each slide at 1920×1080, scale the whole stage with one transform, and verify rendered screenshots for both text overflow and panel overlap.
+Author against the skill's fixed-stage model: full viewport-base.css inline, .slide/.active slides scaled as one unit (transform: scale(), origin 0 0) per html-template.md. Do not reference deck-stage.js (not bundled). Translate any data-anim/data-delay/.is-active entrance vocabulary from the source design into the deck's .reveal + .slide.visible convention. Render each slide at 1920×1080 and verify rendered screenshots for both text overflow and panel overlap.
 
 
 ## Overview
@@ -409,7 +409,7 @@ Italics are loaded in the Bodoni font request but not used in the published syst
 ## Layout
 
 ### Canvas System
-The system targets a fixed **1920×1080** canvas. Slides are `<section class="slide">` elements at exact width/height. Rendering relies on `deck-stage.js` to scale the canvas to fit the viewport. The canvas is paper-stock, not a viewport — designed for projector, printer, or PDF export at 16:9.
+The system targets a fixed **1920×1080** canvas. Slides are `<section class="slide">` elements at exact width/height. Rendering relies on the skill's fixed-stage scaler to fit the canvas to the viewport. The canvas is paper-stock, not a viewport — designed for projector, printer, or PDF export at 16:9.
 
 ### Padding Scale
 | Token | Value | Use |
@@ -512,13 +512,13 @@ Rules are never dashed, never dotted, never colored beyond the ink / currentColo
 
 ## Responsive Behavior
 
-This is a **fixed 1920×1080 presentation system** rendered through `deck-stage.js`. The canvas is not responsive in the CSS sense — there are no media queries, no breakpoints, no fluid sizing. Every measurement is in fixed pixels at 1920×1080.
+This is a **fixed 1920×1080 presentation system** rendered through the skill's fixed-stage scaler. The canvas is not responsive in the CSS sense — there are no media queries, no breakpoints, no fluid sizing. Every measurement is in fixed pixels at 1920×1080.
 
 ### Scaling Behavior
-`deck-stage.js` wraps each `<section class="slide">` and scales the 1920×1080 canvas uniformly to fit the browser viewport, letterboxing as needed. Type, padding, gaps, and rule weights are all fixed pixels and scale proportionally with the canvas.
+The fixed-stage wrapper (viewport-base.css) wraps each `<section class="slide">` and scales the 1920×1080 canvas uniformly to fit the browser viewport, letterboxing as needed. Type, padding, gaps, and rule weights are all fixed pixels and scale proportionally with the canvas.
 
 ### Presenter Behavior
-Navigation is delegated to `deck-stage.js`. Each `<section class="slide">` is one frame; the runtime handles transitions.
+Navigation is delegated to the deck's inline controller. Each `<section class="slide">` is one frame; the controller handles transitions.
 
 ### Print / Export
 Fixed-pixel measurements inside a 1920×1080 canvas export cleanly to PDF at 16:9. Bodoni Moda renders well at print resolution because the heavy display weight carries the page even at large physical sizes.
@@ -603,11 +603,11 @@ The system's commitment to Bodoni Moda weight 900 at 460px (jumbo numerals on in
 ## Known Gaps
 
 - The Google Fonts request loads Bodoni Moda, Playfair Display, DM Serif Display, Rozha One, Yeseva One, and Manrope. **In practice only Bodoni Moda and Manrope are used.** The other four serif families are dormant — loaded but not referenced in the CSS. They are available as alternate display voices but must be wired in explicitly.
-- The system depends on `deck-stage.js` for canvas scaling and slide navigation. The script is not described in this design.md — treat it as a runtime dependency.
+- Canvas scaling and slide navigation come from the skill's fixed-stage model (viewport-base.css plus the deck's inline controller), not an external script.
 - The `:root[data-ornament]` switch (`double` / `single` / `none`) is a global presentation setting. It cannot be applied per-slide or per-ornament — switching variants applies deck-wide.
 - The ink-2 / ink-3 and bg-2 / bg-3 color tokens are defined but not actively used in the published CSS. They are reserved for tonal variation but currently dormant.
 - The bar chart uses hand-set bar heights (CSS `%`). There is no data-binding layer — extending the chart requires manually computing percentages.
 - Offline rendering will fall back to system serif (likely Georgia) for Bodoni and system sans (likely SF/Segoe) for Manrope. The Bodoni fallback dramatically flattens the display voice; self-hosting recommended for offline / print reliability.
 - The 92px Bodoni headlines maintain WCAG AA contrast at navy-on-emerald and emerald-on-navy, but smaller text (24–28px Manrope) on the same color pairings approaches the contrast floor. Keep small text in navy-on-emerald (the more contrastful direction) when possible.
 - The masthead and footline strings are hardcoded placeholders in the source (publication name, date, page numbers). They must be edited per-deck.
-- The system has no `@media print` rule and no responsive breakpoints. It is fixed 1920×1080 and relies on `deck-stage.js` for any viewport adaptation.
+- The system has no `@media print` rule and no responsive breakpoints. It is fixed 1920×1080 and relies on the fixed-stage transform for any viewport adaptation.

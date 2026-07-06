@@ -322,15 +322,15 @@ components:
     description: "Two concentric centered circles (500px outer, 360px inner) as atmospheric decoration on closing-class surfaces. Opacity 0.3-0.4."
 ---
 
-## Frontend Slides Fixed-Stage Policy
+## deck-forge Fixed-Stage Policy
 
-When this design system is used by the `frontend-slides` skill, generate the final deck as a **fixed 1920×1080 stage** that scales uniformly to the browser viewport. The deck should preserve a 16:9 slide canvas on every screen, including phones; it may letterbox or pillarbox, but it should not reflow slide content for mobile.
+When this design system is used by the `deck-forge` skill, generate the final deck as a **fixed 1920×1080 stage** that scales uniformly to the browser viewport. The deck should preserve a 16:9 slide canvas on every screen, including phones; it may letterbox or pillarbox, but it should not reflow slide content for mobile.
 
-This policy has higher priority than any source-template responsive behavior described later in this file. If a later section says the original template is viewport-fluid, treat that as source history only, not as the target generation model for `frontend-slides`.
+This policy has higher priority than any source-template responsive behavior described later in this file. If a later section says the original template is viewport-fluid, treat that as source history only, not as the target generation model for `deck-forge`.
 
 This policy applies even if the source template was originally implemented with viewport-fluid CSS such as `100vw`, `100vh`, `vw`, `vh`, or `clamp()`. Treat those values as design proportions to translate into 1920×1080 stage coordinates, not as live responsive rules in the generated deck.
 
-Use `deck-stage.js` or an equivalent inline stage scaler for final output: render each slide at 1920×1080, scale the whole stage with one transform, and verify rendered screenshots for both text overflow and panel overlap.
+Author against the skill's fixed-stage model: full viewport-base.css inline, .slide/.active slides scaled as one unit (transform: scale(), origin 0 0) per html-template.md. Do not reference deck-stage.js (not bundled). Translate any data-anim/data-delay/.is-active entrance vocabulary from the source design into the deck's .reveal + .slide.visible convention. Render each slide at 1920×1080 and verify rendered screenshots for both text overflow and panel overlap.
 
 
 ## Overview
@@ -494,7 +494,7 @@ Default slide padding is asymmetric: `3.5vw` left, top, and right; `8.5vh` botto
 Three elements appear on every slide:
 - **Slide counter** at bottom-left — Space Grotesk 12.8px weight 500 in text-muted gray, fixed at `bottom: 2.5vh; left: 3vw`.
 - **Nav controls** at bottom-right — two circular 44px nav-buttons with 1.5px cobalt-at-20% borders, fixed at `bottom: 2.5vh; right: 3vw`. Disabled state at 30% opacity (first slide / last slide).
-- **Progress bar** at bottom edge — 3px solid cobalt strip with width = `(currentSlide + 1) / total * 100%`. Animates on slide change.
+- **Progress bar** at bottom edge — 3px solid cobalt strip with width = `(currentSlide + 1) / total * 100%`. Animates on slide change. This is presentation chrome: `.progress`/`.progress-bar` are reserved class names that export_pdf.py hides at PDF export, so the strip appears on screen but not in the delivered PDF. If it should survive in the PDF, use a non-reserved class name such as `.poster-trim`.
 
 A **keyboard hint** ("Use arrow keys to navigate") appears at bottom center in text-light gray.
 

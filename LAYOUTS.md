@@ -2,7 +2,7 @@
 
 A brand-agnostic catalog of slide layouts, adapted from rollingai-decks'
 `feishu-deck-h5` layout set. Use it as a **content-shape → layout** lookup while
-planning the deck (Phase 3). These are *information structures*, not visual
+planning the deck (Phase 1, applied again in Phase 3). These are *information structures*, not visual
 styles — render each one in whatever style the user picked in Phase 2, on the
 fixed 1920×1080 stage.
 
@@ -65,5 +65,5 @@ then build that structure. Most decks use only 5–8 of these.
   column tells you roughly how much content it needs to look right. Below that,
   switch layouts rather than padding content.
 - You are not limited to this list. If a page has a sharper, more specific design
-  opportunity, design it freely (the frontend-slides "wildcard" path) — this
+  opportunity, design it freely (the "wildcard" path) — this
   taxonomy is a floor for coherence, not a ceiling on creativity.

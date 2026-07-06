@@ -301,15 +301,15 @@ components:
     description: "Small pink right-arrow SVG used between process steps."
 ---
 
-## Frontend Slides Fixed-Stage Policy
+## deck-forge Fixed-Stage Policy
 
-When this design system is used by the `frontend-slides` skill, generate the final deck as a **fixed 1920×1080 stage** that scales uniformly to the browser viewport. The deck should preserve a 16:9 slide canvas on every screen, including phones; it may letterbox or pillarbox, but it should not reflow slide content for mobile.
+When this design system is used by the `deck-forge` skill, generate the final deck as a **fixed 1920×1080 stage** that scales uniformly to the browser viewport. The deck should preserve a 16:9 slide canvas on every screen, including phones; it may letterbox or pillarbox, but it should not reflow slide content for mobile.
 
-This policy has higher priority than any source-template responsive behavior described later in this file. If a later section says the original template is viewport-fluid, treat that as source history only, not as the target generation model for `frontend-slides`.
+This policy has higher priority than any source-template responsive behavior described later in this file. If a later section says the original template is viewport-fluid, treat that as source history only, not as the target generation model for `deck-forge`.
 
 This policy applies even if the source template was originally implemented with viewport-fluid CSS such as `100vw`, `100vh`, `vw`, `vh`, or `clamp()`. Treat those values as design proportions to translate into 1920×1080 stage coordinates, not as live responsive rules in the generated deck.
 
-Use `deck-stage.js` or an equivalent inline stage scaler for final output: render each slide at 1920×1080, scale the whole stage with one transform, and verify rendered screenshots for both text overflow and panel overlap.
+Author against the skill's fixed-stage model: full viewport-base.css inline, .slide/.active slides scaled as one unit (transform: scale(), origin 0 0) per html-template.md. Do not reference deck-stage.js (not bundled). Translate any data-anim/data-delay/.is-active entrance vocabulary from the source design into the deck's .reveal + .slide.visible convention. Render each slide at 1920×1080 and verify rendered screenshots for both text overflow and panel overlap.
 
 
 ## Overview
@@ -451,7 +451,7 @@ Italic letterforms are not used (DM Serif Display does have an italic, but it's 
 
 ### Canvas System
 
-The system targets a **fixed 1920×1080 canvas** rendered inside a `<deck-stage>` web component. All sizes are pixel-fixed; the stage handles proportional scaling.
+The system targets a **fixed 1920×1080 canvas** rendered inside the skill's fixed-stage wrapper. All sizes are pixel-fixed; the stage handles proportional scaling.
 
 Most slides use **absolute positioning** with edge-anchored elements. The standard content area is `inset: 140px 60px 140px 60px` — a 140px top reserve for the runner + headline area, 140px bottom reserve for the footer, and 60px left/right edge margins.
 
@@ -577,15 +577,15 @@ No other border weights exist. There is no 2px, 3px, or thicker border anywhere 
 
 ## Responsive Behavior
 
-The system targets a **fixed 1920×1080 canvas** rendered inside a `<deck-stage>` web component. The stage handles proportional scaling to the browser viewport — all pixel-fixed sizes inside the canvas scale uniformly.
+The system targets a **fixed 1920×1080 canvas** rendered inside the skill's fixed-stage wrapper. The stage handles proportional scaling to the browser viewport — all pixel-fixed sizes inside the canvas scale uniformly.
 
 ### Presenter Behavior
-- Navigation, scaling, and presenter chrome are handled by the `<deck-stage>` component.
+- Navigation, scaling, and presenter chrome are handled by the fixed-stage wrapper and the deck's inline controller.
 - Keyboard, touch, and mouse-wheel navigation are managed by the stage.
 - The canvas is constant 1920×1080 regardless of viewport.
 
 ### Print Behavior
-Print export depends on the deck-stage component's print handling. The pink halo text-shadow and the film-grain overlay may render inconsistently in PDF export — test before assuming visual parity.
+Print/PDF export goes through the skill's export_pdf.py screenshot pipeline. The pink halo text-shadow and the film-grain overlay may render inconsistently in PDF export — test before assuming visual parity.
 
 ## CJK & International Content
 
@@ -661,7 +661,7 @@ ZCOOL XiaoWei is the only CDN-loadable Chinese face that captures the "high-cont
 
 ## Known Gaps
 
-- The system depends on a `<deck-stage>` web component loaded via `deck-stage.js`. Without it, the 1920×1080 canvas will not scale and slides will render at native pixel size.
+- Canvas scaling comes from the skill's fixed-stage model (viewport-base.css transform), not an external web component.
 - The film-grain overlay uses a data-URI SVG with `feTurbulence`. Some browsers (older Safari) render the noise inconsistently or skip it in PDF export.
 - DM Serif Display has only weight 400. There is no bold or italic variant available — the system has no fallback weight scale and depends on size alone for hierarchy.
 - The pink halo text-shadow uses fixed 80px and 120px blur values. At very small viewport scales, the glow may dominate the type; at very large scales, the glow may appear weak.

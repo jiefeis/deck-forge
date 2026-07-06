@@ -1,10 +1,10 @@
 # Authoring Discipline
 
-Distilled from the rollingai-decks `slide-design` rules. frontend-slides teaches
+Distilled from the rollingai-decks `slide-design` rules. Style presets teach
 you to make slides *beautiful*; these rules keep a *multi-slide deck* coherent,
 correctly paced, and free of the "empty slide" / "fabricated content" failures
-that screenshot straight into the PDF. Read this in Phase 3 (Generate), before
-authoring slides.
+that screenshot straight into the PDF. Read in Phase 1 (use §1/§5 to build the
+structure), apply per slide in Phase 3, verify against §2/§3 in Phase 4.
 
 ## 1. The content drives the structure — the template never does
 

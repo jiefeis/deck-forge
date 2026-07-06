@@ -54,11 +54,19 @@ def part_rels(zf: zipfile.ZipFile, part: str) -> list[tuple[str, str]]:
 def slide_order(zf: zipfile.ZipFile) -> list[str]:
     pres = parse_xml(zf.read("ppt/presentation.xml"))
     rels = parse_xml(zf.read("ppt/_rels/presentation.xml.rels"))
-    rel_map = {
-        rel.get("Id"): "ppt/" + rel.get("Target", "")
-        for rel in rels.findall("rel:Relationship", NS)
-        if rel.get("Target", "").startswith("slides/")
-    }
+    rel_map: dict[str, str] = {}
+    for rel in rels.findall("rel:Relationship", NS):
+        target = rel.get("Target", "")
+        if not target:
+            continue
+        # same absolute/relative Target normalization as part_rels()
+        resolved = (
+            target.lstrip("/")
+            if target.startswith("/")
+            else posixpath.normpath(posixpath.join("ppt", target))
+        )
+        if resolved.startswith("ppt/slides/"):
+            rel_map[rel.get("Id")] = resolved
     return [
         rel_map[sld.get(q("r", "id"))]
         for sld in pres.findall(".//p:sldIdLst/p:sldId", NS)
@@ -174,10 +182,16 @@ def audit_pptx(path: Path, args: argparse.Namespace) -> int:
         slides = slide_order(zf)
         pres = parse_xml(zf.read("ppt/presentation.xml"))
         size_el = pres.find(".//p:sldSz", NS)
-        slide_size = (
-            int(size_el.get("cx", "0")),
-            int(size_el.get("cy", "0")),
-        )
+        if size_el is None:
+            # OOXML default 16:9 slide size in EMU
+            print(f"{path}: warning: no p:sldSz element, assuming default "
+                  "12192000x6858000 EMU")
+            slide_size = (12192000, 6858000)
+        else:
+            slide_size = (
+                int(size_el.get("cx", "0")),
+                int(size_el.get("cy", "0")),
+            )
 
         all_inherited: list[tuple[int, str, list[dict[str, object]]]] = []
         direct_problems: list[str] = []
@@ -258,6 +272,11 @@ def audit_pptx(path: Path, args: argparse.Namespace) -> int:
 
 
 def main() -> int:
+    # Shape text is echoed in failure lines; keep stdout safe on non-UTF-8
+    # Windows pipes (GBK/cp1252) instead of crashing with UnicodeEncodeError.
+    if hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(errors="replace")
+
     parser = argparse.ArgumentParser(
         description="Audit page-number sources in PPTX slides, layouts, and masters."
     )

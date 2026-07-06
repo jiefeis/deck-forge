@@ -391,15 +391,15 @@ components:
     background: "{colors.orange}"
 ---
 
-## Frontend Slides Fixed-Stage Policy
+## deck-forge Fixed-Stage Policy
 
-When this design system is used by the `frontend-slides` skill, generate the final deck as a **fixed 1920×1080 stage** that scales uniformly to the browser viewport. The deck should preserve a 16:9 slide canvas on every screen, including phones; it may letterbox or pillarbox, but it should not reflow slide content for mobile.
+When this design system is used by the `deck-forge` skill, generate the final deck as a **fixed 1920×1080 stage** that scales uniformly to the browser viewport. The deck should preserve a 16:9 slide canvas on every screen, including phones; it may letterbox or pillarbox, but it should not reflow slide content for mobile.
 
-This policy has higher priority than any source-template responsive behavior described later in this file. If a later section says the original template is viewport-fluid, treat that as source history only, not as the target generation model for `frontend-slides`.
+This policy has higher priority than any source-template responsive behavior described later in this file. If a later section says the original template is viewport-fluid, treat that as source history only, not as the target generation model for `deck-forge`.
 
 This policy applies even if the source template was originally implemented with viewport-fluid CSS such as `100vw`, `100vh`, `vw`, `vh`, or `clamp()`. Treat those values as design proportions to translate into 1920×1080 stage coordinates, not as live responsive rules in the generated deck.
 
-Use `deck-stage.js` or an equivalent inline stage scaler for final output: render each slide at 1920×1080, scale the whole stage with one transform, and verify rendered screenshots for both text overflow and panel overlap.
+Author against the skill's fixed-stage model: full viewport-base.css inline, .slide/.active slides scaled as one unit (transform: scale(), origin 0 0) per html-template.md. Do not reference deck-stage.js (not bundled). Translate any data-anim/data-delay/.is-active entrance vocabulary from the source design into the deck's .reveal + .slide.visible convention. Render each slide at 1920×1080 and verify rendered screenshots for both text overflow and panel overlap.
 
 
 ## Overview
@@ -516,7 +516,7 @@ Archivo Narrow is always weight 400 or 500. Never use it at display sizes. It is
 ## Layout
 
 ### Canvas System
-Every slide is 1920×1080px. The `deck-stage` custom element handles scaling. All content is absolutely positioned or uses CSS grid — no scrolling.
+Every slide is 1920×1080px. The skill's fixed-stage scaler (viewport-base.css) handles scaling. All content is absolutely positioned or uses CSS grid — no scrolling.
 
 ### Gutter System
 - **Slide gutter** (90px left/right): The standard edge padding for most content sections.
@@ -621,9 +621,9 @@ The system is almost entirely square. The only soft shapes are the pill (for met
 
 ## Responsive Behavior
 
-This template is designed exclusively for 1920×1080 presentation display. The `deck-stage` custom element handles viewport scaling via CSS transforms — the 1920×1080 canvas scales proportionally to any screen size without layout changes.
+This template is designed exclusively for 1920×1080 presentation display. The skill's fixed-stage scaler handles viewport scaling via CSS transforms — the 1920×1080 canvas scales proportionally to any screen size without layout changes.
 
-Slides advance via keyboard or presentation clicker through `deck-stage.js`. No hover states, no interactive form elements, no responsive breakpoints.
+Slides advance via keyboard or presentation clicker through the deck's inline controller. No hover states, no interactive form elements, no responsive breakpoints.
 
 For print and PDF export: at 96dpi, the 1920×1080 canvas maps to a 20×11.25 inch frame. The grain overlay uses `mix-blend-mode: multiply` — in PDF export, blend modes may flatten; test print output and consider disabling the grain for printed formats.
 
@@ -693,7 +693,7 @@ The diamond bullet marker, the rotated rubber stamp, the inset cream frame, the 
 
 ## Known Gaps
 
-- `deck-stage.js` is an external script dependency not documented here. Slide navigation and scaling are handled by it entirely.
+- Slide navigation and scaling come from the skill's fixed-stage model (viewport-base.css plus the deck's inline controller), not an external script.
 - The orange ribbon on data slides is implemented with static repeated text — there is no JavaScript marquee animation. At 1920px width, the text wraps naturally; for longer strings, manually duplicate the text.
 - The grain overlay uses `mix-blend-mode: multiply`. This requires a semi-transparent background or a parent with a visible fill to produce the texture effect — on pure white or pure black surfaces the effect may be invisible.
 - Speaker notes are embedded as a `<script type="application/json">` block in the template — this data is presentational, not part of the design system, and is not captured in these tokens.

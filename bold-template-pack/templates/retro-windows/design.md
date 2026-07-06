@@ -237,15 +237,15 @@ components:
     description: "Custom webkit scrollbar styled as a beveled-raised gray thumb on a flat gray track. Width is fixed 16px to match Win9x default."
 ---
 
-## Frontend Slides Fixed-Stage Policy
+## deck-forge Fixed-Stage Policy
 
-When this design system is used by the `frontend-slides` skill, generate the final deck as a **fixed 1920×1080 stage** that scales uniformly to the browser viewport. The deck should preserve a 16:9 slide canvas on every screen, including phones; it may letterbox or pillarbox, but it should not reflow slide content for mobile.
+When this design system is used by the `deck-forge` skill, generate the final deck as a **fixed 1920×1080 stage** that scales uniformly to the browser viewport. The deck should preserve a 16:9 slide canvas on every screen, including phones; it may letterbox or pillarbox, but it should not reflow slide content for mobile.
 
-This policy has higher priority than any source-template responsive behavior described later in this file. If a later section says the original template is viewport-fluid, treat that as source history only, not as the target generation model for `frontend-slides`.
+This policy has higher priority than any source-template responsive behavior described later in this file. If a later section says the original template is viewport-fluid, treat that as source history only, not as the target generation model for `deck-forge`.
 
 This policy applies even if the source template was originally implemented with viewport-fluid CSS such as `100vw`, `100vh`, `vw`, `vh`, or `clamp()`. Treat those values as design proportions to translate into 1920×1080 stage coordinates, not as live responsive rules in the generated deck.
 
-Use `deck-stage.js` or an equivalent inline stage scaler for final output: render each slide at 1920×1080, scale the whole stage with one transform, and verify rendered screenshots for both text overflow and panel overlap.
+Author against the skill's fixed-stage model: full viewport-base.css inline, .slide/.active slides scaled as one unit (transform: scale(), origin 0 0) per html-template.md. Do not reference deck-stage.js (not bundled). Translate any data-anim/data-delay/.is-active entrance vocabulary from the source design into the deck's .reveal + .slide.visible convention. Render each slide at 1920×1080 and verify rendered screenshots for both text overflow and panel overlap.
 
 
 ## Overview
@@ -434,7 +434,7 @@ Borders are never colored (no navy borders, no green borders); the bevel two-ton
 
 **Retro button** (`{components.btn-retro}`) — Beveled-raised gray button with 6px × 24px padding. Always carries text-md (14px) MS Sans Serif weight 400. Active state inverts the bevel.
 
-**Progress bar** (`{components.progress-bar}`) — Sunken white well containing a solid navy fill div. The fill width represents the value; no animation beyond width transition. Always 24px tall (or 16px when embedded inside a feature card).
+**Progress bar** (`{components.progress-bar}`) — Sunken white well containing a solid navy fill div. The fill width represents the value; no animation beyond width transition. Always 24px tall (or 16px when embedded inside a feature card). Implement with a non-reserved class name such as `.retro-progress` — `.progress-bar`/`.progress` are reserved chrome class names hidden by `export_pdf.py` at export (see html-template.md "Reserved chrome class names"), and this component is slide content that must survive into the PDF.
 
 **Retro table** (`{components.retro-table}`) — Pixel-flat data table with gray headers, white cells, light-gray border lines, and a barely-different zebra fill on alternate rows. Cell padding is 6px × 10px.
 

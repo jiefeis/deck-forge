@@ -160,15 +160,11 @@ Every presentation must include:
    - Scale the whole stage with one transform
    - Letterbox/pillarbox as needed; never reflow slide content per device
 
-3. **Optional Enhancements** (match to chosen style):
-   - Custom cursor with trail
+3. **Optional Enhancements** (match to chosen style; the deliverable is a static PDF, so hover/cursor effects — cursor trails, 3D tilt, magnetic buttons — are invisible in it and should only be added when the user explicitly asks for an in-browser presentation experience):
    - Particle system background (canvas)
-   - Parallax effects
-   - 3D tilt on hover
-   - Magnetic buttons
    - Counter animations
 
-4. **Inline Editing** (included by default after draft generation):
+4. **Inline Editing** (NOT included by default; add only when the user explicitly asks for in-browser click-to-edit):
    - Edit toggle button (hidden by default, revealed via hover hotzone or `E` key)
    - Auto-save to localStorage
    - Export/save file functionality
@@ -176,7 +172,7 @@ Every presentation must include:
 
 ## Inline Editing Implementation
 
-Inline editing is a lightweight post-draft affordance. Do not ask the user whether they want it during the pre-generation Q&A. Include it by default unless the user explicitly asks for a locked/export-only presentation or no editing controls.
+Inline editing is NOT included by default; add it only when the user explicitly asks for in-browser click-to-edit (this matches workflow.md Phase 6 — the standard text-edit loop is `edit_texts.py`, not an in-browser editor). Do not ask the user about it during the pre-generation Q&A. If the user does ask for it, the snippets below cover the toggle UI; the `editor` object they call (`editor.toggleEditMode()`, `editor.isActive`) is NOT defined here — implement it yourself (contenteditable toggling on text nodes, localStorage persistence, a save/export action).
 
 **Do NOT use CSS `~` sibling selector for hover-based show/hide.** The CSS-only approach (`edit-hotzone:hover ~ .edit-toggle`) fails because `pointer-events: none` on the toggle button breaks the hover chain: user hovers hotzone -> button becomes visible -> mouse moves toward button -> leaves hotzone -> button disappears before click.
 
@@ -255,9 +251,23 @@ document.addEventListener('keydown', (e) => {
 });
 ```
 
+## Reserved Chrome Class Names
+
+`scripts/export_pdf.py` hides presentation chrome during PDF export with `display:none !important`. The reserved names (copied from its `EXPORT_CSS`):
+
+- Classes: `.deck-controls`, `.deck-control`, `.deck-nav`, `.deck-navigation`, `.deck-progress`, `.progress`, `.progress-bar`, `.slide-nav`, `.slide-counter`, `.page-counter`, `.nav-dots`, `.edit-toggle`, `.edit-hotzone`, `.edit-mode-banner`, `.boot-check`, `.no-export`, `.no-print`
+- Attribute: `[data-export-hide]`
+
+Rules:
+
+- Use these names ONLY for chrome that must disappear from the PDF (navigation, counters, edit UI).
+- NEVER use them for design elements inside a slide — a KPI bar named `.progress-bar` or a poster trim named `.progress` silently vanishes from the delivered PDF.
+- For compositional elements that look like progress bars (e.g. a persistent bottom strip that is part of the poster design), use a non-reserved name such as `.poster-trim`.
+- Conversely, `[data-export-hide]` / `.no-export` are the sanctioned way to mark anything else that must not appear in the PDF.
+
 ## Image Pipeline (Skip If No Images)
 
-If user chose "No images" in Phase 1, skip this entirely. If images were provided, process them before generating HTML.
+If no images were provided, skip this section. If images were provided, process them before generating HTML.
 
 **Dependency:** `pip install Pillow`
 
@@ -305,7 +315,7 @@ Save processed images with `_processed` suffix. Never overwrite originals.
 ```css
 .slide-image {
     max-width: 100%;
-    max-height: min(50vh, 400px);
+    max-height: 400px; /* fixed px — no viewport units inside the fixed 1920×1080 stage */
     object-fit: contain;
     border-radius: 8px;
 }
@@ -315,7 +325,7 @@ Save processed images with `_processed` suffix. Never overwrite originals.
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 .slide-image.logo {
-    max-height: min(30vh, 200px);
+    max-height: 200px;
 }
 ```
 

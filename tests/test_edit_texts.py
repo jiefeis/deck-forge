@@ -12,6 +12,8 @@ Or under pytest if installed:         python -m pytest tests/
 from __future__ import annotations
 
 import importlib.util
+import re
+import subprocess
 import sys
 import tempfile
 from pathlib import Path
@@ -91,7 +93,7 @@ def run():
     check(all(f'data-text-id="{k}"' in html_after_extract for k in parsed),
           "extract: every parsed id exists in the HTML")
     # extract must not duplicate accent spans as their own ids
-    check("有迹可循" in [b.strip() for b in []] or txt.count("有迹可循") == 1,
+    check(txt.count("有迹可循") == 1,
           "extract: inline accent not captured as a separate id")
 
     # lxml re-serialize must preserve script/style/url integrity
@@ -134,6 +136,74 @@ def run():
     ET.apply(out, texts, out2)
     check(out.read_text(encoding="utf-8") == out2.read_text(encoding="utf-8"),
           "apply: idempotent (re-apply is a no-op)")
+
+    # --- re-extract after a structural edit: no duplicate ids, no misalign --
+    html2 = write(tmp, "deck2.html", SAMPLE)
+    texts2 = tmp / "deck2.texts.md"
+    ET.extract(html2, texts2, backup=False)
+    stamped = html2.read_text(encoding="utf-8")
+    # insert a fresh leaf between the first and second stamped paragraphs
+    stamped = stamped.replace('<p class="sub"',
+                              '<p class="inserted">插入段</p><p class="sub"', 1)
+    html2.write_text(stamped, encoding="utf-8")
+    ET.extract(html2, texts2, backup=False)
+    ids = re.findall(r'data-text-id="([^"]+)"', html2.read_text(encoding="utf-8"))
+    check(len(ids) == len(set(ids)),
+          "re-extract: no duplicate data-text-id after inserting a leaf")
+    parsed2 = ET._parse_texts(texts2.read_text(encoding="utf-8"))
+    check(parsed2.get("s01t02") == "原始副标题",
+          "re-extract: existing id still maps to its original text")
+    new_ids = [k for k, v in parsed2.items() if v == "插入段"]
+    check(len(new_ids) == 1 and new_ids[0] not in ("s01t01", "s01t02", "s01t03"),
+          "re-extract: inserted leaf gets a fresh non-conflicting id")
+
+    # --- apply with a missing id: warns and exits 2 -------------------------
+    texts.write_text(new + "\n<!-- deck-forge:id=zz99 -->\n没有这个块\n",
+                     encoding="utf-8")
+    code = 0
+    try:
+        ET.apply(html, texts, tmp / "deck.out3.html", backup=False)
+    except SystemExit as e:
+        code = e.code
+    check(code == 2, "apply: exits 2 when an edit references a missing id")
+    check((tmp / "deck.out3.html").exists(),
+          "apply: output still written before the missing-id exit")
+
+    # --- HTML comment inside a leaf: text after the comment survives --------
+    html3 = write(tmp, "deck3.html",
+                  SAMPLE.replace('<p class="sub">原始副标题</p>',
+                                 '<p class="sub">前段 <!-- note --> 后段</p>'))
+    texts3 = tmp / "deck3.texts.md"
+    ET.extract(html3, texts3, backup=False)
+    check("后段" in texts3.read_text(encoding="utf-8"),
+          "extract: text after an HTML comment not dropped")
+
+    # --- body line starting with '## ' round-trips intact -------------------
+    html4 = write(tmp, "deck4.html",
+                  SAMPLE.replace("<li>要点一</li>", "<li>## 标题写法</li>"))
+    texts4 = tmp / "deck4.texts.md"
+    ET.extract(html4, texts4, backup=False)
+    parsed4 = ET._parse_texts(texts4.read_text(encoding="utf-8"))
+    check(any(v == "## 标题写法" for v in parsed4.values()),
+          "parse: body line starting with '## ' kept (only '## Slide N' stripped)")
+    ET.apply(html4, texts4, html4, backup=False)
+    check("## 标题写法" in html4.read_text(encoding="utf-8"),
+          "round-trip: '## ' body line survives an unedited apply")
+
+    # --- CLI dispatch: extract/apply via main(), --no-backup honored --------
+    html5 = write(tmp, "deck5.html", SAMPLE)
+    script = str(ROOT / "scripts" / "edit_texts.py")
+    r = subprocess.run([sys.executable, "-X", "utf8", script,
+                        "extract", str(html5), "--no-backup"],
+                       capture_output=True, text=True)
+    check(r.returncode == 0, "cli: extract exits 0")
+    check(not (tmp / "deck5.html.bak").exists(), "cli: --no-backup skips backup")
+    check((tmp / "deck5.texts.md").exists(), "cli: extract writes default texts path")
+    r = subprocess.run([sys.executable, "-X", "utf8", script,
+                        "apply", str(html5), str(tmp / "deck5.texts.md"),
+                        "--no-backup"],
+                       capture_output=True, text=True)
+    check(r.returncode == 0, "cli: apply exits 0 when all ids resolve")
 
     import shutil
     shutil.rmtree(tmp, ignore_errors=True)   # don't leave test artifacts in %TEMP%

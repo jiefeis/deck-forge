@@ -15,7 +15,9 @@ the PDF directly - you edit the deck's text here and re-export:
   4. re-run   `export_pdf.py` to get the updated PDF.
 
 Safety: both commands write a one-shot `<file>.bak` backup before modifying the
-HTML in place (disable with --no-backup). The marker comment is namespaced
+HTML in place (disable with --no-backup). apply exits with code 2 when some
+edits reference ids that are not in the HTML (0 on full success). The marker
+comment is namespaced
 (`deck-forge:id=`) to avoid colliding with comments in the user's own content;
 note the texts file is still parsed by matching those markers, so don't paste a
 literal `deck-forge:id=` marker into body text (a known v0 boundary).
@@ -57,6 +59,7 @@ def _inner_html(el) -> str:
     parts = [el.text or ""]
     for ch in el:
         if ch.tag is LH.etree.Comment:
+            parts.append(ch.tail or "")  # skip the comment, keep text after it
             continue
         parts.append(LH.tostring(ch, encoding="unicode"))
     return "".join(parts).strip()
@@ -89,11 +92,14 @@ def _slides(doc):
 
 def extract(html_path: Path, texts_path: Path, backup: bool = True) -> None:
     doc = LH.document_fromstring(html_path.read_text(encoding="utf-8"))
+    used = set(doc.xpath("//*[@data-text-id]/@data-text-id"))
     lines = [f"# Editable text - {html_path.stem}",
              "# Change the text under each marker comment. Leave the marker comment",
              "# lines (the HTML comments above each block) unchanged - they map the",
              "# text back to the deck. Inline tags (line breaks, em, span) are part of",
              "# the text - keep or adjust them.",
+             "# Body lines are kept verbatim on apply; only section headers of the",
+             "# exact form '## Slide N - label' are ignored.",
              ""]
     total = 0
     for si, slide in enumerate(_slides(doc), start=1):
@@ -106,8 +112,13 @@ def extract(html_path: Path, texts_path: Path, backup: bool = True) -> None:
             ti += 1
             tid = el.get("data-text-id")
             if not tid:
+                # never reuse an id already present anywhere in the document
+                # (e.g. a leaf inserted between two stamped ones on re-extract)
+                while f"s{si:02d}t{ti:02d}" in used:
+                    ti += 1
                 tid = f"s{si:02d}t{ti:02d}"
                 el.set("data-text-id", tid)
+            used.add(tid)
             lines.append(f"<!-- {MARKER}{tid} -->")
             lines.append(_inner_html(el))
             lines.append("")
@@ -124,6 +135,9 @@ def extract(html_path: Path, texts_path: Path, backup: bool = True) -> None:
     print(f"  Stamped data-text-id into {html_path} (re-saved).")
 
 
+_SECTION_RE = re.compile(r"## Slide \d+ ")  # exactly what extract() writes
+
+
 def _parse_texts(text: str) -> dict[str, str]:
     chunks = _MARKER_RE.split(text)
     out: dict[str, str] = {}
@@ -131,7 +145,9 @@ def _parse_texts(text: str) -> dict[str, str]:
         tid = chunks[i]
         body = chunks[i + 1]
         body = "\n".join(l for l in body.splitlines()
-                         if not l.lstrip().startswith("## ")).strip()
+                         if not _SECTION_RE.match(l)).strip()
+        if tid in out:
+            print(f"  WARN: duplicate marker '{tid}' in texts file (last one wins)")
         out[tid] = body
     return out
 
@@ -140,7 +156,12 @@ def apply(html_path: Path, texts_path: Path, out_path: Path,
           backup: bool = True) -> None:
     doc = LH.document_fromstring(html_path.read_text(encoding="utf-8"))
     edits = _parse_texts(texts_path.read_text(encoding="utf-8"))
-    by_id = {el.get("data-text-id"): el for el in doc.xpath("//*[@data-text-id]")}
+    by_id = {}
+    for el in doc.xpath("//*[@data-text-id]"):
+        tid = el.get("data-text-id")
+        if tid in by_id:
+            print(f"  WARN: duplicate data-text-id '{tid}' in HTML (last one wins)")
+        by_id[tid] = el
     changed = missing = 0
     for tid, new_html in edits.items():
         el = by_id.get(tid)
@@ -159,6 +180,9 @@ def apply(html_path: Path, texts_path: Path, out_path: Path,
     print(f"  Applied {changed} change(s)"
           f"{f', {missing} id(s) missing' if missing else ''} -> {out_path}")
     print("  Now re-run: export_pdf.py <deck.html>")
+    if missing:
+        print(f"  WARNING: {missing} edit(s) NOT applied (ids not found)")
+        sys.exit(2)
 
 
 def main() -> None:

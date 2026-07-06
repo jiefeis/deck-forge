@@ -295,15 +295,15 @@ components:
     description: "Hand-script numeral used as step numbers in process diagrams and ordered CTA steps. The script face makes ordering feel hand-counted, not algorithmic."
 ---
 
-## Frontend Slides Fixed-Stage Policy
+## deck-forge Fixed-Stage Policy
 
-When this design system is used by the `frontend-slides` skill, generate the final deck as a **fixed 1920×1080 stage** that scales uniformly to the browser viewport. The deck should preserve a 16:9 slide canvas on every screen, including phones; it may letterbox or pillarbox, but it should not reflow slide content for mobile.
+When this design system is used by the `deck-forge` skill, generate the final deck as a **fixed 1920×1080 stage** that scales uniformly to the browser viewport. The deck should preserve a 16:9 slide canvas on every screen, including phones; it may letterbox or pillarbox, but it should not reflow slide content for mobile.
 
-This policy has higher priority than any source-template responsive behavior described later in this file. If a later section says the original template is viewport-fluid, treat that as source history only, not as the target generation model for `frontend-slides`.
+This policy has higher priority than any source-template responsive behavior described later in this file. If a later section says the original template is viewport-fluid, treat that as source history only, not as the target generation model for `deck-forge`.
 
 This policy applies even if the source template was originally implemented with viewport-fluid CSS such as `100vw`, `100vh`, `vw`, `vh`, or `clamp()`. Treat those values as design proportions to translate into 1920×1080 stage coordinates, not as live responsive rules in the generated deck.
 
-Use `deck-stage.js` or an equivalent inline stage scaler for final output: render each slide at 1920×1080, scale the whole stage with one transform, and verify rendered screenshots for both text overflow and panel overlap.
+Author against the skill's fixed-stage model: full viewport-base.css inline, .slide/.active slides scaled as one unit (transform: scale(), origin 0 0) per html-template.md. Do not reference deck-stage.js (not bundled). Translate any data-anim/data-delay/.is-active entrance vocabulary from the source design into the deck's .reveal + .slide.visible convention. Render each slide at 1920×1080 and verify rendered screenshots for both text overflow and panel overlap.
 
 
 ## Overview
@@ -443,7 +443,7 @@ Italic letterforms are not used. Underline is used only on `.underline` spans in
 
 ### Canvas System
 
-The system targets a **fixed 1920×1080 canvas** rendered inside a `<deck-stage>` web component. All sizes are pixel-fixed; the stage handles proportional scaling to the browser viewport.
+The system targets a **fixed 1920×1080 canvas** rendered inside the skill's fixed-stage wrapper. All sizes are pixel-fixed; the stage handles proportional scaling to the browser viewport.
 
 Most slides use **absolute positioning** with edge-anchored elements (`left: 64px`, `right: 64px`, `top: 110px`, `bottom: 100px`) for the content stage, plus targeted grid layouts for card rows. Pin illustrations are absolutely-positioned overlays on top of card stacks.
 
@@ -553,15 +553,15 @@ The system uses a **4px micro-radius** on every card — small enough to read as
 
 ## Responsive Behavior
 
-The system targets a **fixed 1920×1080 canvas** rendered inside a `<deck-stage>` web component (loaded via `deck-stage.js`). The stage handles proportional scaling to the browser viewport — all pixel-fixed sizes inside the canvas scale uniformly.
+The system targets a **fixed 1920×1080 canvas** rendered inside the skill's fixed-stage wrapper. The stage handles proportional scaling to the browser viewport — all pixel-fixed sizes inside the canvas scale uniformly.
 
 ### Presenter Behavior
-- The `<deck-stage>` component manages navigation, scaling, and presenter chrome.
+- The fixed-stage wrapper and the deck's inline controller manage navigation, scaling, and presenter chrome.
 - Keyboard, touch, and mouse-wheel navigation are handled by the stage component.
 - The slide canvas is constant 1920×1080 regardless of viewport size.
 
 ### Print Behavior
-Print export depends on the deck-stage component's print handling. The fractal-noise grain overlay may not render in all PDF exports — test before assuming texture transfers.
+Print/PDF export goes through the skill's export_pdf.py screenshot pipeline. The fractal-noise grain overlay may not render in all PDF exports — test before assuming texture transfers.
 
 ## CJK & International Content
 
@@ -630,7 +630,7 @@ Long Cang and LXGW WenKai are visually adjacent — both carry handwritten kaish
 
 ## Known Gaps
 
-- The system depends on a `<deck-stage>` web component loaded via `deck-stage.js`. Without it, the 1920×1080 canvas will not scale and slides will render at native pixel size.
+- Canvas scaling comes from the skill's fixed-stage model (viewport-base.css transform), not an external web component.
 - The pin illustrations are embedded as inline SVG symbol definitions at the top of the document. New slides that need pin illustrations must reference them via `<use href="#pin">` or `<use href="#pin-open">` — and the symbol definitions must be present in the document.
 - The fractal-noise grain overlay uses a data-URI SVG with `feTurbulence`. Some browsers (especially older Safari versions) may render the noise inconsistently or skip it during PDF export.
 - The Caveat font carries hand-script ligatures and may render inconsistently between operating systems. Default fallback is `cursive` which varies wildly across systems.

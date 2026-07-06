@@ -1,23 +1,10 @@
 # Biennale Yellow Preview Card
 
-Use this small file for title-slide previews only. For final deck generation, read the full design doc listed below.
-
-## Files
-
-- Full design doc: `bold-template-pack/templates/biennale-yellow/design.md`
-- Preview card: `bold-template-pack/templates/biennale-yellow/preview.md`
+Use this small file for title-slide previews only. For final deck generation, read this template's full `design.md` after selection.
 
 ## Selection Metadata
 
 - Slug: `biennale-yellow`
-- Tagline: Solar yellow on warm parchment with deep indigo serif and atmospheric sun-glow gradients.
-- Mood: editorial, atmospheric, warm, cultural-institution, poster-like
-- Tone: literary, considered, contemplative, warm-modern, Dutch-editorial
-- Formality: high
-- Density: medium
-- Scheme: light
-- Best for: Anything that should feel like an art-biennale poster or a museum's annual programme: exhibition decks, arts-institution announcements, design conference brochures, curatorial pitches, literary publications, studio retrospectives. Equally good for any deck wanting Dutch-editorial atmosphere with an unmistakable single-color signature.
-- Avoid for: Decks that need visual punch or saturated multi-color energy — the warm-paper canvas and one-yellow palette are intentionally quiet and atmospheric.
 
 ## Visual Snapshot
 
@@ -28,28 +15,9 @@ Biennale Yellow is a literary-editorial presentation system modeled on the visua
 ## Preview Ingredients
 
 - Palette: paper #E9E5DB; paper-deep #DCD6C4; sun #F1EE2E; sun-soft #F8F39B; haze #F0DA7C; ink #1B2566; ember #E26B4A
-- Typography: See full design doc after selection.
-- Signature move: Warm parchment ground ({colors.paper}) on every surface; never white, never gray.
-- Signature move: Single ink color ({colors.ink}) for all text and all rules — no secondary text colors.
-- Signature move: Solar yellow ({colors.sun}) deployed three ways: as a flooded panel, as a soft radial bloom, as a translucent geometric tile underprint.
+- Typography: Instrument Serif; Archivo; JetBrains Mono
+- Signature move: Warm parchment ground (#E9E5DB) on every surface; never white, never gray.
+- Signature move: Single ink color (#1B2566) for all text and all rules — no secondary text colors.
+- Signature move: Solar yellow (#F1EE2E) deployed three ways: as a flooded panel, as a soft radial bloom, as a translucent geometric tile underprint.
 - Signature move: Instrument Serif handles every display moment at scales from 40px to 720px+.
 - Signature move: Archivo Bold uppercase + 0.16–0.32em tracking is the universal label voice.
-
-## International / CJK Preview Note
-
-- If the preview uses Chinese or other CJK text, keep CJK letter-spacing at 0, loosen line-height, and avoid uppercase transforms on CJK runs.
-- Use the full `design.md` CJK section after selection for exact font pairings and script-specific adjustments.
-
-## Preview Rules
-
-- Build exactly one title slide at 1920x1080 inside the fixed-stage model.
-- Preserve the palette, type roles, surface rhythm, and decorative vocabulary described above.
-- Use the user's real title/subtitle/context; do not copy demo slide content.
-- The rendered preview must look like a real first slide, not a template-selection card.
-- Never place internal workflow text on the slide: no `preview`, `generated from`, `preview.md`, `template`, `preset`, `style option`, `Option A/B/C`, file names, paths, or source-doc labels.
-- Never place the template name or slug on the slide itself; mention it only in the chat message.
-- Never place user requirement notes such as desired vibe, audience, or internal-use labels on the slide unless the user explicitly wants those exact words in the deck.
-- Use only real deck content for visible chrome: deck title, real section title, date, author, company, page number, or genuine content phrases from the user material.
-- Do not read `template.html` for preview generation.
-- Do not read other templates' `design.md` files.
-- After the user picks this template for the full deck, read the full design doc before generating final slides.

@@ -61,14 +61,19 @@ Bad:
 
 Good:
 
-- Translate the message into concise, natural English.
+- Translate the message into concise, natural target-language phrasing.
+- EN→ZH: render "Ship early, learn fast" as 「尽早发布，快速验证」 — what a
+  Chinese presenter would actually say.
 - Preserve title logic and box hierarchy.
 - Shorten copy, render, and verify every translated page.
-- Adjust wording when English overflows rather than simply shrinking all fonts.
+- Adjust wording when the translation overflows rather than simply shrinking
+  all fonts.
 
 Bad:
 
 - Translate literally and leave awkward phrasing.
+- EN→ZH: render "Ship early, learn fast" as 「运送早，学习快」 — a
+  word-for-word gloss.
 - Split a source headline into a theme label plus side note when the source uses
   one headline.
 - Declare success after text extraction without checking rendered slides.

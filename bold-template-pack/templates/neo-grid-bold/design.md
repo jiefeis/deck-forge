@@ -225,15 +225,15 @@ components:
     opacity: 0.85
 ---
 
-## Frontend Slides Fixed-Stage Policy
+## deck-forge Fixed-Stage Policy
 
-When this design system is used by the `frontend-slides` skill, generate the final deck as a **fixed 1920×1080 stage** that scales uniformly to the browser viewport. The deck should preserve a 16:9 slide canvas on every screen, including phones; it may letterbox or pillarbox, but it should not reflow slide content for mobile.
+When this design system is used by the `deck-forge` skill, generate the final deck as a **fixed 1920×1080 stage** that scales uniformly to the browser viewport. The deck should preserve a 16:9 slide canvas on every screen, including phones; it may letterbox or pillarbox, but it should not reflow slide content for mobile.
 
-This policy has higher priority than any source-template responsive behavior described later in this file. If a later section says the original template is viewport-fluid, treat that as source history only, not as the target generation model for `frontend-slides`.
+This policy has higher priority than any source-template responsive behavior described later in this file. If a later section says the original template is viewport-fluid, treat that as source history only, not as the target generation model for `deck-forge`.
 
 This policy applies even if the source template was originally implemented with viewport-fluid CSS such as `100vw`, `100vh`, `vw`, `vh`, or `clamp()`. Treat those values as design proportions to translate into 1920×1080 stage coordinates, not as live responsive rules in the generated deck.
 
-Use `deck-stage.js` or an equivalent inline stage scaler for final output: render each slide at 1920×1080, scale the whole stage with one transform, and verify rendered screenshots for both text overflow and panel overlap.
+Author against the skill's fixed-stage model: full viewport-base.css inline, .slide/.active slides scaled as one unit (transform: scale(), origin 0 0) per html-template.md. Do not reference deck-stage.js (not bundled). Translate any data-anim/data-delay/.is-active entrance vocabulary from the source design into the deck's .reveal + .slide.visible convention. Render each slide at 1920×1080 and verify rendered screenshots for both text overflow and panel overlap.
 
 
 ## Overview
@@ -268,7 +268,7 @@ Depth is created entirely through **panel adjacency and color contrast**, not sh
 - **Ink** (`{colors.ink}` — #0A0A0A): The structural near-black. Used for all text on paper, all inverted panel fills, all dividers, all table cell borders, all pill outlines. Not pure #000 — slightly softer.
 - **Accent Lemon** (`{colors.accent-lemon}` — #E6FF3D): Electric neon-yellow. The signal color. Used as a panel fill, as the inline `<mark>` highlight swatch inside headlines, as the second chart series, as the affirmative pill fill, and as page-number variant background. Never as a text color (the yellow is too light to read as type against any surface).
 - **Muted** (`{colors.muted}` — #8A8A85): A reserved graphite tone present in the token list but used only at low opacity on photo-region tags. Available for de-emphasized text but rarely deployed.
-- **Stage BG** (`{colors.stage-bg}` — #1A1A1A): The viewport background outside the 1920×1080 slide canvas. This is the deck-stage container color, not part of slide design.
+- **Stage BG** (`{colors.stage-bg}` — #1A1A1A): The viewport background outside the 1920×1080 slide canvas. This is the stage container color, not part of slide design.
 
 ### Defaults
 
@@ -347,7 +347,7 @@ Italic letterforms are not used. The `<em>` and `<mark>` tags are repurposed as 
 
 ### Canvas System
 
-The system targets a **fixed 1920×1080 canvas** rendered inside a `<deck-stage>` web component that handles scaling to fit the viewport. All sizes are in `px` (not vw/vh) — typography sizes, padding values, grid gaps, and inset values are all pixel-fixed. The composition is designed at 1920×1080 and the stage scales the entire deck proportionally.
+The system targets a **fixed 1920×1080 canvas** rendered inside the skill's fixed-stage wrapper, which handles scaling to fit the viewport. All sizes are in `px` (not vw/vh) — typography sizes, padding values, grid gaps, and inset values are all pixel-fixed. The composition is designed at 1920×1080 and the stage scales the entire deck proportionally.
 
 The viewport background outside the deck stage is `{colors.stage-bg}` (#1A1A1A) — a dark gray frame that visually anchors the bright slide against the browser chrome.
 
@@ -462,18 +462,18 @@ No other border weights exist. There are no muted-color borders, no dashed borde
 
 ## Responsive Behavior
 
-The system targets a **fixed 1920×1080 canvas** rendered inside a `<deck-stage>` web component (loaded via `deck-stage.js`). The stage scales the entire 1920×1080 composition proportionally to fit the browser viewport — type sizes, panel positions, grid gaps, and inset values are all pixel-fixed inside the canvas, and the stage handles the responsive transform.
+The system targets a **fixed 1920×1080 canvas** rendered inside the skill's fixed-stage wrapper. The stage scales the entire 1920×1080 composition proportionally to fit the browser viewport — type sizes, panel positions, grid gaps, and inset values are all pixel-fixed inside the canvas, and the stage handles the responsive transform.
 
 This means: every typographic and layout decision in the system is made at 1920×1080 resolution. Sizes do not scale per breakpoint; the entire canvas scales as a single unit. There are no media queries inside slide styles.
 
 ### Presenter Behavior
-- The `<deck-stage>` web component manages slide-to-slide navigation, viewport scaling, and presenter chrome.
+- The fixed-stage wrapper and the deck's inline controller manage slide-to-slide navigation, viewport scaling, and presenter chrome.
 - Keyboard navigation, touch swipe, and mouse wheel are handled by the stage component, not by inline scripts.
 - The slide canvas is constant 1920×1080 regardless of browser viewport; the stage proportionally scales it.
 
-### Frontend Slides Integration Note
+### deck-forge Integration Note
 
-When using this design system inside the `frontend-slides` skill, preserve the
+When using this design system inside the `deck-forge` skill, preserve the
 fixed 1920×1080 canvas model. Do not translate the 12-column × 8-row grid,
 fixed typography, and fixed spacing into independent viewport-responsive
 `clamp()` values. That breaks the relationship between panel size and type
@@ -491,7 +491,7 @@ The safe single-file implementation is:
    `scrollHeight` check can pass while one grid panel visually covers another.
 
 ### Print Behavior
-The template uses the deck-stage component for rendering. Print export depends on the component's print handling, which may render slide-per-page or capture the active slide only.
+Print/PDF export goes through the skill's export_pdf.py screenshot pipeline, which renders one page per slide.
 
 ## CJK & International Content
 
@@ -554,11 +554,10 @@ The negative letter-spacing (-0.005 to -0.05em) scales with display size in this
 
 ## Known Gaps
 
-- The system relies on a `<deck-stage>` web component loaded via `deck-stage.js`. Without this script, the 1920×1080 canvas will not scale to the viewport and slides will render at native pixel size.
+- Canvas scaling comes from the skill's fixed-stage model (viewport-base.css transform), not an external web component.
 - Photo regions use stylized CSS-generated noise textures (radial + diagonal stripe gradients) as placeholders. Real photography must be inserted by replacing the `.photo` cell contents with an `<img>` and ensuring the surrounding panel colors complement the photo's negative space.
 - The QR-pattern tile is decorative — the 5×5 grid of squares does not encode a real scannable code. Real QR codes would need a separate SVG generated externally.
 - Bar chart heights are set via inline `style="height: XX%"` declarations on each bar fill. There is no data-binding layer.
 - The arrow SVG used between process steps is hand-pathed inside each slide template; if a slide adds or removes process nodes, the arrow positions must be recomputed manually.
-- The `<deck-stage>` component is not loaded directly by this template's script tag — it's expected to be globally available via `deck-stage.js`. Missing the script will silently render slides as flat absolute-positioned divs.
-- The system uses fixed pixel sizes throughout (no `vw`/`vh`). At unusual viewport aspect ratios, the deck-stage proportional scaling may letterbox the canvas with putty bars.
+- The system uses fixed pixel sizes throughout (no `vw`/`vh`). At unusual viewport aspect ratios, the stage's proportional scaling may letterbox the canvas with putty bars.
 - The `{colors.muted}` (#8A8A85) token is defined but used only in low-opacity overlays on photo region tags — it has no role in the main type or panel system.

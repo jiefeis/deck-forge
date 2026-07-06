@@ -307,15 +307,15 @@ components:
     color: "{colors.cream}"
 ---
 
-## Frontend Slides Fixed-Stage Policy
+## deck-forge Fixed-Stage Policy
 
-When this design system is used by the `frontend-slides` skill, generate the final deck as a **fixed 1920×1080 stage** that scales uniformly to the browser viewport. The deck should preserve a 16:9 slide canvas on every screen, including phones; it may letterbox or pillarbox, but it should not reflow slide content for mobile.
+When this design system is used by the `deck-forge` skill, generate the final deck as a **fixed 1920×1080 stage** that scales uniformly to the browser viewport. The deck should preserve a 16:9 slide canvas on every screen, including phones; it may letterbox or pillarbox, but it should not reflow slide content for mobile.
 
-This policy has higher priority than any source-template responsive behavior described later in this file. If a later section says the original template is viewport-fluid, treat that as source history only, not as the target generation model for `frontend-slides`.
+This policy has higher priority than any source-template responsive behavior described later in this file. If a later section says the original template is viewport-fluid, treat that as source history only, not as the target generation model for `deck-forge`.
 
 This policy applies even if the source template was originally implemented with viewport-fluid CSS such as `100vw`, `100vh`, `vw`, `vh`, or `clamp()`. Treat those values as design proportions to translate into 1920×1080 stage coordinates, not as live responsive rules in the generated deck.
 
-Use `deck-stage.js` or an equivalent inline stage scaler for final output: render each slide at 1920×1080, scale the whole stage with one transform, and verify rendered screenshots for both text overflow and panel overlap.
+Author against the skill's fixed-stage model: full viewport-base.css inline, .slide/.active slides scaled as one unit (transform: scale(), origin 0 0) per html-template.md. Do not reference deck-stage.js (not bundled). Translate any data-anim/data-delay/.is-active entrance vocabulary from the source design into the deck's .reveal + .slide.visible convention. Render each slide at 1920×1080 and verify rendered screenshots for both text overflow and panel overlap.
 
 
 ## Overview
@@ -400,7 +400,7 @@ Archivo Black has a line-height of 0.92 — headlines overlap their own cap-heig
 ## Layout
 
 ### Canvas System
-Every slide is exactly 1920×1080px in a fixed, non-scrolling viewport. The `deck-stage` custom element handles centering and scaling.
+Every slide is exactly 1920×1080px in a fixed, non-scrolling viewport. The skill's fixed-stage scaler (viewport-base.css) handles centering and scaling.
 
 ### Gutter System
 - **Chrome gutter** (64px left/right): Used by topbar and slide-meta only.
@@ -482,10 +482,10 @@ Topbar, meta footer, chart axis lines, legend swatches: flat, no shadow, no bord
 
 ## Responsive Behavior
 
-This template is designed **exclusively for 1920x1080 presentation display**. It is not a web page and has no mobile breakpoints. The `deck-stage` web component handles viewport scaling via CSS transforms, so the 1920x1080 canvas scales proportionally on any screen size without layout changes.
+This template is designed **exclusively for 1920x1080 presentation display**. It is not a web page and has no mobile breakpoints. The skill's fixed-stage scaler handles viewport scaling via CSS transforms, so the 1920x1080 canvas scales proportionally on any screen size without layout changes.
 
 ### Touch / Presenter Behavior
-- Slides advance via keyboard arrow keys or presentation clicker (handled by `deck-stage.js`).
+- Slides advance via keyboard arrow keys or presentation clicker (handled by the deck's inline controller).
 - No hover states are defined or needed.
 - No interactive form elements exist.
 
@@ -557,7 +557,7 @@ Creative Mode's neo-brutalist register depends on Archivo Black's extreme densit
 
 ## Known Gaps
 
-- The `deck-stage.js` script (slide advancement, keyboard nav) is an external dependency not documented here.
+- Slide advancement and keyboard navigation come from the deck's inline controller (see html-template.md), not an external script.
 - Animation and transition between slides is not in scope for this template; all slides are static.
 - The title slide poster contains a decorative toggle switch illustration built from nested divs; it has no functional state.
 - Chart data (bar heights, values, labels) is hardcoded as inline styles and placeholder content — there is no data-binding layer.

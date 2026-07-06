@@ -2,10 +2,11 @@
 
 Detailed Phase 0–6 reference for `SKILL.md`. The main file holds the trigger,
 non-negotiables, preflight/commands, and one-line-per-step routing; this file is
-the expanded version of each step. Read it when you actually run the workflow.
+the expanded version of each step. Read it for any generation run (Phase 0–6).
 
-All script paths assume the global install (`~/.codex/skills/deck-forge/`).
-Write generated deck HTML/PDF into the **user's** working directory.
+Script commands below use `<skill-root>/` — the absolute path of the folder
+containing `SKILL.md`, as defined in its Preflight section (do not use `~` on
+Windows). Write generated deck HTML/PDF into the **user's** working directory.
 
 ## Design Aesthetics
 
@@ -48,7 +49,7 @@ If the user already implied any of these, don't re-ask — proceed.
 ### PPTX input (optional)
 
 If materials include a `.pptx`:
-`python ~/.codex/skills/deck-forge/scripts/extract-pptx.py <input.pptx> <output_dir>`
+`python <skill-root>/scripts/extract_pptx.py <input.pptx> <output_dir>`
 (needs `pip install python-pptx`). It writes `extracted-slides.json` + an
 `assets/` folder of images. Summarize the extracted titles/content/images for the
 user, then treat that as the materials and continue.
@@ -60,8 +61,10 @@ comparison, or "reformat/restyle", start with `references/source-contract.md`
 and then read the task-specific files named in `SKILL.md`'s Files table before
 planning edits. Establish the source of truth, final format, page count/order,
 and whether layout must be preserved.
-For native PPTX editing, deck-forge can inform visual planning and QA, but use a
-PPTX-capable workflow/tool for the actual native slide edits.
+If a dedicated PPTX-editing skill/tool is available in this environment, prefer
+it for native slide edits; otherwise follow `references/pptx-native-editing.md`
+to edit the OOXML directly and audit with
+`<skill-root>/scripts/audit_pptx_page_numbers.py`.
 
 ---
 
@@ -106,6 +109,25 @@ confirm direction, then proceed. Otherwise do visual discovery:
 For a shortlisted bold template, read only its `preview.md` for the preview; read
 its full `design.md` only after the user picks it (Phase 3).
 
+### Preview file protocol
+
+Applies to every preview slide, template-based or not:
+
+- Build exactly one title slide at 1920×1080 inside the fixed-stage model,
+  preserving the template's palette, type roles, and decorative vocabulary as
+  described in its `preview.md`.
+- Previews render only real deck content (see preview authenticity above). All
+  visible chrome — dates, page numbers, section labels — must come from the
+  user's real material.
+- CJK previews: keep CJK letter-spacing at 0, loosen line-height, and avoid
+  uppercase transforms on CJK runs. If the deck's language is CJK, render the
+  preview in that language. After selection, follow the chosen design's CJK
+  section for exact font pairings and script-specific adjustments.
+- `template.html` files are not bundled with this skill. If a selected
+  `design.md` is missing a critical implementation detail, fill it in from
+  `html-template.md`'s architecture plus the design's own token tables — do not
+  search external repositories.
+
 ---
 
 ## Phase 3: Generate the HTML deck
@@ -144,7 +166,7 @@ Save the deck to a working folder, e.g. `<deck-name>/index.html`.
 This is the point of the skill. Render the HTML deck to a screenshot PDF:
 
 ```bash
-python ~/.codex/skills/deck-forge/scripts/export_pdf.py <deck-name>/index.html [<deck-name>/<deck-name>.pdf]
+python <skill-root>/scripts/export_pdf.py <deck-name>/index.html [<deck-name>/<deck-name>.pdf]
 ```
 
 - The exporter serves the deck folder locally, activates each `.slide`, forces
@@ -157,6 +179,9 @@ python ~/.codex/skills/deck-forge/scripts/export_pdf.py <deck-name>/index.html [
   JPEG — fix it.)
 - Requires `playwright` + `img2pdf` and a Chromium binary
   (`python -m playwright install chromium`, one-time ~150MB download).
+- **Fonts must finish loading before screenshots** — missing fonts change line
+  breaks and metrics. If a page renders with fallback fonts, fix the font
+  loading and re-export.
 - File size: ~0.7MB/slide at 2×. For a smaller file (email/Slack) use
   `--compact` (= `--scale 1`, ~half the size, still lossless and crisp at 100%),
   or `--scale 3` for print. Offer `--compact` if the PDF exceeds ~10MB.
@@ -167,8 +192,13 @@ python ~/.codex/skills/deck-forge/scripts/export_pdf.py <deck-name>/index.html [
 
 **Verify the PDF before delivering:** open the produced PDF (or the screenshot
 pages) and check every slide — no overflow, no overlap, no clipped text, no
-empty-bottom slides, no fabricated content. If a slide is wrong, fix the HTML and
-re-run Phase 4. The PDF is what the user receives, so it must be clean.
+empty-bottom slides, no fabricated content, no off-canvas objects, no missing
+fonts/images, consistent page dimensions, and no unexpected animation state
+(the exporter deactivates animations globally and forces reveals to their final
+state, but confirm visually — a half-faded or blurred element is a bug). If a
+slide is wrong, fix the HTML and re-run Phase 4. The PDF is what the user
+receives, so it must be clean. This Phase is the single authority for PDF
+output rules.
 
 For reformat, translation, or mixed PPTX/PDF/image tasks, also follow
 `references/visual-qa.md`: render source/reference and target pages, compare
@@ -199,12 +229,12 @@ auto-injected so it works on any deck):
 
 ```bash
 # 1. pull every string into an editable file (also stamps stable ids into the HTML)
-python ~/.codex/skills/deck-forge/scripts/edit_texts.py extract <deck>/index.html
+python <skill-root>/scripts/edit_texts.py extract <deck>/index.html
 # 2. the user edits <deck>/index.texts.md (change words; leave the id-marker comments)
 # 3. write the edits back into the HTML
-python ~/.codex/skills/deck-forge/scripts/edit_texts.py apply <deck>/index.html <deck>/index.texts.md
+python <skill-root>/scripts/edit_texts.py apply <deck>/index.html <deck>/index.texts.md
 # 4. regenerate the PDF
-python ~/.codex/skills/deck-forge/scripts/export_pdf.py <deck>/index.html
+python <skill-root>/scripts/export_pdf.py <deck>/index.html
 ```
 
 - Each editable string keeps its inline tags (line breaks, `<em>`, accent
