@@ -10,7 +10,8 @@ description: >-
   for plain reports, contracts, forms, resumes, spreadsheets, or PDFs needing
   flowing prose/selectable body text. Produces a self-contained 1920x1080 HTML
   deck as the editable intermediate and a crisp lossless screenshot PDF as the
-  deliverable.
+  deliverable; native PPTX edit/polish tasks keep the edited .pptx as the
+  deliverable instead.
 ---
 
 <!-- Maintainers: when editing the frontmatter description above, check that
