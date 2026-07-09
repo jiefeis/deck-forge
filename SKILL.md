@@ -4,6 +4,8 @@ description: >-
   Build design-rich slide/deck-style PDF presentations from notes, outlines,
   docs, images, screenshots, HTML, PDFs, PPTX files, or topics plus a theme/look.
   Use for visual decks, deck-like reformat/restyle work, visual slide QA, and
+  deck copy polish when slide language sounds too AI-generated or presenter copy
+  needs to become more natural while preserving layout. Also use for
   prompts such as "做成PDF演示/幻灯片/deck" or "turn this into slides". Do NOT use
   for plain reports, contracts, forms, resumes, spreadsheets, or PDFs needing
   flowing prose/selectable body text. Produces a self-contained 1920x1080 HTML
@@ -66,7 +68,9 @@ python <skill-root>/scripts/extract_pptx.py <in.pptx> <out_dir>
    into the PDF as a bug (`viewport-base.css`, `AUTHORING.md` §3).
 4. **Distinctive design, no AI slop.** Non-system fonts, a committed palette,
    atmosphere, one orchestrated load animation (full guidance in
-   [references/workflow.md](references/workflow.md) → "Design Aesthetics").
+   [references/workflow.md](references/workflow.md) → "Design Aesthetics"). If
+   the user says deck copy has "AI 味", load `humanizer-zh` when available and
+   read `references/deck-copy-and-ai-slop.md`.
 5. **Verify the PDF.** Inspect every page for overflow / overlap / clipped text /
    empty-bottom / fabrication. The export IS the visual check; fix the HTML and
    re-export until clean. Crispness: the PDF must be lossless (no `DCTDecode`).
@@ -108,6 +112,7 @@ for the full instructions before doing it.
 | `references/pptx-native-editing.md` | Native PPTX package, slide order, layout/master, relationship, and hidden-slide guardrails | editing/copying/translating native PPTX |
 | `references/image-and-ocr-input.md` | Image, screenshot, chart-image, and OCR input handling | image-to-slide or screenshot source material |
 | `references/translation-copyfit.md` | Natural translation and copy fitting in existing layouts | translation/localization tasks |
+| `references/deck-copy-and-ai-slop.md` | Make slide copy sound like a real presenter while preserving layout and fit | "AI 味", "太像 AI 写的", language polish, enlarged fonts causing copyfit issues |
 | `references/visual-qa.md` | Rendered-page contact sheets and final QA checklist | reformat / translation / cross-format comparison |
 | `references/good-bad-examples.md` | Examples of good and bad handling patterns | ambiguous cross-format/reformat decisions |
 | **Generation assets** | | |
@@ -127,4 +132,3 @@ for the full instructions before doing it.
 | `scripts/edit_texts.py` | extract/apply all deck text via one file (rollingai) | Phase 6 |
 | `scripts/extract_pptx.py` | PPTX → content JSON (optional input) | Phase 0 |
 | `scripts/audit_pptx_page_numbers.py` | audit page-number sources across slides, layouts, and masters | native PPTX page-number/footer edits |
-

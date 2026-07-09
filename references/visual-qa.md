@@ -25,6 +25,10 @@ Always inspect every page before delivery; contact sheets are for triage only.
 - page-number uniqueness across slide, layout, and master inheritance when PPTX
   page markers are changed
 - text clipping, wrapping, overlap, or line collisions
+- orphan characters, awkward word breaks, and labels merged into body copy after
+  font-size changes
+- inconsistent sizes/alignment in repeated components such as Harvey balls,
+  arrows, badges, numbered boxes, and icon rows
 - chart and image visibility
 - color shifts or theme-fill regressions
 - hidden backup slides still hidden
@@ -51,3 +55,5 @@ collisions and subtle overflow.
 - PDF page count matches expected slide count.
 - The final artifact opens in the target app.
 - Every changed page has been rendered after the last edit.
+- Pages changed for copy tone or font size have been inspected full-size, not
+  only on a contact sheet.

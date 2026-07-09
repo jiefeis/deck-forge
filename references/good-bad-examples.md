@@ -107,3 +107,25 @@ Bad:
 - Deliver only HTML when the user asked for a PDF.
 - JPEG-compress slide pages and make text fuzzy.
 - Trust a browser preview without checking the actual exported PDF pages.
+
+## Slide copy and font enlargement
+
+Good:
+
+- Use `humanizer-zh` when Chinese slide copy is described as having "AI 味".
+- Replace slogan-like copy with concrete presenter language while preserving
+  facts, scores, dates, owners, and slide hierarchy.
+- After increasing fonts, render the changed pages and fix orphan characters,
+  awkward word breaks, and text box overflow.
+- Keep repeated visual components, such as Harvey balls and process arrows, the
+  same size and aligned on a shared axis.
+
+Bad:
+
+- Make the copy more ornate or literary when the problem is AI-sounding
+  consulting prose.
+- Use a global font multiplier and skip page-by-page copyfit.
+- Merge labels and descriptions into one paragraph when the source uses separate
+  hierarchy.
+- Leave process arrows or Harvey balls visually "close enough" with inconsistent
+  sizes or alignment.

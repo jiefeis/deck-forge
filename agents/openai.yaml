@@ -1,4 +1,4 @@
 interface:
   display_name: "Deck Forge"
-  short_description: "Build and verify polished visual PDF decks."
-  default_prompt: "Use $deck-forge to turn these materials into a polished visual PDF deck with full visual QA."
+  short_description: "Build, copy-polish, and verify visual PDF decks."
+  default_prompt: "Use $deck-forge to turn these materials into a polished visual PDF deck with natural slide copy and full visual QA."

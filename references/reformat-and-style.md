@@ -49,3 +49,16 @@ before changing it. Verify the hidden state afterwards.
 - Avoid adding side explanation boxes when the source fused subtitle/context into
   the main title.
 - Use visual rendering, not text inspection, to decide whether the page is clean.
+
+## Font-size and whitespace changes
+
+When the user asks for larger text or says a page looks sparse, treat this as a
+copyfit task, not just a global font multiplier.
+
+- Increase peer elements consistently, then render every changed page.
+- Watch for orphan characters, awkward word breaks, line collisions, and labels
+  merging into descriptions.
+- Reduce bottom whitespace by redistributing existing objects or expanding
+  existing containers before adding new decoration.
+- For process arrows, Harvey balls, badges, and other repeated visual components,
+  set exact shared dimensions and alignment instead of sizing by eye.
