@@ -60,6 +60,8 @@ python <skill-root>/scripts/extract_pptx.py <in.pptx> <out_dir>
 
 1. **PDF is the product.** Always finish by producing a PDF; never stop at HTML
    unless the user explicitly asks. HTML is the intermediate you build + verify.
+   Exception: native-PPTX edit/polish tasks deliver the edited source format —
+   rendered pages are the QA tool there, not the deliverable.
 2. **Materials drive structure.** Map the source's own storyline first, then pick
    layouts to fit it; the deck is exactly as long as the source is
    (`AUTHORING.md` §1). Never fabricate content to fill a layout.
@@ -68,9 +70,7 @@ python <skill-root>/scripts/extract_pptx.py <in.pptx> <out_dir>
    into the PDF as a bug (`viewport-base.css`, `AUTHORING.md` §3).
 4. **Distinctive design, no AI slop.** Non-system fonts, a committed palette,
    atmosphere, one orchestrated load animation (full guidance in
-   [references/workflow.md](references/workflow.md) → "Design Aesthetics"). If
-   the user says deck copy has "AI 味", load `humanizer-zh` when available and
-   read `references/deck-copy-and-ai-slop.md`.
+   [references/workflow.md](references/workflow.md) → "Design Aesthetics").
 5. **Verify the PDF.** Inspect every page for overflow / overlap / clipped text /
    empty-bottom / fabrication. The export IS the visual check; fix the HTML and
    re-export until clean. Crispness: the PDF must be lossless (no `DCTDecode`).
@@ -112,7 +112,7 @@ for the full instructions before doing it.
 | `references/pptx-native-editing.md` | Native PPTX package, slide order, layout/master, relationship, and hidden-slide guardrails | editing/copying/translating native PPTX |
 | `references/image-and-ocr-input.md` | Image, screenshot, chart-image, and OCR input handling | image-to-slide or screenshot source material |
 | `references/translation-copyfit.md` | Natural translation and copy fitting in existing layouts | translation/localization tasks |
-| `references/deck-copy-and-ai-slop.md` | Make slide copy sound like a real presenter while preserving layout and fit | "AI 味", "太像 AI 写的", language polish, enlarged fonts causing copyfit issues |
+| `references/deck-copy-and-ai-slop.md` | Make slide copy sound like a real presenter while preserving layout and fit | "AI 味" / "太像 AI 写的" deck copy, presenter-language polish |
 | `references/visual-qa.md` | Rendered-page contact sheets and final QA checklist | reformat / translation / cross-format comparison |
 | `references/good-bad-examples.md` | Examples of good and bad handling patterns | ambiguous cross-format/reformat decisions |
 | **Generation assets** | | |

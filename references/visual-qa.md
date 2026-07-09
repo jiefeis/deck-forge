@@ -55,5 +55,3 @@ collisions and subtle overflow.
 - PDF page count matches expected slide count.
 - The final artifact opens in the target app.
 - Every changed page has been rendered after the last edit.
-- Pages changed for copy tone or font size have been inspected full-size, not
-  only on a contact sheet.

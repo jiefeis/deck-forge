@@ -5,6 +5,12 @@ mechanical, especially in Chinese consulting/report decks. If the
 `humanizer-zh` skill is available and the user mentions "AI 味道太重",
 "太像 AI 写的", "语言太 AI 化", or "去 AI 味", use it together with this reference.
 
+On conflict, this file wins for slide copy: take humanizer-zh's pattern
+checklist (AI vocabulary, paired structures, dash overuse, rule-of-three,
+vague attribution), but ignore its prose-oriented advice to inject
+personality, first-person voice, or looseness — deck copy stays short,
+factual, and impersonal.
+
 ## Goal
 
 Make the copy sound like something a real presenter would say in a meeting:
@@ -20,8 +26,9 @@ numbers, named frameworks, page hierarchy, and visual layout.
   "不是……而是……", "从……到……", "先……再……", and three-part slogans.
 - Remove decorative arrows such as `->` from prose. Use normal punctuation or
   convert the relation into a short sentence.
-- Keep domain terms that are part of the content model: DBKE, Skill, Token,
-  owner, demo, AI agent, Harvey ball, and other source-specific terms.
+- Keep the source's own domain terms (product names, framework acronyms,
+  role/owner labels, scoring devices such as Harvey balls); do not "translate"
+  them into plain language.
 - Do not make copy "more literary". In decks, humanizing usually means shorter
   and more specific, not more elaborate.
 - Do not change facts, dates, scores, quantities, departments, source labels, or
@@ -29,18 +36,14 @@ numbers, named frameworks, page hierarchy, and visual layout.
 
 ## Copyfit after language edits
 
-- After increasing font size or humanizing copy, render the changed pages.
-- Look for orphan characters, awkward word breaks, text touching card borders,
-  line collisions, and excessive empty-bottom whitespace.
-- Fix fit in this order: shorten wording, widen the existing text box if the
-  layout allows it, adjust line breaks, then reduce font size modestly and
-  consistently across peer elements.
-- For labels, keep the label separate from its description. Do not merge a
-  section label and explanatory sentence into one paragraph if the source uses a
-  label/value hierarchy.
-- For small repeated components such as Harvey balls, process arrows, badges,
-  and numbered boxes, use uniform dimensions and numeric alignment; visual
-  similarity is not enough.
+After humanizing copy (or any font-size change), run the copyfit pass in
+`references/reformat-and-style.md` → "Font-size and whitespace changes" —
+that section is the single authority for the mechanics (render changed pages,
+orphans, breaks, collisions, uniform repeated components). Deck-copy addition:
+
+- Keep the label separate from its description. Do not merge a section label
+  and explanatory sentence into one paragraph if the source uses a label/value
+  hierarchy.
 
 ## Good pattern
 

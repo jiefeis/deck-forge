@@ -58,6 +58,9 @@ copyfit task, not just a global font multiplier.
 - Increase peer elements consistently, then render every changed page.
 - Watch for orphan characters, awkward word breaks, line collisions, and labels
   merging into descriptions.
+- Fix fit in this order: shorten wording, widen the existing text box if the
+  layout allows it, adjust line breaks, then reduce font size modestly and
+  consistently across peer elements.
 - Reduce bottom whitespace by redistributing existing objects or expanding
   existing containers before adding new decoration.
 - For process arrows, Harvey balls, badges, and other repeated visual components,

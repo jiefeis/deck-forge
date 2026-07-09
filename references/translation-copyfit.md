@@ -28,6 +28,8 @@ into an existing layout.
 - Remove repeated qualifiers.
 - Replace long explanatory sentences with presenter-friendly phrases.
 - Keep labels and process steps parallel.
+- For font-size change mechanics, follow `references/reformat-and-style.md` →
+  "Font-size and whitespace changes" (the single authority for that pass).
 - For arrows and other symbol glyphs, follow the shared policy in
   `references/source-contract.md`: real Unicode arrows first (verify rendered
   output), code-point generation when shell encoding is unreliable, ASCII
