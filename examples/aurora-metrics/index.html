@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aurora · 2026 Q2 运营周报</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;900&family=Noto+Sans+SC:wght@400;500;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<style>
+/* ===========================================
+   THEME — light "Swiss data" (proves not locked to dark)
+   =========================================== */
+:root{
+  --paper:#f5f2ea;
+  --paper-2:#ffffff;
+  --ink:#16191c;
+  --ink-dim:#5d6470;
+  --teal:#0e7c66;
+  --teal-soft:#d7eae3;
+  --coral:#d4513a;
+  --line:#d9d3c6;
+  --font-display:'Archivo', sans-serif;
+  --font-sans:'Noto Sans SC', sans-serif;
+  --font-mono:'Space Grotesk', monospace;
+  --stage-bg:#cfc9bb;
+  --slide-bg:var(--paper);
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+
+/* === stage CSS: deliberately simplified/deviated from viewport-base.css
+   to stress-test export_pdf.py's display-based slide activation —
+   real decks MUST inline the full viewport-base.css === */
+html,body{width:100%;height:100%;margin:0;overflow:hidden;background:var(--stage-bg);}
+.deck-viewport{position:fixed;inset:0;overflow:hidden;background:var(--stage-bg);}
+.deck-stage{position:absolute;left:0;top:0;width:1920px;height:1080px;overflow:hidden;transform-origin:0 0;background:var(--slide-bg);}
+/* NOTE: this deck switches slides by DISPLAY (not opacity) on purpose */
+.slide{position:absolute;inset:0;width:1920px;height:1080px;overflow:hidden;display:none;background:var(--slide-bg);color:var(--ink);font-family:var(--font-sans);}
+.slide.active{display:block;}
+img,video,canvas,svg{max-width:100%;max-height:100%;}
+@media print{.slide{display:block!important;break-after:page;}.deck-controls{display:none!important;}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;}}
+
+/* === furniture === */
+.pad{position:absolute;inset:0;padding:100px 120px 132px;display:flex;flex-direction:column;}
+.kicker{font-family:var(--font-mono);font-weight:700;font-size:22px;letter-spacing:.28em;text-transform:uppercase;color:var(--teal);}
+.foot{position:absolute;left:120px;bottom:60px;font-family:var(--font-mono);font-size:18px;letter-spacing:.12em;color:var(--ink-dim);text-transform:uppercase;}
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .6s var(--ease),transform .6s var(--ease);}
+.slide.active .reveal{opacity:1;transform:none;}
+.slide.active .reveal:nth-child(1){transition-delay:.05s;}
+.slide.active .reveal:nth-child(2){transition-delay:.13s;}
+.slide.active .reveal:nth-child(3){transition-delay:.21s;}
+.slide.active .reveal:nth-child(4){transition-delay:.29s;}
+
+/* 1 cover */
+.cover .pad{justify-content:center;}
+.cover .tag{font-family:var(--font-mono);font-weight:700;letter-spacing:.3em;color:var(--teal);font-size:24px;margin-bottom:36px;}
+.cover h1{font-family:var(--font-display);font-weight:900;font-size:150px;line-height:.95;letter-spacing:-.02em;color:var(--ink);}
+.cover h1 .u{color:var(--teal);}
+.cover .sub{font-size:36px;color:var(--ink-dim);margin-top:32px;max-width:1100px;line-height:1.4;}
+.cover .bar{display:flex;gap:14px;margin-top:48px;}
+.cover .bar i{width:64px;height:10px;background:var(--teal);display:block;}
+.cover .bar i:nth-child(2){background:var(--coral);}
+.cover .bar i:nth-child(3){background:var(--ink);}
+
+/* 2 stats-row */
+.stats h2{font-family:var(--font-display);font-weight:700;font-size:72px;margin:14px 0 56px;color:var(--ink);}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;flex:1;}
+.kpi{background:var(--paper-2);border:1px solid var(--line);border-radius:20px;padding:48px 44px;display:flex;flex-direction:column;}
+.kpi .trend{font-family:var(--font-mono);font-weight:700;font-size:22px;color:var(--teal);}
+.kpi .trend.down{color:var(--coral);}
+.kpi .num{font-family:var(--font-display);font-weight:900;font-size:128px;line-height:1;color:var(--ink);margin:18px 0 8px;}
+.kpi .num .unit{font-size:48px;color:var(--ink-dim);}
+.kpi .label{font-size:28px;color:var(--ink-dim);margin-top:auto;}
+
+/* 3 table */
+.tbl h2{font-family:var(--font-display);font-weight:700;font-size:72px;margin:14px 0 44px;color:var(--ink);}
+table{width:100%;border-collapse:collapse;font-size:30px;}
+thead th{text-align:left;font-family:var(--font-mono);font-weight:700;font-size:22px;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);padding:0 24px 22px;border-bottom:2px solid var(--ink);}
+tbody td{padding:28px 24px;border-bottom:1px solid var(--line);color:var(--ink);}
+tbody td:last-child{font-family:var(--font-mono);font-weight:700;}
+tbody tr:last-child td{font-weight:700;background:var(--teal-soft);}
+.tag-up{color:var(--teal);font-family:var(--font-mono);font-weight:700;}
+.tag-down{color:var(--coral);font-family:var(--font-mono);font-weight:700;}
+
+/* 4 process */
+.proc h2{font-family:var(--font-display);font-weight:700;font-size:72px;margin:14px 0 56px;color:var(--ink);}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;flex:1;}
+.step{background:var(--paper-2);border:1px solid var(--line);border-radius:20px;padding:44px 40px;display:flex;flex-direction:column;position:relative;}
+.step .n{font-family:var(--font-display);font-weight:900;font-size:96px;line-height:1;color:var(--teal-soft);}
+.step h3{font-family:var(--font-display);font-weight:700;font-size:42px;margin:8px 0 18px;color:var(--ink);}
+.step p{font-size:26px;line-height:1.6;color:var(--ink-dim);}
+
+/* 5 end */
+.end .pad{justify-content:center;align-items:flex-start;}
+.end h2{font-family:var(--font-display);font-weight:900;font-size:120px;line-height:1;color:var(--ink);}
+.end h2 .u{color:var(--teal);}
+.end .c{font-family:var(--font-mono);font-size:28px;color:var(--ink-dim);margin-top:40px;letter-spacing:.1em;}
+
+/* === VISIBLE PRESENTATION CHROME (must NOT appear in the exported PDF) === */
+.deck-controls{position:fixed;left:0;right:0;bottom:0;height:64px;background:var(--ink);
+  display:flex;align-items:center;justify-content:space-between;padding:0 32px;z-index:1000;}
+.deck-controls button{font-family:var(--font-mono);font-weight:700;font-size:18px;color:#fff;background:var(--teal);border:0;border-radius:8px;padding:10px 20px;cursor:pointer;}
+.deck-controls .count{font-family:var(--font-mono);color:#fff;font-size:18px;letter-spacing:.1em;}
+.deck-progress{position:fixed;left:0;top:0;height:6px;background:var(--coral);z-index:1001;transition:width .3s;}
+</style>
+</head>
+<body>
+<div class="deck-progress" id="prog" style="width:20%"></div>
+<div class="deck-viewport"><main class="deck-stage" id="deckStage">
+
+  <section class="slide cover active">
+    <div class="pad">
+      <div class="tag reveal">AURORA · 运营周报</div>
+      <h1 class="reveal">Q2 增长<br>跑在 <span class="u">计划之前</span></h1>
+      <p class="sub reveal">2026 第二季度运营复盘 · 核心指标、渠道表现与下一步</p>
+      <div class="bar reveal"><i></i><i></i><i></i></div>
+    </div>
+    <div class="foot">2026.06 · 第 13 周</div>
+  </section>
+
+  <section class="slide stats">
+    <div class="pad">
+      <div class="kicker reveal">核心指标</div>
+      <h2 class="reveal">三个数字看懂这个季度</h2>
+      <div class="kpis reveal">
+        <div class="kpi"><div class="trend">▲ 同比 +41%</div><div class="num">2.4<span class="unit">M</span></div><div class="label">季度活跃用户(MAU)</div></div>
+        <div class="kpi"><div class="trend">▲ 环比 +12pp</div><div class="num">68<span class="unit">%</span></div><div class="label">次周留存率</div></div>
+        <div class="kpi"><div class="trend down">▼ 环比 -23%</div><div class="num">¥31<span class="unit">/人</span></div><div class="label">单用户获客成本(CAC)</div></div>
+      </div>
+    </div>
+    <div class="foot">核心指标 · KEY METRICS</div>
+  </section>
+
+  <section class="slide tbl">
+    <div class="pad">
+      <div class="kicker reveal">渠道表现</div>
+      <h2 class="reveal">各渠道投入产出</h2>
+      <table class="reveal">
+        <thead><tr><th>渠道</th><th>新增用户</th><th>获客成本</th><th>30 日留存</th><th>ROI</th></tr></thead>
+        <tbody>
+          <tr><td>自然流量 / 口碑</td><td>284,000</td><td>¥0</td><td>74%</td><td class="tag-up">∞</td></tr>
+          <tr><td>内容 / 短视频</td><td>196,500</td><td>¥18</td><td>61%</td><td class="tag-up">3.2×</td></tr>
+          <tr><td>信息流投放</td><td>142,000</td><td>¥46</td><td>38%</td><td class="tag-down">0.7×</td></tr>
+          <tr><td>合计 / 加权</td><td>622,500</td><td>¥21</td><td>59%</td><td>2.1×</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="foot">渠道表现 · CHANNELS</div>
+  </section>
+
+  <section class="slide proc">
+    <div class="pad">
+      <div class="kicker reveal">下一步</div>
+      <h2 class="reveal">Q3 三个动作</h2>
+      <div class="steps reveal">
+        <div class="step"><div class="n">01</div><h3>砍信息流</h3><p>ROI 0.7× 的信息流预算下调 60%,转投内容与口碑两个高 ROI 渠道。</p></div>
+        <div class="step"><div class="n">02</div><h3>补留存</h3><p>信息流来的用户 30 日留存仅 38%,上线新手任务与召回推送,目标 +15pp。</p></div>
+        <div class="step"><div class="n">03</div><h3>放大口碑</h3><p>自然流量 ROI 最高,上线邀请激励,把口碑从被动变主动增长引擎。</p></div>
+      </div>
+    </div>
+    <div class="foot">下一步 · NEXT</div>
+  </section>
+
+  <section class="slide end">
+    <div class="pad">
+      <h2 class="reveal">把预算<br>挪到 <span class="u">高 ROI</span> 的地方</h2>
+      <div class="c reveal">growth@aurora.example · 2026 Q2 周报</div>
+    </div>
+  </section>
+
+</main></div>
+
+<!-- Visible chrome: a control bar + progress bar. The exporter must hide these. -->
+<div class="deck-controls">
+  <button id="prev">← 上一页</button>
+  <span class="count" id="count">01 / 05</span>
+  <button id="next">下一页 →</button>
+</div>
+
+<script>
+class Presenter{
+  constructor(){
+    this.slides=document.querySelectorAll('.slide');
+    this.cur=0; this.stage=document.getElementById('deckStage');
+    this.scale(); addEventListener('resize',()=>this.scale());
+    document.getElementById('next').onclick=()=>this.goToSlide(this.cur+1);
+    document.getElementById('prev').onclick=()=>this.goToSlide(this.cur-1);
+    addEventListener('keydown',e=>{
+      if(['ArrowRight',' '].includes(e.key))this.goToSlide(this.cur+1);
+      if(e.key==='ArrowLeft')this.goToSlide(this.cur-1);
+    });
+    this.goToSlide(0);
+  }
+  scale(){const f=Math.min(innerWidth/1920,innerHeight/1080);
+    this.stage.style.transform=`translate(${(innerWidth-1920*f)/2}px,${(innerHeight-1080*f)/2}px) scale(${f})`;}
+  goToSlide(i){
+    this.cur=Math.max(0,Math.min(i,this.slides.length-1));
+    this.slides.forEach((s,k)=>s.classList.toggle('active',k===this.cur));
+    document.getElementById('count').textContent=String(this.cur+1).padStart(2,'0')+' / '+String(this.slides.length).padStart(2,'0');
+    document.getElementById('prog').style.width=((this.cur+1)/this.slides.length*100)+'%';
+  }
+}
+window.presentation=new Presenter();
+</script>
+</body></html>
