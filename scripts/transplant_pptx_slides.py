@@ -5,6 +5,18 @@ This is a fail-closed recovery path for candidates produced by high-level PPTX
 tools that render correctly but normalize slide IDs, hidden flags, relationships,
 masters, layouts, or themes. The output package is copied from SOURCE; only the
 selected source slide XML parts are changed.
+
+Identity rules: because normalizing tools regenerate slide IDs positionally, a
+matching stable slide ID alone is NEVER accepted as page identity — it must be
+corroborated by matching titles, or the mapping must carry reviewed
+--expect-source-title/--expect-candidate-title assertions (needed when the
+redesign legitimately changed the title).
+
+Scope of the static safety gates: explicit theme/layout markup, shape-ID-coupled
+relationships, active/signed content, and DOCTYPE anywhere in the package are
+rejected. Implicit theme inheritance (runs with no direct properties) cannot be
+excluded statically — the report's required_followup therefore mandates pixel
+equivalence between candidate and rebased renders before delivery.
 """
 
 from __future__ import annotations
@@ -79,6 +91,11 @@ class TransplantError(RuntimeError):
 
 def _sha256(data: bytes) -> str:
     return hashlib.sha256(data).hexdigest()
+
+
+def _usable_slide_id(value: object) -> bool:
+    """OOXML slide IDs live in [256, 2**31); anything else is not evidence."""
+    return isinstance(value, int) and 256 <= value < 2_147_483_648
 
 
 def _parse_pages(spec: str) -> set[int]:
@@ -232,6 +249,20 @@ def _assert_no_active_content(
     label: str,
     content_types: tuple[dict[str, str], dict[str, str]],
 ) -> None:
+    # Whole-package DOCTYPE scan: _parse_xml only sees the parts this tool
+    # parses, so unparsed XML must be screened too (raw byte scan is
+    # deliberately stricter than XML semantics).
+    doctype_parts = sorted(
+        name
+        for name in names
+        if name.lower().endswith((".xml", ".rels"))
+        and b"<!DOCTYPE" in archive.read(name)
+    )
+    if doctype_parts:
+        raise TransplantError(
+            f"DOCTYPE is not allowed in {label} package parts: "
+            + ", ".join(doctype_parts)
+        )
     unsafe_parts = sorted(
         name
         for name in names
@@ -582,6 +613,8 @@ def transplant(
     *,
     component: str = "shape-tree",
     expected_titles: dict[int, str] | None = None,
+    expected_source_titles: dict[int, str] | None = None,
+    expected_candidate_titles: dict[int, str] | None = None,
     overwrite: bool = False,
     require_equal_counts: bool = False,
 ) -> dict[str, object]:
@@ -591,6 +624,8 @@ def transplant(
     candidate_path = candidate_path.expanduser().resolve()
     output_path = output_path.expanduser().resolve()
     expected_titles = expected_titles or {}
+    expected_source_titles = expected_source_titles or {}
+    expected_candidate_titles = expected_candidate_titles or {}
 
     if component != "shape-tree":
         raise TransplantError(
@@ -646,6 +681,27 @@ def transplant(
             "use explicit --map values when physical orders differ"
         )
 
+    # A slide part shared by two physical pages means editing one page would
+    # silently edit the other; the authorization boundary cannot hold.
+    for label, manifest in (
+        ("SOURCE", source_manifest),
+        ("CANDIDATE", candidate_manifest),
+    ):
+        part_owners: dict[str, list[int]] = {}
+        for page, slide in enumerate(manifest["slides"], 1):
+            part_owners.setdefault(str(slide["part"]), []).append(page)
+        shared_parts = {
+            part: pages for part, pages in part_owners.items() if len(pages) > 1
+        }
+        if shared_parts:
+            raise TransplantError(
+                f"{label} has slide parts shared by multiple physical pages: "
+                + "; ".join(
+                    f"{part} -> pages {pages}"
+                    for part, pages in sorted(shared_parts.items())
+                )
+            )
+
     source_slides = source_manifest["slides"]
     candidate_slides = candidate_manifest["slides"]
     source_title_counts = Counter(
@@ -699,31 +755,63 @@ def transplant(
                     f"source={source_slide['title']!r}, "
                     f"candidate={candidate_slide['title']!r}, expected={expected!r}"
                 )
+            expected_source = expected_source_titles.get(source_page)
+            expected_candidate = expected_candidate_titles.get(source_page)
+            if expected_source and source_slide["title"] != expected_source:
+                raise TransplantError(
+                    f"source title assertion failed for page {source_page}: "
+                    f"found {source_slide['title']!r}, "
+                    f"expected {expected_source!r}"
+                )
+            if expected_candidate and (
+                candidate_slide["title"] != expected_candidate
+            ):
+                raise TransplantError(
+                    f"candidate title assertion failed for mapping "
+                    f"{source_page}:{candidate_page}: "
+                    f"found {candidate_slide['title']!r}, "
+                    f"expected {expected_candidate!r}"
+                )
             source_title = str(source_slide["title"])
             candidate_title = str(candidate_slide["title"])
+            # Normalizing tools regenerate slide IDs positionally, so a
+            # matching stable ID is never standalone proof: it must be a legal
+            # OOXML id AND the titles must agree — or the user supplies
+            # reviewed title assertions.
             stable_id_match = (
-                source_slide["slide_id"] == candidate_slide["slide_id"]
+                _usable_slide_id(source_slide["slide_id"])
+                and source_slide["slide_id"] == candidate_slide["slide_id"]
+            )
+            titles_agree = (
+                bool(source_title) and source_title == candidate_title
             )
             unique_title_match = (
-                bool(source_title)
-                and source_title == candidate_title
+                titles_agree
                 and source_title_counts[source_title] == 1
                 and candidate_title_counts[candidate_title] == 1
             )
             explicit_title_match = bool(expected) and (
                 source_title == expected == candidate_title
             )
-            if stable_id_match:
-                identity_evidence = "stable-slide-id"
-            elif unique_title_match:
-                identity_evidence = "unique-exact-title"
+            explicit_pair_match = bool(expected_source) and bool(
+                expected_candidate
+            )
+            if explicit_pair_match:
+                identity_evidence = "explicit-pair-assertion"
             elif explicit_title_match:
                 identity_evidence = "explicit-title-assertion"
+            elif stable_id_match and titles_agree:
+                identity_evidence = "stable-slide-id+title"
+            elif unique_title_match:
+                identity_evidence = "unique-exact-title"
             else:
                 raise TransplantError(
                     f"cannot prove page identity for mapping "
-                    f"{source_page}:{candidate_page}; stable IDs differ and "
-                    "there is no unique exact title match"
+                    f"{source_page}:{candidate_page}; a matching stable ID "
+                    "alone is not proof (normalizing tools regenerate IDs "
+                    "positionally) — corroborate with matching titles or "
+                    "reviewed --expect-source-title/--expect-candidate-title "
+                    "assertions"
                 )
 
             source_part = str(source_slide["part"])
@@ -868,6 +956,33 @@ def transplant(
                     "OUTPUT violated baseline package invariants: "
                     + ", ".join(failed)
                 )
+            # Build the FULL report — including the output hash, read from the
+            # validated temporary file — BEFORE publishing. After the output
+            # is published nothing fallible may run, or a spurious error would
+            # report failure while the artifact already exists.
+            report: dict[str, object] = {
+                "status": "ok",
+                "source": str(source_path),
+                "candidate": str(candidate_path),
+                "output": str(output_path),
+                "component": component,
+                "mappings": mapping_reports,
+                "changed_parts": sorted(replacements),
+                "invariants": invariant_checks,
+                "required_followup": [
+                    "render the candidate and rebased target pages with the "
+                    "same engine and require pixel equivalence "
+                    "(references/native-redesign-fidelity.md); the static "
+                    "theme gate rejects only explicit theme markup and "
+                    "cannot rule out inherited-style rendering drift",
+                    "rerun audit_pptx_structure.py compare and "
+                    "audit_pptx_properties.py against the baseline with the "
+                    "authorized scope",
+                ],
+                "source_sha256": _sha256(source_path.read_bytes()),
+                "candidate_sha256": _sha256(candidate_path.read_bytes()),
+                "output_sha256": _sha256(temporary_path.read_bytes()),
+            }
             if overwrite:
                 os.replace(temporary_path, output_path)
             else:
@@ -882,24 +997,16 @@ def transplant(
                         "could not publish OUTPUT without overwrite; "
                         "hard-link creation failed"
                     ) from exc
-                temporary_path.unlink()
         finally:
-            if temporary_path.exists():
-                temporary_path.unlink()
+            # Best-effort: a leftover temporary file must never turn a
+            # published, validated OUTPUT into a reported failure.
+            try:
+                if temporary_path.exists():
+                    temporary_path.unlink()
+            except OSError:
+                pass
 
-    return {
-        "status": "ok",
-        "source": str(source_path),
-        "candidate": str(candidate_path),
-        "output": str(output_path),
-        "component": component,
-        "mappings": mapping_reports,
-        "changed_parts": sorted(replacements),
-        "invariants": invariant_checks,
-        "source_sha256": _sha256(source_path.read_bytes()),
-        "candidate_sha256": _sha256(candidate_path.read_bytes()),
-        "output_sha256": _sha256(output_path.read_bytes()),
-    }
+    return report
 
 
 def main(argv: Sequence[str] | None = None) -> int:
@@ -935,6 +1042,23 @@ def main(argv: Sequence[str] | None = None) -> int:
         metavar="SOURCE_PAGE=TITLE",
         help="assert the exact title on both mapped pages",
     )
+    parser.add_argument(
+        "--expect-source-title",
+        action="append",
+        default=[],
+        metavar="SOURCE_PAGE=TITLE",
+        help="assert the exact SOURCE title for one mapped page; together "
+             "with --expect-candidate-title this forms reviewed pair "
+             "identity evidence for pages whose title legitimately changed",
+    )
+    parser.add_argument(
+        "--expect-candidate-title",
+        action="append",
+        default=[],
+        metavar="SOURCE_PAGE=TITLE",
+        help="assert the exact CANDIDATE title for the page mapped from "
+             "SOURCE_PAGE (see --expect-source-title)",
+    )
     parser.add_argument("--overwrite", action="store_true")
     parser.add_argument("--json", action="store_true")
     args = parser.parse_args(argv)
@@ -947,6 +1071,12 @@ def main(argv: Sequence[str] | None = None) -> int:
         expected_titles = dict(
             _parse_expected_title(raw) for raw in args.expect_title
         )
+        expected_source_titles = dict(
+            _parse_expected_title(raw) for raw in args.expect_source_title
+        )
+        expected_candidate_titles = dict(
+            _parse_expected_title(raw) for raw in args.expect_candidate_title
+        )
         report = transplant(
             args.source,
             args.candidate,
@@ -954,6 +1084,8 @@ def main(argv: Sequence[str] | None = None) -> int:
             mappings,
             component=args.component,
             expected_titles=expected_titles,
+            expected_source_titles=expected_source_titles,
+            expected_candidate_titles=expected_candidate_titles,
             overwrite=args.overwrite,
             require_equal_counts=bool(args.pages),
         )
@@ -987,6 +1119,9 @@ def main(argv: Sequence[str] | None = None) -> int:
             )
         print(f"Changed parts: {', '.join(report['changed_parts'])}")
         print("Invariants: PASS")
+        print("REQUIRED FOLLOW-UP (transplant is not delivery-ready without it):")
+        for item in report["required_followup"]:
+            print(f"  - {item}")
     return 0
 
 

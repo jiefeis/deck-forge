@@ -4,10 +4,19 @@
 from __future__ import annotations
 
 import ast
+import importlib.util
 import os
 import subprocess
 import sys
 from pathlib import Path
+
+REQUIRED_MODULES = (
+    ("playwright", "playwright"),
+    ("img2pdf", "img2pdf"),
+    ("lxml", "lxml"),
+    ("pptx", "python-pptx"),
+    ("PIL", "Pillow"),
+)
 
 
 def run(command: list[str], env: dict[str, str]) -> int:
@@ -30,6 +39,24 @@ def validate_python_syntax(root: Path) -> list[str]:
 
 
 def main() -> int:
+    # A wrong interpreter (deps live per-Python) must fail as ONE clear
+    # environment error, not as a cascade of unrelated test failures.
+    print(f"python: {sys.executable}")
+    missing = [
+        pip_name
+        for module, pip_name in REQUIRED_MODULES
+        if importlib.util.find_spec(module) is None
+    ]
+    if missing:
+        print(
+            "RESULT: ENV-FAIL - this interpreter is missing "
+            + ", ".join(missing)
+            + ". Install them for THIS python (pip install "
+            + " ".join(missing)
+            + ") or rerun with the interpreter check_env.py reports as OK."
+        )
+        return 1
+
     root = Path(__file__).resolve().parent.parent
     env = os.environ.copy()
     env["PYTHONUTF8"] = "1"

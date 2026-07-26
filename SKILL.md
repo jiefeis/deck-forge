@@ -165,7 +165,7 @@ for the full instructions before doing it.
 | **Cross-format references** (non-negotiable 7) | | |
 | `references/source-contract.md` | Source-of-truth, file/version, path, encoding, and open-file rules | multiple source files, version comparison, "only one file", Windows paths, source file open in Office/WPS |
 | `references/edit-scope-contract.md` | Target-slide/allowed-change contract and before/after verification | native PPTX edits, "minimal change", selected pages/elements, untouched-slide guarantees |
-| `references/native-redesign-fidelity.md` | Physical/visible/source mapping, mother-draft fidelity, relationship topology, template composition, and safe candidate rebasing | selected-page native redesign, hidden-page offsets, mother drafts, teaching plans, complex loops/flows |
+| `references/native-redesign-fidelity.md` | Physical / visible ordinal / displayed marker / source page mapping, mother-draft fidelity, relationship topology, template composition, and safe candidate rebasing | selected-page native redesign, hidden-page offsets, mother drafts, teaching plans, complex loops/flows |
 | `references/reformat-and-style.md` | Preserve-layout reformat rules and style extraction | reformat/restyle/font/color/background tasks |
 | `references/pptx-native-editing.md` | Native PPTX package, slide order, layout/master, relationship, and hidden-slide guardrails | editing/copying/translating native PPTX |
 | `references/image-and-ocr-input.md` | Image, screenshot, chart-image, and OCR input handling | image-to-slide or screenshot source material |

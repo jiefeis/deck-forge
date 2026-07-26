@@ -190,10 +190,21 @@ python <skill-root>/scripts/transplant_pptx_slides.py \
 The transplant keeps the baseline presentation order, stable IDs, hidden
 state, relationships, notes, layouts, masters, and themes. It remaps referenced
 relationship IDs by type and payload hash and fails closed when the candidate
-introduces an unmatched dependency, an ambiguous page identity, theme/layout
-inheritance, or shape-ID-coupled timing/comments/controls. `cSld` and full-slide
-replacement are not supported. Use explicit `--map source:candidate` when the
-candidate's physical order differs.
+introduces an unmatched dependency, an ambiguous page identity, explicit
+theme/layout markup, shape-ID-coupled timing/comments/controls, or a slide
+part shared by two physical pages. A matching stable slide ID alone is never
+accepted as identity (normalizing tools regenerate IDs positionally): it must
+be corroborated by matching titles, or — when the redesign legitimately
+changed the title — by reviewed `--expect-source-title` /
+`--expect-candidate-title` assertions. `cSld` and full-slide replacement are
+not supported. Use explicit `--map source:candidate` when the candidate's
+physical order differs.
+
+The static theme gate rejects only explicit theme markup; implicit
+inheritance (runs with no direct properties) cannot be excluded statically.
+The tool therefore reports a `required_followup` list — pixel equivalence of
+candidate vs rebased renders and the baseline-scope re-audit — and the
+transplant is not delivery-ready until both are done.
 
 If the redesign introduces an image, SVG, chart, SmartArt, or other dependency
 not already present on the baseline target slide, stop using the transplant

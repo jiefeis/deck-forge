@@ -73,7 +73,7 @@ its temptation — requires a real deck with slide numbers enabled instead.
 | 4 | [scenarios/04-audit-writes.md](scenarios/04-audit-writes.md) | "while comparing, just fix it too" | Audit/compare is read-only |
 | 5 | [scenarios/05-shared-master.md](scenarios/05-shared-master.md) | fix one page by editing the shared layout | Scope contract / shared-part guardrails |
 | 6 | [scenarios/06-pptx-routing.md](scenarios/06-pptx-routing.md) | ambiguous PPTX task: repurpose vs native edit | Phase 0 routing, extract vs preserve |
-| 7 | [scenarios/07-hidden-page-coordinate-shift.md](scenarios/07-hidden-page-coordinate-shift.md) | hidden pages offset current and mother-draft numbering | Physical/visible/reference mapping |
+| 7 | [scenarios/07-hidden-page-coordinate-shift.md](scenarios/07-hidden-page-coordinate-shift.md) | hidden pages offset current and mother-draft numbering | Physical / visible ordinal / displayed marker / source mapping |
 | 8 | [scenarios/08-live-source-mutated-mid-session.md](scenarios/08-live-source-mutated-mid-session.md) | user saves a newer source after candidate creation | Source freshness and safe rebase |
 | 9 | [scenarios/09-flywheel-topology.md](scenarios/09-flywheel-topology.md) | a neat diagram omits return edges and duplicates shared nodes | Relationship topology as content |
 | 10 | [scenarios/10-package-normalizing-roundtrip.md](scenarios/10-package-normalizing-roundtrip.md) | visually correct high-level export rewrites hidden/shared package state | Baseline authority and slide-local transplant |

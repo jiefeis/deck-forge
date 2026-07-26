@@ -12,6 +12,7 @@ import zipfile
 import xml.etree.ElementTree as ET
 from pathlib import Path
 from typing import Callable
+from unittest import mock
 
 
 sys.dont_write_bytecode = True
@@ -499,6 +500,250 @@ class TransplantPptxSlidesTests(unittest.TestCase):
         TRANSPLANT.transplant(source, candidate, output, [(2, 2)])
         with zipfile.ZipFile(output, "r") as archive:
             self.assertEqual(archive.comment, b"baseline-package-comment")
+
+    def test_shared_slide_part_across_pages_is_rejected(self) -> None:
+        # Two sldId entries aliased to ONE slide part: authorizing page 2
+        # would silently rewrite page 1 through the shared part.
+        source, candidate = self.make_source_and_candidate()
+
+        def alias_slide2_to_slide1(data: bytes) -> bytes:
+            root = ET.fromstring(data)
+            for node in root.findall(FIXTURE.q(FIXTURE.REL_NS, "Relationship")):
+                if node.get("Target", "").endswith("slides/slide2.xml"):
+                    node.set("Target", "slides/slide1.xml")
+            return FIXTURE.xml_bytes(root)
+
+        rewrite_package(
+            source,
+            mutate={"ppt/_rels/presentation.xml.rels": alias_slide2_to_slide1},
+        )
+        with self.assertRaisesRegex(
+            TRANSPLANT.TransplantError,
+            "shared by multiple physical pages",
+        ):
+            TRANSPLANT.transplant(
+                source, candidate, self.root / "shared-part.pptx", [(2, 2)]
+            )
+
+    def test_same_regenerated_id_with_different_title_is_rejected(self) -> None:
+        # A normalizing tool can rebuild the deck and reassign the SAME id at
+        # the same physical position; id equality alone must not be identity.
+        source = FIXTURE.make_pptx(
+            self.root / "id-source.pptx",
+            order=(256, 257),
+            texts={
+                256: ["Title B", "Source body"],
+                257: ["Other title", "Other body"],
+            },
+        )
+        candidate = FIXTURE.make_pptx(
+            self.root / "id-candidate.pptx",
+            order=(256, 257),
+            texts={
+                256: ["Title C", "Candidate body"],
+                257: ["Other title", "Other body"],
+            },
+        )
+        remove_placeholder_dependencies(candidate)
+        with self.assertRaisesRegex(
+            TRANSPLANT.TransplantError,
+            "cannot prove page identity",
+        ):
+            TRANSPLANT.transplant(
+                source, candidate, self.root / "id-out.pptx", [(1, 1)]
+            )
+        output = self.root / "pair-out.pptx"
+        report = TRANSPLANT.transplant(
+            source,
+            candidate,
+            output,
+            [(1, 1)],
+            expected_source_titles={1: "Title B"},
+            expected_candidate_titles={1: "Title C"},
+        )
+        self.assertEqual(
+            report["mappings"][0]["identity_evidence"],
+            "explicit-pair-assertion",
+        )
+        self.assertTrue(output.is_file())
+
+    def test_matching_id_needs_matching_title_for_evidence(self) -> None:
+        source = FIXTURE.make_pptx(
+            self.root / "idt-source.pptx",
+            order=(256, 257),
+            texts={
+                256: ["Same title", "Source body"],
+                257: ["Other title", "Other body"],
+            },
+        )
+        candidate = FIXTURE.make_pptx(
+            self.root / "idt-candidate.pptx",
+            order=(256, 257),
+            texts={
+                256: ["Same title", "Rewritten body"],
+                257: ["Other title", "Other body"],
+            },
+        )
+        remove_placeholder_dependencies(candidate)
+        report = TRANSPLANT.transplant(
+            source, candidate, self.root / "idt-out.pptx", [(1, 1)]
+        )
+        self.assertEqual(
+            report["mappings"][0]["identity_evidence"],
+            "stable-slide-id+title",
+        )
+
+    def test_report_is_final_before_publish_and_cleanup_is_best_effort(self) -> None:
+        # Nothing fallible may run after the output is published: the report
+        # (including output_sha256) is built from the validated temporary
+        # file, and a failing temp cleanup must not fail the transplant.
+        source, candidate = self.make_source_and_candidate()
+        output = self.root / "atomic-out.pptx"
+        with mock.patch.object(
+            Path, "unlink", side_effect=OSError("locked by scanner")
+        ):
+            report = TRANSPLANT.transplant(source, candidate, output, [(2, 2)])
+        self.assertEqual(report["status"], "ok")
+        self.assertTrue(output.is_file())
+        self.assertEqual(
+            report["output_sha256"],
+            TRANSPLANT._sha256(output.read_bytes()),
+        )
+
+    def test_inherited_style_gap_is_surfaced_as_required_followup(self) -> None:
+        # Candidate runs carry no direct properties and the themes differ —
+        # the static gate cannot see that, so the report must mandate pixel
+        # equivalence and the baseline-scope re-audit.
+        source, candidate = self.make_source_and_candidate()
+        report = TRANSPLANT.transplant(
+            source, candidate, self.root / "followup-out.pptx", [(2, 2)]
+        )
+        followup = "\n".join(report["required_followup"])
+        self.assertIn("pixel equivalence", followup)
+        self.assertIn("audit_pptx_properties", followup)
+
+    def test_signature_and_vba_parts_are_rejected(self) -> None:
+        source, candidate = self.make_source_and_candidate()
+        rewrite_package(
+            candidate, additions={"_xmlsignatures/sig1.xml": b"<sig/>"}
+        )
+        with self.assertRaisesRegex(
+            TRANSPLANT.TransplantError, "active or signed"
+        ):
+            TRANSPLANT.transplant(
+                source, candidate, self.root / "sig-out.pptx", [(2, 2)]
+            )
+
+        source, candidate = self.make_source_and_candidate()
+        rewrite_package(
+            candidate, additions={"ppt/vbaProject.bin": b"vba"}
+        )
+        with self.assertRaisesRegex(
+            TRANSPLANT.TransplantError, "active or signed"
+        ):
+            TRANSPLANT.transplant(
+                source, candidate, self.root / "vba-out.pptx", [(2, 2)]
+            )
+
+    def test_source_comments_relationship_is_rejected(self) -> None:
+        source, candidate = self.make_source_and_candidate()
+        source_part = FIXTURE.AUDIT.build_manifest(source)["slides"][1]["part"]
+        rels_part = source_part.replace("/slides/", "/slides/_rels/") + ".rels"
+
+        def add_comments_rel(data: bytes) -> bytes:
+            root = ET.fromstring(data)
+            ET.SubElement(
+                root,
+                FIXTURE.q(FIXTURE.REL_NS, "Relationship"),
+                {
+                    "Id": "rIdComments",
+                    "Type": (
+                        "http://schemas.openxmlformats.org/officeDocument/"
+                        "2006/relationships/comments"
+                    ),
+                    "Target": "../comments/comment1.xml",
+                },
+            )
+            return FIXTURE.xml_bytes(root)
+
+        rewrite_package(
+            source,
+            mutate={rels_part: add_comments_rel},
+            additions={
+                "ppt/comments/comment1.xml": b'<?xml version="1.0"?><c/>'
+            },
+        )
+        with self.assertRaisesRegex(
+            TRANSPLANT.TransplantError, "shape-ID-coupled"
+        ):
+            TRANSPLANT.transplant(
+                source, candidate, self.root / "comments-out.pptx", [(2, 2)]
+            )
+
+    def test_ole_dependency_is_rejected_as_unsupported(self) -> None:
+        source, candidate = self.make_source_and_candidate()
+        candidate_part = FIXTURE.AUDIT.build_manifest(candidate)["slides"][1][
+            "part"
+        ]
+        rels_part = candidate_part.replace("/slides/", "/slides/_rels/") + ".rels"
+
+        def mutate_slide(data: bytes) -> bytes:
+            root = ET.fromstring(data)
+            shape_props = root.find(
+                ".//p:sp/p:spPr",
+                {"p": FIXTURE.P_NS, "a": FIXTURE.A_NS},
+            )
+            ET.SubElement(
+                shape_props,
+                FIXTURE.q(FIXTURE.A_NS, "blip"),
+                {FIXTURE.q(FIXTURE.R_NS, "embed"): "rIdOle"},
+            )
+            return FIXTURE.xml_bytes(root)
+
+        def mutate_rels(data: bytes) -> bytes:
+            root = ET.fromstring(data)
+            ET.SubElement(
+                root,
+                FIXTURE.q(FIXTURE.REL_NS, "Relationship"),
+                {
+                    "Id": "rIdOle",
+                    "Type": (
+                        "http://schemas.openxmlformats.org/officeDocument/"
+                        "2006/relationships/oleObject"
+                    ),
+                    "Target": "../embeddings/obj1.bin",
+                },
+            )
+            return FIXTURE.xml_bytes(root)
+
+        rewrite_package(
+            candidate,
+            mutate={candidate_part: mutate_slide, rels_part: mutate_rels},
+            additions={"ppt/embeddings/obj1.bin": b"ole"},
+        )
+        with self.assertRaisesRegex(
+            TRANSPLANT.TransplantError, "unsupported slide dependency"
+        ):
+            TRANSPLANT.transplant(
+                source, candidate, self.root / "ole-out.pptx", [(2, 2)]
+            )
+
+    def test_doctype_in_unparsed_package_xml_is_rejected(self) -> None:
+        source, candidate = self.make_source_and_candidate()
+        rewrite_package(
+            candidate,
+            additions={
+                "customXml/item1.xml": (
+                    b'<?xml version="1.0"?>\n<!DOCTYPE x []>\n<x/>'
+                )
+            },
+        )
+        with self.assertRaisesRegex(
+            TRANSPLANT.TransplantError, "DOCTYPE is not allowed"
+        ):
+            TRANSPLANT.transplant(
+                source, candidate, self.root / "doctype-out.pptx", [(2, 2)]
+            )
 
 
 if __name__ == "__main__":
