@@ -3,6 +3,14 @@
 Read this when the user asks to reformat, restyle, unify fonts/colors, match a
 reference style, or preserve an original deck while improving appearance.
 
+## Contents
+
+- Default interpretation
+- Extract style before editing
+- Apply style without redesign
+- Relayout only when authorized
+- Visual QA
+
 ## Default interpretation
 
 Most "reformat" requests mean:
@@ -15,6 +23,10 @@ Most "reformat" requests mean:
 Do not redesign, move major content blocks, simplify diagrams, add new side
 notes, or change the story unless the user explicitly asks for relayout.
 
+Before editing a native PPTX, freeze the target pages and allowed properties in
+`references/edit-scope-contract.md`. If the user limits the change to background,
+palette, font, or text, all unlisted geometry and content are forbidden changes.
+
 ## Extract style before editing
 
 From the reference pages or deck, capture:
@@ -26,9 +38,22 @@ From the reference pages or deck, capture:
 - font family, title/body sizes, weights, line spacing, and case conventions
 - margins, grid rhythm, column widths, and spacing between object groups
 - chart, table, card, and callout treatment
+- recurring composition archetypes for process, comparison, system, summary,
+  and exercise pages
+- narrative rhythm: where the claim, model/evidence, explanation, conclusion,
+  and transition normally sit
+- expected information density and how the template uses whitespace
 
 Apply these as tokens. Do not infer a completely new design system unless the
-user asked for a redesign.
+user asked for a redesign. Matching only logo, palette, and font is not template
+fidelity when the reference also has a clear composition and teaching rhythm.
+
+When relayout is explicitly authorized, choose the composition from the
+information shape before drawing. Use small multiples for independent flows,
+ownership zones for responsibility boundaries, and one shared backbone with
+explicit split/return edges for feedback systems. Do not turn relationship
+content into a multiline string of arrow characters. For detailed mother-draft
+and graph-topology rules, read `native-redesign-fidelity.md`.
 
 ## Preserve during reformat
 
@@ -55,6 +80,24 @@ before changing it. Verify the hidden state afterwards.
 When the user asks for larger text or says a page looks sparse, treat this as a
 copyfit task, not just a global font multiplier.
 
+- Inventory the deck's actual type roles first: cover title, page title,
+  subtitle, section label, body, caption, footer, and page number. Normalize
+  peers within a role; do not force every role to one size or weight.
+- Resolve explicit run fonts plus theme/master fonts before declaring typography
+  unified. Keep CJK and Latin fallback families intentional and verify that the
+  target app did not substitute them.
+- Inventory only the authorized visible pages first; hidden originals are
+  excluded unless explicitly requested:
+
+  ```bash
+  python <skill-root>/scripts/audit_pptx_typography.py <deck.pptx> \
+    --slides <target-pages> --json
+  ```
+
+  After deriving role tokens from the reference/source, use repeated `--expect`
+  values or `--fail-inconsistent-role` on that same scope. Do not make a whole
+  deck fail because untouched historical pages or hidden backups use a different
+  type system.
 - Increase peer elements consistently, then render every changed page.
 - Watch for orphan characters, awkward word breaks, line collisions, and labels
   merging into descriptions.

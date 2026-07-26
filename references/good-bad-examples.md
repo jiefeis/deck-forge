@@ -3,23 +3,66 @@
 Read this when deciding how to handle ambiguous reformat, translation, image, or
 cross-format deck tasks.
 
+## Contents
+
+- Reformat and scope control
+- PPTX version comparison
+- PPTX page numbers and footers
+- Translation and copyfit
+- Image-based material
+- PDF/HTML output
+- Slide copy and font enlargement
+
 ## Reformat
 
 Good:
 
+- Classify an existing-PPTX request as Native edit, freeze target slides and
+  allowed properties, and compare the result against the baseline manifest.
+- Render baseline/final with the same engine and fail unauthorized page-level
+  pixel changes before relying on a contact sheet.
+- Pair the page-level check with a property scope so a background/font task
+  cannot silently alter text, geometry, media, notes, or animation.
 - Extract style tokens from reference slides, then apply background, typography,
   and palette while preserving layout.
+- Before adding or merging slides, inventory same-role typography across the
+  target deck and resolve any inconsistent canon instead of sampling one page.
 - Keep original object positions unless text no longer fits.
 - Duplicate and hide original pages when the user asks for a backup/comparison.
-- Render reference and target pages side by side before delivery.
+- Verify every hidden copy against its source using both OOXML dependency hashes
+  and explicit cross-page pixel comparison before delivery.
+- When hidden pages offset a mother draft, record physical page, visible
+  ordinal, stable ID, title, and reference page before editing.
+- Express a feedback system as one shared backbone plus explicit split and
+  return edges; trace the final graph against the source adjacency list.
+- If a high-level authoring tool normalizes the package, keep its output as a
+  visual candidate and transplant only the authorized slide-local component
+  onto the baseline.
+- Recheck the live source hash before overwriting and verify that the delivered
+  file hash equals the audited candidate.
 
 Bad:
 
+- Run `extract_pptx.py` and rebuild HTML when the user asked for a native,
+  minimal PPTX edit; hidden backups and layout fidelity will be lost.
+- Inspect a few pages or only changed pages after a shared layout/theme edit.
+- Treat `--allow-slides 3,7` as permission to change anything on pages 3 and 7.
 - Redesign every slide into a new composition when the user only asked for
   background/color/font changes.
 - Add a right-side explanation box that did not exist in the source layout.
 - Change page order because XML slide filenames appear out of sequence.
 - Update a shared PPTX layout and accidentally affect unrelated pages.
+- Check only that backup pages are hidden without proving they still match the
+  pre-edit originals and their dependent images/charts/notes.
+- Copy foreign-font slides into an inconsistent target deck without first
+  comparing Latin/East-Asian typefaces, sizes, and unresolved theme fonts.
+- Treat physical page 31 as mother-draft page 31 after a hidden page was
+  inserted, despite mismatched title/content anchors.
+- Duplicate the shared D/A nodes to make two open rows and call them a
+  "double flywheel" without visible return edges.
+- Overwrite a source the user changed mid-session with a stale candidate.
+- Silence order/hidden/master churn with `--allow-shared` because untouched
+  slide renders happen to be pixel-identical.
 
 ## PPTX version comparison
 
@@ -44,6 +87,7 @@ Good:
 
 - Audit page-number sources in slides, slide layouts, and slide masters before
   adding or resizing page numbers.
+- Choose physical or visible numbering explicitly when hidden slides exist.
 - Treat both `<p:ph type="sldNum">` placeholders and `<a:fld type="slidenum">`
   fields as page-number sources.
 - If using custom direct page numbers, remove inherited layout/master page
@@ -51,6 +95,8 @@ Good:
 
 Bad:
 
+- Trust a default audit that does not fail on duplicate direct markers, or bake a
+  project-specific shape name/font size into a supposedly generic command.
 - Add direct page-number text boxes while native layout/master page numbers are
   still active.
 - Claim there are no duplicates after checking only `ppt/slides/slide*.xml`.
@@ -61,6 +107,10 @@ Bad:
 
 Good:
 
+- Produce a source/target manifest and account for every title, label, body box,
+  caption, and footnote before judging the translation complete.
+- For a rebuilt chart, approve overlay/missing text boxes with page-scoped,
+  reviewed translation-exception rules that fail when unused.
 - Translate the message into concise, natural target-language phrasing.
 - EN→ZH: render "Ship early, learn fast" as 「尽早发布，快速验证」 — what a
   Chinese presenter would actually say.
@@ -72,6 +122,8 @@ Good:
 Bad:
 
 - Translate literally and leave awkward phrasing.
+- Silence all extra/missing text boxes with a broad wildcard instead of mapping
+  or reviewing the intentional chart reconstruction.
 - EN→ZH: render "Ship early, learn fast" as 「运送早，学习快」 — a
   word-for-word gloss.
 - Split a source headline into a theme label plus side note when the source uses

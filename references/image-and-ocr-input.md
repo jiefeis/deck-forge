@@ -20,6 +20,11 @@ or when images must become deck pages.
   harder to inspect.
 - Check image resolution after cropping and scaling.
 - Avoid blurry enlarged screenshots.
+- Size by authored display pixels, not source file size. Charts, UI, and text
+  screenshots should retain at least 2× their displayed dimensions for the
+  default PDF export and stay lossless; photos may use high-quality JPEG.
+- Crop a complex chart to the required data region before placing editable labels
+  around it. Keep curves, axes, legends, and annotations unobscured.
 
 ## OCR and transcription
 

@@ -15,7 +15,9 @@ from __future__ import annotations
 
 import importlib
 import importlib.metadata as _md
+import os
 import sys
+from pathlib import Path
 
 
 def _check_module(mod: str, pip_name: str) -> bool:
@@ -33,6 +35,21 @@ def _check_module(mod: str, pip_name: str) -> bool:
 
 
 def main() -> None:
+    import argparse
+    ap = argparse.ArgumentParser(description=__doc__)
+    ap.add_argument("--browser-executable", metavar="PATH",
+                    help="use an existing Chromium/Chrome executable for the "
+                         "launch check")
+    args = ap.parse_args()
+    raw_browser = (args.browser_executable
+                   or os.environ.get("DECK_FORGE_BROWSER_EXECUTABLE"))
+    browser_executable = (Path(raw_browser).expanduser().resolve()
+                          if raw_browser else None)
+    if browser_executable is not None and not browser_executable.is_file():
+        sys.exit("check_env: --browser-executable is not a file "
+                 "(or DECK_FORGE_BROWSER_EXECUTABLE): "
+                 f"{browser_executable}")
+
     print(f"deck-forge env check  (python: {sys.executable})")
     ok = True
     for mod, pip_name in (("playwright", "playwright"),
@@ -48,12 +65,21 @@ def main() -> None:
         print("  ----  python-pptx (optional, only for .pptx input) "
               "-> pip install python-pptx")
 
+    try:
+        import PIL  # noqa: F401
+        print("  OK    Pillow (optional, image/contact-sheet tools)")
+    except Exception:
+        print("  ----  Pillow (optional, image/contact-sheet tools) "
+              "-> pip install Pillow")
+
     # Chromium browser binary: surest check is a quick headless launch.
     if ok:
         try:
             from playwright.sync_api import sync_playwright
             with sync_playwright() as p:
-                b = p.chromium.launch()
+                launch_args = ({} if browser_executable is None
+                               else {"executable_path": str(browser_executable)})
+                b = p.chromium.launch(**launch_args)
                 b.close()
             print("  OK    chromium browser")
         except Exception as e:

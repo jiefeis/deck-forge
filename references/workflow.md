@@ -2,17 +2,33 @@
 
 Detailed Phase 0–6 reference for `SKILL.md`. The main file holds the trigger,
 non-negotiables, preflight/commands, and one-line-per-step routing; this file is
-the expanded version of each step. Read it for any generation run (Phase 0–6).
+the expanded version of each step. Read it for **Generate mode only** (Phase
+0–6). Native PPTX edits and read-only comparisons use the cross-format route in
+`SKILL.md` and do not enter these phases.
 
 Script commands below use `<skill-root>/` — the absolute path of the folder
 containing `SKILL.md`, as defined in its Preflight section (do not use `~` on
 Windows). Write generated deck HTML/PDF into the **user's** working directory.
 
+## Contents
+
+- Design Aesthetics
+- Phase 0: intake and generation-only PPTX input
+- Phase 1: map the storyline
+- Phase 2: style discovery
+- Phase 3: generate the HTML deck
+- Phase 4: render and verify the PDF
+- Phase 5: deliver
+- Phase 6: edit the words
+
 ## Design Aesthetics
 
 You tend to converge toward generic, "on-distribution" output — the "AI slop"
-look. Resist it. Choose beautiful, unusual typography (Fontshare / Google Fonts,
-never system fonts). Commit to a cohesive palette with dominant colors and sharp
+look. Resist it. Choose beautiful, deliberate typography — webfonts from
+Fontshare / Google Fonts by default; a brand or locally installed font is right
+when the user's brand, offline delivery, or CJK glyph coverage requires it, and
+a default-look font picked out of convenience is never right. Commit to a
+cohesive palette with dominant colors and sharp
 accents over timid even distributions; draw from IDE themes and cultural
 aesthetics. Use motion for high-impact moments (one staggered page-load reveal
 beats scattered micro-interactions). Build atmosphere with layered gradients,
@@ -29,8 +45,11 @@ for what is genuinely missing.
 
 1. **Materials** — the content. Could be: pasted notes, an outline, a file/folder,
    a `.pptx`, or just a topic. If it's a `.pptx`, see "PPTX input" below. If it's
-   "topic only", you will draft the content in Phase 3 (and should keep claims
-   generic / clearly illustrative rather than fabricating specifics).
+   "topic only", you will draft the content in Phase 3. Drafting boundary:
+   framing, explanations, and clearly illustrative examples are fine; invented
+   specifics presented as real are not — no fabricated numbers, dates, named
+   customers, quotes, or benchmark claims. A fact only the user can supply gets
+   an explicit placeholder (e.g. "[Q3 revenue]"), not a plausible guess.
 2. **Theme** — the subject AND/OR the desired look. "A theme" may mean the
    subject matter, a vibe ("clean and corporate", "bold and editorial"), or a
    named preset/template. Capture whatever the user gave.
@@ -42,17 +61,21 @@ structured-question UI if available):
 - **Length** — short (5–10) / medium (10–20) / long (20+)
 - **Density** — *speaker-led* (big ideas, few words, more slides) vs
   *reading-first* (self-contained, denser slides). This drives slide count, type
-  scale, and words per slide. See `AUTHORING.md` §2 and §5.
+  scale, and words per slide. See `AUTHORING.md` → "Plan the page sequence".
 
 If the user already implied any of these, don't re-ask — proceed.
 
-### PPTX input (optional)
+### PPTX input for a new generated deck (optional)
 
-If materials include a `.pptx`:
-`python <skill-root>/scripts/extract_pptx.py <input.pptx> <output_dir>`
+Use this only when the user wants to repurpose visible PPTX content into a new
+HTML/PDF deck. Do not use it for source-preserving native edits, reordering,
+translation, font cleanup, hidden backups, or minimal changes.
+
+`python <skill-root>/scripts/extract_pptx.py <input.pptx> <output_dir> --visible-only`
 (needs `pip install python-pptx`). It writes `extracted-slides.json` + an
 `assets/` folder of images. Summarize the extracted titles/content/images for the
-user, then treat that as the materials and continue.
+user, confirm that hidden pages were excluded, then treat that as the materials
+and continue.
 
 ### Reformat / cross-format input
 
@@ -66,19 +89,24 @@ it for native slide edits; otherwise follow `references/pptx-native-editing.md`
 to edit the OOXML directly and audit with
 `<skill-root>/scripts/audit_pptx_page_numbers.py`.
 
+If the selected mode is Native edit or Audit/compare, stop this generation
+workflow here. Follow `references/edit-scope-contract.md` and the relevant
+cross-format references instead of Phase 1–6.
+
 ---
 
 ## Phase 1: Map the storyline
 
 Before any design, read ALL the materials and lay out the deck structure
-(`AUTHORING.md` §1):
+(`AUTHORING.md` → "Establish the source boundary" and "Plan the page
+sequence"):
 
 - How many sections? How many points per section?
 - For each page, name its **information shape** (parallel items / contrast / data
   / timeline / hierarchy / single stat / quote / explanation+visual / chapter
   break), then pick a matching layout from `LAYOUTS.md`.
 - Decide deck rhythm: cover → (agenda if long) → sections → content sized to
-  shape → closing (`AUTHORING.md` §5).
+  shape → closing (`AUTHORING.md` → "Plan the page sequence").
 
 Confirm the outline with the user (one structured question: looks good / adjust
 outline / adjust scope). If images were provided, co-design the outline around
@@ -144,18 +172,35 @@ Build the full deck using the Phase 1 outline + Phase 2 style.
 - The selected bold template's `design.md` (if one was chosen).
 
 **Requirements:**
-- Single self-contained HTML file; all CSS/JS inline; assets relative or base64.
+- One HTML entrypoint with all CSS/JS inline; assets may be embedded or stored in
+  a local relative assets folder served alongside it.
 - Include the FULL `viewport-base.css` so `.slide`/`.active` and the print stage
   behave correctly (the PDF exporter relies on `.slide` + `.active`).
 - Every slide is a `<section class="slide">` (or `<div class="slide">`) inside the
   `.deck-stage`. Use `.reveal` for load-in animations.
-- Fonts from Fontshare/Google Fonts, never system fonts.
-- One coherent design system across all slides (`AUTHORING.md` §4).
+- Fonts: Fontshare/Google Fonts webfonts by default; brand or locally installed
+  fonts when brand, offline delivery, or CJK glyph coverage requires them. Verify
+  the chosen fonts actually load — a fallback-rendered deck fails Phase 4.
+- One coherent design system across all slides (`AUTHORING.md` → "Build one
+  visual system").
 - Comment each section: `/* === SECTION NAME === */`.
 
-**Then self-check against `AUTHORING.md`:** the empty-bottom test (§2), no
-overflow/overlap (§3), no fabricated content to fill layouts (§1). The Phase 4
-PDF render is itself the visual verification — inspect the pages.
+**Then self-check against `AUTHORING.md`:** the accidental-void and
+overflow/overlap rules ("Fit content without fabrication"), and the
+no-fabrication source boundary ("Establish the source boundary"). Then run
+the deterministic audit before rendering:
+
+```bash
+python <skill-root>/scripts/audit_html_slides.py <deck-name>/index.html
+```
+
+It fails hard on clipped text, text crossing the stage boundary, broken
+images, failed fonts, wrong slide geometry, and blank slides — fix those in
+the HTML before exporting (deliberate bleed past the stage edge or a
+deliberate text mask can be excused with `--allow-offstage-text` /
+`--allow-clipped-text` after you have looked at it). Treat its warnings
+(text overlap, empty bottom) as a checklist for the visual pass. It cannot
+judge design intent: the Phase 4 page-by-page inspection still happens.
 
 Save the deck to a working folder, e.g. `<deck-name>/index.html`.
 
@@ -179,9 +224,12 @@ python <skill-root>/scripts/export_pdf.py <deck-name>/index.html [<deck-name>/<d
   JPEG — fix it.)
 - Requires `playwright` + `img2pdf` and a Chromium binary
   (`python -m playwright install chromium`, one-time ~150MB download).
-- **Fonts must finish loading before screenshots** — missing fonts change line
-  breaks and metrics. If a page renders with fallback fonts, fix the font
-  loading and re-export.
+- **Font/asset failures fail the export** — a failed font, stylesheet, image,
+  or script request (or an errored FontFace) means the capture would silently
+  use fallback fonts or missing assets, which changes line breaks and metrics.
+  The exporter aborts by default; fix the loading problem instead of reaching
+  for `--ignore-resource-errors`. Pin the families the design depends on with
+  `--require-font "<Family>"` (repeatable).
 - File size: ~0.7MB/slide at 2×. For a smaller file (email/Slack) use
   `--compact` (= `--scale 1`, ~half the size, still lossless and crisp at 100%),
   or `--scale 3` for print. Offer `--compact` if the PDF exceeds ~10MB.
@@ -216,7 +264,23 @@ checks alone.
    final state.
 4. Offer the natural next steps: edit the words (Phase 6), revise
    content/structure, retheme (re-run Phase 2 + 3), or re-export `--compact` for a
-   smaller file. Re-running Phase 4 after any HTML edit regenerates the PDF.
+   smaller file. Any HTML edit goes back through the audit gate
+   (`audit_html_slides.py`, Phase 3) and then Phase 4 — an edit can introduce
+   exactly the clipped/offstage overflow the gate detects.
+
+For a revision round, produce page-level evidence of what changed instead of
+asking the user to eyeball two PDFs: export each version with
+`--keep-pngs <scratch>/v1` / `--keep-pngs <scratch>/v2`, then
+
+```bash
+python <skill-root>/scripts/make_contact_sheet.py \
+  --row v1=<scratch>/v1 --row v2=<scratch>/v2 --output <scratch>/diff.png
+python <skill-root>/scripts/audit_rendered_pages.py \
+  <scratch>/v1 <scratch>/v2 --allow-slides <changed-pages>
+```
+
+The pixel audit proves only the intended pages changed (same-slide-count
+revisions; if the page count changed, use the contact sheet alone).
 
 ---
 
@@ -224,7 +288,7 @@ checks alone.
 
 Because the PDF is a screenshot, its text is not editable in the PDF itself — you
 change the words in the source and re-export. `scripts/edit_texts.py` makes this a
-clean one-file round-trip (rollingai's `data-text-id` mechanism, with IDs
+clean one-file round-trip (the bundled `data-text-id` mechanism, with IDs
 auto-injected so it works on any deck):
 
 ```bash
@@ -233,7 +297,9 @@ python <skill-root>/scripts/edit_texts.py extract <deck>/index.html
 # 2. the user edits <deck>/index.texts.md (change words; leave the id-marker comments)
 # 3. write the edits back into the HTML
 python <skill-root>/scripts/edit_texts.py apply <deck>/index.html <deck>/index.texts.md
-# 4. regenerate the PDF
+# 4. re-run the audit gate (longer wording can newly clip or overflow), then
+#    regenerate the PDF
+python <skill-root>/scripts/audit_html_slides.py <deck>/index.html
 python <skill-root>/scripts/export_pdf.py <deck>/index.html
 ```
 
@@ -247,4 +313,3 @@ python <skill-root>/scripts/export_pdf.py <deck>/index.html
   **not bundled** in this skill — `edit_texts.py` is the supported text-editing
   path here. If a user specifically wants click-to-edit in the browser, add the
   edit-mode JS to the generated HTML on request; don't assume it's already there.
-

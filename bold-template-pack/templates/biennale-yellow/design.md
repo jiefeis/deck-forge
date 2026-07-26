@@ -223,6 +223,15 @@ components:
     description: "Large serif date or date-range stacked at top-right of cover surfaces. Uses an en-dash to indicate spans."
 ---
 
+## Contents
+
+- Fixed-stage policy and overview
+- Colors and typography
+- Layout, depth, shapes, and treatments
+- Do's, don'ts, and source responsive behavior
+- CJK and international content
+- Iteration guide and known gaps
+
 ## deck-forge Fixed-Stage Policy
 
 When this design system is used by the `deck-forge` skill, generate the final deck as a **fixed 1920×1080 stage** that scales uniformly to the browser viewport. The deck should preserve a 16:9 slide canvas on every screen, including phones; it may letterbox or pillarbox, but it should not reflow slide content for mobile.

@@ -23,10 +23,27 @@ Resource-safe: the temp screenshot dir and the browser are always cleaned up
 (finally blocks), and the served URL is percent-encoded so filenames with
 spaces / CJK / # / ? work.
 
+Fail-closed on degraded rendering: a failed font/stylesheet/image/script
+request or an errored FontFace means the capture would silently use fallback
+fonts or missing assets, so the export aborts by default
+(--ignore-resource-errors downgrades this to a warning). --require-font
+asserts a specific family actually resolved before anything is captured.
+
 Usage:
     python export_pdf.py <input.html> [output.pdf] [--scale N] [--compact]
-      --scale N   device scale factor (default 2; sharper + bigger file)
-      --compact   shortcut for --scale 1 (about half the size, still lossless)
+                         [--browser-executable PATH] [--require-font FAMILY]... [--keep-pngs DIR]
+                         [--ignore-resource-errors]
+      --scale N       device scale factor (default 2; sharper + bigger file)
+      --compact       shortcut for --scale 1 (about half the size, still lossless)
+      --browser-executable PATH
+                      use an existing Chromium/Chrome executable when the
+                      installed Playwright package expects a different cache
+                      revision
+      --require-font  assert this font family resolved (repeatable)
+      --keep-pngs DIR also save the per-slide PNGs (slide-NNN.png) into DIR for
+                      v1/v2 comparison via make_contact_sheet.py /
+                      audit_rendered_pages.py
+      --ignore-resource-errors  report font/asset failures but export anyway
 
 Requires: pip install playwright img2pdf  +  python -m playwright install chromium
 """
@@ -34,6 +51,7 @@ from __future__ import annotations
 
 import argparse
 import http.server
+import os
 import shutil
 import socketserver
 import sys
@@ -89,6 +107,34 @@ _ACTIVATE_JS = r"""
 }
 """
 
+# document.fonts.check() returns true for families with NO registered FontFace
+# (the spec treats them as system fonts), so it cannot assert availability.
+# Metrics can: a family that fails to resolve falls to the browser's
+# last-resort font — the same place a guaranteed-nonexistent family lands —
+# so equal probe widths mean the family did not load. (Comparing serif vs
+# monospace fallbacks does NOT work: Playwright's bundled Chromium maps both
+# generics to one last-resort font on Windows.)
+_FONT_AVAILABLE_JS = r"""
+(family) => {
+  const GENERIC = ['serif', 'sans-serif', 'monospace', 'cursive', 'fantasy',
+                   'system-ui', 'ui-serif', 'ui-sans-serif', 'ui-monospace',
+                   'ui-rounded', 'math'];
+  if (GENERIC.includes(family.trim().toLowerCase())) return true;
+  const measure = (name) => {
+    const s = document.createElement('span');
+    s.style.cssText = 'position:absolute;left:-99999px;top:0;' +
+                      'visibility:hidden;font-size:64px;white-space:pre';
+    s.style.fontFamily = name;
+    s.textContent = 'mmmmmwwwwwiiiii10101';
+    document.body.appendChild(s);
+    const w = s.getBoundingClientRect().width;
+    s.remove();
+    return w;
+  };
+  return measure(JSON.stringify(family)) !== measure('"__deckforge_nonexistent__"');
+}
+"""
+
 # Force load-in animations to their final state (triggers don't fire in a
 # headless single-shot capture).
 _FORCE_REVEAL_JS = r"""
@@ -118,20 +164,78 @@ def _start_server(serve_dir: Path):
     return httpd, httpd.server_address[1]
 
 
-def _capture(port: int, html_name: str, tmp: Path, scale: int) -> list[str]:
+def resolve_browser_executable(raw: str | None) -> Path | None:
+    """Resolve an explicit or shared browser path before Playwright launches."""
+    raw = raw or os.environ.get("DECK_FORGE_BROWSER_EXECUTABLE")
+    if not raw:
+        return None
+    path = Path(raw).expanduser().resolve()
+    if not path.is_file():
+        sys.exit("deck-forge: --browser-executable is not a file "
+                 "(or DECK_FORGE_BROWSER_EXECUTABLE): "
+                 f"{path}")
+    return path
+
+
+def _flush_resource_failures(failures: list[str], ignore: bool) -> None:
+    """Fail closed on font/asset problems; --ignore-resource-errors downgrades."""
+    if not failures:
+        return
+    label = "WARNING (ignored)" if ignore else "ERROR"
+    for failure in dict.fromkeys(failures):          # de-duped, order kept
+        print(f"  {label}: {failure}")
+    if not ignore:
+        sys.exit("export_pdf: the failures above would produce a silently "
+                 "degraded PDF (fallback fonts / missing assets). Fix them or "
+                 "rerun with --ignore-resource-errors.")
+    failures.clear()
+
+
+def _capture(port: int, html_name: str, tmp: Path, scale: int,
+             require_fonts: tuple[str, ...] = (),
+             ignore_resource_errors: bool = False,
+             browser_executable: Path | None = None) -> list[str]:
     """Screenshot every slide; returns the PNG paths. Browser always closed."""
     W, H = 1920, 1080
     shots: list[str] = []
+    # Resource types whose failure visibly degrades the capture.
+    tracked = {"stylesheet", "font", "image", "media", "script"}
+    failures: list[str] = []
     with sync_playwright() as p:
-        browser = p.chromium.launch()
+        launch_args = ({} if browser_executable is None
+                       else {"executable_path": str(browser_executable)})
+        browser = p.chromium.launch(**launch_args)
         try:
             page = browser.new_page(viewport={"width": W, "height": H},
                                     device_scale_factor=scale)
+            # ERR_ABORTED is routinely benign (media range requests, cancelled
+            # speculative loads); real font damage still surfaces via the
+            # FontFace status check below.
+            page.on("requestfailed", lambda req: failures.append(
+                f"request failed: [{req.resource_type}] {req.url} ({req.failure})")
+                if req.resource_type in tracked
+                and "ERR_ABORTED" not in str(req.failure or "") else None)
+            page.on("response", lambda resp: failures.append(
+                f"HTTP {resp.status}: [{resp.request.resource_type}] {resp.url}")
+                if resp.status >= 400 and resp.request.resource_type in tracked
+                else None)
             page.goto(f"http://127.0.0.1:{port}/{quote(html_name)}",
                       wait_until="networkidle")
             page.add_style_tag(content=EXPORT_CSS)
             page.evaluate("() => document.fonts.ready")
             page.wait_for_timeout(1200)
+
+            # fonts.ready resolving does NOT mean the fonts loaded — a 404'd or
+            # corrupt FontFace still resolves it and the page silently renders
+            # with fallback fonts, changing metrics and line breaks.
+            failures.extend(page.evaluate(
+                "() => [...document.fonts]"
+                ".filter(f => f.status === 'error')"
+                ".map(f => `font failed to load: ${f.family} ${f.style} ${f.weight}`)"))
+            for family in require_fonts:
+                if not page.evaluate(_FONT_AVAILABLE_JS, family):
+                    failures.append(f"required font not available: {family}")
+            _flush_resource_failures(failures, ignore_resource_errors)
 
             count = page.evaluate("() => document.querySelectorAll('.slide').length")
             if not count:
@@ -149,17 +253,40 @@ def _capture(port: int, html_name: str, tmp: Path, scale: int) -> list[str]:
                                 clip={"x": 0, "y": 0, "width": W, "height": H})
                 shots.append(str(shot))
                 print(f"  Captured slide {i + 1}/{count}")
+            # Slide activation can trigger lazy per-slide asset loads; give
+            # in-flight requests a moment to fail before the final check (a
+            # stall longer than this can still slip through — the audit
+            # script's broken-image check is the second line of defense).
+            page.wait_for_timeout(250)
+            _flush_resource_failures(failures, ignore_resource_errors)
         finally:
             browser.close()
     return shots
 
 
-def export(input_html: Path, output_pdf: Path, scale: int) -> None:
+def export(input_html: Path, output_pdf: Path, scale: int,
+           require_fonts: tuple[str, ...] = (),
+           ignore_resource_errors: bool = False,
+           keep_pngs: Path | None = None,
+           browser_executable: Path | None = None) -> None:
     W, H = 1920, 1080
     httpd, port = _start_server(input_html.parent)
     tmp = Path(tempfile.mkdtemp(prefix="deckforge-"))
     try:
-        shots = _capture(port, input_html.name, tmp, scale)
+        shots = _capture(port, input_html.name, tmp, scale,
+                         require_fonts, ignore_resource_errors,
+                         browser_executable)
+
+        if keep_pngs is not None:
+            keep_pngs.mkdir(parents=True, exist_ok=True)
+            # A previous export's extra pages would corrupt v1/v2 comparison.
+            for stale in keep_pngs.glob("slide-*.png"):
+                stale.unlink()
+            for shot in shots:
+                shutil.copy2(shot, keep_pngs / Path(shot).name)
+            print(f"  Kept {len(shots)} per-slide PNGs in {keep_pngs} "
+                  "(compare versions with make_contact_sheet.py / "
+                  "audit_rendered_pages.py)")
 
         print("  Assembling PDF (lossless)...")
         output_pdf.parent.mkdir(parents=True, exist_ok=True)
@@ -177,6 +304,11 @@ def export(input_html: Path, output_pdf: Path, scale: int) -> None:
 
 
 def main() -> None:
+    # Failure details can echo font family names and CJK paths; never let a
+    # cp936 console pipe kill the export with UnicodeEncodeError.
+    for stream in (sys.stdout, sys.stderr):
+        if hasattr(stream, "reconfigure"):
+            stream.reconfigure(errors="replace")
     ap = argparse.ArgumentParser(description="Export an HTML deck to a crisp screenshot PDF.")
     ap.add_argument("input_html")
     ap.add_argument("output_pdf", nargs="?")
@@ -185,6 +317,17 @@ def main() -> None:
                       help="device scale factor (default 2; sharper + larger)")
     size.add_argument("--compact", action="store_true",
                       help="shortcut for --scale 1 (smaller file, still lossless)")
+    ap.add_argument("--browser-executable", metavar="PATH",
+                    help="use an existing Chromium/Chrome executable instead of "
+                         "Playwright's managed browser")
+    ap.add_argument("--require-font", action="append", default=[],
+                    metavar="FAMILY",
+                    help="assert this font family resolved before capturing "
+                         "(repeatable)")
+    ap.add_argument("--keep-pngs", metavar="DIR",
+                    help="also save the per-slide PNGs (slide-NNN.png) into DIR")
+    ap.add_argument("--ignore-resource-errors", action="store_true",
+                    help="report font/asset load failures but export anyway")
     args = ap.parse_args()
 
     input_html = Path(args.input_html).resolve()
@@ -194,8 +337,18 @@ def main() -> None:
                   else input_html.with_suffix(".pdf"))
     scale = 1 if args.compact else max(1, args.scale)
 
+    browser_executable = resolve_browser_executable(args.browser_executable)
+
+    keep_pngs = Path(args.keep_pngs).resolve() if args.keep_pngs else None
+    if keep_pngs is not None and keep_pngs.exists() and not keep_pngs.is_dir():
+        sys.exit(f"export_pdf: --keep-pngs target is not a directory: {keep_pngs}")
+
     print(f"Exporting {input_html.name} -> {output_pdf.name} (scale {scale})")
-    export(input_html, output_pdf, scale)
+    export(input_html, output_pdf, scale,
+           require_fonts=tuple(args.require_font),
+           ignore_resource_errors=args.ignore_resource_errors,
+           keep_pngs=keep_pngs,
+           browser_executable=browser_executable)
 
 
 if __name__ == "__main__":

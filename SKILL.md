@@ -1,17 +1,16 @@
 ---
 name: deck-forge
 description: >-
-  Build design-rich slide/deck-style PDF presentations from notes, outlines,
-  docs, images, screenshots, HTML, PDFs, PPTX files, or topics plus a theme/look.
-  Use for visual decks, deck-like reformat/restyle work, visual slide QA, and
-  deck copy polish when slide language sounds too AI-generated or presenter copy
-  needs to become more natural while preserving layout. Also use for
-  prompts such as "做成PDF演示/幻灯片/deck" or "turn this into slides". Do NOT use
-  for plain reports, contracts, forms, resumes, spreadsheets, or PDFs needing
-  flowing prose/selectable body text. Produces a self-contained 1920x1080 HTML
-  deck as the editable intermediate and a crisp lossless screenshot PDF as the
-  deliverable; native PPTX edit/polish tasks keep the edited .pptx as the
-  deliverable instead.
+  Build, minimally edit, compare, and verify visual decks from notes, images,
+  screenshots, HTML, PDF, or PPTX. Use for three modes: new HTML/PDF deck
+  generation; source-preserving native PPTX reformat, translation, or copy
+  polish; and read-only deck/version comparison plus visual QA. Also use when
+  slide language sounds AI-generated or prompts say "做成PDF演示/幻灯片/deck" or
+  "turn this into slides". Do NOT use for plain reports, contracts, forms,
+  resumes, spreadsheets, or flowing-prose PDFs. Generation mode uses one
+  1920x1080 HTML entrypoint and delivers a lossless screenshot PDF. Native PPTX
+  mode preserves the source package/layout and delivers the edited .pptx; never
+  rebuild a native-edit request through HTML.
 ---
 
 <!-- Maintainers: when editing the frontmatter description above, check that
@@ -19,15 +18,16 @@ description: >-
 
 # deck-forge
 
-Give it **materials + a theme**, get back a **design-rich PDF deck**. deck-forge
-authors a single self-contained 1920×1080 HTML deck (distinctive design, no "AI
-slop"), then renders a crisp **lossless screenshot PDF** — the PDF is the
-deliverable; the HTML is an editable intermediate.
+Choose the artifact mode before touching a file:
 
-Fuses **frontend-slides** (brand-free design engine: visual style discovery,
-fixed-stage HTML, presets + bold templates) with **rollingai-decks** (structure +
-discipline: a layout taxonomy, authoring rules, and a `data-text-id` text
-round-trip for editing every word in one file).
+- **Generate** — turn materials into a new 1920×1080 HTML deck and lossless PDF.
+- **Native edit** — minimally edit an existing PPTX while preserving its package,
+  page order, hidden slides, geometry, and requested output format.
+- **Audit/compare** — inspect versions, translations, or rendered pages without
+  modifying the source.
+
+Only **Generate** follows the HTML Phase 0–6 workflow. Native edit and
+Audit/compare use the cross-format references and audit scripts below.
 
 > **Full step-by-step detail lives in [references/workflow.md](references/workflow.md).**
 > This file is the entry point: trigger, non-negotiables, commands, and routing.
@@ -43,51 +43,106 @@ HTML/PDF into the **user's** working directory, never the skill folder.
 ```bash
 # Verify deps once per Python environment (then install anything it flags):
 python <skill-root>/scripts/check_env.py
-#   pip install playwright img2pdf lxml   (+ python-pptx for .pptx input)
+#   pip install playwright img2pdf lxml Pillow   (+ python-pptx for .pptx input)
 #   python -m playwright install chromium
 
-# Export the deck to PDF (the deliverable):
-python <skill-root>/scripts/export_pdf.py <deck>/index.html [out.pdf] [--compact | --scale N]
+# Deterministic pre-export audit of the generated HTML deck (Phase 3→4 gate):
+python <skill-root>/scripts/audit_html_slides.py <deck>/index.html
+
+# Export the deck to PDF (the deliverable; fails closed on font/asset errors):
+python <skill-root>/scripts/export_pdf.py <deck>/index.html [out.pdf] [--compact | --scale N] [--browser-executable PATH]
+
+# On Windows, when Playwright's managed Chromium cache is missing or mismatched,
+# reuse an existing local chrome.exe with this flag (or set DECK_FORGE_BROWSER_EXECUTABLE
+# once for both audit and export); only download when none launches.
 
 # Edit all deck text in one file, then re-export:
 python <skill-root>/scripts/edit_texts.py extract <deck>/index.html
 python <skill-root>/scripts/edit_texts.py apply   <deck>/index.html <deck>/index.texts.md
 
-# Optional: import a .pptx as source material:
-python <skill-root>/scripts/extract_pptx.py <in.pptx> <out_dir>
+# Optional, GENERATE mode only: use visible PPTX pages as source material:
+python <skill-root>/scripts/extract_pptx.py <in.pptx> <out_dir> --visible-only
+
+# Native PPTX baseline / after-edit structural audit:
+python <skill-root>/scripts/audit_pptx_structure.py manifest <deck.pptx>
+python <skill-root>/scripts/audit_pptx_structure.py compare <before.pptx> <after.pptx> --allow-slides <target-pages>
+
+# Rebase approved slide-local work from a package-normalizing candidate:
+python <skill-root>/scripts/transplant_pptx_slides.py \
+  <baseline.pptx> <candidate.pptx> <rebased.pptx> \
+  --pages <target-pages> --component shape-tree
+
+# Enforce the exact property families allowed on each target slide:
+python <skill-root>/scripts/audit_pptx_properties.py <before.pptx> <after.pptx> --scope <scope.json>
+
+# Prove explicitly mapped hidden backups still match their source originals:
+python <skill-root>/scripts/audit_pptx_backups.py <source.pptx> <final.pptx> --map <source-page>:<backup-page>
+
+# Page-number audit (strict auto mode; add expected name/size only when known):
+python <skill-root>/scripts/audit_pptx_page_numbers.py <deck.pptx>
 ```
 
 ## Non-negotiables
 
-1. **PDF is the product.** Always finish by producing a PDF; never stop at HTML
-   unless the user explicitly asks. HTML is the intermediate you build + verify.
-   Exception: native-PPTX edit/polish tasks deliver the edited source format —
-   rendered pages are the QA tool there, not the deliverable.
-2. **Materials drive structure.** Map the source's own storyline first, then pick
-   layouts to fit it; the deck is exactly as long as the source is
-   (`AUTHORING.md` §1). Never fabricate content to fill a layout.
-3. **Fixed 16:9 stage.** Every slide authored at 1920×1080 and scaled as a whole.
+1. **Mode is the artifact contract.** Generate delivers PDF; Native edit delivers
+   the edited PPTX; Audit/compare is read-only. Never silently change modes.
+2. **Scope before mutation.** For native edits, record target slides, allowed
+   properties, forbidden changes, output path, and hidden-backup policy using
+   `references/edit-scope-contract.md`; verify untouched scope afterwards.
+3. **Materials drive generated structure.** Map the source's own storyline, then pick
+   layouts to fit it; slide count follows the evidence and the narrative — never
+   pad pages to fill a template (`AUTHORING.md` → "Establish the source
+   boundary"). Never fabricate content to fill a layout.
+4. **Fixed 16:9 generation stage.** Every HTML slide is authored at 1920×1080
+   and scaled as a whole.
    No reflow / scroll / overflow / overlap — anything that doesn't fit screenshots
-   into the PDF as a bug (`viewport-base.css`, `AUTHORING.md` §3).
-4. **Distinctive design, no AI slop.** Non-system fonts, a committed palette,
-   atmosphere, one orchestrated load animation (full guidance in
+   into the PDF as a bug (`viewport-base.css`; `AUTHORING.md` → "Fit content
+   without fabrication").
+5. **Generated design is distinctive, not generic.** In Generate mode, use
+   deliberate fonts, a committed palette, atmosphere, and one orchestrated load
+   animation (full guidance in
    [references/workflow.md](references/workflow.md) → "Design Aesthetics").
-5. **Verify the PDF.** Inspect every page for overflow / overlap / clipped text /
-   empty-bottom / fabrication. The export IS the visual check; fix the HTML and
-   re-export until clean. Crispness: the PDF must be lossless (no `DCTDecode`).
-6. **Reformat and cross-format QA.** If the task touches PPTX/PDF/images/HTML,
+6. **Verify the final artifact after the final write.** Inspect every page, not a
+   sample. For native PPTX, also verify package integrity, page order, hidden
+   state, and unauthorized changes. For generated PDF, require no `DCTDecode`.
+7. **Reformat and cross-format QA.** If the task touches PPTX/PDF/images/HTML,
    translation, screenshots, or "reformat/restyle", first read the relevant
    reference files from the "Files & when to read them" table below
    (*Cross-format references* group). Preserve layout unless the user asks for
    relayout.
+8. **Page identities are separate namespaces.** When hidden pages, inserted
+   pages, displayed markers, or a mother draft exist, freeze physical page,
+   visible ordinal, displayed marker, stable slide ID, title, and source-page
+   mapping before editing. "Ignore hidden pages" may govern source mapping; it
+   never removes hidden pages from package preservation or QA.
+9. **The baseline owns the native package.** A high-level library's export is
+   only a candidate until order, hidden state, notes, relationships, and shared
+   parts pass structural audit. If the exporter churns the package, rebase only
+   the authorized slide-local component onto the baseline; never waive shared
+   changes because untouched renders look identical.
 
 ## Workflow at a glance
+
+For **Native edit**, read `source-contract.md` → `edit-scope-contract.md` → the
+task-specific references → `visual-qa.md`; use a dedicated PPTX tool when
+available and never run the generation phases. For selected-page redesign from
+a mother draft or reference template—especially with hidden pages—also read
+`native-redesign-fidelity.md` and build its page-address/content/topology
+contracts. If the edit adds newly authored slides, merges slides from another
+deck, or fills template pages, first run `audit_pptx_typography.py` on the
+target deck and report same-role font/size inconsistencies to the user before mutating
+(`references/pptx-native-editing.md` → Typography baseline). For
+**Audit/compare**, remain read-only and use the manifests/audit scripts before
+rendering.
+
+The following Phase 0–6 sequence is **Generate mode only**.
 
 Each step is one line here; read [references/workflow.md](references/workflow.md)
 for the full instructions before doing it.
 
 0. **Intake** — pull *materials* + *theme* from the request; confirm only purpose
-   / length / density. A `.pptx` → run `extract_pptx.py` first.
+   / length / density. A source `.pptx` being repurposed into a new deck may be
+   extracted with `--visible-only`; a native-edit PPTX must not be extracted.
 1. **Map the storyline** — name each page's information shape, pick a matching
    layout from `LAYOUTS.md`, decide deck rhythm; confirm the outline.
 2. **Style discovery** — honor a given theme, else generate 3 genuinely different
@@ -95,8 +150,8 @@ for the full instructions before doing it.
    user picks. Read a template's full `design.md` only after it's chosen.
 3. **Generate the HTML deck** — full `viewport-base.css` inline, `.slide`/
    `.active`, `.reveal`; apply `AUTHORING.md`; one coherent design system.
-4. **Render the PDF** — `export_pdf.py` (lossless 2×; `--compact` for size); then
-   verify every page.
+4. **Render the PDF** — `audit_html_slides.py` gate, then `export_pdf.py`
+   (lossless 2×; `--compact` for size); then verify every page.
 5. **Deliver** — open the PDF; report path / size / style / slide count; offer
    revisions.
 6. **Edit the words** — `edit_texts.py` extract → user edits one file → apply →
@@ -107,8 +162,10 @@ for the full instructions before doing it.
 | File | Purpose | Read in |
 | --- | --- | --- |
 | `references/workflow.md` | Full Phase 0–6 instructions + Design Aesthetics | any generation run (Phase 0–6) |
-| **Cross-format references** (non-negotiable 6) | | |
+| **Cross-format references** (non-negotiable 7) | | |
 | `references/source-contract.md` | Source-of-truth, file/version, path, encoding, and open-file rules | multiple source files, version comparison, "only one file", Windows paths, source file open in Office/WPS |
+| `references/edit-scope-contract.md` | Target-slide/allowed-change contract and before/after verification | native PPTX edits, "minimal change", selected pages/elements, untouched-slide guarantees |
+| `references/native-redesign-fidelity.md` | Physical/visible/source mapping, mother-draft fidelity, relationship topology, template composition, and safe candidate rebasing | selected-page native redesign, hidden-page offsets, mother drafts, teaching plans, complex loops/flows |
 | `references/reformat-and-style.md` | Preserve-layout reformat rules and style extraction | reformat/restyle/font/color/background tasks |
 | `references/pptx-native-editing.md` | Native PPTX package, slide order, layout/master, relationship, and hidden-slide guardrails | editing/copying/translating native PPTX |
 | `references/image-and-ocr-input.md` | Image, screenshot, chart-image, and OCR input handling | image-to-slide or screenshot source material |
@@ -117,8 +174,8 @@ for the full instructions before doing it.
 | `references/visual-qa.md` | Rendered-page contact sheets and final QA checklist | reformat / translation / cross-format comparison |
 | `references/good-bad-examples.md` | Examples of good and bad handling patterns | ambiguous cross-format/reformat decisions |
 | **Generation assets** | | |
-| `AUTHORING.md` | Deck-coherence discipline (rollingai) | Phase 1, 3, 4 |
-| `LAYOUTS.md` | Content-shape → layout taxonomy (rollingai) | Phase 1, 3 |
+| `AUTHORING.md` | Source fidelity, deck coherence, fit, and final verification | Phase 1, 3, 4 |
+| `LAYOUTS.md` | Information-shape → composition selection guide | Phase 1, 3 |
 | `STYLE_PRESETS.md` | 12 curated visual presets (frontend-slides) | Phase 2 |
 | `bold-template-pack/selection-index.json` | Bold-template index | Phase 2 |
 | `bold-template-pack/templates/*/preview.md` | Bold-template preview cards | Phase 2 (shortlist) |
@@ -128,8 +185,20 @@ for the full instructions before doing it.
 | `animation-patterns.md` | Animation reference | Phase 3 |
 | `examples/*/index.html` | Reference implementations: lumen-2026 = canonical deck with full `data-text-id` coverage; aurora-metrics = exporter-compatibility stress sample (deliberately deviates from `viewport-base.css`) | Phase 3, when an end-to-end example helps |
 | **Scripts** | | |
-| `scripts/check_env.py` | verify deps (playwright/img2pdf/lxml + Chromium) | preflight |
-| `scripts/export_pdf.py` | HTML → crisp lossless screenshot PDF (deliverable) | Phase 4 |
-| `scripts/edit_texts.py` | extract/apply all deck text via one file (rollingai) | Phase 6 |
-| `scripts/extract_pptx.py` | PPTX → content JSON (optional input) | Phase 0 |
+| `scripts/check_env.py` | verify deps (playwright/img2pdf/lxml + Chromium); accepts `--browser-executable` for an existing local browser | preflight |
+| `scripts/audit_html_slides.py` | deterministic HTML-deck audit: clipped/offstage text, broken assets, fonts, geometry, blank pages; supports `--browser-executable` | Phase 3→4 gate, before every export |
+| `scripts/export_pdf.py` | HTML → crisp lossless screenshot PDF (deliverable); fails closed on font/asset errors; supports `--browser-executable` and `--keep-pngs` | Phase 4 |
+| `scripts/edit_texts.py` | extract/apply all deck text through one Markdown companion | Phase 6 |
+| `scripts/extract_pptx.py` | visible PPTX pages → content JSON (generation input only) | Generate mode Phase 0; never native edit |
 | `scripts/audit_pptx_page_numbers.py` | audit page-number sources across slides, layouts, and masters | native PPTX page-number/footer edits |
+| `scripts/audit_pptx_structure.py` | manifest/compare PPTX order, hidden state, scope changes, and translation completeness | native edit baseline/final checks, version/order comparison, bilingual deck QA |
+| `scripts/audit_pptx_properties.py` | fail-closed per-slide property allowlist for text/style/geometry/content changes | native minimal-edit verification after the final write |
+| `scripts/audit_pptx_backups.py` | compare explicit source→hidden-backup pairs including dependent media/charts/notes | native edit tasks that require hidden original backups |
+| `scripts/audit_pptx_typography.py` | inventory fonts/sizes/bold by semantic role and enforce expected peers | native font normalization and typography QA |
+| `scripts/transplant_pptx_slides.py` | fail-closed, direct-format shape-tree transplant from a rewritten candidate onto the untouched baseline | high-level PPTX authoring tools that normalize hidden/order/shared package state |
+| `scripts/render_pptx.ps1` | render visible or hidden native PPTX pages from a scratch copy via PowerPoint/WPS | native PPTX visual QA on Windows |
+| `scripts/make_contact_sheet.py` | align multiple render folders by physical slide number | source/target/translation/hidden-backup comparison |
+| `scripts/audit_rendered_pages.py` | enforce physical-page or explicit source→target render mapping, authorized pixel changes, and coverage-risk checks | final native PPTX visual scope and hidden-backup audit |
+| `scripts/validate_template_pack.py` | validate bold-template index, paths, and runtime contracts | skill/template maintenance |
+| `scripts/validate_skill_structure.py` | validate routing, links, long-doc TOCs, and UI metadata | skill maintenance |
+| `scripts/run_self_checks.py` | run skill validation plus every standalone regression test | after skill/script maintenance |

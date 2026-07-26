@@ -4,6 +4,15 @@ Curated visual styles for deck-forge. Each preset is inspired by real design ref
 
 **Viewport CSS:** For mandatory base styles, see [viewport-base.css](viewport-base.css). Include in every presentation.
 
+## Contents
+
+- Dark themes: Bold Signal, Electric Studio, Creative Voltage, Dark Botanical
+- Light themes: Notebook Tabs, Pastel Geometry, Split Pastel, Vintage Editorial
+- Specialty themes: Neon Cyber, Terminal Green, Swiss Modern, Paper & Ink
+- Font pairing quick reference
+- Generic-pattern exclusions
+- CSS gotchas
+
 ---
 
 ## Dark Themes

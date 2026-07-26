@@ -2,6 +2,15 @@
 
 Reference architecture for generating slide presentations. Every presentation follows a fixed 16:9 stage model: slides are authored at 1920×1080 and the whole stage scales to fit the browser window.
 
+## Contents
+
+- Base HTML structure
+- Required JavaScript features
+- Inline editing implementation
+- Reserved chrome class names
+- Image pipeline
+- Code quality and file structure
+
 ## Base HTML Structure
 
 ```html
@@ -12,7 +21,8 @@ Reference architecture for generating slide presentations. Every presentation fo
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Presentation Title</title>
 
-    <!-- Fonts: use Fontshare or Google Fonts — never system fonts -->
+    <!-- Fonts: Fontshare/Google Fonts by default; brand or local fonts when
+         brand, offline delivery, or CJK glyph coverage requires them -->
     <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=...">
 
     <style>
@@ -288,18 +298,31 @@ def crop_circle(input_path, output_path):
     img.putalpha(mask)
     img.save(output_path, 'PNG')
 
-# Resize (for oversized images that inflate HTML)
-def resize_max(input_path, output_path, max_dim=1200):
+# Resize for the authored display box without destroying text/chart detail.
+# Never upscale. Use lossless=True for charts, UI, and text screenshots.
+def resize_for_display(input_path, output_path, display_w, display_h,
+                       export_scale=2, lossless=True):
     img = Image.open(input_path)
-    img.thumbnail((max_dim, max_dim), Image.LANCZOS)
-    img.save(output_path, quality=85)
+    target = (int(display_w * export_scale), int(display_h * export_scale))
+    if img.width > target[0] or img.height > target[1]:
+        img.thumbnail(target, Image.LANCZOS)
+    if lossless:
+        img.save(output_path, "PNG", optimize=True)
+    else:
+        img.convert("RGB").save(
+            output_path, "JPEG", quality=92, subsampling=0, optimize=True
+        )
 ```
 
 | Situation | Operation |
 |-----------|-----------|
-| Square logo on rounded aesthetic | `crop_circle()` |
-| Image > 1MB | `resize_max(max_dim=1200)` |
-| Wrong aspect ratio | Manual crop with `img.crop()` |
+| Chart, UI, or text screenshot | Crop first; preserve at least 2× its authored display box and save lossless PNG |
+| Photo | Resize to about 2× its authored display box; JPEG quality 92/subsampling 0 is acceptable |
+| Logo | Prefer original SVG or transparent PNG; never enlarge a small raster logo |
+| Wrong aspect ratio | Crop intentionally before resizing; keep the subject/data region visible |
+
+Do not resize based on file size alone. A 1MB chart can need more pixels than a
+10MB photo because thin lines and text must survive the final 2× PDF capture.
 
 Save processed images with `_processed` suffix. Never overwrite originals.
 

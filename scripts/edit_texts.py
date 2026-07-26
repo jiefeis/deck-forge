@@ -1,211 +1,255 @@
 #!/usr/bin/env python3
+"""Round-trip editable HTML deck copy through one Markdown file.
+
+``extract`` assigns stable ``data-text-id`` values to editable text leaves and
+writes their inner HTML to a Markdown companion. ``apply`` reads that companion
+and updates matching leaves. In-place writes create ``.bak`` files unless
+``--no-backup`` is used.
 """
-edit_texts.py - Edit all the words in a deck through one plain-text file.
 
-The text-editing capability fused in from rollingai-decks' `data-text-id`
-extract / apply workflow. Because the final PDF is a screenshot, you cannot edit
-the PDF directly - you edit the deck's text here and re-export:
-
-  1. extract  - pull every editable string into a friendly `<deck>.texts.md`
-                file, and stamp each string with a stable `data-text-id` in the
-                HTML (auto-injected, so this works on ANY deck-forge /
-                frontend-slides deck with no prep).
-  2. (you edit `<deck>.texts.md` - change words; leave the marker comments alone.)
-  3. apply    - write the edited text back into the HTML by id.
-  4. re-run   `export_pdf.py` to get the updated PDF.
-
-Safety: both commands write a one-shot `<file>.bak` backup before modifying the
-HTML in place (disable with --no-backup). apply exits with code 2 when some
-edits reference ids that are not in the HTML (0 on full success). The marker
-comment is namespaced
-(`deck-forge:id=`) to avoid colliding with comments in the user's own content;
-note the texts file is still parsed by matching those markers, so don't paste a
-literal `deck-forge:id=` marker into body text (a known v0 boundary).
-
-Usage:
-    python edit_texts.py extract <deck.html> [texts.md] [--no-backup]
-    python edit_texts.py apply   <deck.html> <texts.md> [out.html] [--no-backup]
-
-Requires: pip install lxml
-"""
 from __future__ import annotations
 
+import argparse
 import re
 import shutil
 import sys
 from pathlib import Path
+from typing import Sequence
 
 try:
-    from lxml import html as LH
+    from lxml import etree
+    from lxml import html as lhtml
 except ImportError:
     sys.exit("edit_texts: lxml required. Run: pip install lxml")
 
+
 MARKER = "deck-forge:id="
-_MARKER_RE = re.compile(r"<!--\s*deck-forge:id=(\S+)\s*-->")
-
-INLINE = {"span", "em", "strong", "b", "i", "u", "a", "br", "sub", "sup",
-          "mark", "small", "code", "abbr", "wbr", "s", "del", "ins", "q"}
-BLOCK_TEXT = {"h1", "h2", "h3", "h4", "h5", "h6", "p", "li", "blockquote",
-              "figcaption", "caption", "td", "th", "dt", "dd", "div", "label"}
-
-
-def _backup(path: Path) -> Path:
-    bak = path.with_suffix(path.suffix + ".bak")
-    shutil.copy2(path, bak)
-    return bak
-
-
-def _inner_html(el) -> str:
-    parts = [el.text or ""]
-    for ch in el:
-        if ch.tag is LH.etree.Comment:
-            parts.append(ch.tail or "")  # skip the comment, keep text after it
-            continue
-        parts.append(LH.tostring(ch, encoding="unicode"))
-    return "".join(parts).strip()
+MARKER_RE = re.compile(r"<!--\s*deck-forge:id=(\S+)\s*-->")
+SLIDE_SECTION_RE = re.compile(r"^## Slide \d+ - .+$")
+INLINE_TAGS = frozenset(
+    {
+        "a", "abbr", "b", "br", "code", "del", "em", "i", "ins", "mark",
+        "q", "s", "small", "span", "strong", "sub", "sup", "u", "wbr",
+    }
+)
+TEXT_CONTAINER_TAGS = frozenset(
+    {
+        "blockquote", "caption", "dd", "div", "dt", "figcaption", "h1", "h2",
+        "h3", "h4", "h5", "h6", "label", "li", "p", "td", "th",
+    }
+)
 
 
-def _set_inner_html(el, new_html: str) -> None:
-    for ch in list(el):
-        el.remove(ch)
-    frag = LH.fragment_fromstring(new_html, create_parent="__wrap__")
-    el.text = frag.text
-    for ch in frag:
-        el.append(ch)
+def _make_backup(path: Path) -> Path:
+    destination = path.with_suffix(path.suffix + ".bak")
+    shutil.copy2(path, destination)
+    return destination
 
 
-def _is_leaf(el) -> bool:
-    if not isinstance(el.tag, str) or el.tag not in BLOCK_TEXT:
+def _parse_document(path: Path):
+    return lhtml.document_fromstring(path.read_text(encoding="utf-8"))
+
+
+def _write_document(document, path: Path) -> None:
+    rendered = lhtml.tostring(
+        document,
+        encoding="unicode",
+        doctype="<!DOCTYPE html>",
+    )
+    path.write_text(rendered, encoding="utf-8")
+
+
+def _inner_html(element) -> str:
+    fragments: list[str] = [element.text or ""]
+    for child in element:
+        if isinstance(child, etree._Comment):
+            fragments.append(child.tail or "")
+        else:
+            fragments.append(lhtml.tostring(child, encoding="unicode"))
+    return "".join(fragments).strip()
+
+
+def _replace_inner_html(element, value: str) -> None:
+    for child in list(element):
+        element.remove(child)
+    wrapper = lhtml.fragment_fromstring(value, create_parent="deckforge-fragment")
+    element.text = wrapper.text
+    for child in list(wrapper):
+        wrapper.remove(child)
+        element.append(child)
+
+
+def _is_editable_leaf(element) -> bool:
+    if not isinstance(element.tag, str) or element.tag.casefold() not in TEXT_CONTAINER_TAGS:
         return False
-    for ch in el:
-        if not isinstance(ch.tag, str):
-            continue
-        if ch.tag not in INLINE:
-            return False
-    return bool("".join(el.itertext()).strip())
+    if not "".join(element.itertext()).strip():
+        return False
+    return all(
+        not isinstance(child.tag, str) or child.tag.casefold() in INLINE_TAGS
+        for child in element
+    )
 
 
-def _slides(doc):
-    return doc.xpath(
-        "//*[contains(concat(' ', normalize-space(@class), ' '), ' slide ')]")
+def _slide_nodes(document) -> list[object]:
+    return document.xpath(
+        "//*[contains(concat(' ', normalize-space(@class), ' '), ' slide ')]"
+    )
+
+
+def _next_text_id(slide_number: int, ordinal: int, used: set[str]) -> tuple[str, int]:
+    candidate_ordinal = ordinal
+    while True:
+        candidate = f"s{slide_number:02d}t{candidate_ordinal:02d}"
+        if candidate not in used:
+            return candidate, candidate_ordinal
+        candidate_ordinal += 1
 
 
 def extract(html_path: Path, texts_path: Path, backup: bool = True) -> None:
-    doc = LH.document_fromstring(html_path.read_text(encoding="utf-8"))
-    used = set(doc.xpath("//*[@data-text-id]/@data-text-id"))
-    lines = [f"# Editable text - {html_path.stem}",
-             "# Change the text under each marker comment. Leave the marker comment",
-             "# lines (the HTML comments above each block) unchanged - they map the",
-             "# text back to the deck. Inline tags (line breaks, em, span) are part of",
-             "# the text - keep or adjust them.",
-             "# Body lines are kept verbatim on apply; only section headers of the",
-             "# exact form '## Slide N - label' are ignored.",
-             ""]
-    total = 0
-    for si, slide in enumerate(_slides(doc), start=1):
-        label = (slide.get("class") or "slide").replace("slide", "").strip() or f"slide {si}"
-        lines.append(f"## Slide {si} - {label}")
-        ti = 0
-        for el in slide.iter():
-            if el is slide or not _is_leaf(el):
+    document = _parse_document(html_path)
+    used_ids = set(document.xpath("//*[@data-text-id]/@data-text-id"))
+    output = [
+        f"# Editable text - {html_path.stem}",
+        "# Edit content below each marker. Keep marker comments unchanged.",
+        "# Inline HTML such as <em>, <span>, and <br> is preserved.",
+        "",
+    ]
+    count = 0
+
+    for slide_number, slide in enumerate(_slide_nodes(document), 1):
+        classes = [part for part in (slide.get("class") or "").split() if part != "slide"]
+        label = " ".join(classes) or f"slide {slide_number}"
+        output.append(f"## Slide {slide_number} - {label}")
+        ordinal = 0
+        for element in slide.iter():
+            if element is slide or not _is_editable_leaf(element):
                 continue
-            ti += 1
-            tid = el.get("data-text-id")
-            if not tid:
-                # never reuse an id already present anywhere in the document
-                # (e.g. a leaf inserted between two stamped ones on re-extract)
-                while f"s{si:02d}t{ti:02d}" in used:
-                    ti += 1
-                tid = f"s{si:02d}t{ti:02d}"
-                el.set("data-text-id", tid)
-            used.add(tid)
-            lines.append(f"<!-- {MARKER}{tid} -->")
-            lines.append(_inner_html(el))
-            lines.append("")
-            total += 1
-        lines.append("")
+            ordinal += 1
+            text_id = element.get("data-text-id")
+            if not text_id:
+                text_id, ordinal = _next_text_id(slide_number, ordinal, used_ids)
+                element.set("data-text-id", text_id)
+            used_ids.add(text_id)
+            output.extend(
+                [
+                    f"<!-- {MARKER}{text_id} -->",
+                    _inner_html(element),
+                    "",
+                ]
+            )
+            count += 1
+        output.append("")
 
     if backup:
-        print(f"  Backup: {_backup(html_path)}")
-    html_path.write_text(
-        LH.tostring(doc, encoding="unicode", doctype="<!DOCTYPE html>"),
-        encoding="utf-8")
-    texts_path.write_text("\n".join(lines), encoding="utf-8")
-    print(f"  Extracted {total} editable strings -> {texts_path}")
+        print(f"  Backup: {_make_backup(html_path)}")
+    _write_document(document, html_path)
+    texts_path.write_text("\n".join(output), encoding="utf-8")
+    print(f"  Extracted {count} editable strings -> {texts_path}")
     print(f"  Stamped data-text-id into {html_path} (re-saved).")
 
 
-_SECTION_RE = re.compile(r"## Slide \d+ ")  # exactly what extract() writes
+def _clean_text_block(block: str) -> str:
+    lines = [line for line in block.splitlines() if not SLIDE_SECTION_RE.match(line)]
+    return "\n".join(lines).strip()
 
 
 def _parse_texts(text: str) -> dict[str, str]:
-    chunks = _MARKER_RE.split(text)
-    out: dict[str, str] = {}
-    for i in range(1, len(chunks), 2):
-        tid = chunks[i]
-        body = chunks[i + 1]
-        body = "\n".join(l for l in body.splitlines()
-                         if not _SECTION_RE.match(l)).strip()
-        if tid in out:
-            print(f"  WARN: duplicate marker '{tid}' in texts file (last one wins)")
-        out[tid] = body
-    return out
+    matches = list(MARKER_RE.finditer(text))
+    result: dict[str, str] = {}
+    for index, match in enumerate(matches):
+        end = matches[index + 1].start() if index + 1 < len(matches) else len(text)
+        text_id = match.group(1)
+        if text_id in result:
+            print(f"  WARN: duplicate marker '{text_id}' in texts file (last one wins)")
+        result[text_id] = _clean_text_block(text[match.end():end])
+    return result
 
 
-def apply(html_path: Path, texts_path: Path, out_path: Path,
-          backup: bool = True) -> None:
-    doc = LH.document_fromstring(html_path.read_text(encoding="utf-8"))
-    edits = _parse_texts(texts_path.read_text(encoding="utf-8"))
-    by_id = {}
-    for el in doc.xpath("//*[@data-text-id]"):
-        tid = el.get("data-text-id")
-        if tid in by_id:
-            print(f"  WARN: duplicate data-text-id '{tid}' in HTML (last one wins)")
-        by_id[tid] = el
-    changed = missing = 0
-    for tid, new_html in edits.items():
-        el = by_id.get(tid)
-        if el is None:
-            print(f"  WARN: id '{tid}' not found in HTML (skipped)")
-            missing += 1
+def _elements_by_text_id(document) -> dict[str, object]:
+    result: dict[str, object] = {}
+    for element in document.xpath("//*[@data-text-id]"):
+        text_id = element.get("data-text-id")
+        if text_id in result:
+            print(f"  WARN: duplicate data-text-id '{text_id}' in HTML (last one wins)")
+        result[text_id] = element
+    return result
+
+
+def apply(
+    html_path: Path,
+    texts_path: Path,
+    out_path: Path,
+    backup: bool = True,
+) -> None:
+    document = _parse_document(html_path)
+    requested = _parse_texts(texts_path.read_text(encoding="utf-8"))
+    elements = _elements_by_text_id(document)
+    changed = 0
+    missing: list[str] = []
+
+    for text_id, replacement in requested.items():
+        element = elements.get(text_id)
+        if element is None:
+            print(f"  WARN: id '{text_id}' not found in HTML (skipped)")
+            missing.append(text_id)
             continue
-        if _inner_html(el) != new_html:
-            _set_inner_html(el, new_html)
+        if _inner_html(element) != replacement:
+            _replace_inner_html(element, replacement)
             changed += 1
+
     if backup and out_path == html_path:
-        print(f"  Backup: {_backup(html_path)}")
-    out_path.write_text(
-        LH.tostring(doc, encoding="unicode", doctype="<!DOCTYPE html>"),
-        encoding="utf-8")
-    print(f"  Applied {changed} change(s)"
-          f"{f', {missing} id(s) missing' if missing else ''} -> {out_path}")
+        print(f"  Backup: {_make_backup(html_path)}")
+    _write_document(document, out_path)
+    suffix = f", {len(missing)} id(s) missing" if missing else ""
+    print(f"  Applied {changed} change(s){suffix} -> {out_path}")
     print("  Now re-run: export_pdf.py <deck.html>")
     if missing:
-        print(f"  WARNING: {missing} edit(s) NOT applied (ids not found)")
-        sys.exit(2)
+        print(f"  WARNING: {len(missing)} edit(s) NOT applied (ids not found)")
+        raise SystemExit(2)
 
 
-def main() -> None:
-    argv = [a for a in sys.argv[1:] if a != "--no-backup"]
-    backup = "--no-backup" not in sys.argv
-    if len(argv) < 2 or argv[0] not in ("extract", "apply"):
-        sys.exit(__doc__)
-    cmd = argv[0]
-    html_path = Path(argv[1]).resolve()
-    if not html_path.is_file():
-        sys.exit(f"edit_texts: file not found: {html_path}")
+def _existing_file(value: str) -> Path:
+    path = Path(value).expanduser().resolve()
+    if not path.is_file():
+        raise argparse.ArgumentTypeError(f"file not found: {path}")
+    return path
 
-    if cmd == "extract":
-        texts_path = (Path(argv[2]).resolve() if len(argv) > 2
-                      else html_path.with_suffix(".texts.md"))
-        extract(html_path, texts_path, backup=backup)
+
+def build_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(description=__doc__)
+    commands = parser.add_subparsers(dest="command", required=True)
+
+    extract_parser = commands.add_parser("extract", help="write editable copy to Markdown")
+    extract_parser.add_argument("html", type=_existing_file)
+    extract_parser.add_argument("texts", nargs="?", type=Path)
+    extract_parser.add_argument("--no-backup", action="store_true")
+
+    apply_parser = commands.add_parser("apply", help="apply Markdown copy to HTML")
+    apply_parser.add_argument("html", type=_existing_file)
+    apply_parser.add_argument("texts", type=_existing_file)
+    apply_parser.add_argument("output", nargs="?", type=Path)
+    apply_parser.add_argument("--no-backup", action="store_true")
+    return parser
+
+
+def main(argv: Sequence[str] | None = None) -> int:
+    args = build_parser().parse_args(argv)
+    if args.command == "extract":
+        texts_path = (
+            args.texts.expanduser().resolve()
+            if args.texts is not None
+            else args.html.with_suffix(".texts.md")
+        )
+        extract(args.html, texts_path, backup=not args.no_backup)
     else:
-        if len(argv) < 3:
-            sys.exit("edit_texts: apply needs a texts.md path")
-        texts_path = Path(argv[2]).resolve()
-        out_path = (Path(argv[3]).resolve() if len(argv) > 3 else html_path)
-        apply(html_path, texts_path, out_path, backup=backup)
+        output = (
+            args.output.expanduser().resolve()
+            if args.output is not None
+            else args.html
+        )
+        apply(args.html, args.texts, output, backup=not args.no_backup)
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())
