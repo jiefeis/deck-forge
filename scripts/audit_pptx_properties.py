@@ -11,7 +11,6 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
-import posixpath
 import re
 import sys
 import zipfile
@@ -25,7 +24,8 @@ SCRIPT_DIR = Path(__file__).resolve().parent
 if str(SCRIPT_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPT_DIR))
 
-from audit_pptx_structure import AuditError, build_manifest  # noqa: E402
+from _pptx_common import AuditError, _parse_xml, _rels_part  # noqa: E402
+from audit_pptx_structure import build_manifest  # noqa: E402
 
 
 P_NS = "http://schemas.openxmlformats.org/presentationml/2006/main"
@@ -230,15 +230,13 @@ def _load_scope(
     return rules
 
 
-def _parse_xml(data: bytes, part: str) -> ET.Element:
-    try:
-        return ET.fromstring(data)
-    except ET.ParseError as exc:
-        raise AuditError(f"invalid XML in {part}: {exc}") from exc
-
-
-def _canonical_xml(element: ET.Element, *, sort_children: bool = False) -> object:
-    children = [_canonical_xml(child, sort_children=sort_children) for child in list(element)]
+def _canonical_xml_for_property_diff(
+    element: ET.Element, *, sort_children: bool = False
+) -> object:
+    children = [
+        _canonical_xml_for_property_diff(child, sort_children=sort_children)
+        for child in list(element)
+    ]
     if sort_children:
         children.sort(key=lambda item: json.dumps(item, ensure_ascii=True, separators=(",", ":")))
     text = element.text or ""
@@ -261,7 +259,7 @@ def _protected_global_parts(path: Path) -> dict[str, str]:
                 child = root.find(tag)
                 if child is not None:
                     root.remove(child)
-            payload = _canonical_xml(root)
+            payload = _canonical_xml_for_property_diff(root)
             result[presentation_part + "#non-slide"] = hashlib.sha256(
                 json.dumps(payload, ensure_ascii=False, separators=(",", ":")).encode("utf-8")
             ).hexdigest()
@@ -272,7 +270,7 @@ def _protected_global_parts(path: Path) -> dict[str, str]:
             for rel in list(root):
                 if rel.get("Type", "").endswith("/slide"):
                     root.remove(rel)
-            payload = _canonical_xml(root, sort_children=True)
+            payload = _canonical_xml_for_property_diff(root, sort_children=True)
             result[presentation_rels + "#non-slide"] = hashlib.sha256(
                 json.dumps(payload, ensure_ascii=False, separators=(",", ":")).encode("utf-8")
             ).hexdigest()
@@ -281,7 +279,7 @@ def _protected_global_parts(path: Path) -> dict[str, str]:
             if part in GLOBAL_PROTECTED_PARTS or part.startswith(GLOBAL_PROTECTED_PREFIXES):
                 data = zf.read(part)
                 if part.endswith((".xml", ".rels")):
-                    payload = _canonical_xml(
+                    payload = _canonical_xml_for_property_diff(
                         _parse_xml(data, part),
                         sort_children=part.endswith(".rels"),
                     )
@@ -411,10 +409,6 @@ def _slide_level(root: ET.Element) -> dict[str, tuple[str, str]]:
             if child.tag in SHAPE_TAGS:
                 tree.remove(child)
     return _flatten(clone, skip_nested_shapes=False, skip_show=True)
-
-
-def _rels_part(part: str) -> str:
-    return posixpath.join(posixpath.dirname(part), "_rels", posixpath.basename(part) + ".rels")
 
 
 def _relationship_signature(zf: zipfile.ZipFile, slide_part: str) -> list[tuple[str, ...]]:

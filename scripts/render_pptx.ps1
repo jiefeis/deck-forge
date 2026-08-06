@@ -80,6 +80,11 @@ $engineName = $null
 $rendered = @()
 $hiddenIndices = @()
 $slideCount = 0
+# Effective export height. When -Height is not passed explicitly it is derived
+# from the source slide aspect ratio (PageSetup) so non-16:9 decks are neither
+# stretched nor rejected. Kept separate from $Height so ValidateRange only
+# constrains user input.
+$renderHeight = $Height
 
 try {
     $started = Start-PresentationApp -Requested $Engine
@@ -98,6 +103,22 @@ try {
         $presentation = $app.Presentations.Open($scratchPptx)
     }
 
+    if (-not $PSBoundParameters.ContainsKey('Height')) {
+        $pageSetup = $null
+        try {
+            $pageSetup = $presentation.PageSetup
+            $slideWidthPt = [double]$pageSetup.SlideWidth
+            $slideHeightPt = [double]$pageSetup.SlideHeight
+            if ($slideWidthPt -gt 0 -and $slideHeightPt -gt 0) {
+                $renderHeight = [int][Math]::Round($Width * $slideHeightPt / $slideWidthPt)
+            }
+        }
+        catch { }
+        finally {
+            Release-ComObject $pageSetup
+        }
+    }
+
     $slides = $presentation.Slides
     $slideCount = [int]$slides.Count
     for ($i = 1; $i -le $slideCount; $i++) {
@@ -110,7 +131,7 @@ try {
             if ($isHidden -and -not $IncludeHidden) { continue }
 
             $path = Join-Path $output ("slide-{0:D3}.png" -f $i)
-            $slide.Export($path, "PNG", $Width, $Height)
+            $slide.Export($path, "PNG", $Width, $renderHeight)
             if (-not (Test-Path -LiteralPath $path -PathType Leaf)) {
                 throw "Engine did not create slide image: $path"
             }
@@ -130,7 +151,7 @@ try {
         $bitmap = $null
         try {
             $bitmap = [Drawing.Image]::FromFile((Join-Path $output $entry.file))
-            if ($bitmap.Width -ne $Width -or $bitmap.Height -ne $Height) {
+            if ($bitmap.Width -ne $Width -or $bitmap.Height -ne $renderHeight) {
                 throw "Unexpected image size for $($entry.file): $($bitmap.Width)x$($bitmap.Height)"
             }
         }
@@ -162,7 +183,7 @@ $manifest = [ordered]@{
     source_sha256 = $sourceHashAfter
     engine = $engineName
     width = $Width
-    height = $Height
+    height = $renderHeight
     include_hidden = [bool]$IncludeHidden
     slide_count = $slideCount
     hidden_physical_indices = @($hiddenIndices)

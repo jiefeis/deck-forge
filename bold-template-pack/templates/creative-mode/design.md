@@ -326,6 +326,8 @@ This policy applies even if the source template was originally implemented with 
 
 Author against the skill's fixed-stage model: full viewport-base.css inline, .slide/.active slides scaled as one unit (transform: scale(), origin 0 0) per html-template.md. Do not reference deck-stage.js (not bundled). Translate any data-anim/data-delay/.is-active entrance vocabulary from the source design into the deck's .reveal + .slide.visible convention. Render each slide at 1920×1080 and verify rendered screenshots for both text overflow and panel overlap.
 
+Page numbers or footers that must appear in the exported PDF must be slide-internal elements (see lumen-2026's .foot/.pageno); never use the reserved deck-chrome classes (.progress-bar, .slide-counter) — export_pdf.py strips them. This applies directly to this system's `slide-meta` footer: it carries the `NN • NN` slide number, so author it as a normal element inside each `.slide`, not as deck chrome.
+
 
 ## Overview
 

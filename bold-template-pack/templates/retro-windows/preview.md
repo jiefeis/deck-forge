@@ -8,9 +8,15 @@ Use this small file for title-slide previews only. For final deck generation, re
 
 ## Visual Snapshot
 
-A Windows 95 / 98 desktop-OS aesthetic rendered as a presentation system. Every slide is a window — beveled chrome, navy gradient title bar, MS Sans Serif body type, with chart areas, group boxes, and panels arranged as if they were software UI from 1995. The palette is the original Win9x system colors (gray button-face, navy title bars, white sunken inputs) with retro accent hues (DOS green, brick red, mustard yellow, teal cyan) reserved for status text and chart data. Pixel-font (Press Start 2P) and terminal-font (VT323) appear sparingly for nostalgic punctuation. The effect is half playful nostalgia, half functional dashboard — a deck that reads as a software product running on a CRT monitor.
+Cover recipe:
 
-Retro Windows is a Windows 95 / 98 desktop-OS aesthetic rendered as a slide template. Every slide is structured as a win-window — a beveled rectangular chrome with a navy-gradient title bar, three button icons in the upper right (_, [], X), and a body region containing application-style content. The composition is "this slide is software running on a 1995 desktop, and the content is what the software displays." The conceit is total: there are no slide titles in the modern presentation sense, only window titles styled as filenames (README.DOC, DATAVIEW.CSV, METRICS.LOG).
+- Surface: desktop gray #808080 fills the stage; slide padding 42px 56px 77px 56px keeps the desktop border visible around the chrome.
+- Window: one win-window on button-face #D4D0C8 with the beveled-raised treatment — 2px white top/left + 2px black bottom/right plus the double inset shadow.
+- Title bar: navy #000080 → #0000A0 horizontal gradient at 7px 14px padding, carrying a 32px win-icon square, an uppercase filename title (`PRESENTATION.EXE`) at 25px weight 700 white, and the `_` `[]` `X` cluster at the right.
+- Body: 35px 42px 42px 42px padding; the splash headline centered in Press Start 2P at 35–42px navy, or `{typography.text-xl}` 56px weight 700 navy when the pixel face is skipped.
+- Support: a sunken white marquee well with scrolling text, plus an optional raised status strip along the bottom of the window body.
+- Texture: the 3px-period CRT scanline overlay at 3% black opacity sits above every element.
+- Chrome: nav dots, slide counter, and the VT323 28px nav hint are deck chrome; anything that must survive into the PDF uses a non-reserved class (never `.progress-bar` / `.slide-counter`).
 
 ## Preview Ingredients
 

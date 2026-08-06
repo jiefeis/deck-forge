@@ -20,133 +20,133 @@ color-aliases:
 typography:
   disp-hero:
     fontFamily: "'Big Shoulders Display', sans-serif"
-    fontSize: "clamp(120px, min(14vw, 22vh), 280px)"
+    fontSize: 347px
     fontWeight: 900
     lineHeight: 0.84
     letterSpacing: -0.025em
   disp-statement:
     fontFamily: "'Big Shoulders Display', sans-serif"
-    fontSize: "clamp(70px, min(8.4vw, 14vh), 168px)"
+    fontSize: 221px
     fontWeight: 900
     lineHeight: 0.86
     letterSpacing: -0.022em
   disp-title:
     fontFamily: "'Big Shoulders Display', sans-serif"
-    fontSize: "clamp(80px, min(9vw, 14vh), 180px)"
+    fontSize: 221px
     fontWeight: 900
     lineHeight: 0.86
     letterSpacing: -0.022em
   disp-lockup:
     fontFamily: "'Big Shoulders Display', sans-serif"
-    fontSize: "clamp(56px, min(7vw, 11vh), 130px)"
+    fontSize: 173px
     fontWeight: 900
     lineHeight: 0.9
     letterSpacing: -0.015em
   disp-section:
     fontFamily: "'Big Shoulders Display', sans-serif"
-    fontSize: "clamp(52px, min(5.6vw, 9vh), 100px)"
+    fontSize: 142px
     fontWeight: 900
     lineHeight: 0.9
     letterSpacing: -0.018em
   disp-quote:
     fontFamily: "'Big Shoulders Display', sans-serif"
-    fontSize: "clamp(48px, min(5.4vw, 9vh), 110px)"
+    fontSize: 142px
     fontWeight: 900
     lineHeight: 0.92
     letterSpacing: -0.018em
   disp-quote-lg:
     fontFamily: "'Big Shoulders Display', sans-serif"
-    fontSize: "clamp(56px, min(6.4vw, 10.5vh), 130px)"
+    fontSize: 166px
     fontWeight: 900
     lineHeight: 0.9
     letterSpacing: -0.018em
   disp-brand:
     fontFamily: "'Big Shoulders Display', sans-serif"
-    fontSize: "clamp(32px, min(3.4vw, 5.4vh), 56px)"
+    fontSize: 85px
     fontWeight: 900
     lineHeight: 0.92
     letterSpacing: -0.02em
   disp-card-name:
     fontFamily: "'Big Shoulders Display', sans-serif"
-    fontSize: "clamp(28px, min(2.6vw, 4.6vh), 48px)"
+    fontSize: 73px
     fontWeight: 900
     lineHeight: 0.94
     letterSpacing: -0.012em
   num-hero:
     fontFamily: "'Big Shoulders Display', sans-serif"
-    fontSize: "clamp(110px, min(11vw, 18vh), 240px)"
+    fontSize: 284px
     fontWeight: 900
     lineHeight: 0.86
     letterSpacing: -0.025em
   num-md:
     fontFamily: "'Big Shoulders Display', sans-serif"
-    fontSize: "clamp(70px, min(7vw, 11vh), 150px)"
+    fontSize: 173px
     fontWeight: 900
     lineHeight: 0.86
     letterSpacing: -0.02em
   ttl-row:
     fontFamily: "'Big Shoulders Display', sans-serif"
-    fontSize: "clamp(22px, 1.7vw, 30px)"
+    fontSize: 48px
     fontWeight: 700
     lineHeight: 1.1
     letterSpacing: -0.005em
   body:
     fontFamily: "'Albert Sans', sans-serif"
-    fontSize: "clamp(14px, 1vw, 17px)"
+    fontSize: 28px
     fontWeight: 400
     lineHeight: 1.5
   body-md:
     fontFamily: "'Albert Sans', sans-serif"
-    fontSize: "clamp(14px, 0.95vw, 15px)"
+    fontSize: 27px
     fontWeight: 400
     lineHeight: 1.4
   body-emphasis:
     fontFamily: "'Albert Sans', sans-serif"
-    fontSize: "clamp(15px, 1.1vw, 20px)"
+    fontSize: 31px
     fontWeight: 600
     lineHeight: 1.4
   micro:
     fontFamily: "'Albert Sans', sans-serif"
-    fontSize: "clamp(12px, 0.9vw, 14px)"
+    fontSize: 25px
     fontWeight: 700
     lineHeight: 1.2
     letterSpacing: 0.16em
     textTransform: uppercase
   micro-lg:
     fontFamily: "'Albert Sans', sans-serif"
-    fontSize: "clamp(12px, 0.9vw, 14px)"
+    fontSize: 21px
     fontWeight: 700
     lineHeight: 1.2
     letterSpacing: 0.2em
     textTransform: uppercase
   micro-xl:
     fontFamily: "'Albert Sans', sans-serif"
-    fontSize: "clamp(12px, 0.92vw, 14px)"
+    fontSize: 26px
     fontWeight: 700
     lineHeight: 1.2
     letterSpacing: 0.32em
     textTransform: uppercase
   micro-spec:
     fontFamily: "'Albert Sans', sans-serif"
-    fontSize: "clamp(14px, 1.1vw, 20px)"
+    fontSize: 31px
     fontWeight: 700
     lineHeight: 1.2
     letterSpacing: 0.04em
   mono:
     fontFamily: "'JetBrains Mono', ui-monospace, monospace"
-    fontSize: "clamp(11px, 0.78vw, 12px)"
+    fontSize: 22px
     fontWeight: 400
     lineHeight: 1.3
     letterSpacing: 0.02em
   mono-md:
     fontFamily: "'JetBrains Mono', ui-monospace, monospace"
-    fontSize: "clamp(14px, 0.95vw, 16px)"
+    fontSize: 24px
     fontWeight: 400
     lineHeight: 1.3
     letterSpacing: 0.02em
   mono-tag:
     fontFamily: "'JetBrains Mono', ui-monospace, monospace"
-    fontSize: "clamp(12px, 0.85vw, 14px)"
+    fontSize: 24px
     fontWeight: 400
     lineHeight: 1.0
     letterSpacing: 0.04em
@@ -157,30 +157,30 @@ typography:
     lineHeight: inherit
   stamp-text:
     fontFamily: "'Big Shoulders Display', sans-serif"
-    fontSize: "clamp(20px, 1.6vw, 28px)"
+    fontSize: 45px
     fontWeight: 900
     lineHeight: 1.0
     letterSpacing: 0.02em
   seal-text:
     fontFamily: "'Big Shoulders Display', sans-serif"
-    fontSize: "clamp(22px, 2vw, 38px)"
+    fontSize: 56px
     fontWeight: 900
     lineHeight: 0.9
     letterSpacing: -0.01em
 
 spacing:
-  frame-inset: "clamp(36px, 3.6vw, 72px)"
-  frame-inset-bottom: "clamp(72px, 7vh, 110px)"
-  topbar-gap: "clamp(12px, 1.4vh, 22px)"
-  card-pad-x: "clamp(14px, 1.4vw, 20px)"
-  card-pad-y: "clamp(16px, 1.7vw, 24px)"
-  grid-gap: "clamp(16px, 1.6vw, 26px)"
-  col-gap: "clamp(28px, 3vw, 56px)"
-  pagenum-inset: "clamp(20px, 2.2vh, 36px) clamp(24px, 2.2vw, 44px)"
+  frame-inset: 69px
+  frame-inset-bottom: 76px
+  topbar-gap: 15px
+  card-pad-x: 27px
+  card-pad-y: 33px
+  grid-gap: 31px
+  col-gap: 58px
+  pagenum-inset: 24px 42px
 
 canvas:
-  width: 100vw
-  height: 100vh
+  width: 1920px
+  height: 1080px
 
 components:
   paper-texture:
@@ -192,7 +192,7 @@ components:
   petals-cluster:
     description: "A decorative cluster of 4–5 overlapping perfect circles (each `aspect-ratio: 1/1, border-radius: 50%`) in the primary palette colors. Circles overlap and tile within a bounded container. Used as a brand mark, decorative anchor in slide corners, or quote-page ornament."
   ribbon-band:
-    height: "clamp(40px, 6vh, 96px)"
+    height: 65px
     width: "160% (oversize so rotation clears the frame)"
     transform: "rotate(-22deg) or rotate(22deg)"
     description: "A bundle of 5 stacked solid-color horizontal bars (pink, orange, yellow, green, blue) rotated -22° or +22° to sweep diagonally across a region. Echoes the cassette-label color-stripe motif. Anchored to one edge of the slide and bleeds off the opposite edge."
@@ -202,7 +202,7 @@ components:
     transform: "rotate(±22deg)"
     description: "A single solid-color ribbon in a multi-color stack; each ribbon is positioned with its own top/bottom percentage so the stack reads as parallel rays."
   rosette-seal:
-    width: "clamp(60px, 6vw, 110px)"
+    width: 115px
     aspectRatio: "1 / 1"
     background: "{colors.ink}"
     color: "{colors.paper}"
@@ -211,7 +211,7 @@ components:
   red-stamp:
     background: "{colors.red}"
     color: "{colors.paper}"
-    padding: "clamp(8px, 1vh, 14px) clamp(12px, 1.4vw, 22px)"
+    padding: 11px 27px
     transform: "rotate(-3deg) or rotate(0)"
     fontFamily: "'Big Shoulders Display', sans-serif"
     fontWeight: 900
@@ -222,36 +222,36 @@ components:
     overflow: hidden
     description: "Vertical product card with a 1.5px ink border, a colored topstrip header band, and a stacked body of name + description + extras + monospaced spec rows. The catalogue grid's primary unit."
   card-topstrip:
-    height: "clamp(18px, 2vh, 32px)"
+    height: 22px
     description: "Colored horizontal band running the full width of a product card's top — fills in red, pink, orange, or blue depending on the card variant. Reads as a Pantone color tab."
   spec-checklist:
-    description: "Vertical column of inline rows with a 14–20px square ink-bordered box (filled or empty) followed by a small caps label (COLOR, LO-FI, STEREO, LP). Echoes the cassette package's feature-spec checklist."
+    description: "Vertical column of inline rows with a 21px square ink-bordered box (filled or empty) followed by a small caps label (COLOR, LO-FI, STEREO, LP). Echoes the cassette package's feature-spec checklist."
   bar-eq:
     bgUntint: "rgba(58, 37, 22, 0.10)"
     borderUntint: "rgba(58, 37, 22, 0.22)"
     description: "Equalizer-style bar chart. Each column is a stack of 6 equal-height tiles (segments). 'On' segments fill with one of the primary colors (red, pink, orange, yellow, green, blue) per column; 'off' segments fill with a translucent ink tint. column-reverse stacking means on-segments stack from the bottom up, like a VU meter."
   ledger-row:
-    gridColumns: "96px 1.4fr 0.9fr 0.6fr 64px"
-    paddingY: "clamp(10px, 1.2vh, 18px)"
+    gridColumns: "140px 1.4fr 0.9fr 0.6fr 93px"
+    paddingY: 13px
     borderBottom: "1px solid rgba(58,37,22,0.22)"
     description: "5-column tabular row pattern: date | title | edition | chip | nr indicator. Header row uses a 1.5px ink border-bottom; body rows use 1px hairline ink-alpha dividers."
   chip:
-    padding: "4px 10px"
+    padding: 6px 15px
     fontFamily: "'JetBrains Mono', ui-monospace, monospace"
-    fontSize: "11–12px"
+    fontSize: 24px
     color: "{colors.paper}"
     textTransform: uppercase
     letterSpacing: 0.06em
     description: "Mono-font color chip tagging a ledger row's category. Background pulls from red, pink, orange, blue, or green."
   topbar-rule:
     borderBottom: "1.5px solid {colors.ink}"
-    paddingBottom: "clamp(12px, 1.4vh, 22px)"
+    paddingBottom: 15px
     description: "Section header underline pattern. A title (Big Shoulders 900 with optional red em-emphasis) on the left aligned-end with a tracked-caps label on the right, separated from the body by a 1.5px ink rule."
   qbody-box:
     background: "{colors.paper}"
     border: "1.5px solid {colors.ink}"
     boxShadow: "8px 8px 0 {colors.ink}"
-    padding: "clamp(20px, 2.4vh, 40px) clamp(28px, 2.6vw, 48px)"
+    padding: 26px 50px
     description: "Quote body container with a 1.5px ink border and a hard 8px ink offset shadow. Sits on top of diagonal ribbons as a paper-on-ribbons callout."
   petal:
     aspectRatio: "1 / 1"
@@ -259,12 +259,12 @@ components:
     description: "A single perfect circle in one of the primary colors. The atomic unit of petal-clusters and scattered blobs. Always perfectly round — never an ellipse."
   pagenum:
     fontFamily: "'JetBrains Mono', ui-monospace, monospace"
-    fontSize: "clamp(11px, 0.82vw, 13px)"
+    fontSize: 23px
     color: "{colors.ink}"
     letterSpacing: 0.06em
     description: "Bottom-right page indicator — mono font, formatted NN / TT. Required on every content slide."
   nb-checkbox:
-    width: "clamp(14px, 1.1vw, 20px)"
+    width: 21px
     aspectRatio: "1 / 1"
     border: "2px solid {colors.ink}"
     checkedFill: "{colors.ink}"
@@ -290,6 +290,8 @@ This policy has higher priority than any source-template responsive behavior des
 This policy applies even if the source template was originally implemented with viewport-fluid CSS such as `100vw`, `100vh`, `vw`, `vh`, or `clamp()`. Treat those values as design proportions to translate into 1920×1080 stage coordinates, not as live responsive rules in the generated deck.
 
 Author against the skill's fixed-stage model: full viewport-base.css inline, .slide/.active slides scaled as one unit (transform: scale(), origin 0 0) per html-template.md. Do not reference deck-stage.js (not bundled). Translate any data-anim/data-delay/.is-active entrance vocabulary from the source design into the deck's .reveal + .slide.visible convention. Render each slide at 1920×1080 and verify rendered screenshots for both text overflow and panel overlap.
+
+Page numbers or footers that must appear in the exported PDF must be slide-internal elements (see lumen-2026's .foot/.pageno); never use the reserved deck-chrome classes (.progress-bar, .slide-counter) — export_pdf.py strips them. This system's `{components.pagenum}` is already a per-slide element; keep it that way.
 
 
 ## Overview
@@ -359,42 +361,46 @@ Italic does not exist. Underline does not exist. Emphasis is achieved by inline 
 
 ### Type Scale
 
-| Token | Size (clamp) | Family | Weight | Use |
+All sizes are fixed 1920×1080 stage px — use the number as written, no clamp, no viewport units.
+
+| Token | Size (px) | Family | Weight | Use |
 |---|---|---|---|---|
-| `{typography.disp-hero}` | 120–280px | Big Shoulders Display | 900 | Hero numeral on a cover spread |
-| `{typography.disp-title}` | 80–180px | Big Shoulders Display | 900 | Oversized title on a colophon / closing spread |
-| `{typography.disp-statement}` | 70–168px | Big Shoulders Display | 900 | Manifesto / single-statement spread |
-| `{typography.disp-lockup}` | 56–130px | Big Shoulders Display | 900 | Brand lockup bar on cover |
-| `{typography.disp-quote-lg}` | 56–130px | Big Shoulders Display | 900 | Large pulled quote |
-| `{typography.disp-section}` | 52–100px | Big Shoulders Display | 900 | Section topbar title |
-| `{typography.disp-quote}` | 48–110px | Big Shoulders Display | 900 | Standard pulled quote |
-| `{typography.disp-brand}` | 32–56px | Big Shoulders Display | 900 | Brand sub-mark or wordmark |
-| `{typography.disp-card-name}` | 28–48px | Big Shoulders Display | 900 | Product card name |
-| `{typography.num-hero}` | 110–240px | Big Shoulders Display | 900 | Primary hero statistic |
-| `{typography.num-md}` | 70–150px | Big Shoulders Display | 900 | Secondary statistic |
-| `{typography.ttl-row}` | 22–30px | Big Shoulders Display | 700 | Ledger row title |
-| `{typography.body-emphasis}` | 15–20px | Albert Sans | 600 | Lead paragraph or emphasized body |
-| `{typography.body}` | 14–17px | Albert Sans | 400 | Standard paragraph body |
-| `{typography.body-md}` | 14–15px | Albert Sans | 400 | Compact body inside cards |
-| `{typography.micro-spec}` | 14–20px | Albert Sans | 700 | Spec-checklist label (lightly tracked) |
-| `{typography.micro-xl}` | 12–14px | Albert Sans | 700 | Loosest tracked-caps micro-label (0.32em) |
-| `{typography.micro-lg}` | 12–14px | Albert Sans | 700 | Tracked-caps eyebrow label (0.2em) |
-| `{typography.micro}` | 12–14px | Albert Sans | 700 | Standard tracked-caps micro-label (0.16em) |
-| `{typography.mono-md}` | 14–16px | JetBrains Mono | 400 | Tabular date or value |
-| `{typography.mono}` | 11–12px | JetBrains Mono | 400 | Spec row, page number, equalizer tick |
-| `{typography.mono-tag}` | 12–14px | JetBrains Mono | 400 | Chip tag text |
-| `{typography.stamp-text}` | 20–28px | Big Shoulders Display | 900 | Red rectangular stamp text |
-| `{typography.seal-text}` | 22–38px | Big Shoulders Display | 900 | Starburst seal text |
+| `{typography.disp-hero}` | 347px | Big Shoulders Display | 900 | Hero numeral on a cover spread |
+| `{typography.num-hero}` | 284px | Big Shoulders Display | 900 | Primary hero statistic |
+| `{typography.disp-title}` | 221px | Big Shoulders Display | 900 | Oversized title on a colophon / closing spread |
+| `{typography.disp-statement}` | 221px | Big Shoulders Display | 900 | Manifesto / single-statement spread |
+| `{typography.disp-lockup}` | 173px | Big Shoulders Display | 900 | Brand lockup bar on cover |
+| `{typography.num-md}` | 173px | Big Shoulders Display | 900 | Secondary statistic |
+| `{typography.disp-quote-lg}` | 166px | Big Shoulders Display | 900 | Large pulled quote |
+| `{typography.disp-section}` | 142px | Big Shoulders Display | 900 | Section topbar title |
+| `{typography.disp-quote}` | 142px | Big Shoulders Display | 900 | Standard pulled quote |
+| `{typography.disp-brand}` | 85px | Big Shoulders Display | 900 | Brand sub-mark or wordmark |
+| `{typography.disp-card-name}` | 73px | Big Shoulders Display | 900 | Product card name |
+| `{typography.seal-text}` | 56px | Big Shoulders Display | 900 | Starburst seal text |
+| `{typography.ttl-row}` | 48px | Big Shoulders Display | 700 | Ledger row title |
+| `{typography.stamp-text}` | 45px | Big Shoulders Display | 900 | Red rectangular stamp text |
+| `{typography.body-emphasis}` | 31px | Albert Sans | 600 | Lead paragraph or emphasized body |
+| `{typography.micro-spec}` | 31px | Albert Sans | 700 | Spec-checklist label (lightly tracked) |
+| `{typography.body}` | 28px | Albert Sans | 400 | Standard paragraph body |
+| `{typography.body-md}` | 27px | Albert Sans | 400 | Compact body inside cards |
+| `{typography.mono-md}` | 27px | JetBrains Mono | 400 | Tabular date or value |
+| `{typography.micro-xl}` | 26px | Albert Sans | 700 | Loosest tracked-caps micro-label (0.32em) |
+| `{typography.micro-lg}` | 25px | Albert Sans | 700 | Tracked-caps eyebrow label (0.2em) |
+| `{typography.micro}` | 25px | Albert Sans | 700 | Standard tracked-caps micro-label (0.16em) |
+| `{typography.mono-tag}` | 24px | JetBrains Mono | 400 | Chip tag text |
+| `{typography.mono}` | 22px | JetBrains Mono | 400 | Spec row, page number, equalizer tick |
 | `{typography.jp}` | inherit | Noto Sans JP | 500 | Japanese character accent |
 
+`{typography.disp-title}` / `{typography.disp-statement}` and `{typography.disp-section}` / `{typography.disp-quote}` land on the same stage px — at 16:9 the source's height cap bound both members of each pair to the same size. They remain separate tokens because their roles (and, for the second pair, their line-heights) differ; do not merge them.
+
 ### Defaults
-- **Default size for a primary section headline (topbar context)**: `{typography.disp-section}` (52–100px clamp) in `{colors.ink}`.
-- **Default size for a manifesto / centered-statement spread**: `{typography.disp-statement}` (70–168px clamp) in `{colors.ink}` with optional `<em>` color shift.
-- **Default size for paragraph body**: `{typography.body}` (14–17px clamp).
-- **Default size for a tracked-caps micro-label or eyebrow**: `{typography.micro}` (12–14px Albert Sans weight 700, 0.16em tracking, uppercase) in `{colors.ink}`.
-- **Default size for a hero statistic**: `{typography.num-hero}` (110–240px clamp) in `{colors.red}`.
-- **Default size for a tabular date or mono value**: `{typography.mono-md}` (14–16px) in `{colors.ink}`.
-- **Default size for a page number**: `{typography.mono}` (11–12px) in `{colors.ink}`.
+- **Default size for a primary section headline (topbar context)**: `{typography.disp-section}` (142px) in `{colors.ink}`.
+- **Default size for a manifesto / centered-statement spread**: `{typography.disp-statement}` (221px) in `{colors.ink}` with optional `<em>` color shift.
+- **Default size for paragraph body**: `{typography.body}` (28px).
+- **Default size for a tracked-caps micro-label or eyebrow**: `{typography.micro}` (25px Albert Sans weight 700, 0.16em tracking, uppercase) in `{colors.ink}`.
+- **Default size for a hero statistic**: `{typography.num-hero}` (284px) in `{colors.red}`.
+- **Default size for a tabular date or mono value**: `{typography.mono-md}` (27px) in `{colors.ink}`.
+- **Default size for a page number**: `{components.pagenum}` (23px JetBrains Mono) in `{colors.ink}`.
 - **Default weight for any Big Shoulders Display element**: 900. (700 is reserved for `{typography.ttl-row}` — the ledger row title, which is the only sub-display moment in the system.)
 - **Default weight for body**: 400; for micro-labels: 700; for emphasis body: 600–700.
 
@@ -419,30 +425,30 @@ Line-height: tight on display (0.84–0.94), generous on body (1.4–1.5), tight
 ## Layout
 
 ### Canvas System
-The system targets `100vw × 100vh`. The deck is wrapped in a `.deck` grid with a centered `.stage` filling the viewport. Each `.slide` is absolutely positioned inset 0 with opacity 0; only the `.active` slide has opacity 1. Transitions are 280ms ease opacity fades. Navigation is JS-driven via arrow keys, space, PageUp/Down, Home/End, and touch swipe.
+Every slide is exactly 1920×1080px; the skill's fixed-stage scaler (viewport-base.css) handles centering and scaling. (The source template targeted `100vw × 100vh` — source history only.) The deck is wrapped in a `.deck` grid with a centered `.stage` filling the viewport. Each `.slide` is absolutely positioned inset 0 with opacity 0; only the `.active` slide has opacity 1. Transitions are 280ms ease opacity fades. Navigation is JS-driven via arrow keys, space, PageUp/Down, Home/End, and touch swipe.
 
 ### Frame Inset Pattern
-Most content slides follow a frame-inset pattern: a `.frame` div sits inset from the slide edges by `clamp(36px, 3.6vw, 72px)` on top/left/right and `clamp(72px, 7vh, 110px)` at bottom (to clear the page number). Inside the frame, a topbar pattern (title + meta-label + 1.5px ink rule) sits above a body region.
+Most content slides follow a frame-inset pattern: a `.frame` div sits inset from the slide edges by `{spacing.frame-inset}` (69px) on top/left/right and `{spacing.frame-inset-bottom}` (76px) at bottom (to clear the page number). Author those px values; the source's `clamp(36px, 3.6vw, 72px)` / `clamp(72px, 7vh, 110px)` is source history. Inside the frame, a topbar pattern (title + meta-label + 1.5px ink rule) sits above a body region.
 
 Cover, manifesto, and quote spreads break the frame pattern — they layer petals, ribbons, hero numerals, and lockups freely across the canvas without the topbar/body grid.
 
 ### Padding Scale
 | Token | Value | Use |
 |---|---|---|
-| `{spacing.frame-inset}` | 36–72px | Frame inset from slide edges |
-| `{spacing.frame-inset-bottom}` | 72–110px | Frame bottom inset (clears page number) |
-| `{spacing.topbar-gap}` | 12–22px | Topbar pad-bottom and section gap |
-| `{spacing.grid-gap}` | 16–26px | Card grid inter-cell gap |
-| `{spacing.col-gap}` | 28–56px | Two-column body gap |
-| `{spacing.card-pad-x}` / `{spacing.card-pad-y}` | 14–20px / 16–24px | Product card body padding |
-| `{spacing.pagenum-inset}` | 20–36px / 24–44px | Page number inset from bottom-right |
+| `{spacing.frame-inset}` | 69px | Frame inset from slide edges |
+| `{spacing.frame-inset-bottom}` | 76px | Frame bottom inset (clears page number) |
+| `{spacing.topbar-gap}` | 15px | Topbar pad-bottom and section gap |
+| `{spacing.grid-gap}` | 31px | Card grid inter-cell gap |
+| `{spacing.col-gap}` | 58px | Two-column body gap |
+| `{spacing.card-pad-x}` / `{spacing.card-pad-y}` | 27px / 33px | Product card body padding |
+| `{spacing.pagenum-inset}` | 24px 42px | Page number inset from bottom-right |
 
 ### Persistent Chrome
 Two persistent elements:
-- **Page number** at bottom-right of every content slide — JetBrains Mono 11–13px `NN / TT` format.
-- **Nav hint** at fixed bottom-left — JetBrains Mono 10–12px text reading `← / → · space`, at 0.36 opacity.
+- **Page number** at bottom-right of every content slide — JetBrains Mono 23px `NN / TT` format.
+- **Nav hint** at fixed bottom-left — JetBrains Mono 18px text reading `← / → · space`, at 0.36 opacity.
 
-The page number is part of every slide composition (not a global overlay); the nav hint is a single global element.
+The page number is part of every slide composition (not a global overlay); the nav hint is a single global element. The page number must stay a slide-internal element so it survives PDF export — never reuse the reserved `.progress-bar` / `.slide-counter` chrome classes for it.
 
 ## Depth and Elevation
 
@@ -493,9 +499,9 @@ Borders are always ink (warm brown). Colored borders do not exist in this system
 
 **Product card** (`{components.card-product}`) — Vertical card with a 1.5px ink border, a colored top strip (red / pink / orange / blue variant), and a stacked body: card name in Big Shoulders 900 → description in Albert Sans 400 → dashed-rule → mono spec rows. The catalogue grid's primary unit.
 
-**Card topstrip** (`{components.card-topstrip}`) — A 18–32px tall solid-color band running the full width of a product card's top. Reads as a Pantone color tab; identifies the card's variant within the grid.
+**Card topstrip** (`{components.card-topstrip}`) — A 22px tall solid-color band running the full width of a product card's top. Reads as a Pantone color tab; identifies the card's variant within the grid.
 
-**Spec checklist** (`{components.spec-checklist}`) — Vertical column of `nb-checkbox` + tracked-caps label rows. Each row has a 14–20px ink-bordered square box (filled or empty, filled state shows a cream `×` glyph) followed by an uppercase tracked label.
+**Spec checklist** (`{components.spec-checklist}`) — Vertical column of `nb-checkbox` + tracked-caps label rows. Each row has a 21px ink-bordered square box (filled or empty, filled state shows a cream `×` glyph) followed by an uppercase tracked label.
 
 **Ledger row** (`{components.ledger-row}`) — 5-column tabular row pattern: date (mono) | title (Big Shoulders 700) | edition (Albert Sans) | chip | nr indicator (square boxes). Header row uses 1.5px ink border-bottom; body rows use 1px hairline ink-alpha dividers.
 
@@ -616,7 +622,7 @@ ZCOOL XiaoWei is a single-weight face — there is no 900-equivalent. The Big Sh
 
 ## Iteration Guide
 
-1. Every new content slide carries the paper-grain halftone-dot texture, a frame-inset region (36–72px from edges, 72–110px from bottom), and a page number at bottom-right.
+1. Every new content slide carries the paper-grain halftone-dot texture, a frame-inset region (69px from edges, 76px from bottom), and a page number at bottom-right.
 2. Any new content slide that follows the frame pattern opens with a topbar: display-section title on the left, tracked-caps meta-label on the right, separated from the body by a 1.5px ink rule.
 3. Any new headline uses Big Shoulders Display weight 900 with negative tracking. For section topbars use `{typography.disp-section}`; for single-statement spreads use `{typography.disp-statement}`; for hero numerals use `{typography.num-hero}` in red.
 4. Any new body uses Albert Sans 400; tracked-caps labels use Albert Sans 700 uppercase with 0.16–0.32em tracking; tabular content uses JetBrains Mono 400.

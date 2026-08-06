@@ -8,9 +8,15 @@ Use this small file for title-slide previews only. For final deck generation, re
 
 ## Visual Snapshot
 
-A cassette-package editorial system on warm cream paper with a six-color primary palette and warm-brown ink. Display type runs in Big Shoulders Display (condensed industrial display sans at weight 900); body in Albert Sans; tabular and tag content in JetBrains Mono; occasional Japanese accents in Noto Sans JP. The aesthetic borrows from 1970s consumer cassette packaging, Japanese print catalogues, and lo-fi product zines: petal-cluster blob clusters, diagonal multi-color ribbon bands, 12-point starburst seals, red rectangular stamps, and tracked uppercase micro-labels. The effect is hand-curated industrial editorial — warm but disciplined, playful but tightly typeset, with the cassette as its visual metaphor.
+Cover recipe:
 
-Sakura Chroma is a cassette-package editorial system that treats every slide as a printed product page from a small Japanese audio-products catalogue. The visual metaphor is total: petal-cluster blob marks, diagonal multi-color ribbon bands, 12-point starburst seals, red rectangular stamps, mono-font spec rows, color-coded chips, and equalizer-style bar charts. Everything reads as if pulled from the back-page spread of a 1970s consumer-audio brochure — warm, hand-curated, industrially typeset.
+- Surface: full-bleed warm cream paper #F1E6CB carrying the required 4px halftone-dot texture at 16% opacity; the cover breaks the frame/topbar grid and layers elements freely across the 1920×1080 stage.
+- Ribbons: one diagonal band of 5 stacked solid bars (pink, orange, yellow, green, blue), each 65px tall and 160% wide, rotated -22°, anchored to one edge and bleeding off the opposite.
+- Lockup: petal-cluster of 4–5 overlapping perfect circles in mixed primary colors as the corner anchor, with the brand lockup beside it — Big Shoulders 900 at 173px on a pink #E54489 bar over an Albert Sans 600 sub-mark at 31px.
+- Hero: the cover numeral in Big Shoulders 900 at 347px, line-height 0.84, letter-spacing -0.025em, ink #3A2516, with one `<em>` run shifted to red #E5392A — never italic.
+- Authority marks: 32-point starburst seal, 115px square, ink fill with cream 56px glyph; optional red #E5392A stamp rotated -3° with cream Big Shoulders 900 at 45px.
+- Footer: 1.5px ink top rule above a row of 21px ink-bordered checkboxes plus tracked-caps labels at 25px / 0.2em, with a 限定版 Noto Sans JP accent.
+- Chrome: page number bottom-right, JetBrains Mono 23px `NN / TT`, inset 24px/42px — a slide-internal element, never `.slide-counter`.
 
 ## Preview Ingredients
 

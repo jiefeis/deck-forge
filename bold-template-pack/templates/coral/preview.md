@@ -8,9 +8,15 @@ Use this small file for title-slide previews only. For final deck generation, re
 
 ## Visual Snapshot
 
-A bold magazine-poster system that runs on three surface registers — coral fire, ink black, and warm cream — animated by Bebas Neue display caps and a constant 45° diagonal hatch pattern. Inter handles body copy; Bebas Neue handles every headline, stat, title, and meta-figure at heavy letter-spacing. The cultural reference is mid-century travel posters, Saul Bass film titles, and modern editorial sport magazines: solid color planes meeting at hard edges, oversized condensed caps as architectural elements, and a single coral hue used both as accent and as full-slide environment.
+Cover recipe:
 
-Coral is a bold magazine-poster system built on three surface registers — coral fire, ink black, and warm cream — that meet at hard edges. The defining structural premise is solid color planes: a single slide will split into a coral half + a cream half + an ink top-section, with each region a flat solid color holding its own self-contained composition. There are no gradient transitions between regions; the meeting point of two colors is the layout. This is the populist counterpart to a more refined editorial system — closer to a sports magazine cover than a literary catalogue.
+- Composition: a 32% / 68% row split — coral #E85D5D top-section over a cream #F5F0E8 bottom-section, meeting at a hard color edge with no gradient and no rounding at the junction.
+- The coral top-section carries the signature 45° hatch (`rgba(0,0,0,0.06)`, 20px/40px stride) as a ::before overlay, plus the thin low-opacity SVG zigzag layer behind the title.
+- Title: Bebas Neue at 120px, line-height 0.9, 4px letter-spacing, native uppercase, broken over about three lines, in ink #1A1A1A — ink-on-fire; white headlines on coral do not exist.
+- Title rule: a full-width 3px ink line at 15% opacity directly beneath the title.
+- Cover meta sits in the cream bottom-section at 49px vertical / 154px horizontal padding: Bebas 44px figures (38px for the date variant) stacked over Inter 11px weight-600 uppercase labels at 3px tracking.
+- Eyebrow, where used: Inter weight 700 at 12px with 4px tracking — coral on cream, ink on coral; coral-on-coral never happens.
+- Chrome: 10px translucent nav dots and 44px circular nav arrows; any page number that must survive PDF export is a slide-internal element.
 
 ## Preview Ingredients
 

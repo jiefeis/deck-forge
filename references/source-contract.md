@@ -77,7 +77,7 @@ save after the audits invalidates those audits and requires rerunning them.
 
 - Treat the HTML file's parent as the only asset root; run the HTML audit before export.
 - If relative assets are missing, report the exact paths and stop; do not search the desktop or web unless the user asks to recover them.
-- On Windows, if Playwright's default Chromium launch fails, locate an existing local `chrome.exe` and pass its exact path to both scripts with `--browser-executable` (or set `DECK_FORGE_BROWSER_EXECUTABLE` once); do not download before this fallback fails.
+- If Playwright's default Chromium launch fails, pass any installed Chromium/Chrome/Edge binary to both scripts with `--browser-executable` (or set `DECK_FORGE_BROWSER_EXECUTABLE` once) — Windows `chrome.exe`, Linux `/usr/bin/chromium`, macOS the binary inside `Google Chrome.app`; do not download before this fallback fails.
 
 ## Windows path and encoding hygiene
 

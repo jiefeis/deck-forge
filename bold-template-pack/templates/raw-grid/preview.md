@@ -8,9 +8,16 @@ Use this small file for title-slide previews only. For final deck generation, re
 
 ## Visual Snapshot
 
-A neobrutalist presentation system where 3px solid black borders ARE the layout. Display type runs in the native system sans-serif stack (Segoe UI / system-ui) at weight 900 in strict uppercase — no web fonts loaded. The palette is white canvas + black structure + two muted pastel accents (blush pink #F2D4CF and sage green #E5EDD6) + a neutral gray. Depth comes from hard offset shadows in solid black at 4px and 6px — never blurred, never colored. The aesthetic borrows from brutalist editorial web design and zine layout: borders meet without gaps, contrast is high but warmed by the pastel accents, and large numerals sit at very low opacity behind content as decorative wallpaper. The effect is sharp, system-native, and unmistakably digital — closer to a Notion-meets-protest-poster than a polished pitch deck.
+Cover recipe:
 
-Raw Grid is a neobrutalist presentation system built on a single structural premise: 3px solid black borders are the layout. There are no margins between regions, no gaps between cells, no rounded corners, no gradients. When two regions meet, a 3px black line separates them — that line is the entire grid system.
+- Surface: white #FFFFFF canvas divided by 3px solid black borders into edge-to-edge regions — a shallow header band above a full-width title region; no gaps, no margins, no rounded corners.
+- Padding: 77px inside the title region, 48px inside the header band; regions abut the border line directly.
+- Header band: black label pill at left (white uppercase 18px / weight 800 / 0.08em, 10px 22px padding) beside a 48px white icon-box with 3px black border; 19px / 700 / 0.08em uppercase caption meta at right.
+- Title: 134px weight 900 uppercase, -0.02em tracking, black, left-aligned — sentence-case display does not exist here.
+- Subtitle: 27px / 700 uppercase at 0.04em, separated from the title by a 60px × 4px solid black rule stub.
+- Accent: one flanking or lower region filled blush pink #F2D4CF or sage green #E5EDD6 — accent fills are surfaces only, never text color, and never sit behind the title.
+- Decoration: an oversized weight-900 numeral at 0.15–0.35 opacity as wallpaper inside the accent region; if a card is lifted, one 6px 6px 0 solid black hard offset shadow, zero blur.
+- Chrome: no header/footer chrome on the cover; any page number must be a slide-internal element in the caption row.
 
 ## Preview Ingredients
 

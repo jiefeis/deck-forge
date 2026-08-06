@@ -20,25 +20,25 @@ typography:
   h1:
     fontFamily: "'Space Grotesk', sans-serif"
     fontWeight: 700
-    fontSize: "clamp(44.8px, 5vw, 67.2px)"
+    fontSize: 128px
     lineHeight: 1.1
     letterSpacing: -0.02em
   h2:
     fontFamily: "'Space Grotesk', sans-serif"
     fontWeight: 600
-    fontSize: "clamp(28.8px, 3vw, 41.6px)"
+    fontSize: 77px
     lineHeight: 1.1
     letterSpacing: -0.02em
   h3:
     fontFamily: "'Space Grotesk', sans-serif"
     fontWeight: 500
-    fontSize: "clamp(17.6px, 1.8vw, 24px)"
+    fontSize: 46px
     lineHeight: 1.3
     letterSpacing: -0.02em
   h4-eyebrow:
     fontFamily: "'Space Grotesk', sans-serif"
     fontWeight: 600
-    fontSize: "clamp(13.6px, 1.2vw, 16px)"
+    fontSize: 31px
     lineHeight: 1.1
     letterSpacing: 0.08em
     textTransform: uppercase
@@ -46,137 +46,136 @@ typography:
   body:
     fontFamily: "'Inter', sans-serif"
     fontWeight: 400
-    fontSize: "clamp(13.6px, 1.1vw, 16.8px)"
+    fontSize: 28px
     lineHeight: 1.6
     color: "{colors.text-muted}"
   metric-value:
     fontFamily: "'Space Grotesk', sans-serif"
     fontWeight: 700
-    fontSize: "clamp(35.2px, 3.4vw, 48px)"
+    fontSize: 87px
     lineHeight: 1
     color: "{colors.primary}"
   metric-label:
     fontFamily: "'Inter', sans-serif"
     fontWeight: 600
-    fontSize: "clamp(15.2px, 1.3vw, 17.6px)"
+    fontSize: 33px
     lineHeight: 1.3
     color: "{colors.text}"
   metric-desc:
     fontFamily: "'Inter', sans-serif"
     fontWeight: 400
-    fontSize: "clamp(12.5px, 0.95vw, 14.4px)"
+    fontSize: 24px
     lineHeight: 1.5
     color: "{colors.text-muted}"
   metric-support:
     fontFamily: "'Inter', sans-serif"
     fontWeight: 400
-    fontSize: "clamp(12px, 0.9vw, 13.6px)"
+    fontSize: 23px
     lineHeight: 1.45
     color: "{colors.text-muted}"
   stat-num:
     fontFamily: "'Space Grotesk', sans-serif"
     fontWeight: 700
-    fontSize: "clamp(25.6px, 2.4vw, 33.6px)"
+    fontSize: 61px
     lineHeight: 1
     color: "{colors.primary}"
   stat-name:
     fontFamily: "'Inter', sans-serif"
     fontWeight: 500
-    fontSize: "clamp(13.6px, 1vw, 15.2px)"
+    fontSize: 26px
     lineHeight: 1.35
     color: "{colors.text}"
   stat-context:
     fontFamily: "'Inter', sans-serif"
     fontWeight: 400
-    fontSize: 12px
+    fontSize: 23px
     lineHeight: 1.4
     color: "{colors.text-light}"
   agenda-num:
     fontFamily: "'Space Grotesk', sans-serif"
     fontWeight: 700
-    fontSize: 28.8px
+    fontSize: 55px
     lineHeight: 1
     color: "{colors.primary}"
   insight-num:
     fontFamily: "'Space Grotesk', sans-serif"
     fontWeight: 600
-    fontSize: 12.5px
+    fontSize: 24px
     lineHeight: 1.7
     letterSpacing: 0.05em
     color: "{colors.primary}"
   split-highlight:
     fontFamily: "'Space Grotesk', sans-serif"
     fontWeight: 500
-    fontSize: "clamp(18.4px, 1.55vw, 24px)"
+    fontSize: 46px
     lineHeight: 1.4
     color: "{colors.text}"
   blockquote:
     fontFamily: "'Space Grotesk', sans-serif"
     fontWeight: 500
-    fontSize: "clamp(25.6px, 2.8vw, 38.4px)"
+    fontSize: 72px
     lineHeight: 1.35
     color: "{colors.text}"
   quote-mark:
     fontFamily: "'Space Grotesk', sans-serif"
     fontWeight: 700
-    fontSize: "128px"
+    fontSize: 246px
     lineHeight: 0.5
     color: "{colors.primary}"
     opacity: 0.15
   step-circle-text:
     fontFamily: "'Space Grotesk', sans-serif"
     fontWeight: 700
-    fontSize: 20.8px
+    fontSize: 40px
     lineHeight: 1
   step-title:
     fontFamily: "'Space Grotesk', sans-serif"
     fontWeight: 600
-    fontSize: "clamp(15.2px, 1.4vw, 18.4px)"
+    fontSize: 36px
     lineHeight: 1.2
   bar-label:
     fontFamily: "'Inter', sans-serif"
     fontWeight: 500
-    fontSize: "clamp(12.8px, 1.1vw, 16px)"
+    fontSize: 28px
     lineHeight: 1.3
     color: "{colors.text}"
   bar-pct:
     fontFamily: "'Space Grotesk', sans-serif"
     fontWeight: 600
-    fontSize: 15.2px
+    fontSize: 29px
     color: "{colors.primary}"
   tag:
     fontFamily: "'Space Grotesk', sans-serif"
     fontWeight: 500
-    fontSize: 12px
+    fontSize: 23px
     lineHeight: 1
     color: "{colors.primary}"
   counter:
     fontFamily: "'Space Grotesk', sans-serif"
     fontWeight: 500
-    fontSize: 12.8px
+    fontSize: 25px
     lineHeight: 1
     letterSpacing: 0.05em
     color: "{colors.text-muted}"
   meta:
     fontFamily: "'Space Grotesk', sans-serif"
     fontWeight: 400
-    fontSize: 12.8px
+    fontSize: 25px
     lineHeight: 1.4
     letterSpacing: 0.05em
     color: "{colors.text-light}"
   cite:
     fontFamily: "'Space Grotesk', sans-serif"
     fontWeight: 500
-    fontSize: 12.5px
+    fontSize: 24px
     lineHeight: 1.4
     letterSpacing: 0.04em
     textTransform: uppercase
     color: "{colors.text-muted}"
-
 spacing:
-  pad-slide-x: "4vw"
-  pad-slide-y-top: "3.5vw"
-  pad-slide-y-bottom: "8.5vh"
+  pad-slide-x: "77px"
+  pad-slide-y-top: "67px"
+  pad-slide-y-bottom: "92px"
   pad-card-lg: "1.5rem 1.6rem"
   pad-card-md: "1.4rem 1.5rem"
   pad-card-sm: "1rem 1.2rem"
@@ -186,15 +185,13 @@ spacing:
   gap-grid-sm: "1.5rem"
   gap-cards: "1.2rem"
   gap-mini: "1rem"
-  header-margin: "2.5vh"
+  header-margin: "27px"
   accent-line-width: "60px"
   accent-line-height: "4px"
-
 canvas:
-  width: 100vw
-  height: 100vh
+  width: 1920px
+  height: 1080px
   background: "{colors.bg}"
-
 radii:
   pill: "100px"
   card-lg: "14px"
@@ -235,7 +232,7 @@ components:
     borderRadius: 100px
     fontFamily: "'Space Grotesk', sans-serif"
     fontWeight: 500
-    fontSize: 12px
+    fontSize: 23px
     description: "Pill-shaped tag sitting in the top-right of the slide-header. Fully rounded, soft cobalt tint background, cobalt text."
   cta-button:
     background: "{colors.primary}"
@@ -244,7 +241,7 @@ components:
     borderRadius: 100px
     fontFamily: "'Space Grotesk', sans-serif"
     fontWeight: 600
-    fontSize: 15.2px
+    fontSize: 29px
     description: "Primary CTA. Fully rounded solid cobalt pill with cream text. Hover lifts -2 with a soft cobalt drop shadow."
   nav-btn:
     width: 44px
@@ -277,8 +274,8 @@ components:
     borderRadius: 6px
     description: "Solid cobalt fill inside bar-track. Width carries the data value. Animates from 0 to value on slide entry."
   step-circle:
-    width: 56px
-    height: 56px
+    width: 108px
+    height: 108px
     borderRadius: 50%
     background: "{colors.primary}"
     color: "{colors.bg}"
@@ -287,13 +284,13 @@ components:
     color: "{colors.positive}"
     fontFamily: "'Space Grotesk', sans-serif"
     fontWeight: 600
-    fontSize: 12.5px
+    fontSize: 24px
     description: "Inline positive-change chip with up-arrow glyph and percentage. Green text inline; no border or fill."
   metric-change-negative:
     color: "{colors.negative}"
     fontFamily: "'Space Grotesk', sans-serif"
     fontWeight: 600
-    fontSize: 12.5px
+    fontSize: 24px
     description: "Inline negative-change chip with up/down-arrow glyph and percentage. Red text inline; no border or fill."
   insight-list-item:
     paddingLeft: "2.6rem"
@@ -341,6 +338,8 @@ This policy applies even if the source template was originally implemented with 
 
 Author against the skill's fixed-stage model: full viewport-base.css inline, .slide/.active slides scaled as one unit (transform: scale(), origin 0 0) per html-template.md. Do not reference deck-stage.js (not bundled). Translate any data-anim/data-delay/.is-active entrance vocabulary from the source design into the deck's .reveal + .slide.visible convention. Render each slide at 1920×1080 and verify rendered screenshots for both text overflow and panel overlap.
 
+Page numbers or footers that must appear in the exported PDF must be slide-internal elements (see lumen-2026's .foot/.pageno); never use the reserved deck-chrome classes (.progress-bar, .slide-counter) — export_pdf.py strips them.
+
 
 ## Overview
 
@@ -361,7 +360,7 @@ Depth is **soft and tinted**, never offset or shadowed. Cards are 4% cobalt tint
 - Cards are 4% cobalt tints with 1.5px cobalt-at-20% borders and 10-14px rounded corners.
 - Soft pill-shaped chrome (`{components.tag-pill}`, `{components.cta-button}`) with full `100px` border-radius.
 - Headlines use Space Grotesk weight 600-700 with -0.02em tracking on a near-black text color.
-- Body uses Inter weight 400 at 13.6-16.8px with 1.6 line-height in the muted gray.
+- Body uses Inter weight 400 at 28px with 1.6 line-height in the muted gray.
 - Every slide carries a slide-header (eyebrow + tag pill), a single h2, and a flexible content region — the structure is rhythmic across the deck.
 - Persistent chrome: cobalt progress bar at bottom edge, slide-counter at bottom-left, circular nav-arrows at bottom-right.
 - Decorative atmospheric elements (concentric circles, dot grids, diagonal accent panels) appear only on cover and closing-class surfaces.
@@ -411,49 +410,51 @@ The face roles are non-overlapping: Space Grotesk handles every numeral and ever
 
 ### Typography Scale
 
-| Token | Size (clamp / px) | Family | Weight | Use |
+All sizes are stage px on the fixed 1920×1080 canvas — use them literally, do not rescale.
+
+| Token | Size | Family | Weight | Use |
 |---|---|---|---|---|
-| `{typography.h1}` | 44.8–67.2px clamp | Space Grotesk | 700 | Cover or closing title |
-| `{typography.h2}` | 28.8–41.6px clamp | Space Grotesk | 600 | Primary section headline on each slide |
-| `{typography.h3}` | 17.6–24px clamp | Space Grotesk | 500 | Agenda item / region title |
-| `{typography.h4-eyebrow}` | 13.6–16px clamp | Space Grotesk | 600 | Uppercase eyebrow in the slide-header (always cobalt) |
-| `{typography.body}` | 13.6–16.8px clamp | Inter | 400 | Standard body paragraph |
-| `{typography.metric-value}` | 35.2–48px clamp | Space Grotesk | 700 | Large metric numeral in a callout card |
-| `{typography.metric-label}` | 15.2–17.6px clamp | Inter | 600 | Metric label line under the numeral |
-| `{typography.metric-desc}` | 12.5–14.4px clamp | Inter | 400 | Metric supporting description paragraph |
-| `{typography.metric-support}` | 12–13.6px clamp | Inter | 400 | Metric supporting bullet list |
-| `{typography.stat-num}` | 25.6–33.6px clamp | Space Grotesk | 700 | Stat-cell numeral (smaller than metric-value) |
-| `{typography.stat-name}` | 13.6–15.2px clamp | Inter | 500 | Stat-cell descriptive name line |
-| `{typography.stat-context}` | 12px | Inter | 400 | Stat-cell tertiary context line below a hairline divider |
-| `{typography.agenda-num}` | 28.8px | Space Grotesk | 700 | Agenda item numeral |
-| `{typography.insight-num}` | 12.5px | Space Grotesk | 600 | Counter-style number prefix on insight list items |
-| `{typography.split-highlight}` | 18.4–24px clamp | Space Grotesk | 500 | Inline pull-quote text inside a split-highlight block |
-| `{typography.blockquote}` | 25.6–38.4px clamp | Space Grotesk | 500 | Quote-class headline body |
-| `{typography.quote-mark}` | 128px | Space Grotesk | 700 | Decorative oversized quote glyph at 15% opacity above a blockquote |
-| `{typography.step-circle-text}` | 20.8px | Space Grotesk | 700 | Numeral inside a circular step marker |
-| `{typography.step-title}` | 15.2–18.4px clamp | Space Grotesk | 600 | Step title beneath a step circle |
-| `{typography.bar-label}` | 12.8–16px clamp | Inter | 500 | Bar chart row label |
-| `{typography.bar-pct}` | 15.2px | Space Grotesk | 600 | Bar chart row percentage value |
-| `{typography.tag}` | 12px | Space Grotesk | 500 | Tag pill text in slide-header |
-| `{typography.counter}` | 12.8px | Space Grotesk | 500 | Persistent slide counter |
-| `{typography.meta}` | 12.8px | Space Grotesk | 400 | Cover meta line (e.g., date / confidential marker) |
-| `{typography.cite}` | 12.5px | Space Grotesk | 500 | Cite/attribution under a pull-quote, uppercase with 0.04em tracking |
+| `{typography.quote-mark}` | 246px | Space Grotesk | 700 | Decorative oversized quote glyph at 15% opacity above a blockquote |
+| `{typography.h1}` | 128px | Space Grotesk | 700 | Cover or closing title |
+| `{typography.metric-value}` | 87px | Space Grotesk | 700 | Large metric numeral in a callout card |
+| `{typography.h2}` | 77px | Space Grotesk | 600 | Primary section headline on each slide |
+| `{typography.blockquote}` | 72px | Space Grotesk | 500 | Quote-class headline body |
+| `{typography.stat-num}` | 61px | Space Grotesk | 700 | Stat-cell numeral (smaller than metric-value) |
+| `{typography.agenda-num}` | 55px | Space Grotesk | 700 | Agenda item numeral |
+| `{typography.h3}` | 46px | Space Grotesk | 500 | Agenda item / region title |
+| `{typography.split-highlight}` | 40px | Space Grotesk | 500 | Inline pull-quote text inside a split-highlight block |
+| `{typography.step-circle-text}` | 40px | Space Grotesk | 700 | Numeral inside a circular step marker |
+| `{typography.step-title}` | 36px | Space Grotesk | 600 | Step title beneath a step circle |
+| `{typography.metric-label}` | 33px | Inter | 600 | Metric label line under the numeral |
+| `{typography.h4-eyebrow}` | 31px | Space Grotesk | 600 | Uppercase eyebrow in the slide-header (always cobalt) |
+| `{typography.bar-pct}` | 29px | Space Grotesk | 600 | Bar chart row percentage value |
+| `{typography.body}` | 28px | Inter | 400 | Standard body paragraph |
+| `{typography.bar-label}` | 28px | Inter | 500 | Bar chart row label |
+| `{typography.stat-name}` | 26px | Inter | 500 | Stat-cell descriptive name line |
+| `{typography.counter}` | 25px | Space Grotesk | 500 | Persistent slide counter |
+| `{typography.meta}` | 25px | Space Grotesk | 400 | Cover meta line (e.g., date / confidential marker) |
+| `{typography.metric-desc}` | 24px | Inter | 400 | Metric supporting description paragraph |
+| `{typography.insight-num}` | 24px | Space Grotesk | 600 | Counter-style number prefix on insight list items |
+| `{typography.cite}` | 24px | Space Grotesk | 500 | Cite/attribution under a pull-quote, uppercase with 0.04em tracking |
+| `{typography.metric-support}` | 23px | Inter | 400 | Metric supporting bullet list |
+| `{typography.stat-context}` | 23px | Inter | 400 | Stat-cell tertiary context line below a hairline divider |
+| `{typography.tag}` | 23px | Space Grotesk | 500 | Tag pill text in slide-header |
 
 ### Defaults
 
-- **Default size for a cover title**: `{typography.h1}` (44.8–67.2px). Always Space Grotesk weight 700 with -0.02em tracking.
-- **Default size for the primary section headline on each slide**: `{typography.h2}` (28.8–41.6px). Space Grotesk weight 600. The "section h2" is the system's structural workhorse — every content slide has one.
-- **Default size for a region or agenda-item title**: `{typography.h3}` (17.6–24px).
-- **Default size for the eyebrow above the h2**: `{typography.h4-eyebrow}` (13.6–16px) in cobalt, uppercase, 0.08em tracking.
-- **Default size for paragraph body**: `{typography.body}` (13.6–16.8px clamp). Inter weight 400 with line-height 1.6.
-- **Default size for a large metric numeral**: `{typography.metric-value}` (35.2–48px). For dashboard stat cells, step down to `{typography.stat-num}` (25.6–33.6px).
-- **Default size for a quote body**: `{typography.blockquote}` (25.6–38.4px). Always Space Grotesk weight 500.
+- **Default size for a cover title**: `{typography.h1}` (128px). Always Space Grotesk weight 700 with -0.02em tracking.
+- **Default size for the primary section headline on each slide**: `{typography.h2}` (77px). Space Grotesk weight 600. The "section h2" is the system's structural workhorse — every content slide has one.
+- **Default size for a region or agenda-item title**: `{typography.h3}` (46px).
+- **Default size for the eyebrow above the h2**: `{typography.h4-eyebrow}` (31px) in cobalt, uppercase, 0.08em tracking.
+- **Default size for paragraph body**: `{typography.body}` (28px). Inter weight 400 with line-height 1.6.
+- **Default size for a large metric numeral**: `{typography.metric-value}` (87px). For dashboard stat cells, step down to `{typography.stat-num}` (61px).
+- **Default size for a quote body**: `{typography.blockquote}` (72px). Always Space Grotesk weight 500.
 - **Default weight for Space Grotesk headings**: 500 (h3) → 600 (h2 and eyebrow) → 700 (h1 and numerical callouts). Don't reach for weight 400 or 800; the weight ladder is fixed.
 - **Default weight for Inter body**: 400. Inter body at 500-600 reads as too assertive; at 300 reads as too thin.
 - **Default tracking for h1-h3 headings**: -0.02em. Without negative tracking, Space Grotesk display reads as untreated.
 - **Default tracking for the h4 eyebrow**: 0.08em uppercase. Without the wide tracking + uppercase combination, the eyebrow doesn't read as an eyebrow.
 
-When unsure which heading token to reach for, default to `{typography.h2}` (28.8–41.6px) for the slide's primary text moment. `{typography.h3}` is for region or agenda-item titles; `{typography.h1}` is reserved for cover and closing.
+When unsure which heading token to reach for, default to `{typography.h2}` (77px) for the slide's primary text moment. `{typography.h3}` is for region or agenda-item titles; `{typography.h1}` is reserved for cover and closing.
 
 ### Signature Treatments
 
@@ -485,9 +486,9 @@ Default slide padding is asymmetric: `3.5vw` left, top, and right; `8.5vh` botto
 
 | Token | Value | Use |
 |---|---|---|
-| `{spacing.pad-slide-x}` | 4vw | Slide horizontal padding |
-| `{spacing.pad-slide-y-top}` | 3.5vw | Slide top padding |
-| `{spacing.pad-slide-y-bottom}` | 8.5vh | Slide bottom padding (extra to clear nav chrome) |
+| `{spacing.pad-slide-x}` | 77px | Slide horizontal padding |
+| `{spacing.pad-slide-y-top}` | 67px | Slide top padding |
+| `{spacing.pad-slide-y-bottom}` | 92px | Slide bottom padding (extra to clear nav chrome) |
 | `{spacing.pad-card-lg}` | 1.5rem 1.6rem | Large card internal padding (metric cards) |
 | `{spacing.pad-card-md}` | 1.4rem 1.5rem | Medium card internal padding (stat cells) |
 | `{spacing.pad-card-sm}` | 1rem 1.2rem | Small card internal padding (detail blocks) |
@@ -497,11 +498,11 @@ Default slide padding is asymmetric: `3.5vw` left, top, and right; `8.5vh` botto
 | `{spacing.gap-grid-sm}` | 1.5rem | Standard gap in 3-column metric grids |
 | `{spacing.gap-cards}` | 1.2rem | Gap between dashboard stat cells |
 | `{spacing.gap-mini}` | 1rem | Gap between mini-stats |
-| `{spacing.header-margin}` | 2.5vh | Margin below the slide-header |
+| `{spacing.header-margin}` | 27px | Margin below the slide-header |
 
 ### Persistent Chrome
 Three elements appear on every slide:
-- **Slide counter** at bottom-left — Space Grotesk 12.8px weight 500 in text-muted gray, fixed at `bottom: 2.5vh; left: 3vw`.
+- **Slide counter** at bottom-left — Space Grotesk 25px weight 500 in text-muted gray, fixed at `bottom: 2.5vh; left: 3vw`.
 - **Nav controls** at bottom-right — two circular 44px nav-buttons with 1.5px cobalt-at-20% borders, fixed at `bottom: 2.5vh; right: 3vw`. Disabled state at 30% opacity (first slide / last slide).
 - **Progress bar** at bottom edge — 3px solid cobalt strip with width = `(currentSlide + 1) / total * 100%`. Animates on slide change. This is presentation chrome: `.progress`/`.progress-bar` are reserved class names that export_pdf.py hides at PDF export, so the strip appears on screen but not in the delivered PDF. If it should survive in the PDF, use a non-reserved class name such as `.poster-trim`.
 
@@ -562,11 +563,11 @@ The borders are **never opaque cobalt** — they are always at 20% opacity (`{co
 
 **Accent line** (`{components.accent-line}`) — A short 60×4 horizontal cobalt rule with 2px radius. Used above cover titles and as eyebrow separators on open-space surfaces.
 
-**Step circle** (`{components.step-circle}`) — A 56×56 solid cobalt circle with cream Space Grotesk numeral inside. Sequential timeline steps reduce opacity (1.0 → 0.85 → 0.7 → 0.55) to suggest fade-into-future.
+**Step circle** (`{components.step-circle}`) — A 108×108 solid cobalt circle with cream Space Grotesk numeral inside. Sequential timeline steps reduce opacity (1.0 → 0.85 → 0.7 → 0.55) to suggest fade-into-future.
 
 **Bar track + fill** (`{components.bar-track}` + `{components.bar-fill}`) — 28px-tall track in cobalt-at-8% with a solid cobalt fill whose width carries the data. 6px rounded corners on both.
 
-**Insight list item** (`{components.insight-list-item}`) — A counter-numbered list using CSS counter() to render decimal-leading-zero prefixes ("01", "02") in cobalt Space Grotesk 600 / 12.5px positioned absolute left.
+**Insight list item** (`{components.insight-list-item}`) — A counter-numbered list using CSS counter() to render decimal-leading-zero prefixes ("01", "02") in cobalt Space Grotesk 600 / 24px positioned absolute left.
 
 **Split highlight block** (`{components.split-highlight-block}`) — A cobalt-at-8% tinted block with a 4px cobalt left rule and a cite line below. Used for inline pull-quotes inside split-column layouts.
 
@@ -588,7 +589,7 @@ The borders are **never opaque cobalt** — they are always at 20% opacity (`{co
 - Set every h4 eyebrow in cobalt Space Grotesk weight 600 with uppercase + 0.08em tracking. The eyebrow is the universal section opener.
 - Use `{components.card-tinted}` (cobalt-at-4% fill + cobalt-at-20% 1.5px border + 14px radius) as the universal content card pattern.
 - Pair every slide-header with an h4 eyebrow on the left and a `{components.tag-pill}` on the right. The rhythm is the system's structural identity.
-- Set body in Inter weight 400 at 13.6-16.8px in `{colors.text-muted}` (`#6b6b6b`) with line-height 1.6. The muted gray body is what makes the system feel premium.
+- Set body in Inter weight 400 at 28px in `{colors.text-muted}` (`#6b6b6b`) with line-height 1.6. The muted gray body is what makes the system feel premium.
 - Render every numerical callout (metric, stat, bar percentage, agenda number) in Space Grotesk weight 600-700 in cobalt. The cobalt numerical accent is the system's data voice.
 - Use full 100px border-radius on all chrome (tag pills, CTAs, nav-buttons). The pill shape is the system's chrome signature.
 - Use directional change chips (`{components.metric-change-positive}` / `{components.metric-change-negative}`) inline with no fill — green for positive, red for negative, both subdued.
@@ -697,7 +698,7 @@ The cobalt color discipline (`#1e2bfa` as the only accent, full-opacity on numer
 
 1. Any new slide starts on `{colors.bg}` cream ground. Don't switch the background per slide; the constant ground is the system's identity.
 2. Any new content slide carries a slide-header at the top: h4 eyebrow (cobalt, uppercase, 0.08em) on the left + tag-pill on the right.
-3. Any new headline uses Space Grotesk weight 600-700 in `{colors.text}` near-black with -0.02em tracking. Reach for h2 (28.8-41.6px) for primary moments.
+3. Any new headline uses Space Grotesk weight 600-700 in `{colors.text}` near-black with -0.02em tracking. Reach for h2 (77px) for primary moments.
 4. Any new card uses the tinted pattern: `{colors.card-bg}` (cobalt at 4%) + 1-1.5px `{colors.border}` (cobalt at 20%) + 10-14px radius. Never use solid color fills or opaque borders.
 5. Any new numerical callout (metric value, stat number, agenda number, bar percentage, step circle) is Space Grotesk weight 600-700 in `{colors.primary}` cobalt. Numbers are the accent moment.
 6. Any new accent line, divider, or directional rule uses cobalt — solid for the primary rule, soft-cobalt (20% opacity) for borders.

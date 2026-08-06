@@ -8,9 +8,16 @@ Use this small file for title-slide previews only. For final deck generation, re
 
 ## Visual Snapshot
 
-A neo-brutalist editorial presentation system built for 1920x1080 slides. The deck anchors on a warm cream canvas with heavy 4px ink borders, hard offset drop-shadows, and a bold four-color accent palette (forest green, hot pink, burnt orange, sunshine yellow). Display headlines run Archivo Black in pure uppercase — aggressive, loud, zero letter-spacing softness. Monospace labels in JetBrains Mono echo a typesetting rule-sheet. Body copy sits in Space Grotesk. Every slide uses flat color-blocking with no gradients, no rounded cards, and no subtlety. The aesthetic is part Bauhaus grid, part punk zine, part Swiss editorial.
+Cover recipe:
 
-Creative Mode is a neo-brutalist editorial slide system for 1920x1080 presentations. The foundational aesthetic choice is restraint of technique paired with aggression of expression: no rounded cards, no gradients, no shadows that suggest light sources — only flat color-blocking and hard offset drop-shadows (the "Risograph" or "screen-print" kind where the shadow is a sold same-color offset).
+- Surface: flat cream #EFE9D9, no gradient and no texture; content starts 96px in from each side edge.
+- The chrome frame is on the cover too: a JetBrains Mono topbar at top 48px / left-right 64px (section label left, 2px-ink 999px pill badge right) and a mono meta footer at bottom 40px (descriptor label left, `01 • 08` right with a 10px ink dot divider).
+- Kicker: ink-filled block with cream JetBrains Mono 24px uppercase at 0.14em tracking, 8px/16px padding, above the title.
+- Title: Archivo Black at 160px, strict uppercase, line-height 0.92, -0.01em tracking, ink #0F0F0F, left-aligned — never centered, never sentence case.
+- Strap line: Space Grotesk 28px, line-height 1.4, left-aligned under the title.
+- Featured poster block: pink #F06CA8 panel, 4px ink border, hard shadow `24px 24px 0 #E85A1F, 24px 24px 0 4px #0F0F0F`, holding the CSS-only toggle-switch illustration.
+- One rotated yellow #F5C518 badge at -4deg with a 4px ink border and Archivo Black 28px uppercase; two or three accents on the cover, never all four.
+- The mono meta footer carries the page number and is already a slide-internal element — keep it that way so it survives PDF export.
 
 ## Preview Ingredients
 

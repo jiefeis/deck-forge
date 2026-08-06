@@ -27,106 +27,106 @@ color-aliases:
 typography:
   display:
     fontFamily: "'Playfair Display', 'Noto Serif SC', Georgia, serif"
-    fontSize: "10vw"
+    fontSize: 267px
     fontWeight: 400
     lineHeight: 1
     letterSpacing: -0.01em
   h1:
     fontFamily: "'Playfair Display', 'Noto Serif SC', Georgia, serif"
-    fontSize: "5.5vw"
+    fontSize: 147px
     fontWeight: 400
     lineHeight: 1.1
   h1-statement:
     fontFamily: "'Playfair Display', 'Noto Serif SC', Georgia, serif"
-    fontSize: "min(4.5vw, 7.5vh, 88px)"
+    fontSize: 113px
     fontWeight: 400
     lineHeight: 1.15
   h2:
     fontFamily: "'Playfair Display', 'Noto Serif SC', Georgia, serif"
-    fontSize: "3.2vw"
+    fontSize: 85px
     fontWeight: 400
     lineHeight: 1.2
   h3:
     fontFamily: "'Playfair Display', 'Noto Serif SC', Georgia, serif"
-    fontSize: "2vw"
+    fontSize: 53px
     fontWeight: 400
     lineHeight: 1.3
   quote-text:
     fontFamily: "'Playfair Display', 'Noto Serif SC', Georgia, serif"
-    fontSize: "3.2vw"
+    fontSize: 85px
     fontWeight: 400
     lineHeight: 1.35
     letterSpacing: -0.01em
     fontStyle: italic
   quote-mark:
     fontFamily: "'Playfair Display', 'Noto Serif SC', Georgia, serif"
-    fontSize: "8vw"
+    fontSize: 213px
     fontWeight: 400
     lineHeight: 0.6
   stat-value:
     fontFamily: "'Playfair Display', 'Noto Serif SC', Georgia, serif"
-    fontSize: "4.5vw"
+    fontSize: 120px
     fontWeight: 400
     lineHeight: 1
     letterSpacing: -0.02em
   grove-num:
     fontFamily: "'Playfair Display', 'Noto Serif SC', Georgia, serif"
-    fontSize: "18vw"
+    fontSize: 480px
     fontWeight: 400
     lineHeight: 1
     letterSpacing: -0.03em
   lead:
     fontFamily: "'Jost', 'Noto Sans SC', system-ui, sans-serif"
-    fontSize: "1.45vw"
+    fontSize: 39px
     fontWeight: 300
     lineHeight: 1.65
   body:
     fontFamily: "'Jost', 'Noto Sans SC', system-ui, sans-serif"
-    fontSize: "1.05vw"
+    fontSize: 28px
     fontWeight: 300
     lineHeight: 1.75
   body-list-emph:
     fontFamily: "'Jost', 'Noto Sans SC', system-ui, sans-serif"
-    fontSize: "max(1.4vw, 17px)"
+    fontSize: 37px
     fontWeight: 300
     lineHeight: 1.6
   caption:
     fontFamily: "'Jost', 'Noto Sans SC', system-ui, sans-serif"
-    fontSize: "0.82vw"
+    fontSize: 22px
     fontWeight: 300
     lineHeight: 1.55
   label:
     fontFamily: "'JetBrains Mono', monospace"
-    fontSize: "0.7vw"
+    fontSize: 19px
     fontWeight: 300
     letterSpacing: 0.12em
   kicker:
     fontFamily: "'JetBrains Mono', monospace"
-    fontSize: "0.7vw"
+    fontSize: 19px
     fontWeight: 300
     letterSpacing: 0.14em
     textTransform: uppercase
   chapter-num:
     fontFamily: "'JetBrains Mono', monospace"
-    fontSize: "0.7vw"
+    fontSize: 19px
     fontWeight: 300
     letterSpacing: 0.2em
     textTransform: uppercase
   stat-label:
     fontFamily: "'JetBrains Mono', monospace"
-    fontSize: "0.7vw"
+    fontSize: 19px
     fontWeight: 300
     letterSpacing: 0.12em
     textTransform: uppercase
 
 spacing:
-  pad-x: "8vw"
-  pad-y: "6.5vh"
-  pad-quote-x: "calc(8vw * 1.1)"
-  pad-quote-y: "calc(6.5vh * 1.2)"
-  gap-lg: "4.5vh"
-  gap-md: "2.8vh"
-  gap-sm: "1.4vh"
+  pad-x: 154px
+  pad-y: 70px
+  pad-quote-x: 169px
+  pad-quote-y: 84px
+  gap-lg: 49px
+  gap-md: 30px
+  gap-sm: 15px
   rule-short: "36px"
 
 motion:
@@ -137,8 +137,8 @@ motion:
   stagger-delays: "0 / 0.08s / 0.18s / 0.3s / 0.44s / 0.6s / 0.78s"
 
 canvas:
-  width: 100vw
-  height: 100vh
+  width: 1920px
+  height: 1080px
 
 components:
   slide-chrome:
@@ -151,12 +151,12 @@ components:
     typography: "{typography.label}"
   grove-num:
     description: "Massive serif digit placed in the background at very low opacity (6%) as compositional texture. Sits absolutely at right: {spacing.pad-x}, bottom: -0.15em, with pointer-events disabled. The system's signature wallpaper element on chapter and section moments."
-    fontSize: "18vw"
+    fontSize: 480px
     color: "{colors.watermark-dark} on dark / {colors.watermark-light} on light"
   grove-stat:
     description: "Stat card: large Playfair value in {colors.accent}, mono uppercase label beneath, 1px border-bottom hairline. No background fill — the card is defined by the rule and the type ratio alone."
     valueColor: "{colors.accent}"
-    valueSize: "4.5vw"
+    valueSize: 120px
     labelTypography: "{typography.stat-label}"
     borderBottom: "1px solid {colors.border}"
   bullet-list:
@@ -190,7 +190,7 @@ components:
     background: "{colors.bg-alt} on dark / {colors.border-light} on light"
     color: "{colors.fg-3} on dark / {colors.fg-light-3} on light"
     typography: "{typography.label}"
-    minHeight: "30vh"
+    minHeight: 324px
     description: "Image-region marker — solid darker-than-background fill with a mono caption stating the placeholder text. Use this in place of <img> until a real image is available."
   nav-dots:
     position: "fixed"
@@ -221,6 +221,8 @@ This policy applies even if the source template was originally implemented with 
 
 Author against the skill's fixed-stage model: full viewport-base.css inline, .slide/.active slides scaled as one unit (transform: scale(), origin 0 0) per html-template.md. Do not reference deck-stage.js (not bundled). Translate any data-anim/data-delay/.is-active entrance vocabulary from the source design into the deck's .reveal + .slide.visible convention. Render each slide at 1920×1080 and verify rendered screenshots for both text overflow and panel overlap.
 
+Page numbers or footers that must appear in the exported PDF must be slide-internal elements (see lumen-2026's .foot/.pageno); never use the reserved deck-chrome classes (.progress-bar, .slide-counter) — export_pdf.py strips them.
+
 
 ## Overview
 
@@ -239,7 +241,7 @@ Depth is **flat and air-based**. There are no drop shadows, no gradients, no blu
 
 The system carries a built-in **motion vocabulary**: slide-to-slide transitions use a sharp `cubic-bezier(0.77, 0, 0.175, 1)` pan at 0.9s; element entrances stagger via `[data-anim]` and `[data-delay]` attributes (fade-up / fade-in / reveal-right / reveal-left / scale-in) with a spring-y `cubic-bezier(0.16, 1, 0.3, 1)` curve at 0.7s and delays of 0 / 0.08 / 0.18 / 0.3 / 0.44 / 0.6 / 0.78s. Animation is part of the system identity; new slides should use the animation attribute stack rather than authoring custom transitions.
 
-**Density philosophy: sparse and breathing.** Grove reads as elegant when slides are quiet — one headline, one supporting paragraph, three stats in a row, two columns of text-and-image. The 8vw horizontal and 6.5vh vertical padding is generous by design. A slide that crowds 6 elements into the canvas breaks the system; a slide with one headline, one lede, and one accent rule reads as authoritative. Reach for fewer, larger elements. The system rewards silence around the type, not density of content.
+**Density philosophy: sparse and breathing.** Grove reads as elegant when slides are quiet — one headline, one supporting paragraph, three stats in a row, two columns of text-and-image. The 154px horizontal and 70px vertical padding is generous by design. A slide that crowds 6 elements into the canvas breaks the system; a slide with one headline, one lede, and one accent rule reads as authoritative. Reach for fewer, larger elements. The system rewards silence around the type, not density of content.
 
 **Key Characteristics:**
 - Playfair Display at weight 400 — never bold — for every serif moment. Italic in `{colors.accent}` is the headline accent.
@@ -249,7 +251,7 @@ The system carries a built-in **motion vocabulary**: slide-to-slide transitions 
 - One accent color: `{colors.accent}` terracotta coral. Used only for italic headline emphasis, the 36px coral rule, em-dash bullets, stat figures, chapter ordinals, and the quote mark.
 - 1px hairline borders only (`{colors.border}` on dark, `{colors.border-light}` on light). No thick borders, no shadows, no gradients.
 - Em-dash glyph rendered in JetBrains Mono coral is the system's universal bullet.
-- A massive serif watermark numeral (`{components.grove-num}` at 18vw, 6% opacity) sits in the bottom-right corner of chapter and section slides as compositional texture.
+- A massive serif watermark numeral (`{components.grove-num}` at 480px, 6% opacity) sits in the bottom-right corner of chapter and section slides as compositional texture.
 - A staggered fade / reveal animation system (`[data-anim]` + `[data-delay]`) is built-in; new content should use it rather than appearing without entrance.
 
 ## Colors
@@ -298,43 +300,44 @@ The four-family stack is strict by role: Playfair for every serif moment (displa
 
 | Token | Size | Family | Weight | Use |
 |---|---|---|---|---|
-| `{typography.grove-num}` | 18vw | Playfair | 400 | Watermark ordinal numeral, 6% opacity, absolute bottom-right |
-| `{typography.display}` | 10vw | Playfair | 400 | Cover hero title |
-| `{typography.quote-mark}` | 8vw | Playfair | 400 | Opening quotation glyph |
-| `{typography.h1}` | 5.5vw | Playfair | 400 | Chapter title, statement headline |
-| `{typography.stat-value}` | 4.5vw | Playfair | 400 / coral | Stat-card numeric value |
-| `{typography.h2}` | 3.2vw | Playfair | 400 | Routine slide headline |
-| `{typography.quote-text}` | 3.2vw | Playfair | 400 italic | Quote body |
-| `{typography.h3}` | 2vw | Playfair | 400 | Sub-headline, compare-panel title |
-| `{typography.lead}` | 1.45vw | Jost | 300 | Lead paragraph |
-| `{typography.body-list-emph}` | max(1.4vw, 17px) | Jost | 300 | List-slide body / bullets — emphasized for legibility |
-| `{typography.body}` | 1.05vw | Jost | 300 | Standard body paragraph |
-| `{typography.caption}` | 0.82vw | Jost | 300 | Captions, footnotes, chart sources |
-| `{typography.label}` | 0.7vw | JetBrains Mono | 300 / 0.12em | Chrome label, mono metadata |
-| `{typography.kicker}` | 0.7vw | JetBrains Mono | 300 / 0.14em / UPPER | Eyebrow above a headline |
-| `{typography.chapter-num}` | 0.7vw | JetBrains Mono | 300 / 0.2em / UPPER | Chapter ordinal label |
-| `{typography.stat-label}` | 0.7vw | JetBrains Mono | 300 / 0.12em / UPPER | Mono label beneath a stat figure |
+| `{typography.grove-num}` | 480px | Playfair | 400 | Watermark ordinal numeral, 6% opacity, absolute bottom-right |
+| `{typography.display}` | 267px | Playfair | 400 | Cover hero title |
+| `{typography.quote-mark}` | 213px | Playfair | 400 | Opening quotation glyph |
+| `{typography.h1}` | 147px | Playfair | 400 | Chapter title, statement headline |
+| `{typography.h1-statement}` | 113px | Playfair | 400 | Statement-class headline (capped below h1) |
+| `{typography.stat-value}` | 120px | Playfair | 400 / coral | Stat-card numeric value |
+| `{typography.h2}` | 85px | Playfair | 400 | Routine slide headline |
+| `{typography.quote-text}` | 85px | Playfair | 400 italic | Quote body |
+| `{typography.h3}` | 53px | Playfair | 400 | Sub-headline, compare-panel title |
+| `{typography.lead}` | 39px | Jost | 300 | Lead paragraph |
+| `{typography.body-list-emph}` | 37px | Jost | 300 | List-slide body / bullets — emphasized for legibility |
+| `{typography.body}` | 28px | Jost | 300 | Standard body paragraph |
+| `{typography.caption}` | 22px | Jost | 300 | Captions, footnotes, chart sources |
+| `{typography.label}` | 19px | JetBrains Mono | 300 / 0.12em | Chrome label, mono metadata |
+| `{typography.kicker}` | 19px | JetBrains Mono | 300 / 0.14em / UPPER | Eyebrow above a headline |
+| `{typography.chapter-num}` | 19px | JetBrains Mono | 300 / 0.2em / UPPER | Chapter ordinal label |
+| `{typography.stat-label}` | 19px | JetBrains Mono | 300 / 0.12em / UPPER | Mono label beneath a stat figure |
 
 ### Defaults
-- **Default size for a routine slide headline**: `{typography.h2}` (3.2vw).
-- **Default size for a chapter or statement headline**: `{typography.h1}` (5.5vw). For statement-class moments specifically, use `{typography.h1-statement}` which caps at `min(4.5vw, 7.5vh, 88px)` to prevent overflow on short viewports.
-- **Default size for a cover hero title**: `{typography.display}` (10vw).
-- **Default size for a body paragraph**: `{typography.body}` (1.05vw) in Jost weight 300.
-- **Default size for a lede / introductory paragraph**: `{typography.lead}` (1.45vw).
-- **Default size for a kicker / eyebrow**: `{typography.kicker}` (0.7vw) in JetBrains Mono uppercase 0.14em with `{colors.accent}` color.
-- **Default size for a stat-card figure**: `{typography.stat-value}` (4.5vw) in Playfair coral.
+- **Default size for a routine slide headline**: `{typography.h2}` (85px).
+- **Default size for a chapter or statement headline**: `{typography.h1}` (147px). For statement-class moments specifically, use `{typography.h1-statement}` (113px), which sits deliberately below h1 so a long statement still fits the 1080px stage height.
+- **Default size for a cover hero title**: `{typography.display}` (267px).
+- **Default size for a body paragraph**: `{typography.body}` (28px) in Jost weight 300.
+- **Default size for a lede / introductory paragraph**: `{typography.lead}` (39px).
+- **Default size for a kicker / eyebrow**: `{typography.kicker}` (19px) in JetBrains Mono uppercase 0.14em with `{colors.accent}` color.
+- **Default size for a stat-card figure**: `{typography.stat-value}` (120px) in Playfair coral.
 - **Default weight for every serif element**: 400.
 - **Default weight for every body / Jost element**: 300.
 - **Default weight for every mono / JetBrains element**: 300.
 
-When the body text on a list-style slide reads too small at 1.05vw on typical laptop viewports, the system bumps it to `{typography.body-list-emph}` (max of 1.4vw or 17px). Reach for the emphasized size whenever a slide's primary content moment is a body paragraph or bulleted list — the default 1.05vw is calibrated for projector viewing, not laptop reading.
+When the body text on a list-style slide reads too small at 28px, the system bumps it to `{typography.body-list-emph}` (37px). Reach for the emphasized size whenever a slide's primary content moment is a body paragraph or bulleted list — the 28px default is calibrated for projector viewing, not laptop reading.
 
 ### Signature Treatments
 These treatments are **non-optional whenever the corresponding element type is used**:
 
 - **Every Playfair element runs at weight 400.** Bold serif (weight 700) is not used anywhere in the system. This is the system's most important typographic rule.
 - **An `<em>` tag inside any Playfair headline (h1, h2, h3, or quote) renders as italic in `{colors.accent}` coral.** This is the signature Grove accent — the way you add emphasis to a headline is to italicize a word in coral. The em-style switch is automatic via CSS.
-- **The opening quote mark on a quote slide is rendered as a massive Playfair glyph at 8vw in `{colors.accent}` coral.** A quote without the oversized coral quote-mark is broken.
+- **The opening quote mark on a quote slide is rendered as a massive Playfair glyph at 213px in `{colors.accent}` coral.** A quote without the oversized coral quote-mark is broken.
 - **The quote body is always italic.** Roman-style quote text is not in the system.
 - **Every kicker / chapter-num / footline / label / caption is JetBrains Mono uppercase with at least 0.12em letter-spacing.** Mono in sentence case or without tracking reads as code, not chrome.
 - **Bullet glyphs are em-dashes (`—`) rendered in JetBrains Mono `{colors.accent}` coral.** Never bullets (`•`), never hyphens (`-`), never asterisks. The em-dash is the system's bullet language.
@@ -348,18 +351,18 @@ Italics are reserved for two specific roles: the coral accent inside headlines (
 ## Layout
 
 ### Canvas System
-The system targets a fluid viewport — each `.slide` is `100vw × 100vh` with `padding: {spacing.pad-y} {spacing.pad-x}` (6.5vh / 8vw). Slides sit side-by-side in a horizontal `#deck` flex strip and translate via `transform: translateX(...)` with the `{motion.dur-slide}` / `{motion.ease-slide}` transition. Only one slide is `is-active` at a time; non-active slides hold their content invisible (`[data-anim]` is `opacity: 0`) until the active class triggers the entrance animations.
+Each `.slide` fills the 1920×1080 stage with `padding: {spacing.pad-y} {spacing.pad-x}` (70px / 154px). Slides sit side-by-side in a horizontal `#deck` flex strip and translate via `transform: translateX(...)` with the `{motion.dur-slide}` / `{motion.ease-slide}` transition. Only one slide is `is-active` at a time; non-active slides hold their content invisible (`[data-anim]` is `opacity: 0`) until the active class triggers the entrance animations.
 
 ### Padding Scale
 | Token | Value | Use |
 |---|---|---|
-| `{spacing.pad-x}` | 8vw | Horizontal slide padding |
-| `{spacing.pad-y}` | 6.5vh | Vertical slide padding |
-| `{spacing.pad-quote-x}` | 8.8vw | Slightly wider horizontal padding on quote slides |
-| `{spacing.pad-quote-y}` | 7.8vh | Slightly taller vertical padding on quote slides |
-| `{spacing.gap-lg}` | 4.5vh | Between major content sections |
-| `{spacing.gap-md}` | 2.8vh | Between related elements |
-| `{spacing.gap-sm}` | 1.4vh | Between tightly coupled elements |
+| `{spacing.pad-x}` | 154px | Horizontal slide padding |
+| `{spacing.pad-y}` | 70px | Vertical slide padding |
+| `{spacing.pad-quote-x}` | 169px | Slightly wider horizontal padding on quote slides |
+| `{spacing.pad-quote-y}` | 84px | Slightly taller vertical padding on quote slides |
+| `{spacing.gap-lg}` | 49px | Between major content sections |
+| `{spacing.gap-md}` | 30px | Between related elements |
+| `{spacing.gap-sm}` | 15px | Between tightly coupled elements |
 
 ### Chrome Anatomy
 Every content slide carries a **slide-chrome** at the top — a thin flex space-between row holding two mono labels separated below by a 1px hairline border — and a **slide-foot** at the bottom — a matching row with section name + "NN / TT" counter, separated above by a matching hairline.
@@ -381,7 +384,7 @@ The system uses **zero box-shadow, zero text-shadow, zero blur, zero gradient**.
 The absence of shadow is itself the elevation language. Adding `box-shadow: 0 4px 12px rgba(0,0,0,0.1)` shatters the printed-ink feel.
 
 ### Watermark Numeral
-The `{components.grove-num}` element is a Playfair digit at 18vw / 6% opacity, positioned absolutely at `right: {spacing.pad-x}, bottom: -0.15em`. It reads as a faint background texture, never as content. Use it on chapter / section / statement slides where the empty bottom-right would otherwise feel un-anchored. It is part of the depth language even though it appears as a decorative element.
+The `{components.grove-num}` element is a Playfair digit at 480px / 6% opacity, positioned absolutely at `right: {spacing.pad-x}, bottom: -0.15em`. It reads as a faint background texture, never as content. Use it on chapter / section / statement slides where the empty bottom-right would otherwise feel un-anchored. It is part of the depth language even though it appears as a decorative element.
 
 ## Shapes and Treatment
 
@@ -408,11 +411,11 @@ Borders are never thicker than 1px. Never dashed, never dotted. The 1px hairline
 
 **Em-Dash Bullet** (`{components.bullet-list}`) — A two-column grid list (2em / 1fr) where the bullet is a coral em-dash glyph rendered in JetBrains Mono. Never use a true bullet (`•`); always the em-dash.
 
-**Grove Stat** (`{components.grove-stat}`) — A vertical stack: large Playfair coral value (4.5vw) on top, mono uppercase label beneath, 1px border-bottom hairline. No background fill — the card is defined by the rule + the type, not by a containing box.
+**Grove Stat** (`{components.grove-stat}`) — A vertical stack: large Playfair coral value (120px) on top, mono uppercase label beneath, 1px border-bottom hairline. No background fill — the card is defined by the rule + the type, not by a containing box.
 
-**Quote Mark** (`{components.quote-mark}`) — Massive Playfair opening-quote glyph at 8vw in coral, placed above the italic quote body. Always present on a quote slide.
+**Quote Mark** (`{components.quote-mark}`) — Massive Playfair opening-quote glyph at 213px in coral, placed above the italic quote body. Always present on a quote slide.
 
-**Watermark Numeral** (`{components.grove-num}`) — Playfair digit at 18vw / 6% opacity in the bottom-right corner. Compositional texture only, never UI.
+**Watermark Numeral** (`{components.grove-num}`) — Playfair digit at 480px / 6% opacity in the bottom-right corner. Compositional texture only, never UI.
 
 **Image Placeholder** (`{components.img-placeholder}`) — A solid `{colors.bg-alt}` (on dark) or `{colors.border-light}` (on light) fill marking where a real `<img>` will go. Holds a mono caption like "[ image ]" in `{colors.fg-3}`.
 
@@ -555,9 +558,9 @@ This gives the Latin portion italic-coral and the CJK portion face-shift-coral. 
 
 ## Iteration Guide
 
-1. Any new headline is Playfair Display weight 400. Pick the size from the headline ladder (10vw display / 5.5vw h1 / 3.2vw h2 / 2vw h3) — do not invent a new size.
+1. Any new headline is Playfair Display weight 400. Pick the size from the headline ladder (267px display / 147px h1 / 85px h2 / 53px h3) — do not invent a new size.
 2. Any new emphasis inside a headline uses `<em>` and renders as italic coral automatically. Do not author a manual color/italic style.
-3. Any new body paragraph is Jost weight 300 at 1.05vw (or 1.45vw for lede, or `max(1.4vw, 17px)` on list-style slides).
+3. Any new body paragraph is Jost weight 300 at 28px (or 39px for lede, or 37px on list-style slides).
 4. Any new label / kicker / footline / counter / caption is JetBrains Mono weight 300 uppercase with at least 0.12em letter-spacing.
 5. Any new chrome line (top bar, bottom bar, section divider, stat-card border) is a 1px solid hairline in `{colors.border}` (dark) or `{colors.border-light}` (light). No thicker borders.
 6. Any new bullet list uses the `{components.bullet-list}` pattern (two-column grid, em-dash in coral mono). Do not author a different bullet style.
@@ -571,7 +574,7 @@ This gives the Latin portion italic-coral and the CJK portion face-shift-coral. 
 - The four Google Fonts (Playfair Display, Jost, JetBrains Mono, Noto Serif SC / Noto Sans SC) are loaded via `<link>`. Offline rendering will fall back to Georgia, system-ui, monospace, and system serif/sans for the Noto roles — which preserves the rough character but loses the typographic identity. Self-hosting recommended for offline / print reliability.
 - The system loads Playfair weight 500 and Jost weights 200/400/500 — these are not used in the published CSS but are available. Using them would break the system's single-weight commitment.
 - The `<em>` italic-coral treatment relies on the CSS rule `.h1 em, .h2 em, .h3 em { color: var(--c-accent); }` — note that the actual italic property is NOT set in the rule (the comment block is empty). The italic comes from the browser's default `<em>` styling. If a stylesheet override removes the default italic, the coral accent will lose its italic character.
-- The grove-num watermark uses 18vw font-size — on extremely wide viewports (3000px+) this becomes very large and may push the slide-foot area. The CSS positions it at `bottom: -0.15em` to absorb some overflow, but very tall numerals at very wide viewports may need adjustment.
+- The grove-num watermark is 480px on the fixed stage and is positioned at `bottom: -0.15em` to absorb its own descender overflow. Two- or three-digit ordinals at that size can still reach the slide-foot area; check the rendered screenshot before shipping a chapter slide numbered above 9.
 - The vertical sidebar component (`.grove-sidebar`) is loaded in the CSS but explicitly disabled (`display: none !important`). It was a chapter-tab decoration that read as clutter; the slide-chrome bar provides the section name already.
 - The fixed slide-counter (`#slide-counter`) is also disabled — the slide-foot bar already shows "NN / TT" so the fixed counter was a duplicate.
 - The CSS has a few empty rule blocks (`.h1 em { }`, `.grove-stat-val em { }`, `.quote-text { ... }`) which appear to be leftover stubs from earlier iterations. They are inert and can be removed without effect.

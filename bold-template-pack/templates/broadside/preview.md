@@ -8,9 +8,15 @@ Use this small file for title-slide previews only. For final deck generation, re
 
 ## Visual Snapshot
 
-A protest-poster editorial system built on massive Barlow type and a single fire-orange environment color. The aesthetic is "ink on fire" — dark slides for documentation, orange slides for declaration. Display type is enormous (13vw, roughly 187px at 1440 width) in weight 900 lowercase, treating words as graphic elements rather than reading copy. The cultural reference is broadside printing, SPACE10 reports, and Wim Crouwel grids reinterpreted with one loud color and zero decoration.
+Cover recipe:
 
-Broadside is a protest-poster editorial system. The defining premise: type is so large it stops behaving as text and starts behaving as graphic primitive. Display sizes at 13vw (Barlow at weight 900) put a single word at roughly 187px on a 1440-wide screen — wide enough that the eye scans letterforms before reading. This is the system's primary expressive instrument.
+- Surface: full-bleed fire-orange #E85D26 — the declaration register. All chrome is suppressed on covers: no slide-chrome bar, no slide-foot bar.
+- Frame: slide padding 106px horizontal / 59px vertical. The type is meant to crowd the frame, not float inside it.
+- Catalogue mark: the `broadside-num` in IBM Plex Mono 21px, rgba(17,17,17,0.45), anchored top-left as a publication-style slide number.
+- Kicker: IBM Plex Mono 14px uppercase, 0.14em tracking, ink at 55% opacity; optionally paired with the 36×2px ink-black stub rule.
+- Title: Barlow weight 900 at 144px, lowercase, line-height 0.9, letter-spacing -0.03em, ink-black #111111, left-aligned. Reserve the 250px display size for a one-word statement cover.
+- Support: a single lead line in Barlow 400 at 31px in rgba(17,17,17,0.75). One line — never a paragraph.
+- Chrome: any page number that must reach the PDF is a slide-internal element, never the reserved .slide-counter class.
 
 ## Preview Ingredients
 

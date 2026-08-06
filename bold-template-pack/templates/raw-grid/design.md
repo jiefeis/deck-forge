@@ -21,89 +21,89 @@ shadows:
 typography:
   display:
     fontFamily: "Segoe UI, system-ui, -apple-system, Helvetica, Arial, sans-serif"
-    fontSize: "clamp(48px, 7vw, 96px)"
+    fontSize: 134px
     fontWeight: 900
     lineHeight: 1.05
     letterSpacing: -0.02em
     textTransform: uppercase
   headline:
     fontFamily: "Segoe UI, system-ui, -apple-system, Helvetica, Arial, sans-serif"
-    fontSize: "clamp(32px, 4.5vw, 64px)"
+    fontSize: 86px
     fontWeight: 900
     lineHeight: 1.1
     letterSpacing: -0.01em
     textTransform: uppercase
   title:
     fontFamily: "Segoe UI, system-ui, -apple-system, Helvetica, Arial, sans-serif"
-    fontSize: "clamp(24px, 2.5vw, 36px)"
+    fontSize: 48px
     fontWeight: 800
     lineHeight: 1.2
     letterSpacing: 0.01em
     textTransform: uppercase
   subtitle:
     fontFamily: "Segoe UI, system-ui, -apple-system, Helvetica, Arial, sans-serif"
-    fontSize: "clamp(16px, 1.4vw, 22px)"
+    fontSize: 27px
     fontWeight: 700
     lineHeight: 1.3
     letterSpacing: 0.04em
     textTransform: uppercase
   body:
     fontFamily: "Segoe UI, system-ui, -apple-system, Helvetica, Arial, sans-serif"
-    fontSize: "clamp(16px, 1.3vw, 20px)"
+    fontSize: 25px
     fontWeight: 500
     lineHeight: 1.6
     letterSpacing: 0
   caption:
     fontFamily: "Segoe UI, system-ui, -apple-system, Helvetica, Arial, sans-serif"
-    fontSize: "clamp(11px, 1vw, 13px)"
+    fontSize: 19px
     fontWeight: 700
     lineHeight: 1.2
     letterSpacing: 0.08em
     textTransform: uppercase
   number:
     fontFamily: "Segoe UI, system-ui, -apple-system, Helvetica, Arial, sans-serif"
-    fontSize: "clamp(64px, 8vw, 120px)"
+    fontSize: 154px
     fontWeight: 900
     lineHeight: 1.0
     letterSpacing: -0.04em
   number-md:
     fontFamily: "Segoe UI, system-ui, -apple-system, Helvetica, Arial, sans-serif"
-    fontSize: "clamp(36px, 4vw, 56px)"
+    fontSize: 77px
     fontWeight: 900
     lineHeight: 1.0
     letterSpacing: -0.02em
   number-lg:
     fontFamily: "Segoe UI, system-ui, -apple-system, Helvetica, Arial, sans-serif"
-    fontSize: "clamp(48px, 6vw, 80px)"
+    fontSize: 115px
     fontWeight: 900
     lineHeight: 1.0
     letterSpacing: -0.02em
   label-text:
     fontFamily: "Segoe UI, system-ui, -apple-system, Helvetica, Arial, sans-serif"
-    fontSize: 11px
+    fontSize: 18px
     fontWeight: 800
     lineHeight: 1.0
     letterSpacing: 0.08em
     textTransform: uppercase
 
 spacing:
-  pad-lg: "clamp(32px, 4vw, 64px)"
-  pad-md: "clamp(20px, 2.5vw, 40px)"
-  pad-sm: "clamp(12px, 1.5vw, 20px)"
-  gap-lg: "clamp(24px, 3vw, 48px)"
-  gap-md: "clamp(16px, 2vw, 32px)"
-  gap-sm: "clamp(8px, 1vw, 16px)"
+  pad-lg: 77px
+  pad-md: 48px
+  pad-sm: 29px
+  gap-lg: 58px
+  gap-md: 38px
+  gap-sm: 19px
 
 canvas:
-  width: 100vw
-  height: 100vh
+  width: 1920px
+  height: 1080px
 
 components:
   label:
     background: "{colors.black}"
     color: "{colors.white}"
-    padding: "6px 14px"
-    fontSize: 11px
+    padding: "10px 22px"
+    fontSize: 15px
     fontWeight: 800
     letterSpacing: 0.08em
     textTransform: uppercase
@@ -127,7 +127,7 @@ components:
     height: 48px
     border: "3px solid {colors.black}"
     background: "{colors.white}"
-    fontSize: "18px–20px"
+    fontSize: "20px"
     fontWeight: 900
     description: "Square white box with 3px black border, used for logos and feature icons. Contains 1–3 character glyph or Roman numeral."
   bar-track:
@@ -144,20 +144,20 @@ components:
     color: "{colors.white}"
   stat-box:
     border: "3px solid {colors.black}"
-    padding: "clamp(16px, 2vw, 28px)"
+    padding: 38px
     background: "{colors.white}"
   card:
-    padding: "clamp(24px, 3vw, 48px)"
+    padding: 58px
     border: "3px solid {colors.black}"
     description: "Generic content card. Background may be white, pink, green, or gray."
   decorative-numeral:
     fontWeight: 900
-    fontSize: "clamp(40px, 5vw, 72px)"
+    fontSize: 96px
     lineHeight: 1.0
     opacity: 0.2–0.35
     description: "Oversized numeral placed inside a card at very low opacity as decorative wallpaper behind the actual content."
   decorative-quote-mark:
-    fontSize: "clamp(80px, 12vw, 160px)"
+    fontSize: 230px
     fontWeight: 900
     opacity: 0.15
     description: "Oversized opening quotation mark placed absolutely at the top-left of a quote region at very low opacity."
@@ -167,7 +167,7 @@ components:
     border: "3px solid {colors.black}"
     background: "{colors.black}"
     color: "{colors.white}"
-    fontSize: 16px
+    fontSize: 21px
     fontWeight: 900
     description: "Small black square with white arrow glyph, used as a connector between sequential items in a horizontal flow."
   legend-swatch:
@@ -178,7 +178,7 @@ components:
   donut-track-stroke-width: 1.5
   table-cell:
     border: "3px solid {colors.black}"
-    padding: "clamp(12px, 1.5vw, 20px)"
+    padding: 29px
     fontWeight: 600
   table-header:
     background: "{colors.black}"
@@ -208,9 +208,11 @@ When this design system is used by the `deck-forge` skill, generate the final de
 
 This policy has higher priority than any source-template responsive behavior described later in this file. If a later section says the original template is viewport-fluid, treat that as source history only, not as the target generation model for `deck-forge`.
 
-This policy applies even if the source template was originally implemented with viewport-fluid CSS such as `100vw`, `100vh`, `vw`, `vh`, or `clamp()`. Treat those values as design proportions to translate into 1920×1080 stage coordinates, not as live responsive rules in the generated deck.
+This policy applies even if the source template was originally implemented with viewport-fluid CSS such as `100vw`, `100vh`, `vw`, `vh`, or `clamp()`. Treat those values as design proportions to translate into 1920×1080 stage coordinates, not as live responsive rules in the generated deck. All token values in this file are already baked to 1920×1080 stage pixels.
 
 Author against the skill's fixed-stage model: full viewport-base.css inline, .slide/.active slides scaled as one unit (transform: scale(), origin 0 0) per html-template.md. Do not reference deck-stage.js (not bundled). Translate any data-anim/data-delay/.is-active entrance vocabulary from the source design into the deck's .reveal + .slide.visible convention. Render each slide at 1920×1080 and verify rendered screenshots for both text overflow and panel overlap.
+
+Page numbers or footers that must appear in the exported PDF must be slide-internal elements (see lumen-2026's .foot/.pageno); never use the reserved deck-chrome classes (.progress-bar, .slide-counter) — export_pdf.py strips them.
 
 
 ## Overview
@@ -267,27 +269,27 @@ The weight axis is the entire expressive tool. Display text uses weight 900 (the
 
 ### Display and Numerical Scale
 
-| Token | Size (clamp) | Weight | Tracking | Use |
+| Token | Size (stage px) | Weight | Tracking | Use |
 |---|---|---|---|---|
-| `{typography.number}` | 64–120px | 900 | -0.04em | Hero numerical stat |
-| `{typography.display}` | 48–96px | 900 | -0.02em | Section-opening or cover display |
-| `{typography.number-lg}` | 48–80px | 900 | -0.02em | Large decorative or featured numeral |
-| `{typography.headline}` | 32–64px | 900 | -0.01em | Primary section headline |
-| `{typography.number-md}` | 36–56px | 900 | -0.02em | Stat tile or metric numeral |
-| `{typography.title}` | 24–36px | 800 | 0.01em | Region or section title |
-| `{typography.subtitle}` | 16–22px | 700 | 0.04em | Subtitle, intra-region heading |
-| `{typography.body}` | 16–20px | 500 | 0 | Paragraph body |
-| `{typography.caption}` | 11–13px | 700 | 0.08em | Caption, fine print, footnote |
-| `{typography.label-text}` | 11px | 800 | 0.08em | Text inside black label pills |
+| `{typography.number}` | 154px | 900 | -0.04em | Hero numerical stat |
+| `{typography.display}` | 134px | 900 | -0.02em | Section-opening or cover display |
+| `{typography.number-lg}` | 115px | 900 | -0.02em | Large decorative or featured numeral |
+| `{typography.headline}` | 86px | 900 | -0.01em | Primary section headline |
+| `{typography.number-md}` | 77px | 900 | -0.02em | Stat tile or metric numeral |
+| `{typography.title}` | 48px | 800 | 0.01em | Region or section title |
+| `{typography.subtitle}` | 27px | 700 | 0.04em | Subtitle, intra-region heading |
+| `{typography.body}` | 25px | 500 | 0 | Paragraph body |
+| `{typography.caption}` | 19px | 700 | 0.08em | Caption, fine print, footnote |
+| `{typography.label-text}` | 18px | 800 | 0.08em | Text inside black label pills |
 
 ### Defaults
-- **Default size for a primary section headline**: `{typography.headline}` (32–64px clamp).
-- **Default size for a cover or opening display**: `{typography.display}` (48–96px clamp).
-- **Default size for paragraph body**: `{typography.body}` (16–20px clamp).
-- **Default size for any inline label or caption**: `{typography.caption}` (11–13px clamp).
+- **Default size for a primary section headline**: `{typography.headline}` (86px).
+- **Default size for a cover or opening display**: `{typography.display}` (134px).
+- **Default size for paragraph body**: `{typography.body}` (25px).
+- **Default size for any inline label or caption**: `{typography.caption}` (19px).
 - **Default weight for any display element**: 900.
 - **Default weight for any body element**: 500.
-- **Default size for a hero numerical figure**: `{typography.number}` (64–120px clamp).
+- **Default size for a hero numerical figure**: `{typography.number}` (154px).
 
 When unsure, reach for `{typography.headline}` for the slide's primary text moment, not `{typography.title}` (which is for region-level headings within a slide).
 
@@ -298,7 +300,7 @@ These treatments are **non-optional whenever the corresponding element type is u
 - **Every body element is sentence case.** Never uppercase a `{typography.body}` element — the uppercase/sentence-case contrast between display and body is the system's typographic signal.
 - **Every display element uses negative letter-spacing.** Display (–0.02em), headline (–0.01em), number (–0.04em). Display type with default tracking reads as untreated; the negative tracking is what gives the type its compressed, brutalist density.
 - **Every caption and label uses positive letter-spacing of at least 0.06em.** Caption and label glyphs without tracking read as code, not editorial.
-- **All numerical figures use weight 900 with negative letter-spacing.** Even small stat numerals (36–56px) follow the display-weight convention.
+- **All numerical figures use weight 900 with negative letter-spacing.** Even small stat numerals (77px) follow the display-weight convention.
 
 ### Typography Principles
 The weight 900 + uppercase + negative tracking combination is the system's primary "voice." Switching any of those three properties (e.g., using weight 700 uppercase, or weight 900 sentence case) reads as a different design system. Weight 800 is reserved for `{typography.title}` and labels; weight 700 is for `{typography.subtitle}` and `{typography.caption}`; weight 500 is for body. Do not use intermediate weights (400, 600) — the weight ladder is fixed.
@@ -308,17 +310,17 @@ Italic is not used anywhere in the system. Underline is not used. The only empha
 ## Layout
 
 ### Canvas System
-The system targets `100vw × 100vh` — full viewport. Each `.slide` is absolutely positioned to fill the viewport and only one slide is `display: flex` at a time (slide navigation is JS-driven via keyboard arrow keys, spacebar, and touch swipe). All sizes use CSS `clamp()` so the layout fluidly scales between minimum and maximum without breakpoints.
+The system targets the fixed **1920×1080 stage** (see the deck-forge Fixed-Stage Policy above). Each `.slide` renders at 1920×1080 and is scaled to the viewport as one unit. All sizes in this file are stage pixels — no fluid units, no breakpoints.
 
 ### Padding and Gap Scale
-| Token | Range | Use |
+| Token | Value | Use |
 |---|---|---|
-| `{spacing.pad-lg}` | 32–64px | Outer slide-region padding, full-region cells |
-| `{spacing.pad-md}` | 20–40px | Header bands, secondary regions |
-| `{spacing.pad-sm}` | 12–20px | Compact regions, table cells |
-| `{spacing.gap-lg}` | 24–48px | Large flex/grid gaps |
-| `{spacing.gap-md}` | 16–32px | Standard flex/grid gaps |
-| `{spacing.gap-sm}` | 8–16px | Tight inline gaps |
+| `{spacing.pad-lg}` | 77px | Outer slide-region padding, full-region cells |
+| `{spacing.pad-md}` | 48px | Header bands, secondary regions |
+| `{spacing.pad-sm}` | 29px | Compact regions, table cells |
+| `{spacing.gap-lg}` | 58px | Large flex/grid gaps |
+| `{spacing.gap-md}` | 38px | Standard flex/grid gaps |
+| `{spacing.gap-sm}` | 19px | Tight inline gaps |
 
 ### Border-as-Layout Principle
 The defining structural pattern: **regions are separated by 3px solid black borders, not by gaps**. When a slide is divided into a 2-column grid, the two columns share a 3px black vertical border between them and the cells meet that border directly — no `gap` property, no margin. When a header band sits above a content area, a 3px black horizontal line separates them and both regions abut the line. This is the system's most distinctive structural choice.
@@ -358,7 +360,7 @@ The system has **no rounded corners**. Cards, buttons, labels, icon boxes, stat 
 
 ### Decorative Element Types
 
-**Black label pill** — A small black rectangle containing white uppercase text at 11px / weight 800 / 0.08em letter-spacing, with 6px × 14px padding. The system's universal section tag, fiscal-year marker, or status chip. May be prepended with the `{components.arrow-prefix}` for CTA variants.
+**Black label pill** — A small black rectangle containing white uppercase text at 18px / weight 800 / 0.08em letter-spacing, with 10px × 22px padding. The system's universal section tag, fiscal-year marker, or status chip. May be prepended with the `{components.arrow-prefix}` for CTA variants.
 
 **Horizontal rule stub** — A 60px × 4px solid black rectangle (`{components.line-h}`) used as an inline visual separator or accent next to a label. Functions as a "section break" mark in editorial layouts.
 
@@ -368,7 +370,7 @@ The system has **no rounded corners**. Cards, buttons, labels, icon boxes, stat 
 
 **Connector node** — A 32px × 32px solid black square containing a white arrow glyph at weight 900. Positioned absolutely between sequential items in a horizontal flow (e.g., between timeline steps). Acts as the visual "→" between stages.
 
-**Bar track** — A 32px-tall horizontal rectangle with 3px black border and white interior. The fill (in pink, green, or black) is a child `div` whose `width` percentage represents the data value, with the value label printed inside the fill at 12px weight 800. Bars in black get inverted text color (white).
+**Bar track** — A 32px-tall horizontal rectangle with 3px black border and white interior. The fill (in pink, green, or black) is a child `div` whose `width` percentage represents the data value, with the value label printed inside the fill at 19px weight 800. Bars in black get inverted text color (white).
 
 **Stat tile** — A bordered card (`{components.stat-box}`) containing a large numeral (`{typography.number-md}`) above a small caption (`{typography.caption}`). Background may be white, pink, green, gray, or black (with appropriate text inversion).
 
@@ -404,26 +406,7 @@ The system has **no rounded corners**. Cards, buttons, labels, icon boxes, stat 
 
 ## Responsive Behavior
 
-Unlike most templates in this library, Raw Grid is **viewport-fluid by design**. The entire system uses CSS `clamp()` for sizes and there is no fixed canvas dimension. Every `font-size`, `padding`, `gap`, and `width` value scales linearly between a minimum and maximum based on viewport width. The same composition renders correctly on a 1280×720 laptop, a 1920×1080 monitor, and a 2560×1440 display without media queries.
-
-### Scaling Behavior
-- Display headline scales from 48px at minimum viewport to 96px at maximum.
-- Body text scales from 16px to 20px.
-- Padding scales from 32px to 64px on `{spacing.pad-lg}`.
-- Borders, label pill padding, and shadow offsets are fixed (3px, 6px 14px, 6px 6px) — they do not scale, which means at larger viewports the borders appear proportionally finer.
-
-### Presenter Behavior
-- Slides advance via `ArrowDown`, `ArrowRight`, or `Space`.
-- Slides go back via `ArrowUp` or `ArrowLeft`.
-- `Home` jumps to first, `End` to last.
-- Touch swipe (vertical) advances/reverses on mobile.
-- The active slide carries the `.active` class; non-active slides are `display: none`.
-
-### Print Behavior
-A `@media print` rule sets all slides to `display: flex` with `page-break-after: always` — printing the deck produces a sequential page-per-slide PDF.
-
-### Hover States
-The system uniquely has interactive hover states baked into the design — list items and table rows highlight to `{colors.green}` on hover via a 0.15s transition. This is unusual for a presentation system; it reflects Raw Grid's hybrid identity as both presentation and product mockup.
+Source template was viewport-fluid/interactive; those behaviors do not apply to the fixed 1920×1080 stage and PDF delivery.
 
 ## CJK & International Content
 
@@ -478,7 +461,7 @@ Raw Grid's whole aesthetic argument is "this is the user's actual system font, n
 1. Any new structural region uses a 3px solid black border to separate from its neighbor. Never use a gap or a margin between regions — borders are the separators.
 2. Any new card or panel inherits the bordered-rectangle pattern: 3px solid black border, square corners, padding from the `{spacing.pad-*}` scale, background from the palette (white, pink, green, gray, or black).
 3. Any new headline uses `{typography.headline}` (or `{typography.display}` for cover-level moments) in `{colors.black}` with uppercase. Don't reach for `{typography.title}` for the primary moment — that's a sub-headline.
-4. Any new label or chip uses the `{components.label}` pattern: black background, white uppercase text at 11px / weight 800 / 0.08em.
+4. Any new label or chip uses the `{components.label}` pattern: black background, white uppercase text at 18px / weight 800 / 0.08em.
 5. Any new numerical figure follows the weight-900 + negative-tracking convention. Stat tiles use `{typography.number-md}`; hero stats use `{typography.number}`.
 6. Any new accent surface picks pink or green based on warm/cool need. Don't introduce a third color.
 7. Any new CTA or interactive element gets the `→` arrow prefix and, if elevated, a `6px 6px 0 {colors.black}` shadow.
@@ -489,8 +472,6 @@ Raw Grid's whole aesthetic argument is "this is the user's actual system font, n
 
 - The `--darkgray` (#333333) CSS variable is defined but not actively used in any rule. It is available as a reserved tertiary text color but not deployed anywhere in the source.
 - The system loads no external fonts — the rendered letterforms will differ between operating systems. macOS renders system-ui as San Francisco, Windows renders Segoe UI, Linux renders whatever sans-serif is configured. This visual inconsistency is by design but is worth noting.
-- Hover states (list items → green, table rows → green) are interactive web behaviors that have no analog in print or static export. Treat them as bonus interactivity, not core design system.
-- The slide navigation JavaScript is embedded inline — it handles keyboard, touch, and the active-class system. Any new slide must follow the `<div class="slide sN">` pattern and respect the `current` index.
 - The SVG donut chart uses hardcoded `stroke-dasharray` values that must be computed manually based on segment percentages and the chart's 80px radius circumference (~502.4). There is no data-binding layer.
 - The image placeholder on image-paired regions is just a 4px-white-bordered div with "[ Image Placeholder ]" text — actual image insertion requires replacing the placeholder div with an `<img>` and matching the parent background to the image's negative space.
 - The `.s5-image-placeholder` includes the word "Cohots" (sic) which appears to be a typo for "Cohorts" in the source. Flag this when reusing content.

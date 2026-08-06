@@ -1,7 +1,7 @@
 ---
 version: alpha
 name: Cobalt Grid
-description: "A Japanese-magazine trend-report system built on warm cream paper, electric cobalt ink, and a graph-paper grid that lives permanently behind every slide. Newsreader serif headlines tower at 18vh while DM Mono carries chrome and ticker text. The signature decoration is a pixel-glitch column — vertical scanlines stair-stepped down the right edge of declarative slides — paired with QR-style 8×8 grid patches. The cultural reference is WIRED Japan, Shift magazine, and architectural trend reports printed in two-color risograph: cream + one cobalt."
+description: "A Japanese-magazine trend-report system built on warm cream paper, electric cobalt ink, and a graph-paper grid that lives permanently behind every slide. Newsreader serif headlines tower at 301px while DM Mono carries chrome and ticker text. The signature decoration is a pixel-glitch column — vertical scanlines stair-stepped down the right edge of declarative slides — paired with QR-style 8×8 grid patches. The cultural reference is WIRED Japan, Shift magazine, and architectural trend reports printed in two-color risograph: cream + one cobalt."
 
 colors:
   paper: "#F0EBDE"
@@ -18,164 +18,164 @@ color-aliases:
 typography:
   display-hero:
     fontFamily: "Newsreader, Georgia, serif"
-    fontSize: "clamp(100px, min(11vw, 18vh), 200px)"
+    fontSize: 301px
     fontWeight: 400
     lineHeight: 0.92
     letterSpacing: -0.008em
   display-closing:
     fontFamily: "Newsreader, Georgia, serif"
-    fontSize: "clamp(72px, min(8.4vw, 14vh), 180px)"
+    fontSize: 234px
     fontWeight: 400
     lineHeight: 0.96
     letterSpacing: -0.005em
   display-chapter:
     fontFamily: "Newsreader, Georgia, serif"
-    fontSize: "clamp(56px, min(6vw, 10vh), 130px)"
+    fontSize: 167px
     fontWeight: 400
     lineHeight: 1
     letterSpacing: -0.005em
   display-quote:
     fontFamily: "Newsreader, Georgia, serif"
-    fontSize: "clamp(50px, min(5.6vw, 9vh), 110px)"
+    fontSize: 151px
     fontWeight: 400
     lineHeight: 1.05
     letterSpacing: -0.005em
   display-manifesto:
     fontFamily: "Newsreader, Georgia, serif"
-    fontSize: "clamp(56px, min(6.4vw, 11vh), 120px)"
+    fontSize: 184px
     fontWeight: 400
     lineHeight: 1.05
     letterSpacing: -0.005em
   headline:
     fontFamily: "Newsreader, Georgia, serif"
-    fontSize: "clamp(46px, min(4.8vw, 8.2vh), 92px)"
+    fontSize: 137px
     fontWeight: 400
     lineHeight: 0.95
   headline-index:
     fontFamily: "Newsreader, Georgia, serif"
-    fontSize: "clamp(48px, min(5vw, 8.5vh), 100px)"
+    fontSize: 142px
     fontWeight: 400
     lineHeight: 0.95
   vbig-numeral:
     fontFamily: "Newsreader, Georgia, serif"
-    fontSize: "clamp(110px, min(11vw, 18vh), 240px)"
+    fontSize: 301px
     fontWeight: 400
     lineHeight: 0.92
     letterSpacing: -0.015em
   ed-callout:
     fontFamily: "Newsreader, Georgia, serif"
-    fontSize: "clamp(28px, min(2.8vw, 4.6vh), 50px)"
+    fontSize: 77px
     fontWeight: 400
     lineHeight: 1.1
   row-headline:
     fontFamily: "Newsreader, Georgia, serif"
-    fontSize: "clamp(26px, 2vw, 40px)"
+    fontSize: 60px
     fontWeight: 400
     lineHeight: 1.05
   table-name:
     fontFamily: "Newsreader, Georgia, serif"
-    fontSize: "clamp(20px, 1.6vw, 28px)"
+    fontSize: 48px
     fontWeight: 400
     lineHeight: 1.15
   micro:
     fontFamily: "Hanken Grotesk, sans-serif"
-    fontSize: "clamp(12px, 0.9vw, 14px)"
+    fontSize: 27px
     fontWeight: 600
     lineHeight: 1
     letterSpacing: 0.16em
     textTransform: uppercase
   micro-strong:
     fontFamily: "Hanken Grotesk, sans-serif"
-    fontSize: "clamp(13px, 1vw, 16px)"
+    fontSize: 30px
     fontWeight: 600
     lineHeight: 1
     letterSpacing: 0.18em
     textTransform: uppercase
   micro-sm:
     fontFamily: "Hanken Grotesk, sans-serif"
-    fontSize: "clamp(11px, 0.75vw, 12px)"
+    fontSize: 22px
     fontWeight: 600
     lineHeight: 1
     letterSpacing: 0.18em
     textTransform: uppercase
   body:
     fontFamily: "Hanken Grotesk, sans-serif"
-    fontSize: "clamp(14px, 0.95vw, 15px)"
+    fontSize: 28px
     fontWeight: 400
     lineHeight: 1.5
   body-lede:
     fontFamily: "Hanken Grotesk, sans-serif"
-    fontSize: "clamp(15px, 1vw, 18px)"
+    fontSize: 30px
     fontWeight: 400
     lineHeight: 1.5
   body-stat:
     fontFamily: "Hanken Grotesk, sans-serif"
-    fontSize: "clamp(15px, 1vw, 17px)"
+    fontSize: 30px
     fontWeight: 400
     lineHeight: 1.5
   mono-tag:
     fontFamily: "DM Mono, ui-monospace, monospace"
-    fontSize: "clamp(13px, 0.9vw, 15px)"
+    fontSize: 27px
     fontWeight: 400
     lineHeight: 1
     letterSpacing: 0.04em
   mono-chrome:
     fontFamily: "DM Mono, ui-monospace, monospace"
-    fontSize: "clamp(11px, 0.82vw, 13px)"
+    fontSize: 24px
     fontWeight: 400
     lineHeight: 1
     letterSpacing: 0.06em
   mono-tick:
     fontFamily: "DM Mono, ui-monospace, monospace"
-    fontSize: "clamp(12px, 0.85vw, 14px)"
+    fontSize: 25px
     fontWeight: 400
     lineHeight: 1
     letterSpacing: 0.04em
 
 spacing:
-  edge: "clamp(36px, 3.6vw, 80px)"
-  edge-inner: "clamp(60px, 8vw, 160px)"
-  pad-top: "clamp(76px, 8vh, 130px)"
-  pad-bottom: "clamp(100px, 10vh, 150px)"
-  gap-lg: "clamp(28px, 3vw, 56px)"
-  gap-md: "clamp(20px, 2.2vh, 36px)"
-  gap-sm: "clamp(14px, 1.6vh, 24px)"
-  gap-xs: "clamp(10px, 1.2vh, 18px)"
+  edge: 69px
+  edge-inner: 154px
+  pad-top: 86px
+  pad-bottom: 108px
+  gap-lg: 58px
+  gap-md: 24px
+  gap-sm: 17px
+  gap-xs: 13px
 
 canvas:
-  width: 100vw
-  height: 100vh
+  width: 1920px
+  height: 1080px
 
 components:
   graph-paper-grid:
     backgroundImage: "linear-gradient(to right, {colors.grid} 1px, transparent 1px), linear-gradient(to bottom, {colors.grid} 1px, transparent 1px)"
-    backgroundSize: "clamp(28px, 2.2vw, 44px) clamp(28px, 2.2vw, 44px)"
-    description: "Permanent ::before pseudo on every stage. 28–44px squared graph paper grid in 10%-opacity cobalt that sits behind every slide at z-index 1. Cannot be turned off — it is the canvas tone."
+    backgroundSize: "42px 42px"
+    description: "Permanent ::before pseudo on every stage. 42px squared graph paper grid in 10%-opacity cobalt that sits behind every slide at z-index 1. Cannot be turned off — it is the canvas tone."
   hairlines:
     height: "1.5px"
     background: "{colors.ink}"
-    description: "Two persistent slim cobalt rules — one at the top of every slide (≈2.6vh from top) and one near the bottom (≈2vh from bottom) — both inset from edges by {spacing.edge}. They frame the slide composition."
+    description: "Two persistent slim cobalt rules — one at the top of every slide (28px from top) and one near the bottom (22px from bottom) — both inset from edges by {spacing.edge}. They frame the slide composition."
   pagenum:
     position: absolute
     right: "{spacing.edge}"
-    bottom: "clamp(48px, 4.8vh, 76px)"
+    bottom: 52px
     fontFamily: "DM Mono, ui-monospace, monospace"
-    fontSize: "clamp(11px, 0.82vw, 13px)"
+    fontSize: 24px
     color: "{colors.ink}"
     letterSpacing: 0.06em
     description: "Mono cobalt page number anchored bottom-right above the bottom hairline. One per slide."
   nav-hint:
     position: fixed
     left: "{spacing.edge}"
-    bottom: "clamp(48px, 4.8vh, 76px)"
+    bottom: 52px
     fontFamily: "DM Mono, ui-monospace, monospace"
-    fontSize: "clamp(10px, 0.75vw, 12px)"
+    fontSize: 22px
     color: "{colors.ink}"
     letterSpacing: 0.08em
     opacity: 0.4
     description: "Mono cobalt navigation hint anchored bottom-left, mirrors pagenum."
   pixel-glitch:
-    description: "Stair-stepped column of vertical scanlines, rendered as inline SVG. Each stepped rectangle contains evenly-spaced cobalt vertical lines on cream. Sits absolutely positioned (typically right edge) at z-index 3, decorative only. Size ranges from 16vw × full-height (compact decoration) to 32vw × full-height (signature cover decoration)."
+    description: "Stair-stepped column of vertical scanlines, rendered as inline SVG. Each stepped rectangle contains evenly-spaced cobalt vertical lines on cream. Sits absolutely positioned (typically right edge) at z-index 3, decorative only. Size ranges from 307px × full-height (compact decoration) to 614px × full-height (signature cover decoration)."
   qr-block:
     display: grid
     gridTemplateColumns: "repeat(8, 1fr)"
@@ -187,21 +187,21 @@ components:
     description: "8×8 QR-style mosaic of cobalt cells on cream background. Paper-fill ensures it reads as a discrete patch when overlapping the pixel-glitch column. Typical size 58–100px square."
   topbar-rule:
     borderBottom: "1.5px solid {colors.ink}"
-    paddingBottom: "clamp(12px, 1.4vh, 22px)"
+    paddingBottom: 15px
     description: "1.5px cobalt rule under the topbar of an index, data, or table layout. Below the rule sits a Newsreader headline (left) and a mono lab-tag (right)."
   row-divider:
     borderBottom: "1px solid {colors.ink-faint}"
     description: "Faint 18%-opacity cobalt rule between rows of an index list, table, or ledger."
   attribution-rule:
     borderTop: "1px solid {colors.ink}"
-    paddingTop: "clamp(10px, 1.2vh, 18px)"
+    paddingTop: 13px
     description: "Solid cobalt rule above a quote attribution or manifesto byline."
   pixel-stack-bars:
     description: "Vertical bar chart rendered as a column of stacked 'cells' — flex column-reverse with 3px gaps, each cell a small horizontal block. Cells default to 10%-opacity cobalt (the grid color); .on cells fill solid cobalt to represent the value. Reads as a pixelated bar made of grid units."
   ledger-row:
     display: grid
     gridTemplateColumns: "76px 0.6fr 1.4fr 0.7fr 0.5fr"
-    gap: "clamp(14px, 1.4vw, 28px)"
+    gap: 27px
     borderBottom: "1px solid {colors.ink-faint}"
     description: "Dense table row carrying a num-tag, name (Newsreader), description (Hanken Grotesk), mood-tag, and delta-tag (mono with up/down arrow prefix). Header row uses 1.5px solid cobalt bottom border."
   vstack-label:
@@ -242,6 +242,8 @@ This policy applies even if the source template was originally implemented with 
 
 Author against the skill's fixed-stage model: full viewport-base.css inline, .slide/.active slides scaled as one unit (transform: scale(), origin 0 0) per html-template.md. Do not reference deck-stage.js (not bundled). Translate any data-anim/data-delay/.is-active entrance vocabulary from the source design into the deck's .reveal + .slide.visible convention. Render each slide at 1920×1080 and verify rendered screenshots for both text overflow and panel overlap.
 
+Page numbers or footers that must appear in the exported PDF must be slide-internal elements (see lumen-2026's .foot/.pageno); never use the reserved deck-chrome classes (.progress-bar, .slide-counter) — export_pdf.py strips them.
+
 
 ## Overview
 
@@ -262,11 +264,11 @@ Depth is **flat with structural rules**. There are no drop shadows, no elevated 
 
 **Key Characteristics:**
 - Cream paper canvas `{colors.paper}` with electric cobalt `{colors.ink}` as the only ink — strictly two-color.
-- Permanent 28–44px graph-paper grid in 10%-opacity cobalt behind every slide.
+- Permanent 42px graph-paper grid in 10%-opacity cobalt behind every slide.
 - Top and bottom 1.5px cobalt hairlines frame every slide with `{spacing.edge}` insets.
 - Newsreader serif at weight 400 for every display/headline; Hanken Grotesk sans for body/labels; DM Mono for all chrome.
 - Pixel-glitch vertical scanline columns and QR-style 8×8 mosaics as the system's signature decorative patches.
-- Display type can be enormous — `{typography.display-hero}` up to 18vh (≈194px on a 1080-tall display) and `{typography.vbig-numeral}` to 240px.
+- Display type can be enormous — `{typography.display-hero}` and `{typography.vbig-numeral}` both land at 301px on the 1920×1080 stage.
 - Hanken labels are uppercase at 0.16–0.18em letter-spacing; mono tags carry 0.04–0.06em tracking.
 - Pixel-stack bar charts render data as stacks of grid-unit cells (cobalt on / cobalt-10% off).
 - Page number bottom-right, mono navigation hint bottom-left, both anchored above the bottom hairline.
@@ -307,39 +309,39 @@ The serif/grotesk/mono three-way pairing is the system's primary typographic rhy
 
 | Token | Size | Family | Weight | Use |
 |---|---|---|---|---|
-| `{typography.vbig-numeral}` | clamp(110px, min(11vw, 18vh), 240px) | Newsreader | 400 | Largest numerical display — hero stat figure |
-| `{typography.display-hero}` | clamp(100px, min(11vw, 18vh), 200px) | Newsreader | 400 | Largest title — cover or hero display |
-| `{typography.display-closing}` | clamp(72px, min(8.4vw, 14vh), 180px) | Newsreader | 400 | Conclusive headline on a colophon/closing layout |
-| `{typography.display-chapter}` | clamp(56px, min(6vw, 10vh), 130px) | Newsreader | 400 | Section-opening or chapter title |
-| `{typography.display-manifesto}` | clamp(56px, min(6.4vw, 11vh), 120px) | Newsreader | 400 | Manifesto statement display |
-| `{typography.display-quote}` | clamp(50px, min(5.6vw, 9vh), 110px) | Newsreader | 400 | Pull-quote body |
-| `{typography.headline-index}` | clamp(48px, min(5vw, 8.5vh), 100px) | Newsreader | 400 | Index or trend-list section header |
-| `{typography.headline}` | clamp(46px, min(4.8vw, 8.2vh), 92px) | Newsreader | 400 | Data, table, or chart section header |
-| `{typography.ed-callout}` | clamp(28px, min(2.8vw, 4.6vh), 50px) | Newsreader | 400 | Editorial subtitle below a hero title |
-| `{typography.row-headline}` | clamp(26px, 2vw, 40px) | Newsreader | 400 | Per-row headline inside an index list |
-| `{typography.table-name}` | clamp(20px, 1.6vw, 28px) | Newsreader | 400 | Per-row name cell inside a ledger table |
-| `{typography.body-lede}` | clamp(15px, 1vw, 18px) | Hanken Grotesk | 400 | Lead paragraph below a chapter title |
-| `{typography.body-stat}` | clamp(15px, 1vw, 17px) | Hanken Grotesk | 400 | Descriptive paragraph next to a stat figure |
-| `{typography.body}` | clamp(14px, 0.95vw, 15px) | Hanken Grotesk | 400 | Standard paragraph body |
-| `{typography.micro-strong}` | clamp(13px, 1vw, 16px) | Hanken Grotesk | 600 | Largest uppercase label / kicker |
-| `{typography.micro}` | clamp(12px, 0.9vw, 14px) | Hanken Grotesk | 600 | Standard uppercase label / lab-tag |
-| `{typography.micro-sm}` | clamp(11px, 0.75vw, 12px) | Hanken Grotesk | 600 | Smallest uppercase label / table header |
-| `{typography.mono-tag}` | clamp(13px, 0.9vw, 15px) | DM Mono | 400 | Mono catalogue tag, num-tag in an index row |
-| `{typography.mono-tick}` | clamp(12px, 0.85vw, 14px) | DM Mono | 400 | Mono chart tick label, vertical-stack-label entry |
-| `{typography.mono-chrome}` | clamp(11px, 0.82vw, 13px) | DM Mono | 400 | Mono page number, navigation hint, secondary meta |
+| `{typography.vbig-numeral}` | 301px | Newsreader | 400 | Largest numerical display — hero stat figure |
+| `{typography.display-hero}` | 301px | Newsreader | 400 | Largest title — cover or hero display |
+| `{typography.display-closing}` | 234px | Newsreader | 400 | Conclusive headline on a colophon/closing layout |
+| `{typography.display-manifesto}` | 184px | Newsreader | 400 | Manifesto statement display |
+| `{typography.display-chapter}` | 167px | Newsreader | 400 | Section-opening or chapter title |
+| `{typography.display-quote}` | 151px | Newsreader | 400 | Pull-quote body |
+| `{typography.headline-index}` | 142px | Newsreader | 400 | Index or trend-list section header |
+| `{typography.headline}` | 137px | Newsreader | 400 | Data, table, or chart section header |
+| `{typography.ed-callout}` | 77px | Newsreader | 400 | Editorial subtitle below a hero title |
+| `{typography.row-headline}` | 60px | Newsreader | 400 | Per-row headline inside an index list |
+| `{typography.table-name}` | 48px | Newsreader | 400 | Per-row name cell inside a ledger table |
+| `{typography.micro-strong}` | 30px | Hanken Grotesk | 600 | Largest uppercase label / kicker |
+| `{typography.body-lede}` | 30px | Hanken Grotesk | 400 | Lead paragraph below a chapter title |
+| `{typography.body-stat}` | 30px | Hanken Grotesk | 400 | Descriptive paragraph next to a stat figure |
+| `{typography.body}` | 28px | Hanken Grotesk | 400 | Standard paragraph body |
+| `{typography.micro}` | 27px | Hanken Grotesk | 600 | Standard uppercase label / lab-tag |
+| `{typography.mono-tag}` | 27px | DM Mono | 400 | Mono catalogue tag, num-tag in an index row |
+| `{typography.mono-tick}` | 25px | DM Mono | 400 | Mono chart tick label, vertical-stack-label entry |
+| `{typography.mono-chrome}` | 24px | DM Mono | 400 | Mono page number, navigation hint, secondary meta |
+| `{typography.micro-sm}` | 22px | Hanken Grotesk | 600 | Smallest uppercase label / table header |
 
 ### Defaults
-- **Default size for the primary section headline (index, data, table)**: `{typography.headline}` (clamp 46–92px) or `{typography.headline-index}` for index layouts.
-- **Default size for a cover or hero display**: `{typography.display-hero}` (clamp 100–200px).
-- **Default size for a chapter or section-opener title**: `{typography.display-chapter}` (clamp 56–130px).
-- **Default size for paragraph body**: `{typography.body}` (clamp 14–15px).
-- **Default size for any inline uppercase label**: `{typography.micro}` (clamp 12–14px) at weight 600 with 0.16em tracking.
-- **Default size for any mono chrome (page number, tag, tick)**: `{typography.mono-tag}` (clamp 13–15px).
+- **Default size for the primary section headline (index, data, table)**: `{typography.headline}` (137px) or `{typography.headline-index}` (142px) for index layouts.
+- **Default size for a cover or hero display**: `{typography.display-hero}` (301px).
+- **Default size for a chapter or section-opener title**: `{typography.display-chapter}` (167px).
+- **Default size for paragraph body**: `{typography.body}` (28px).
+- **Default size for any inline uppercase label**: `{typography.micro}` (27px) at weight 600 with 0.16em tracking.
+- **Default size for any mono chrome (page number, tag, tick)**: `{typography.mono-tag}` (27px).
 - **Default weight for Newsreader**: 400. Newsreader bold is not used.
 - **Default weight for Hanken body**: 400.
 - **Default weight for Hanken label**: 600.
 
-When unsure, reach for `{typography.headline}` (clamp 46–92px) for the slide's primary section header, not `{typography.display-chapter}` (which is for chapter-opening moments only).
+When unsure, reach for `{typography.headline}` (137px) for the slide's primary section header, not `{typography.display-chapter}` (167px, which is for chapter-opening moments only).
 
 ### Signature Treatments
 These treatments are **non-optional whenever the corresponding element type is used**:
@@ -351,37 +353,37 @@ These treatments are **non-optional whenever the corresponding element type is u
 - **Every display element carries negative letter-spacing.** Display-hero at -0.008em, vbig-numeral at -0.015em, chapter / closing / manifesto / quote at -0.005em.
 - **The graph-paper grid is permanent on every slide.** The `.stage::before` rule is not overridable per-slide — every composition sits on top of it.
 - **The top and bottom hairlines frame every slide.** The `.hairlines::before` and `.hairlines::after` rules apply by default; they should not be suppressed.
-- **Page number sits above the bottom hairline with clear vertical space.** The bottom hairline anchors at `bottom: clamp(20px, 2vh, 32px)`; the page number anchors at `bottom: clamp(48px, 4.8vh, 76px)` — they must not collide.
+- **Page number sits above the bottom hairline with clear vertical space.** The bottom hairline anchors at `bottom: 22px`; the page number anchors at `bottom: 52px` — they must not collide.
 
 ### Typography Principles
 The Newsreader-400 + Hanken-600-uppercase-tracked + DM-Mono-tracked combination is the system's voice. Switching any of those three face/weight/case rules reads as a different design system. Italic is permitted via Newsreader italic (loaded) for inline `<em>` and for the manifesto's editorial italic-with-`.roman`-flip treatment. Underline is not used.
 
-Line-height collapses at the top: display-hero / vbig-numeral at 0.92, display-chapter at 1.0, body at 1.5. The tight display + open body contrast is what gives the system its trend-report rhythm.
+Line-height collapses at the top: display-hero / vbig-numeral at 0.92, display-chapter at 1.0, body at 1.5. `{typography.display-hero}` and `{typography.vbig-numeral}` resolve to the same 301px — separate them by role and letter-spacing (-0.008em title vs -0.015em numeral), not by size. The tight display + open body contrast is what gives the system its trend-report rhythm.
 
 ## Layout
 
 ### Canvas System
-The canvas is `100vw × 100vh` — full viewport with hidden overflow. Each `.slide` is absolutely positioned to fill the viewport; one slide carries `.active` (opacity 1, pointer-events auto) at a time. Transitions are 280ms opacity fades.
+The canvas is exactly 1920×1080px with hidden overflow; the skill's fixed-stage scaler (viewport-base.css) handles centering and scaling. Each `.slide` is absolutely positioned to fill the stage; one slide carries `.active` (opacity 1, pointer-events auto) at a time. Transitions are 280ms opacity fades.
 
 A `.stage` wrapper sits inside `.deck` (`position: fixed; inset: 0`) and provides the cream background plus the permanent `::before` graph-paper grid.
 
 ### Edge and Padding Scale
 | Token | Value | Use |
 |---|---|---|
-| `{spacing.edge}` | clamp(36px, 3.6vw, 80px) | Standard slide edge inset for content, page number, hairlines |
-| `{spacing.edge-inner}` | clamp(60px, 8vw, 160px) | Tighter inset used for manifesto-style centered statements |
-| `{spacing.pad-top}` | clamp(76px, 8vh, 130px) | Top padding inside index/data/table frame, below the top hairline |
-| `{spacing.pad-bottom}` | clamp(100px, 10vh, 150px) | Bottom padding inside index/data/table frame, above the bottom hairline |
-| `{spacing.gap-lg}` | clamp(28px, 3vw, 56px) | Large gap between major regions inside a slide |
-| `{spacing.gap-md}` | clamp(20px, 2.2vh, 36px) | Standard inter-element spacing |
-| `{spacing.gap-sm}` | clamp(14px, 1.6vh, 24px) | Tight spacing — chrome bar inner gap, attribution-to-quote gap |
-| `{spacing.gap-xs}` | clamp(10px, 1.2vh, 18px) | Vertical-stack row gap, smallest inter-element gap |
+| `{spacing.edge}` | 69px | Standard slide edge inset for content, page number, hairlines |
+| `{spacing.edge-inner}` | 154px | Tighter inset used for manifesto-style centered statements |
+| `{spacing.pad-top}` | 86px | Top padding inside index/data/table frame, below the top hairline |
+| `{spacing.pad-bottom}` | 108px | Bottom padding inside index/data/table frame, above the bottom hairline |
+| `{spacing.gap-lg}` | 58px | Large gap between major regions inside a slide |
+| `{spacing.gap-md}` | 24px | Standard inter-element spacing |
+| `{spacing.gap-sm}` | 17px | Tight spacing — chrome bar inner gap, attribution-to-quote gap |
+| `{spacing.gap-xs}` | 13px | Vertical-stack row gap, smallest inter-element gap |
 
 ### Universal Chrome Frame
 Every slide carries a four-piece chrome frame:
-1. **Top hairline** — 1.5px solid cobalt at ≈2.6vh from top, inset by `{spacing.edge}` left/right.
-2. **Bottom hairline** — 1.5px solid cobalt at ≈2vh from bottom, inset by `{spacing.edge}` left/right.
-3. **Page number** — DM Mono cobalt anchored bottom-right, ≈4.8vh from bottom (above the bottom hairline).
+1. **Top hairline** — 1.5px solid cobalt at 28px from top, inset by `{spacing.edge}` left/right.
+2. **Bottom hairline** — 1.5px solid cobalt at 22px from bottom, inset by `{spacing.edge}` left/right.
+3. **Page number** — DM Mono cobalt anchored bottom-right, 52px from bottom (above the bottom hairline).
 4. **Nav hint** — DM Mono cobalt at 40% opacity anchored bottom-left, same vertical level as page number.
 
 This frame is rendered automatically by the `.hairlines` and `.pagenum` / `.nav-hint` rules — every new slide inherits it.
@@ -431,7 +433,7 @@ All structural borders are cobalt. Colored borders do not exist (there is no "co
 
 ### Decorative Element Types
 
-**Pixel-glitch column** — A stair-stepped vertical column rendered as inline SVG. Each step is a rectangle filled with evenly-spaced cobalt vertical scanlines on cream. Steps decrease in width as the column descends (or vice versa), creating a "glitch" pixelation effect. Anchored to one edge of a slide (typically right), absolutely positioned, z-index 3, pointer-events disabled. Decorative only — sizes range from compact 16vw × full-height secondary use to 32vw × full-height signature cover decoration. Opacity 0.6–1.0 depending on context (lower opacity when used as background, full opacity when used as primary decoration).
+**Pixel-glitch column** — A stair-stepped vertical column rendered as inline SVG. Each step is a rectangle filled with evenly-spaced cobalt vertical scanlines on cream. Steps decrease in width as the column descends (or vice versa), creating a "glitch" pixelation effect. Anchored to one edge of a slide (typically right), absolutely positioned, z-index 3, pointer-events disabled. Decorative only — sizes range from a compact 307px × full-height secondary use to a 614px × full-height signature cover decoration. Opacity 0.6–1.0 depending on context (lower opacity when used as background, full opacity when used as primary decoration).
 
 **QR-block patch** — An 8×8 grid of cells (some `.on` = solid cobalt, some default = paper) forming a QR-code-like mosaic. Sits over a paper-fill background with 4px internal padding and 1.5px paper-color outset (which preserves readability when overlapping the pixel-glitch column). Typical size 58–100px square. Used as compositional punctuation — typically top-right corner.
 
@@ -475,7 +477,7 @@ All structural borders are cobalt. Colored borders do not exist (there is no "co
 - Don't round any corner. Every shape is a strict rectangle; the system has zero circular elements.
 - Don't add drop shadows, elevated cards, or gradient fills. Depth is structural (rules + grid + glitch), not z-axis.
 - Don't use Hanken caps without 0.16em+ tracking. Untracked Hanken caps read as untreated.
-- Don't put the page number directly on the bottom hairline. It sits at `bottom: clamp(48px, 4.8vh, 76px)` with clear space above the hairline.
+- Don't put the page number directly on the bottom hairline. It sits at `bottom: 52px` with clear space above the hairline.
 - Don't render the QR-block without its paper-fill and 1.5px paper outset. The fill is what preserves QR readability against the pixel-glitch column.
 - Don't crowd the manifesto, quote, or colophon layouts. Those layouts deliberately leave grid showing — over-stuffing them breaks the contemplative register.
 
@@ -541,7 +543,7 @@ Use **Strategy A — single-font-stack with fallback**: declare Noto Serif SC *a
 
 ### Aesthetic Notes
 
-Noto Serif SC (思源宋体) is the natural Hanzi partner for Newsreader — both are quiet literary serifs with thin-thick modulation that holds at very large display sizes (up to 18vh / 240px on the vbig-numeral). The cobalt-on-cream two-color rule absorbs Chinese without negotiation because there's only one ink color to assign. NSC 700 carries display moments where Newsreader 400 would have at 100–200px; NSC 400 carries body and labels. The DM Mono chrome layer (page numbers, vertical-stack tags, ticks) intentionally stays Latin/digit-only — `编号 001` is rendered as Latin "001" in DM Mono with the Hanzi prefix in Hanken/NSC, preserving the mono catalogue chrome's "technical spec" voice. The graph-paper grid, pixel-glitch column, and QR-block decoration are content-agnostic and read identically in any language. Vertical-stack labels written with `writing-mode: vertical-rl` work for Hanzi too — Chinese is the original vertical script — but mixing Latin and Hanzi in the same vertical run will rotate the Hanzi to upright while keeping Latin rotated 90°; isolate runs by language.
+Noto Serif SC (思源宋体) is the natural Hanzi partner for Newsreader — both are quiet literary serifs with thin-thick modulation that holds at very large display sizes (up to 301px on the vbig-numeral). The cobalt-on-cream two-color rule absorbs Chinese without negotiation because there's only one ink color to assign. NSC 700 carries display moments where Newsreader 400 would have at 234–301px; NSC 400 carries body and labels. The DM Mono chrome layer (page numbers, vertical-stack tags, ticks) intentionally stays Latin/digit-only — `编号 001` is rendered as Latin "001" in DM Mono with the Hanzi prefix in Hanken/NSC, preserving the mono catalogue chrome's "technical spec" voice. The graph-paper grid, pixel-glitch column, and QR-block decoration are content-agnostic and read identically in any language. Vertical-stack labels written with `writing-mode: vertical-rl` work for Hanzi too — Chinese is the original vertical script — but mixing Latin and Hanzi in the same vertical run will rotate the Hanzi to upright while keeping Latin rotated 90°; isolate runs by language.
 
 ### Known CJK Gap
 

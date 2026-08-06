@@ -8,9 +8,16 @@ Use this small file for title-slide previews only. For final deck generation, re
 
 ## Visual Snapshot
 
-A cheerful, childlike presentation system built around the chunky display face Fredoka One and the rounded humanist sans Quicksand. The palette is a sunny garden — cream canvas, turquoise, soft pink, butter yellow, mint, lavender, peach, sky blue, and a single coral accent — with charcoal-brown 2D outlines wrapping every shape. Hard offset shadows in dark charcoal, generous border-radius, and hand-drawn SVG decorations (daisies, stars, suns, clouds, rainbows) anchor the aesthetic somewhere between a children's storybook spread and a sticker-sheet kawaii zine.
+Cover recipe:
 
-Daisy Days is a cheerful childlike presentation system rooted in a single typographic pairing: the chubby rounded display face Fredoka One for every headline, and the friendly humanist sans Quicksand for every line of body and meta text. The visual language descends from picture-book illustration and sticker-sheet kawaii: every shape carries a charcoal 2D outline, every elevated element casts a solid offset shadow, and every surface is a pastel from a sunny garden palette.
+- Surface: cream #F5F0E6 for the storybook default, or a saturated pastel (turquoise #7ECDC0, soft-pink #F7C8D4) when the cover wants a tonal mood. Slide padding 40px 60px.
+- Composition: one centered content block, max-width roughly 700–1100px, flex-centered vertically and horizontally so the ornament layer keeps the edges.
+- Title: Fredoka One 400 at 134px, line-height 1.1, letter-spacing 0.02em.
+- Title treatment: on cream the title is charcoal #2D2D2D and sits flat; on a saturated pastel it turns white #FFFFFF with a `3px 3px 0 #2D2D2D` text-shadow (use `3px 3px 0 rgba(0,0,0,0.2)` on the softer pastels).
+- Support: one Quicksand 500 line at 25px in #2D2D2D, or #6B6B6B when the subtitle should recede.
+- Badge: a butter #FDE68A pill above or below the title — 3px charcoal border, 50px radius, 8px/20px padding, Fredoka One at 0.85rem.
+- Ornaments: 3–7 hand-drawn SVGs on z-index 1 (two daisies plus 2–3 stars is the canonical cluster), several cropping past the edge at offsets like `top:-30px` / `right:-20px`. Empty corners read as broken.
+- Chrome: the fixed nav dots and counter pill are presentation chrome; a page number that must reach the PDF has to be drawn inside the slide.
 
 ## Preview Ingredients
 

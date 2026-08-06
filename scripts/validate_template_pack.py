@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -14,6 +15,26 @@ REQUIRED_DESIGN_MARKERS = (
     "## deck-forge Fixed-Stage Policy",
     "## CJK & International Content",
 )
+
+# fixed-stage policy: 1920x1080 px only — no fluid viewport units or clamp()
+# Checked against the YAML token frontmatter only. The prose below it quotes
+# vw/vh/clamp() on purpose: the Fixed-Stage Policy section explains the rule,
+# and the source-history sections describe the original viewport-fluid template.
+VIEWPORT_UNIT_RE = re.compile(r"\d(?:\.\d+)?\s*v[wh]\b")
+
+# Every fontSize token must be one resolved stage value. Catches the shapes that
+# slipped through a clamp()-only check: bare numbers (48), ranges ("35-42px"),
+# and leftover relative units ("0.85rem").
+FONT_SIZE_RE = re.compile(r'^\s*fontSize:\s*"?([^"\n]+?)"?\s*$', re.M)
+VALID_FONT_SIZE_RE = re.compile(r"^(?:\d+(?:\.\d+)?px|inherit|\{[^}]+\})$")
+
+
+def token_frontmatter(text: str) -> str:
+    """Return the leading '---' YAML block that carries the design tokens."""
+    if not text.startswith("---"):
+        return ""
+    end = text.find("\n---", 3)
+    return text[:end] if end > 0 else ""
 
 
 def validate(skill_root: Path) -> list[str]:
@@ -40,20 +61,28 @@ def validate(skill_root: Path) -> list[str]:
 
     for entry in entries:
         slug = entry.get("slug", "<missing-slug>")
-        for key in ("preview_md", "design_md"):
-            raw = entry.get(key)
-            if not raw:
-                errors.append(f"{slug}: missing {key}")
-                continue
-            path = skill_root / raw
-            if not path.is_file():
-                errors.append(f"{slug}: missing path {raw}")
-        design_raw = entry.get("design_md")
-        if design_raw and (skill_root / design_raw).is_file():
-            text = (skill_root / design_raw).read_text(encoding="utf-8")
+        # paths are derived from slug by convention: templates/<slug>/{preview,design}.md
+        template_dir = templates_dir / slug
+        for name in ("preview.md", "design.md"):
+            if not (template_dir / name).is_file():
+                errors.append(f"{slug}: missing templates/{slug}/{name}")
+        design_path = template_dir / "design.md"
+        if design_path.is_file():
+            text = design_path.read_text(encoding="utf-8")
             for marker in REQUIRED_DESIGN_MARKERS:
                 if marker not in text:
                     errors.append(f"{slug}: missing marker {marker!r}")
+            tokens = token_frontmatter(text)
+            if "clamp(" in tokens:
+                errors.append(f"{slug}: design.md tokens use clamp() (fixed-stage px only)")
+            if VIEWPORT_UNIT_RE.search(tokens):
+                errors.append(f"{slug}: design.md tokens use viewport units vw/vh (fixed-stage px only)")
+            for value in FONT_SIZE_RE.findall(tokens):
+                if not VALID_FONT_SIZE_RE.match(value.strip()):
+                    errors.append(
+                        f"{slug}: design.md fontSize {value.strip()!r} is not a single "
+                        f"stage px value (expected e.g. \"28px\")"
+                    )
 
     readmes = list(pack.rglob("README.md"))
     if readmes:

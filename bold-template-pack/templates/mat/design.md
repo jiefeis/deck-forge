@@ -29,77 +29,77 @@ color-aliases:
 typography:
   display:
     fontFamily: "Bricolage Grotesque, Noto Sans SC, sans-serif"
-    fontSize: 12vw
+    fontSize: 323px
     fontWeight: 800
     lineHeight: 0.88
     letterSpacing: -0.03em
   h1:
     fontFamily: "Bricolage Grotesque, Noto Sans SC, sans-serif"
-    fontSize: 7vw
+    fontSize: 188px
     fontWeight: 800
     lineHeight: 0.92
     letterSpacing: -0.025em
   h2:
     fontFamily: "Bricolage Grotesque, Noto Sans SC, sans-serif"
-    fontSize: 4vw
+    fontSize: 108px
     fontWeight: 700
     lineHeight: 1.0
     letterSpacing: -0.02em
   h3:
     fontFamily: "Bricolage Grotesque, Noto Sans SC, sans-serif"
-    fontSize: 2.4vw
+    fontSize: 65px
     fontWeight: 600
     lineHeight: 1.1
     letterSpacing: -0.01em
   lead:
     fontFamily: "DM Sans, Noto Sans SC, sans-serif"
-    fontSize: 1.5vw
+    fontSize: 40px
     fontWeight: 400
     lineHeight: 1.55
   body:
     fontFamily: "DM Sans, Noto Sans SC, sans-serif"
-    fontSize: 1.05vw
+    fontSize: 28px
     fontWeight: 400
     lineHeight: 1.65
   caption:
     fontFamily: "DM Sans, Noto Sans SC, sans-serif"
-    fontSize: 0.82vw
+    fontSize: 22px
     fontWeight: 400
     lineHeight: 1.5
   label:
     fontFamily: "DM Mono, monospace"
-    fontSize: 0.7vw
+    fontSize: 19px
     fontWeight: 400
     letterSpacing: 0.12em
     textTransform: uppercase
   stat-value:
     fontFamily: "Bricolage Grotesque, Noto Sans SC, sans-serif"
-    fontSize: 5.5vw
+    fontSize: 148px
     fontWeight: 800
     lineHeight: 1.0
     letterSpacing: -0.025em
   quote-text:
     fontFamily: "Bricolage Grotesque, Noto Sans SC, sans-serif"
-    fontSize: 3.4vw
+    fontSize: 91px
     fontWeight: 600
     lineHeight: 1.2
     letterSpacing: -0.02em
   quote-mark:
     fontFamily: "Bricolage Grotesque, Noto Sans SC, sans-serif"
-    fontSize: 8vw
+    fontSize: 215px
     fontWeight: 800
     lineHeight: 0.6
 
 spacing:
-  pad-x: 5.5vw
-  pad-y: 5.5vh
-  gap-lg: 4.5vh
-  gap-md: 2.8vh
-  gap-sm: 1.4vh
+  pad-x: 106px
+  pad-y: 59px
+  gap-lg: 49px
+  gap-md: 30px
+  gap-sm: 15px
 
 canvas:
-  width: 100vw
-  height: 100vh
+  width: 1920px
+  height: 1080px
 
 components:
   kicker:
@@ -121,7 +121,7 @@ components:
     background: "{colors.bg-cream}"
     color: "{colors.ink-dark}"
     padding: "{spacing.gap-md} calc({spacing.pad-x} * 0.8)"
-    maxWidth: 28vw
+    maxWidth: 538px
     description: "Cream inset box embedded on a dark green field. The signature material-contrast component; carries a heading and a body block, no border, no shadow."
   chrome-band:
     borderBottom: "1px solid {colors.border-on-dark}"
@@ -174,6 +174,8 @@ This policy applies even if the source template was originally implemented with 
 
 Author against the skill's fixed-stage model: full viewport-base.css inline, .slide/.active slides scaled as one unit (transform: scale(), origin 0 0) per html-template.md. Do not reference deck-stage.js (not bundled). Translate any data-anim/data-delay/.is-active entrance vocabulary from the source design into the deck's .reveal + .slide.visible convention. Render each slide at 1920×1080 and verify rendered screenshots for both text overflow and panel overlap.
 
+Page numbers or footers that must appear in the exported PDF must be slide-internal elements (see lumen-2026's .foot/.pageno); never use the reserved deck-chrome classes (.progress-bar, .slide-counter) — export_pdf.py strips them.
+
 
 ## Overview
 
@@ -185,7 +187,7 @@ The palette is intentionally narrow. **Dark forest green** is the dominant surfa
 
 Depth is minimal and atmospheric, not stacked. There are no drop shadows. There are no rounded corners on any structural element. The only depth signal is the wood-brown radial glow that sits behind every dark slide via a `::before` pseudo-element. Region separation comes from **thin 1px hairline rules** in low-opacity cream — for chrome bands, foot bands, stat cell dividers, compare panel splits, and chart baselines. Nothing about this system is loud.
 
-**Density philosophy: medium-sparse.** Mat reads as elegant when the slide breathes — generous left and right padding (`{spacing.pad-x}` at 5.5vw), one main typographic moment, and one secondary block of supporting copy. Cramming three columns of bullets onto a slide breaks the system; the warm green field needs negative space to do its atmospheric work. The exception is the stats and compare slide types, where a clean three-up or two-up arrangement of restrained cells is correct. A slide with a single headline and one paragraph of lead copy is right in this system's lane. A slide that fills 80% of its area with type is fighting the design.
+**Density philosophy: medium-sparse.** Mat reads as elegant when the slide breathes — generous left and right padding (`{spacing.pad-x}` at 106px), one main typographic moment, and one secondary block of supporting copy. Cramming three columns of bullets onto a slide breaks the system; the warm green field needs negative space to do its atmospheric work. The exception is the stats and compare slide types, where a clean three-up or two-up arrangement of restrained cells is correct. A slide with a single headline and one paragraph of lead copy is right in this system's lane. A slide that fills 80% of its area with type is fighting the design.
 
 **Key Characteristics:**
 - Dark forest green canvas (`{colors.bg-dark}`) with a warm wood-brown radial glow (`{components.atmospheric-glow}`) anchored to the bottom-right corner of every dark slide.
@@ -240,24 +242,24 @@ Italics are not used for typographic decoration in this system. The `<em>` tag i
 
 | Token | Size | Family | Weight | Use |
 |---|---|---|---|---|
-| `{typography.display}` | 12vw | Bricolage Grotesque | 800 | Cover or opening hero display — massive, line-broken into 1–2 words per line |
-| `{typography.h1}` | 7vw | Bricolage Grotesque | 800 | Chapter-opening or closing headline |
-| `{typography.h2}` | 4vw | Bricolage Grotesque | 700 | Primary content-slide headline |
-| `{typography.stat-value}` | 5.5vw | Bricolage Grotesque | 800 | Large numerical figure inside a stat cell |
-| `{typography.quote-mark}` | 8vw | Bricolage Grotesque | 800 | Decorative opening quotation glyph in warm orange |
-| `{typography.quote-text}` | 3.4vw | Bricolage Grotesque | 600 | Pull-quote body text |
-| `{typography.h3}` | 2.4vw | Bricolage Grotesque | 600 | Sub-headline or region heading |
-| `{typography.lead}` | 1.5vw | DM Sans | 400 | Lead paragraph or large bullet item |
-| `{typography.body}` | 1.05vw | DM Sans | 400 | Body paragraph and info-card body |
-| `{typography.caption}` | 0.82vw | DM Sans | 400 | Image caption, tagline, fine print |
-| `{typography.label}` | 0.7vw | DM Mono | 400 | Kicker, chrome tag, footer label, metadata, chart label |
+| `{typography.display}` | 323px | Bricolage Grotesque | 800 | Cover or opening hero display — massive, line-broken into 1–2 words per line |
+| `{typography.h1}` | 188px | Bricolage Grotesque | 800 | Chapter-opening or closing headline |
+| `{typography.h2}` | 108px | Bricolage Grotesque | 700 | Primary content-slide headline |
+| `{typography.stat-value}` | 148px | Bricolage Grotesque | 800 | Large numerical figure inside a stat cell |
+| `{typography.quote-mark}` | 215px | Bricolage Grotesque | 800 | Decorative opening quotation glyph in warm orange |
+| `{typography.quote-text}` | 91px | Bricolage Grotesque | 600 | Pull-quote body text |
+| `{typography.h3}` | 65px | Bricolage Grotesque | 600 | Sub-headline or region heading |
+| `{typography.lead}` | 40px | DM Sans | 400 | Lead paragraph or large bullet item |
+| `{typography.body}` | 28px | DM Sans | 400 | Body paragraph and info-card body |
+| `{typography.caption}` | 22px | DM Sans | 400 | Image caption, tagline, fine print |
+| `{typography.label}` | 19px | DM Mono | 400 | Kicker, chrome tag, footer label, metadata, chart label |
 
 ### Defaults
 
-- **Default primary section headline**: `{typography.h2}` (4vw).
-- **Default opening or cover display**: `{typography.display}` (12vw) on a cover; `{typography.h1}` (7vw) on a chapter or closing moment.
-- **Default body paragraph size**: `{typography.body}` (1.05vw). Reach for `{typography.lead}` (1.5vw) when the paragraph is the single supporting block under a large headline.
-- **Default label / kicker size**: `{typography.label}` (0.7vw).
+- **Default primary section headline**: `{typography.h2}` (108px).
+- **Default opening or cover display**: `{typography.display}` (323px) on a cover; `{typography.h1}` (188px) on a chapter or closing moment.
+- **Default body paragraph size**: `{typography.body}` (28px). Reach for `{typography.lead}` (40px) when the paragraph is the single supporting block under a large headline.
+- **Default label / kicker size**: `{typography.label}` (19px).
 - **Default weight for any display element**: 700 (h2) or 800 (display, h1, stat-value).
 - **Default weight for body**: 400.
 - **Default headline letter-spacing**: negative — display at -0.03em, h1 at -0.025em, h2 at -0.02em. The negative tracking is essential.
@@ -292,11 +294,11 @@ Mat is **viewport-fluid by design**. All sizes use `vw` and `vh` units so the la
 
 | Token | Value | Use |
 |---|---|---|
-| `{spacing.pad-x}` | 5.5vw | Slide horizontal padding; the breathing room on left and right edges |
-| `{spacing.pad-y}` | 5.5vh | Slide vertical padding |
-| `{spacing.gap-lg}` | 4.5vh | Between major content sections |
-| `{spacing.gap-md}` | 2.8vh | Between related elements (headline → lead, stat → label) |
-| `{spacing.gap-sm}` | 1.4vh | Between tightly related elements (label pair in chrome band) |
+| `{spacing.pad-x}` | 106px | Slide horizontal padding; the breathing room on left and right edges |
+| `{spacing.pad-y}` | 59px | Slide vertical padding |
+| `{spacing.gap-lg}` | 49px | Between major content sections |
+| `{spacing.gap-md}` | 30px | Between related elements (headline → lead, stat → label) |
+| `{spacing.gap-sm}` | 15px | Between tightly related elements (label pair in chrome band) |
 
 The horizontal padding is generous — content occupies roughly the middle 89% of the viewport. Pushing content closer to the edges breaks the system's editorial spaciousness.
 
@@ -340,7 +342,7 @@ The system has **no rounded corners** on any composed content. Cards, panels, an
 
 ### Decorative Element Types
 
-**Kicker** — A small DM Mono uppercase tag in warm orange with 0.12em positive tracking, placed above a headline as an eyebrow label. The most consistent appearance of orange in the system. Typically 0.7vw size.
+**Kicker** — A small DM Mono uppercase tag in warm orange with 0.12em positive tracking, placed above a headline as an eyebrow label. The most consistent appearance of orange in the system. Typically 19px size.
 
 **Rule** — A 32px-wide × 1px-tall horizontal accent line in warm orange. Used as a small underline-style separator between a kicker and a headline, or beneath a chapter number. Decorative, not structural.
 
@@ -403,11 +405,11 @@ The template does not declare a `@media print` rule. To produce a PDF, use the b
 
 | Role | Chinese Face | Weight | Why |
 |---|---|---|---|
-| Display / h1 / h2 / h3 / stat-value (Bricolage roles, 2.4–12vw) | 思源宋体 Noto Serif SC | 700 | Mincho heavy weight provides the structural mass that Bricolage 700–800 provides in Latin, while preserving the warm material register |
-| Quote text / quote mark (3.4vw / 8vw) | 思源宋体 Noto Serif SC | 600–700 | Same Mincho voice for editorial moments |
-| Lead / body / caption (DM Sans roles, 0.82–1.5vw) | 思源宋体 Noto Serif SC | 400 | Mincho body voice — calm and material; pairs with the wood-glow warmth |
+| Display / h1 / h2 / h3 / stat-value (Bricolage roles, 65–323px) | 思源宋体 Noto Serif SC | 700 | Mincho heavy weight provides the structural mass that Bricolage 700–800 provides in Latin, while preserving the warm material register |
+| Quote text / quote mark (91px / 215px) | 思源宋体 Noto Serif SC | 600–700 | Same Mincho voice for editorial moments |
+| Lead / body / caption (DM Sans roles, 22–40px) | 思源宋体 Noto Serif SC | 400 | Mincho body voice — calm and material; pairs with the wood-glow warmth |
 | Info-card body / heading | 思源宋体 Noto Serif SC | 400 / 600 | Maintains the warm-paper-on-green contrast in Chinese |
-| Label / kicker / chrome / footer (DM Mono roles, 0.7vw) | 思源宋体 Noto Serif SC | 500 with 0.05em letter-spacing | Replaces DM Mono — Chinese has no monospace tradition that reads as editorial chrome |
+| Label / kicker / chrome / footer (DM Mono roles, 19px) | 思源宋体 Noto Serif SC | 500 with 0.05em letter-spacing | Replaces DM Mono — Chinese has no monospace tradition that reads as editorial chrome |
 
 ### Mixed-Content Strategy
 

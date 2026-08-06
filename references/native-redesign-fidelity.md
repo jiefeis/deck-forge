@@ -18,21 +18,8 @@ contains hidden pages or the user has changed the file between review rounds.
 
 ## Rebaseline after every user-side revision
 
-Treat statements such as “I deleted the old versions,” “I inserted two hidden
-pages,” “I saved a newer copy,” or “use the current file” as a source revision
-event.
-
-1. Resolve the current source path again.
-2. Hash it and create a new manifest before editing.
-3. Recompute page order, hidden state, stable IDs, titles, and source mappings.
-4. Discard page-number assumptions from the previous round.
-5. Keep the new baseline outside the delivery folder.
-
-Before the final overwrite, hash the current source again. If it no longer
-matches the baseline, do not overwrite it with the candidate. Rebase the
-authorized edits onto the new source or ask the user which version wins. This
-optimistic-concurrency check prevents erasing edits made while the agent was
-working.
+Hash gating and rebaseline follow `references/source-contract.md` →
+"Rebaseline when the user changes the source".
 
 ## Keep four page identities separate
 
@@ -159,10 +146,8 @@ claim → relationship/model → explanation/evidence → conclusion/transition
 - Shorten micro-labels while preserving the complete sentence in a nearby
   explanation card.
 - Keep labels clear of node borders and arrowheads.
-- Inspect at full slide size, not only a contact-sheet thumbnail.
-
-Fix fit in this order: clarify wording, widen within the existing grid, add
-semantic line breaks, then reduce peer font sizes modestly and consistently.
+- For fit mechanics, follow `references/reformat-and-style.md` → "Font-size
+  and whitespace changes" (the single authority for that pass).
 
 ## Recover from package-normalizing authoring tools
 
@@ -174,37 +159,9 @@ not the package authority.
 Run the structural audit before overwriting the source. If untouched pages are
 pixel-identical but the package audit reports order, hidden, or shared-part
 changes, do not authorize the churn with `--allow-shared` and do not dismiss it
-as harmless.
-
-When the candidate was authored from the same baseline, uses direct formatting
-instead of placeholder/theme inheritance, and uses only dependencies already
-present on each target slide, transplant the authorized shape tree back into
-the untouched baseline:
-
-```bash
-python <skill-root>/scripts/transplant_pptx_slides.py \
-  <baseline.pptx> <candidate.pptx> <rebased.pptx> \
-  --pages 2,4,31,41 --component shape-tree
-```
-
-The transplant keeps the baseline presentation order, stable IDs, hidden
-state, relationships, notes, layouts, masters, and themes. It remaps referenced
-relationship IDs by type and payload hash and fails closed when the candidate
-introduces an unmatched dependency, an ambiguous page identity, explicit
-theme/layout markup, shape-ID-coupled timing/comments/controls, or a slide
-part shared by two physical pages. A matching stable slide ID alone is never
-accepted as identity (normalizing tools regenerate IDs positionally): it must
-be corroborated by matching titles, or — when the redesign legitimately
-changed the title — by reviewed `--expect-source-title` /
-`--expect-candidate-title` assertions. `cSld` and full-slide replacement are
-not supported. Use explicit `--map source:candidate` when the candidate's
-physical order differs.
-
-The static theme gate rejects only explicit theme markup; implicit
-inheritance (runs with no direct properties) cannot be excluded statically.
-The tool therefore reports a `required_followup` list — pixel equivalence of
-candidate vs rebased renders and the baseline-scope re-audit — and the
-transplant is not delivery-ready until both are done.
+as harmless. Transplant semantics, command syntax, identity proof, and
+required follow-ups follow `references/pptx-native-editing.md` → "Tool
+qualification and package-preserving rebase".
 
 If the redesign introduces an image, SVG, chart, SmartArt, or other dependency
 not already present on the baseline target slide, stop using the transplant
@@ -212,30 +169,19 @@ route. Continue with a package-preserving editor or a separately scoped,
 dependency-aware copy workflow; never broaden to full-slide replacement merely
 to bypass the failure.
 
-After transplanting, rerun the structural and property audits against the
-baseline. The permitted logical package differences should be limited to the
-authorized slide parts and property families. Render candidate and rebased
-target pages with the same engine and require pixel equivalence; package safety
-does not by itself prove that direct formatting renders identically.
-
 ## Final fidelity ladder
 
-Complete these gates after the last edit:
+Run `references/edit-scope-contract.md` → "Verify after the final write" as
+the sole execution backbone; hash gating and rebaseline follow
+`references/source-contract.md` → "Rebaseline when the user changes the
+source". On top of that standard verification, a redesign additionally
+requires:
 
-1. Confirm the current source hash still matches the baseline hash.
-2. Confirm the physical/visible-ordinal/displayed-marker/source page-address
-   table.
-3. Check every target slide against its content and topology contract.
-4. Render the candidate target pages and fix copyfit at full size.
-5. Rebase through slide-local transplant if the authoring tool churned the
-   package.
-6. Pass structure and property-scope audits.
-7. Render baseline and final with the same engine.
-8. Pass the rendered-page audit with only the authorized physical pages.
-9. Inspect the aligned full-deck contact sheet and every changed/dense page
-   full-size.
-10. Verify visible numbering and the exact hidden pages.
-11. Copy the validated artifact to the final path.
-12. Verify the final file hash equals the validated candidate. A byte-identical
-    copy carries the candidate's audit attestation; any differing hash or later
-    save requires rerunning delivery-critical audits on the final path.
+1. Check every target slide against its frozen content and topology contract.
+2. Render the candidate target pages and fix copyfit at full slide size, not
+   only on a contact-sheet thumbnail.
+3. If the package was rebased through the transplant, rerun the structure,
+   property, and rendered-page audits on the rebased file and require
+   candidate-vs-rebased pixel equivalence
+   (`references/pptx-native-editing.md` → "Tool qualification and
+   package-preserving rebase").

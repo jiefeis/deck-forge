@@ -40,10 +40,23 @@ def _fonts_cdn_reachable() -> bool:
     return True
 
 
-@unittest.skipUnless(_fonts_cdn_reachable(),
+# With DECK_FORGE_REQUIRE_CDN=1 (set in CI) an unreachable CDN is a hard
+# failure, not a silent skip: these tests are the only end-to-end coverage of
+# the bundled examples. Without the variable, local offline runs skip cleanly.
+_REQUIRE_CDN = os.environ.get("DECK_FORGE_REQUIRE_CDN") == "1"
+_CDN_REACHABLE = _fonts_cdn_reachable()
+
+
+@unittest.skipUnless(_CDN_REACHABLE or _REQUIRE_CDN,
                      "fonts.googleapis.com unreachable; examples need webfonts")
 class ExampleDeckTests(unittest.TestCase):
     def setUp(self) -> None:
+        if _REQUIRE_CDN and not _CDN_REACHABLE:
+            self.fail(
+                "DECK_FORGE_REQUIRE_CDN=1 but fonts.googleapis.com / "
+                "fonts.gstatic.com are unreachable; the example-deck "
+                "end-to-end tests must not be skipped in this environment"
+            )
         self.temp_dir = tempfile.TemporaryDirectory(prefix="deckforge-examples-")
         self.temp = Path(self.temp_dir.name)
         self.env = os.environ.copy()

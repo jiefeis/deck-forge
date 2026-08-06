@@ -15,103 +15,103 @@ colors:
 typography:
   display:
     fontFamily: "Playfair Display, serif"
-    fontSize: "clamp(3rem, 6vw, 5.5rem)"
+    fontSize: 140px
     fontWeight: 400
     lineHeight: 1.1
   h1:
     fontFamily: "Playfair Display, serif"
-    fontSize: "clamp(2.5rem, 5vw, 4.5rem)"
+    fontSize: 117px
     fontWeight: 400
     lineHeight: 1.1
   h2:
     fontFamily: "Playfair Display, serif"
-    fontSize: "clamp(1.8rem, 3.5vw, 3rem)"
+    fontSize: 82px
     fontWeight: 400
     lineHeight: 1.1
   h3:
     fontFamily: "Playfair Display, serif"
-    fontSize: "clamp(1.2rem, 2vw, 1.6rem)"
+    fontSize: 47px
     fontWeight: 400
     lineHeight: 1.1
   stat-figure:
     fontFamily: "Playfair Display, serif"
-    fontSize: "2rem"
+    fontSize: 51px
     fontWeight: 400
     lineHeight: 1
   agenda-numeral:
     fontFamily: "Playfair Display, serif"
-    fontSize: "1.5rem"
+    fontSize: 29px
     fontWeight: 400
     lineHeight: 1
   team-initial:
     fontFamily: "Playfair Display, serif"
-    fontSize: "2rem"
+    fontSize: 51px
     fontWeight: 400
     lineHeight: 1
   quote-mark:
     fontFamily: "Playfair Display, serif"
-    fontSize: "5rem"
+    fontSize: 97px
     fontWeight: 400
     lineHeight: 1
   card-headline:
     fontFamily: "Playfair Display, serif"
-    fontSize: "1.3rem"
+    fontSize: 33px
     fontWeight: 400
     lineHeight: 1.1
   timeline-headline:
     fontFamily: "Playfair Display, serif"
-    fontSize: "1.2rem"
+    fontSize: 23px
     fontWeight: 400
     lineHeight: 1.1
   body:
     fontFamily: "Inter, sans-serif"
-    fontSize: "clamp(0.9rem, 1.2vw, 1.1rem)"
+    fontSize: 28px
     fontWeight: 400
     lineHeight: 1.6
   body-sm:
     fontFamily: "Inter, sans-serif"
-    fontSize: "0.9rem"
+    fontSize: 18px
     fontWeight: 400
     lineHeight: 1.6
   subtitle:
     fontFamily: "Inter, sans-serif"
-    fontSize: "clamp(1rem, 1.5vw, 1.3rem)"
+    fontSize: 35px
     fontWeight: 400
     lineHeight: 1.5
   attribution:
     fontFamily: "Inter, sans-serif"
-    fontSize: "0.85rem"
+    fontSize: 17px
     fontWeight: 400
     lineHeight: 1.4
     letterSpacing: 2px
     textTransform: uppercase
   label:
     fontFamily: "Inter, sans-serif"
-    fontSize: "0.75rem"
+    fontSize: 19px
     fontWeight: 500
     lineHeight: 1
     letterSpacing: 3px
     textTransform: uppercase
   micro:
     fontFamily: "Inter, sans-serif"
-    fontSize: "0.7rem"
+    fontSize: 14px
     fontWeight: 400
     lineHeight: 1
     letterSpacing: 2px
     textTransform: uppercase
 
 spacing:
-  pad-y: "4vh"
-  pad-x: "4vw"
-  gap-xl: "6vw"
-  gap-lg: "5vw"
-  gap-md: "3vw"
-  gap-sm: "2vh"
-  card-pad: "4vh 2vw"
+  pad-y: 43px
+  pad-x: 77px
+  gap-xl: 115px
+  gap-lg: 96px
+  gap-md: 58px
+  gap-sm: 22px
+  card-pad: "43px 38px"
 
 canvas:
-  width: 100vw
-  height: 100vh
+  width: 1920px
+  height: 1080px
 
 components:
   card:
@@ -125,10 +125,10 @@ components:
     border: "1px solid {colors.line}"
     borderRadius: "50%"
     color: "{colors.accent}"
-    fontSize: "1rem"
+    fontSize: 19px
     description: "Small ringed circle (40px) containing a 1–3 character Roman numeral or letter in accent taupe."
   agenda-row:
-    padding: "2vh 0"
+    padding: "22px 0"
     borderBottom: "1px solid {colors.line}"
     description: "List row separated only by a 1px taupe hairline. Numeral at left, label at right."
   timeline-rule:
@@ -140,9 +140,9 @@ components:
     height: "100%"
     background: "{colors.line}"
     opacity: 0.3
-    description: "Optional decorative vertical hairline anchored at left edge (default 8vw from edge) at low opacity. Provides drafting-paper grid feel."
+    description: "Optional decorative vertical hairline anchored at left edge (default 154px from edge) at low opacity. Provides drafting-paper grid feel."
   horizontal-accent:
-    width: "20vw"
+    width: 384px
     height: "1px"
     background: "{colors.text-primary}"
     description: "Single short ink-black 1px horizontal line used as a strong accent rule. Black, not taupe."
@@ -159,25 +159,25 @@ components:
   geo-decoration:
     border: "1px solid {colors.line}"
     borderRadius: "50%"
-    description: "Large decorative ring (30–50vw diameter) anchored to a corner or center. Always pairs with a ::before pseudo-element rendering a smaller dashed ring inside it, suggesting concentric drafting."
+    description: "Large decorative ring (576–960px diameter) anchored to a corner or center. Always pairs with a ::before pseudo-element rendering a smaller dashed ring inside it, suggesting concentric drafting."
   geo-ring:
-    width: "50vw"
-    height: "50vw"
+    width: 960px
+    height: 960px
     border: "1px solid {colors.line}"
     borderRadius: "50%"
     opacity: 0.3
-    description: "The largest geometric decoration variant — a 50vw centered ring with an inner ::before dashed ring at 70% diameter."
+    description: "The largest geometric decoration variant — a 960px centered ring with an inner ::before dashed ring at 70% diameter."
   image-placeholder:
     background: "{colors.bg-secondary}"
     border: "1px solid {colors.line}"
     description: "Solid taupe-tinted block with two crossed 1px diagonal hairlines via ::before/::after at +30° and -30°, suggesting an X over a blank frame. Holds a small uppercase label centered."
   team-photo:
-    width: "12vw"
-    height: "12vw"
+    width: 230px
+    height: 230px
     borderRadius: "50%"
     border: "1px solid {colors.line}"
     background: "{colors.bg-secondary}"
-    description: "Circular portrait frame (12vw) in slightly darker stone, ringed in taupe, holding a single Playfair initial in accent taupe at center."
+    description: "Circular portrait frame (230px) in slightly darker stone, ringed in taupe, holding a single Playfair initial in accent taupe at center."
   nav-arrow:
     width: 40px
     height: 40px
@@ -216,6 +216,8 @@ This policy applies even if the source template was originally implemented with 
 
 Author against the skill's fixed-stage model: full viewport-base.css inline, .slide/.active slides scaled as one unit (transform: scale(), origin 0 0) per html-template.md. Do not reference deck-stage.js (not bundled). Translate any data-anim/data-delay/.is-active entrance vocabulary from the source design into the deck's .reveal + .slide.visible convention. Render each slide at 1920×1080 and verify rendered screenshots for both text overflow and panel overlap.
 
+Page numbers or footers that must appear in the exported PDF must be slide-internal elements (see lumen-2026's .foot/.pageno); never use the reserved deck-chrome classes (.progress-bar, .slide-counter) — export_pdf.py strips them.
+
 
 ## Overview
 
@@ -227,7 +229,7 @@ The palette is **five warm stones plus ink**. The canvas is `{colors.bg-primary}
 
 Depth is **entirely absent in the conventional sense**. There are no shadows, no elevated cards, no rounded surfaces, no gradients. Atmosphere is created by **geometric line decorations**: thin solid and dashed circles in `{colors.line}` at 20–50% opacity drift behind content as if drawn on tracing paper with a compass. These do not create hierarchy — they create mood. The decorative geometry signals "drafted, considered, precise."
 
-**Density philosophy: sparse and breathing.** Cartesian reads as elegant when sparse and broken when crowded. A correctly composed slide pairs one Playfair headline with one body paragraph, or one chart with one short caption, framed by generous negative space. Most slide composition uses centered or asymmetric two-column layouts with `5–6vw` gutters and significant vertical breathing room. The decorative compass arcs reinforce the sparseness — they are most effective when there is room around them. A slide that feels broken in this system is one packed edge-to-edge with content; the correct density is "one clear idea, well-framed, on stone paper."
+**Density philosophy: sparse and breathing.** Cartesian reads as elegant when sparse and broken when crowded. A correctly composed slide pairs one Playfair headline with one body paragraph, or one chart with one short caption, framed by generous negative space. Most slide composition uses centered or asymmetric two-column layouts with 96–115px gutters and significant vertical breathing room. The decorative compass arcs reinforce the sparseness — they are most effective when there is room around them. A slide that feels broken in this system is one packed edge-to-edge with content; the correct density is "one clear idea, well-framed, on stone paper."
 
 **Key Characteristics:**
 - Warm sandstone canvas `{colors.bg-primary}` with single 1px taupe `{colors.line}` dividers as the universal structural element.
@@ -276,32 +278,32 @@ Inter runs at weight 400 for body, weight 500 for labels and micro-text, weight 
 
 | Token | Size | Family | Weight | Use |
 |---|---|---|---|---|
-| `{typography.display}` | clamp(3rem, 6vw, 5.5rem) | Playfair Display | 400 | Cover or large opening title |
-| `{typography.h1}` | clamp(2.5rem, 5vw, 4.5rem) | Playfair Display | 400 | Section-opening or large closing headline |
-| `{typography.h2}` | clamp(1.8rem, 3.5vw, 3rem) | Playfair Display | 400 | Primary slide headline |
-| `{typography.h3}` | clamp(1.2rem, 2vw, 1.6rem) | Playfair Display | 400 | Sub-headline within a region |
-| `{typography.card-headline}` | 1.3rem | Playfair Display | 400 | Card or pillar-block title |
-| `{typography.timeline-headline}` | 1.2rem | Playfair Display | 400 | Timeline-step or phase headline |
-| `{typography.stat-figure}` | 2rem | Playfair Display | 400 | Numerical stat figure (typically inline in a stats cluster) |
-| `{typography.team-initial}` | 2rem | Playfair Display | 400 | Initial letter centered inside a team-photo circle |
-| `{typography.agenda-numeral}` | 1.5rem | Playfair Display | 400 | Ordinal numeral preceding an agenda row |
-| `{typography.quote-mark}` | 5rem | Playfair Display | 400 | Opening quotation glyph for a pull-quote |
-| `{typography.subtitle}` | clamp(1rem, 1.5vw, 1.3rem) | Inter | 400 | Subtitle paragraph below a display headline |
-| `{typography.body}` | clamp(0.9rem, 1.2vw, 1.1rem) | Inter | 400 | Standard paragraph body |
-| `{typography.body-sm}` | 0.9rem | Inter | 400 | Compact body inside cards or timeline items |
-| `{typography.attribution}` | 0.85rem | Inter | 400 | Attribution line below a quote, with 2px tracking + uppercase |
-| `{typography.label}` | 0.75rem | Inter | 500 | Section label / eyebrow above a headline, with 3px tracking + uppercase |
-| `{typography.micro}` | 0.7rem | Inter | 400 | Image label, slide counter, smallest chrome text |
+| `{typography.display}` | 140px | Playfair Display | 400 | Cover or large opening title |
+| `{typography.h1}` | 117px | Playfair Display | 400 | Section-opening or large closing headline |
+| `{typography.h2}` | 82px | Playfair Display | 400 | Primary slide headline |
+| `{typography.h3}` | 47px | Playfair Display | 400 | Sub-headline within a region |
+| `{typography.card-headline}` | 25px | Playfair Display | 400 | Card or pillar-block title |
+| `{typography.timeline-headline}` | 23px | Playfair Display | 400 | Timeline-step or phase headline |
+| `{typography.stat-figure}` | 39px | Playfair Display | 400 | Numerical stat figure (typically inline in a stats cluster) |
+| `{typography.team-initial}` | 39px | Playfair Display | 400 | Initial letter centered inside a team-photo circle |
+| `{typography.agenda-numeral}` | 29px | Playfair Display | 400 | Ordinal numeral preceding an agenda row |
+| `{typography.quote-mark}` | 97px | Playfair Display | 400 | Opening quotation glyph for a pull-quote |
+| `{typography.subtitle}` | 35px | Inter | 400 | Subtitle paragraph below a display headline |
+| `{typography.body}` | 28px | Inter | 400 | Standard paragraph body |
+| `{typography.body-sm}` | 18px | Inter | 400 | Compact body inside cards or timeline items |
+| `{typography.attribution}` | 17px | Inter | 400 | Attribution line below a quote, with 2px tracking + uppercase |
+| `{typography.label}` | 15px | Inter | 500 | Section label / eyebrow above a headline, with 3px tracking + uppercase |
+| `{typography.micro}` | 14px | Inter | 400 | Image label, slide counter, smallest chrome text |
 
 ### Defaults
-- **Default size for the primary slide headline**: `{typography.h2}` (clamp 1.8–3rem).
-- **Default size for a cover or large opening headline**: `{typography.h1}` (clamp 2.5–4.5rem); for the most expansive cover, `{typography.display}` (clamp 3–5.5rem).
-- **Default size for paragraph body**: `{typography.body}` (clamp 0.9–1.1rem).
-- **Default size for any inline label or eyebrow**: `{typography.label}` (0.75rem) — always 3px tracking + uppercase.
+- **Default size for the primary slide headline**: `{typography.h2}` (82px).
+- **Default size for a cover or large opening headline**: `{typography.h1}` (117px); for the most expansive cover, `{typography.display}` (140px).
+- **Default size for paragraph body**: `{typography.body}` (28px).
+- **Default size for any inline label or eyebrow**: `{typography.label}` (15px) — always 3px tracking + uppercase.
 - **Default weight for any Playfair headline**: 400. Don't reach for 600 or 700.
 - **Default weight for body**: 400.
 - **Default weight for labels/micro**: 500.
-- **Default size for a stat numeral inside a stats cluster**: `{typography.stat-figure}` (2rem). Cartesian does not have a hero-stat-numeral pattern (no 5–7rem display stat); stats are presented as inline ranks at modest scale.
+- **Default size for a stat numeral inside a stats cluster**: `{typography.stat-figure}` (39px). Cartesian does not have a hero-stat-numeral pattern (no 200px+ display stat); stats are presented as inline ranks at modest scale.
 
 When unsure, reach for `{typography.h2}` for the slide's primary text moment, not `{typography.h3}` (which is a sub-headline within a region).
 
@@ -329,22 +331,22 @@ The canvas is `100vw × 100vh` — full viewport with hidden overflow. Each `.sl
 ### Padding and Gap Scale
 | Token | Value | Use |
 |---|---|---|
-| `{spacing.pad-y}` | 4vh | Default vertical slide padding |
-| `{spacing.pad-x}` | 4vw | Default horizontal slide padding |
-| `{spacing.gap-xl}` | 6vw | Major two-column gutter (most spacious) |
-| `{spacing.gap-lg}` | 5vw | Standard two-column or grid gutter |
-| `{spacing.gap-md}` | 3vw | Card-grid gutter |
-| `{spacing.gap-sm}` | 2vh | Agenda row vertical padding, attribution spacing |
-| `{spacing.card-pad}` | 4vh 2vw | Internal padding for content cards |
+| `{spacing.pad-y}` | 43px | Default vertical slide padding |
+| `{spacing.pad-x}` | 77px | Default horizontal slide padding |
+| `{spacing.gap-xl}` | 115px | Major two-column gutter (most spacious) |
+| `{spacing.gap-lg}` | 96px | Standard two-column or grid gutter |
+| `{spacing.gap-md}` | 58px | Card-grid gutter |
+| `{spacing.gap-sm}` | 22px | Agenda row vertical padding, attribution spacing |
+| `{spacing.card-pad}` | 43px 38px | Internal padding for content cards |
 
-Headlines typically carry a 2–3vh margin-bottom from labels above and a 2vh margin-bottom from body below. Section headers above 3-card or 4-team grids carry a 6vh margin-bottom from the grid (significant breathing room).
+Headlines typically carry a 22–32px margin-bottom from labels above and a 22px margin-bottom from body below. Section headers above 3-card or 4-team grids carry a 65px margin-bottom from the grid (significant breathing room).
 
 ### Decorative Geometry Layer
 Cartesian's signature is its **drafting-paper geometric decoration**. Every slide may layer one or more of:
-- A large ringed `geo-decoration` anchored to a corner (typically 30–50vw diameter) with an inner dashed ring at ~80% diameter (the `::before` pseudo).
-- A `vertical-line` at ~8vw from the left edge running floor-to-ceiling at 30% opacity.
-- A `horizontal-accent` (a single short black 1px line) anchored at 15vh from the bottom-left.
-- A centered `geo-ring` (50vw circle) on closing or contemplative slides.
+- A large ringed `geo-decoration` anchored to a corner (typically 576–960px diameter) with an inner dashed ring at ~80% diameter (the `::before` pseudo).
+- A `vertical-line` at ~154px from the left edge running floor-to-ceiling at 30% opacity.
+- A `horizontal-accent` (a single short black 1px line) anchored at 162px from the bottom-left.
+- A centered `geo-ring` (960px circle) on closing or contemplative slides.
 
 These elements have **no informational role** — they create atmosphere. Slides without any geometric decoration are valid; over-decoration (more than two geo elements per slide) breaks the restraint.
 
@@ -352,7 +354,7 @@ These elements have **no informational role** — they create atmosphere. Slides
 The system's chrome is minimal:
 - Right-edge vertical column of small `nav-dot` indicators (8px circles in taupe).
 - Bottom-left pair of square `nav-arrow` buttons (40×40, 1px taupe border, transparent fill).
-- Bottom-right `slide-counter` text in Inter at 0.75rem with 2px tracking in `{colors.accent}`.
+- Bottom-right slide counter text in Inter at 15px with 2px tracking in `{colors.accent}` — authored as a slide-internal element, not the reserved `.slide-counter` chrome class.
 
 There is no top chrome bar, no persistent header, no footer rule.
 
@@ -362,7 +364,7 @@ There is no top chrome bar, no persistent header, no footer rule.
 Cartesian has no shadows, no elevated cards, no rounded surfaces, no gradients. Every element sits on a single plane.
 
 Hierarchy is constructed from:
-- **Type contrast** — Playfair serif vs Inter sans; size scale from 5rem down to 0.7rem.
+- **Type contrast** — Playfair serif vs Inter sans; size scale from 140px down to 14px.
 - **1px hairline dividers** — agenda rows, timeline rule, card outlines, image-placeholder outlines, stats top-border, team-photo rings, nav-arrow borders.
 - **Color tone** — ink vs gray vs taupe.
 - **Negative space** — generous padding around every element.
@@ -375,7 +377,7 @@ Introducing a `box-shadow`, an elevated card, or a soft gradient breaks the rest
 ### Border Radius
 | Value | Use |
 |---|---|
-| 50% (circle) | Every circular element: `card-icon` (40px), `team-photo` (12vw), `nav-dot` (8px), `geo-circle`, `geo-arc`, `geo-decoration`, `geo-ring` |
+| 50% (circle) | Every circular element: `card-icon` (40px), `team-photo` (230px), `nav-dot` (8px), `geo-circle`, `geo-arc`, `geo-decoration`, `geo-ring` |
 | 0 | Everything else: cards, image-placeholders, nav-arrows, agenda rows, timeline, stat-blocks, chart container |
 
 The system uses **only two radius values**: 50% (true circle) or 0 (sharp rectangle). Soft-rounded corners do not exist.
@@ -390,15 +392,15 @@ All structural borders are `{colors.line}`. Thicker borders, colored borders, an
 
 ### Decorative Element Types
 
-**Geometric ring (geo-circle / geo-decoration / geo-ring)** — Thin 1px taupe circles in various sizes (10vw, 30vw, 50vw) at 20–50% opacity. Typically paired with an inner dashed `::before` ring at 70–80% of the outer diameter, suggesting compass construction with both a primary and an offset arc. Anchored to corners or centers; sits behind content with `z-index: 0` and `pointer-events: none`.
+**Geometric ring (geo-circle / geo-decoration / geo-ring)** — Thin 1px taupe circles in various sizes (192px, 576px, 960px) at 20–50% opacity. Typically paired with an inner dashed `::before` ring at 70–80% of the outer diameter, suggesting compass construction with both a primary and an offset arc. Anchored to corners or centers; sits behind content with `z-index: 0` and `pointer-events: none`.
 
-**Vertical line** — A single 1px taupe column anchored at ~8vw from the left slide edge, running floor-to-ceiling at 30% opacity. Suggests a drafting-paper alignment guide. Optional per slide.
+**Vertical line** — A single 1px taupe column anchored at ~154px from the left slide edge, running floor-to-ceiling at 30% opacity. Suggests a drafting-paper alignment guide. Optional per slide.
 
-**Horizontal accent** — A single 20vw × 1px black line anchored 15vh from the bottom-left of a slide. The system's only ink-black line — used as a strong terminal accent rule on cover or closing layouts. Use sparingly.
+**Horizontal accent** — A single 384px × 1px black line anchored 162px from the bottom-left of a slide. The system's only ink-black line — used as a strong terminal accent rule on cover or closing layouts. Use sparingly.
 
 **Image placeholder** — A solid `{colors.bg-secondary}` block with two 150% diagonal 1px taupe lines crossed at +30° and -30° via `::before` / `::after`, forming an X. Centers a small uppercase Inter label ("Visual Reference" or similar). The X pattern is the signature image-not-yet-wired treatment.
 
-**Team-photo frame** — A 12vw circular block in `{colors.bg-secondary}` with a 1px taupe ring, holding a single Playfair-400 initial at 2rem in `{colors.accent}` centered. Used as portrait placeholder.
+**Team-photo frame** — A 230px circular block in `{colors.bg-secondary}` with a 1px taupe ring, holding a single Playfair-400 initial at 39px in `{colors.accent}` centered. Used as portrait placeholder.
 
 **Card** — A 1px taupe-bordered block with a semi-transparent white interior fill (`{colors.white-overlay}`) that lets the canvas tone bleed through subtly. The faint white fill is what differentiates a card from a bare region; remove the fill and the card disappears.
 
@@ -408,7 +410,7 @@ All structural borders are `{colors.line}`. Thicker borders, colored borders, an
 
 **Stats cluster** — A flex row of stat items separated by `gap-md`, framed by a 1px taupe top border, holding inline `{typography.stat-figure}` Playfair numerals with small uppercase Inter labels in taupe below.
 
-**Quote mark** — A 5rem Playfair quote glyph at 50% opacity in taupe, positioned above a Playfair `{typography.h2}` headline + a small uppercase taupe attribution below.
+**Quote mark** — A 97px Playfair quote glyph at 50% opacity in taupe, positioned above a Playfair `{typography.h2}` headline + a small uppercase taupe attribution below.
 
 **Chart** — Chart.js bar or line chart with ink-black primary series and dashed taupe comparison series. Grid lines in `{colors.bg-secondary}`. Axis ticks in `{colors.accent}`. Always rendered without fill on the primary series (or with a 5% ink-tinted fill on line charts).
 
@@ -424,7 +426,7 @@ All structural borders are `{colors.line}`. Thicker borders, colored borders, an
 - Use the crossed-diagonal X pattern inside image placeholders. It is the system's signature placeholder treatment.
 - Let slides breathe — sparse layouts with generous negative space are the correct density.
 - Use `{colors.bg-secondary}` as the fill for image placeholders and team-photo frames — a subtle stone, not white, not gray.
-- Use a single `horizontal-accent` (20vw × 1px ink line) sparingly as a strong terminal rule on cover or closing compositions.
+- Use a single `horizontal-accent` (384px × 1px ink line) sparingly as a strong terminal rule on cover or closing compositions.
 
 ### Don't
 - Don't introduce a populist accent color. No red, no orange, no blue, no green. The palette is stone-on-stone with ink for headlines.
@@ -519,7 +521,7 @@ Noto Serif SC is the only Hanzi serif loaded — there is no italic axis (Chines
 7. New geometric decorations stay subtle: 1 or 2 per slide, at 20–50% opacity, behind content (z-index 0, pointer-events none).
 8. New chart series follow the ink-primary / dashed-taupe-comparison convention. Don't introduce colored chart series.
 9. New layouts respect the breathing-room density rule — sparse beats dense in Cartesian.
-10. The `horizontal-accent` 20vw ink line is the system's only "ink rule" — use it sparingly as a terminal accent, never as a routine divider.
+10. The `horizontal-accent` 384px ink line is the system's only "ink rule" — use it sparingly as a terminal accent, never as a routine divider.
 
 ## Known Gaps
 
@@ -529,5 +531,5 @@ Noto Serif SC is the only Hanzi serif loaded — there is no italic axis (Chines
 - The chart axis label colors and grid colors are hardcoded inline in the Chart.js options blocks (rather than reading from CSS variables) — restyling requires editing JS, not CSS.
 - The image-placeholder X pattern (crossed +30°/-30° diagonals) is rendered via `::before` / `::after` with fixed 150% widths; resizing the placeholder beyond the source dimensions may require recomputing the rotation angle to maintain edge-touch.
 - Italic Playfair is loaded but not exercised in any default rule; it is available for inline `<em>` emphasis in body copy but the system itself does not author any italic text.
-- The `vertical-line` and `horizontal-accent` decorative elements have hardcoded position values (8vw from left, 15vh from bottom); using them off-default-position requires per-instance style overrides.
+- The `vertical-line` and `horizontal-accent` decorative elements have hardcoded position values (154px from left, 162px from bottom); using them off-default-position requires per-instance style overrides.
 - The slide-counter `currentSlide` / `totalSlides` IDs are referenced in the JS but the system has no internal slide-name registry; new slides simply increment by their DOM order.

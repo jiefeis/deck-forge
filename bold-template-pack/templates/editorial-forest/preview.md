@@ -8,9 +8,14 @@ Use this small file for title-slide previews only. For final deck generation, re
 
 ## Visual Snapshot
 
-A serif-led editorial presentation system in the register of a literary quarterly or art-book monograph. Display type runs in Source Serif 4 at weight 500 with optical-size axis engaged, scaling up to 220px for cover and stat moments. The palette pairs a deep forest green (#2e4a2a) with a dusty rose pink (#e89cb1) over an oat-cream paper ground (#efe7d4), with JetBrains Mono as the editorial chrome (labels, captions, axis ticks). The aesthetic is closer to a Penguin classic, Apartamento spread, or quiet annual report than a tech keynote — confident, paper-feeling, and committed to a small color vocabulary.
+Cover recipe:
 
-Editorial Forest is a serif-led editorial presentation system in the tonal register of a Penguin classic, a quiet annual report, or an art-book spread. The system's foundational premise is a single, confident typographic voice — Source Serif 4 — used at extreme scale (up to 220px) for headlines and stat figures, with JetBrains Mono playing the supporting role of editorial chrome (labels, captions, axis ticks, page footlines).
+- Full-bleed deep forest green (#2E4A2A) surface with generous 100px/140px padding; flat paper feel, no shadows or gradients.
+- Topbar spans the top edge: JetBrains Mono uppercase label (26px, 0.18em tracking) on the left, 130px monogram circle (2px pink outline) on the right.
+- Hero headline in Source Serif 4 weight 500 at 220px, dusty rose pink (#E89CB1), line-height 0.92, letter-spacing -0.02em, left-aligned in the middle band.
+- Optional lede below the headline in cream (#EFE7D4) serif at 30px weight 400.
+- Footline absolutely positioned at bottom 60-80px: two mono uppercase caption strings (24px) at opposite ends — section name left, date or page right.
+- Only chrome accents beyond type: 2px hairline rules in the region's accent color.
 
 ## Preview Ingredients
 

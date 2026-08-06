@@ -1,10 +1,10 @@
 # Visual QA workflow
 
-Read this for reformat, translation, or cross-format comparison tasks, before declaring the result complete. (Native deck generation runs are covered by workflow.md Phase 4's per-page verification.)
+Read this for any native PPTX edit, reformat, translation, or cross-format comparison, before declaring the result complete. (Generate-mode (HTML) runs are covered by workflow.md Phase 4's per-page verification.)
 
 ## Contents
 
-- Render-first verification and Windows renderer
+- Render-first verification and renderers (Windows / non-Windows)
 - Pixel-scope audit and aligned contact sheets
 - Hidden-backup rendering
 - Content and topology fidelity
@@ -49,6 +49,27 @@ visible delivery; the include-hidden render verifies every physical page,
 including protected hidden history—not only requested backup slides. Output
 uses physical filenames such as `slide-006.png`, so visible-page gaps stay
 explicit.
+
+On macOS/Linux, render via LibreOffice headless from a scratch copy:
+
+```bash
+soffice --headless --convert-to pdf --outdir <scratch> <scratch-copy>.pptx
+pdftoppm -png -r 150 <scratch>/<scratch-copy>.pdf <scratch>/slide
+```
+
+Rename the output to zero-padded physical page names (`slide-001.png`,
+`slide-031.png`, ...) — the filename contract `render_pptx.ps1` produces and
+`audit_rendered_pages.py` / `make_contact_sheet.py` consume. The LibreOffice
+CLI skips hidden slides by default: for any deck containing hidden pages,
+first unhide them on the scratch copy (per the scratch-copy rule below),
+render, and discard the copy; otherwise `pdftoppm`'s sequential numbering
+drifts from the physical index at every hidden page and the renames are wrong.
+The same-engine principle applies here too: render source and target with the
+same engine, never one engine per side.
+
+If no renderer is available (no PowerPoint, WPS, or LibreOffice), still run
+the structural, property, and backup audits, but state explicitly in the final
+report that the rendered-page gate did not run; never silently skip it.
 
 Create an aligned source/target contact sheet without shifting missing physical
 pages into the wrong columns:
@@ -110,12 +131,9 @@ draft or relationship graph:
    open chains presented as loops, and connector directions that require
    guessing.
 
-For complex flywheels or systems, ask an independent reviewer to trace the raw
-source graph against the final full-size render. Give the reviewer the source
-contract and artifact, not the suspected flaw. A reviewer catching a missing
-return edge is a required edit, even when the slide already looks balanced.
-When an independent reviewer is unavailable, do a fresh second-pass trace from
-the raw adjacency list after a break from authoring.
+For complex flywheels or systems, run the independent-reviewer trace (or the
+fresh second-pass fallback) per `references/native-redesign-fidelity.md` →
+"Preserve graph topology".
 
 When the user finds a recurring defect in a sample—such as arrow chains,
 excessive whitespace, orphan punctuation, or weak visual relationships—scan the
@@ -160,14 +178,14 @@ collisions and subtle overflow.
 
 ## Final delivery checklist
 
-- Final file path matches the user's requested path.
-- No unintended extra deliverables remain in the delivery folder.
-- PPTX zip check passes, no duplicate entries.
-- PDF page count matches expected slide count.
-- The final artifact opens in the target app.
+Execute `references/edit-scope-contract.md` → "Verify after the final write"
+as the delivery backbone (paths, zip integrity, audits, hash gating,
+target-app open, delivery-folder hygiene). Rendering evidence required on top:
+
 - A final full-deck render was produced after the last write, and every visible
   page was inspected. Changed/dense/suspect pages were also inspected full-size.
 - If the deck contains hidden slides, baseline and final were also rendered with
-  `-IncludeHidden`; every hidden physical page was compared and remains hidden.
+  `-IncludeHidden` (or the unhidden-scratch-copy equivalent); every hidden
+  physical page was compared and remains hidden.
 - Requested source→backup mappings were additionally verified when a backup
   sits at a different physical index.

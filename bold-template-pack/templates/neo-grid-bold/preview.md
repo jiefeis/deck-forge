@@ -8,9 +8,14 @@ Use this small file for title-slide previews only. For final deck generation, re
 
 ## Visual Snapshot
 
-A heavy editorial poster system built on a strict 12-column × 8-row block grid with neon-yellow accents on putty-ecru. Space Grotesk at weight 700 in strict uppercase carries every display moment; JetBrains Mono carries every label and metadata tag. Each slide reads as a magazine spread divided into colored panels — paper-ecru, ink-black, and electric lemon-yellow trading roles across cells. The aesthetic borrows from contemporary editorial print, brutalist annual reports, and the populist-poster end of design week showcases.
+Cover recipe:
 
-Neo-Grid Bold is a heavy editorial poster system built on a single structural premise: every slide is a 12-column × 8-row CSS grid inset 40px from the slide edges, with 12px gaps between cells. Composition happens by assigning colored panels to grid spans — grid-column: 4 / span 5 and grid-row: 1 / span 5 is how layout is described. The grid is rigid; the visual variety comes from how panels of #F5F4EF, #0A0A0A, and #E6FF3D are arranged across cells.
+- Surface: putty #ECECE8 canvas framing a 12-column × 8-row grid inset 40px with 12px gaps; fill the grid corner-to-corner with 4–8 rectangular panels in paper #F5F4EF, ink #0A0A0A, and one to three lemon #E6FF3D signal panels.
+- Title: Space Grotesk 700 uppercase at 132px, letter-spacing -0.02em, line-height 0.92, set inside the dominant paper or ink panel; wrap one word in a lemon `<mark>` highlighter swatch.
+- Kicker/meta: JetBrains Mono uppercase 24px, 0.08em tracking, at 0.7–0.85 opacity.
+- Decor: a 2×2 blockmark stamp (56–96px) and optionally a decorative 5×5 QR tile (90px) on a panel corner; 36px corner-mark top-right.
+- Footer: page-number tag bottom-left in the format "01 / 12", JetBrains Mono 24px with 14px 22px padding (paper, ink, or lemon variant) — slide-internal, so it survives PDF export.
+- Everything square: zero border-radius, no shadows; depth comes from panel color adjacency only.
 
 ## Preview Ingredients
 

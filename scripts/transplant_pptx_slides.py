@@ -109,6 +109,8 @@ def _parse_pages(spec: str) -> set[int]:
         end = int(match.group(2) or start)
         if start < 1 or end < start:
             raise TransplantError(f"invalid physical page range: {token!r}")
+        if end - start > 100000:
+            raise TransplantError(f"physical page range is too large: {token!r}")
         pages.update(range(start, end + 1))
     return pages
 
@@ -138,7 +140,7 @@ def _parse_expected_title(raw: str) -> tuple[int, str]:
 
 
 def _assert_package_integrity(
-    archive: zipfile.ZipFile, label: str
+    archive: zipfile.ZipFile, label: str, *, verify_crc: bool = True
 ) -> set[str]:
     names = [info.filename for info in archive.infolist()]
     duplicates = sorted(name for name, count in Counter(names).items() if count > 1)
@@ -157,9 +159,10 @@ def _assert_package_integrity(
         raise TransplantError(
             f"{label} has unsafe ZIP member paths: {', '.join(unsafe_names)}"
         )
-    bad_part = archive.testzip()
-    if bad_part:
-        raise TransplantError(f"{label} ZIP integrity failure at {bad_part}")
+    if verify_crc:
+        bad_part = archive.testzip()
+        if bad_part:
+            raise TransplantError(f"{label} ZIP integrity failure at {bad_part}")
     return set(names)
 
 
@@ -716,8 +719,14 @@ def transplant(
     with zipfile.ZipFile(source_path, "r") as source, zipfile.ZipFile(
         candidate_path, "r"
     ) as candidate:
-        source_names = _assert_package_integrity(source, "SOURCE")
-        candidate_names = _assert_package_integrity(candidate, "CANDIDATE")
+        # build_manifest already decompressed and CRC-checked both inputs above
+        # (it calls testzip and raises on failure), so only the duplicate-entry
+        # and unsafe-member-path gates are still needed here. OUTPUT is written
+        # after that point and is CRC-verified below.
+        source_names = _assert_package_integrity(source, "SOURCE", verify_crc=False)
+        candidate_names = _assert_package_integrity(
+            candidate, "CANDIDATE", verify_crc=False
+        )
         source_content_types = _content_types(
             source, source_names, "SOURCE"
         )
@@ -883,9 +892,10 @@ def transplant(
 
         output_path.parent.mkdir(parents=True, exist_ok=True)
         source_infos = list(source.infolist())
-        source_payloads = {
-            info.filename: source.read(info.filename) for info in source_infos
-        }
+        # Digests of the parts this transplant must not touch, taken as they are
+        # copied. Streaming one entry at a time keeps peak memory at the largest
+        # part instead of the whole package.
+        source_digests: dict[str, str] = {}
         handle = tempfile.NamedTemporaryFile(
             prefix=f".{output_path.stem}.",
             suffix=".pptx",
@@ -898,13 +908,11 @@ def transplant(
             with zipfile.ZipFile(temporary_path, "w") as output:
                 output.comment = source.comment
                 for info in source_infos:
-                    output.writestr(
-                        copy.copy(info),
-                        replacements.get(
-                            info.filename,
-                            source_payloads[info.filename],
-                        ),
-                    )
+                    payload = replacements.get(info.filename)
+                    if payload is None:
+                        payload = source.read(info.filename)
+                        source_digests[info.filename] = _sha256(payload)
+                    output.writestr(copy.copy(info), payload)
             with zipfile.ZipFile(temporary_path, "r") as output:
                 output_names = _assert_package_integrity(output, "OUTPUT")
                 if output_names != source_names:
@@ -914,8 +922,7 @@ def transplant(
                 unexpected = [
                     name
                     for name in sorted(source_names - set(replacements))
-                    if _sha256(output.read(name))
-                    != _sha256(source_payloads[name])
+                    if _sha256(output.read(name)) != source_digests[name]
                 ]
                 if unexpected:
                     raise TransplantError(
@@ -979,9 +986,11 @@ def transplant(
                     "audit_pptx_properties.py against the baseline with the "
                     "authorized scope",
                 ],
-                "source_sha256": _sha256(source_path.read_bytes()),
-                "candidate_sha256": _sha256(candidate_path.read_bytes()),
-                "output_sha256": _sha256(temporary_path.read_bytes()),
+                # build_manifest hashes the whole package it opens; reuse those
+                # digests instead of re-reading three files end to end.
+                "source_sha256": source_manifest["package_fingerprint"],
+                "candidate_sha256": candidate_manifest["package_fingerprint"],
+                "output_sha256": temporary_manifest["package_fingerprint"],
             }
             if overwrite:
                 os.replace(temporary_path, output_path)
@@ -1010,6 +1019,13 @@ def transplant(
 
 
 def main(argv: Sequence[str] | None = None) -> int:
+    # Titles and paths are echoed after OUTPUT is published. A Windows pipe
+    # whose code page cannot encode them must not turn a published, validated
+    # artifact into a traceback and a non-zero exit.
+    for stream in (sys.stdout, sys.stderr):
+        if hasattr(stream, "reconfigure"):
+            stream.reconfigure(errors="replace")
+
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("source", type=Path)
     parser.add_argument("candidate", type=Path)

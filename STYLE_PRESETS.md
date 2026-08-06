@@ -255,6 +255,8 @@ Curated visual styles for deck-forge. Each preset is inspired by real design ref
 - Witty, conversational copy style
 - **No illustrations—only geometric CSS shapes**
 
+Full design system in this direction: bold-template-pack template `long-table`.
+
 ---
 
 ## Specialty Themes
@@ -293,6 +295,8 @@ Curated visual styles for deck-forge. Each preset is inspired by real design ref
 
 **Signature:** Visible grid, asymmetric layouts, geometric shapes
 
+Full design system in this direction: bold-template-pack template `neo-grid-bold`.
+
 ---
 
 ### 12. Paper & Ink
@@ -304,6 +308,8 @@ Curated visual styles for deck-forge. Each preset is inspired by real design ref
 **Colors:** Warm cream (#faf9f7), charcoal (#1a1a1a), crimson accent (#c41e3a)
 
 **Signature:** Drop caps, pull quotes, elegant horizontal rules
+
+Full design system in this direction: bold-template-pack template `soft-editorial`.
 
 ---
 

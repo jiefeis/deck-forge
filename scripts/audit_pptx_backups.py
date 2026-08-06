@@ -26,7 +26,13 @@ SCRIPT_DIR = Path(__file__).resolve().parent
 if str(SCRIPT_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPT_DIR))
 
-from audit_pptx_structure import AuditError, build_manifest  # noqa: E402
+from _pptx_common import (  # noqa: E402
+    AuditError,
+    _parse_xml,
+    _rels_part,
+    _resolve_target,
+)
+from audit_pptx_structure import build_manifest  # noqa: E402
 
 
 R_NS = "http://schemas.openxmlformats.org/officeDocument/2006/relationships"
@@ -71,24 +77,6 @@ def parse_maps(values: Iterable[str]) -> list[tuple[int, int]]:
     return mappings
 
 
-def _parse_xml(data: bytes, part: str) -> ET.Element:
-    try:
-        return ET.fromstring(data)
-    except ET.ParseError as exc:
-        raise AuditError(f"invalid XML in {part}: {exc}") from exc
-
-
-def _rels_part(part: str) -> str:
-    return posixpath.join(posixpath.dirname(part), "_rels", posixpath.basename(part) + ".rels")
-
-
-def _resolve_target(source_part: str, target: str) -> str:
-    target = target.split("#", 1)[0]
-    if target.startswith("/"):
-        return posixpath.normpath(target.lstrip("/"))
-    return posixpath.normpath(posixpath.join(posixpath.dirname(source_part), target))
-
-
 def _content_type(zf: zipfile.ZipFile, part: str) -> str:
     content_types_part = "[Content_Types].xml"
     if content_types_part not in zf.namelist():
@@ -105,7 +93,7 @@ def _content_type(zf: zipfile.ZipFile, part: str) -> str:
     return ""
 
 
-def _canonical_tree(
+def _canonical_tree_for_backup_signature(
     element: ET.Element,
     relationship_tokens: dict[str, str],
     *,
@@ -128,7 +116,7 @@ def _canonical_tree(
     if text.isspace():
         text = ""
     children = [
-        _canonical_tree(
+        _canonical_tree_for_backup_signature(
             child,
             relationship_tokens,
             strip_hidden=False,
@@ -164,7 +152,7 @@ def _part_signature(
     root = _parse_xml(data, part)
     payload = {
         "content_type": content_type,
-        "xml": _canonical_tree(root, tokens, strip_hidden=False),
+        "xml": _canonical_tree_for_backup_signature(root, tokens, strip_hidden=False),
         "relationships": sorted(descriptors),
     }
     encoded = json.dumps(payload, ensure_ascii=False, separators=(",", ":")).encode("utf-8")
@@ -218,7 +206,7 @@ def _slide_signature(zf: zipfile.ZipFile, slide_part: str) -> tuple[str, list[st
     tokens, descriptors = _relationship_tokens(zf, slide_part, (slide_part,))
     root = _parse_xml(data, slide_part)
     payload = {
-        "slide": _canonical_tree(root, tokens, strip_hidden=True),
+        "slide": _canonical_tree_for_backup_signature(root, tokens, strip_hidden=True),
         "relationships": sorted(descriptors),
     }
     encoded = json.dumps(payload, ensure_ascii=False, separators=(",", ":")).encode("utf-8")

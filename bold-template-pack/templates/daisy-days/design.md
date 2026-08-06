@@ -30,57 +30,57 @@ shadows:
 typography:
   display:
     fontFamily: "'Fredoka One', cursive"
-    fontSize: "clamp(3.2rem, 7vw, 6.5rem)"
+    fontSize: 134px
     fontWeight: 400
     lineHeight: 1.1
     letterSpacing: 0.02em
   headline:
     fontFamily: "'Fredoka One', cursive"
-    fontSize: "clamp(2.5rem, 5vw, 4.5rem)"
+    fontSize: 96px
     fontWeight: 400
     lineHeight: 1.1
     letterSpacing: 0.02em
   title:
     fontFamily: "'Fredoka One', cursive"
-    fontSize: "clamp(1.8rem, 3.5vw, 3rem)"
+    fontSize: 67px
     fontWeight: 400
     lineHeight: 1.15
     letterSpacing: 0.02em
   subtitle:
     fontFamily: "'Fredoka One', cursive"
-    fontSize: "clamp(1.3rem, 2vw, 1.8rem)"
+    fontSize: 38px
     fontWeight: 400
     lineHeight: 1.2
     letterSpacing: 0.02em
   label-display:
     fontFamily: "'Fredoka One', cursive"
-    fontSize: "clamp(1rem, 1.5vw, 1.3rem)"
+    fontSize: 29px
     fontWeight: 400
     lineHeight: 1.3
     letterSpacing: 0.02em
   quote:
     fontFamily: "'Fredoka One', cursive"
-    fontSize: "clamp(1.3rem, 2.5vw, 2rem)"
+    fontSize: 48px
     fontWeight: 400
     lineHeight: 1.35
   body:
     fontFamily: "'Quicksand', sans-serif"
-    fontSize: "clamp(0.95rem, 1.3vw, 1.15rem)"
+    fontSize: 25px
     fontWeight: 500
     lineHeight: 1.6
   body-strong:
     fontFamily: "'Quicksand', sans-serif"
-    fontSize: "clamp(0.95rem, 1.4vw, 1.15rem)"
+    fontSize: 27px
     fontWeight: 600
     lineHeight: 1.5
   meta:
     fontFamily: "'Quicksand', sans-serif"
-    fontSize: "clamp(0.8rem, 1.1vw, 0.95rem)"
+    fontSize: 21px
     fontWeight: 600
     lineHeight: 1.45
   badge:
     fontFamily: "'Fredoka One', cursive"
-    fontSize: "0.85rem"
+    fontSize: "21px"
     fontWeight: 400
     letterSpacing: 0.02em
 
@@ -98,8 +98,8 @@ spacing:
   radius-round: "50%"
 
 canvas:
-  width: 100vw
-  height: 100vh
+  width: 1920px
+  height: 1080px
 
 components:
   card:
@@ -118,7 +118,7 @@ components:
     borderRadius: "{spacing.radius-pill}"
     border: "3px solid {colors.text-dark}"
     fontFamily: "'Fredoka One', cursive"
-    fontSize: "0.85rem"
+    fontSize: "21px"
     background: "{colors.butter}"
   framed-header:
     description: "A two-part stacked card: a colored header strip (any accent surface) with rounded top corners and no bottom border, sitting flush above a white body with rounded bottom corners. The pair reads as a single unit with a tonal cap."
@@ -222,6 +222,8 @@ This policy has higher priority than any source-template responsive behavior des
 This policy applies even if the source template was originally implemented with viewport-fluid CSS such as `100vw`, `100vh`, `vw`, `vh`, or `clamp()`. Treat those values as design proportions to translate into 1920×1080 stage coordinates, not as live responsive rules in the generated deck.
 
 Author against the skill's fixed-stage model: full viewport-base.css inline, .slide/.active slides scaled as one unit (transform: scale(), origin 0 0) per html-template.md. Do not reference deck-stage.js (not bundled). Translate any data-anim/data-delay/.is-active entrance vocabulary from the source design into the deck's .reveal + .slide.visible convention. Render each slide at 1920×1080 and verify rendered screenshots for both text overflow and panel overlap.
+
+Page numbers or footers that must appear in the exported PDF must be slide-internal elements (see lumen-2026's .foot/.pageno); never use the reserved deck-chrome classes (.progress-bar, .slide-counter) — export_pdf.py strips them. This template's `slide-counter` counter pill and `nav-dots` are presentation chrome; if a page number has to survive export, draw it as a slide-internal badge instead.
 
 
 ## Overview

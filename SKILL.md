@@ -1,16 +1,17 @@
 ---
 name: deck-forge
 description: >-
-  Build, minimally edit, compare, and verify visual decks from notes, images,
-  screenshots, HTML, PDF, or PPTX. Use for three modes: new HTML/PDF deck
-  generation; source-preserving native PPTX reformat, translation, or copy
-  polish; and read-only deck/version comparison plus visual QA. Also use when
-  slide language sounds AI-generated or prompts say "做成PDF演示/幻灯片/deck" or
-  "turn this into slides". Do NOT use for plain reports, contracts, forms,
-  resumes, spreadsheets, or flowing-prose PDFs. Generation mode uses one
-  1920x1080 HTML entrypoint and delivers a lossless screenshot PDF. Native PPTX
-  mode preserves the source package/layout and delivers the edited .pptx; never
-  rebuild a native-edit request through HTML.
+  Build, minimally edit, compare, and verify presentations, slide decks, and
+  PowerPoint files from notes, images, screenshots, HTML, PDF, or PPTX. Use for
+  three modes: new HTML/PDF deck generation; source-preserving native PPTX
+  reformat, translation, or copy polish; and read-only deck/version comparison
+  plus visual QA. Also use when slide language sounds AI-generated, or for
+  prompts like "turn this into slides", "make a pitch deck",
+  "做成PDF演示/幻灯片/deck", "改 PPT", "美化 PPT", or "把 PPT 翻译成英文".
+  Do NOT use for plain reports, contracts, forms, resumes, spreadsheets,
+  or flowing-prose PDFs.
+  Native PPTX mode preserves the source package/layout and delivers the edited
+  .pptx; never rebuild a native-edit request through HTML.
 ---
 
 <!-- Maintainers: when editing the frontmatter description above, check that
@@ -26,6 +27,13 @@ Choose the artifact mode before touching a file:
 - **Audit/compare** — inspect versions, translations, or rendered pages without
   modifying the source.
 
+Pick the mode from the request: existing PPTX + "keep the original / minimal
+change / deliver PPTX" → Native edit; PPTX used only as material for a new
+deck, PDF delivery accepted → Generate; report differences, change nothing →
+Audit/compare. If an existing PPTX is input and the delivery format (PDF vs
+editable PPTX) is not explicit, confirm with the user before choosing a mode
+(`references/source-contract.md` → "Decide the artifact contract").
+
 Only **Generate** follows the HTML Phase 0–6 workflow. Native edit and
 Audit/compare use the cross-format references and audit scripts below.
 
@@ -39,6 +47,7 @@ Scripts in `scripts/` are standalone (paths are arguments, cwd-independent).
 know it because you just read this file); do not use `~` on Windows. Call
 scripts by absolute path (`<skill-root>/scripts/...`); write the generated deck
 HTML/PDF into the **user's** working directory, never the skill folder.
+Requires Python 3.9+ (driven by Playwright).
 
 ```bash
 # Verify deps once per Python environment (then install anything it flags):
@@ -62,25 +71,10 @@ python <skill-root>/scripts/edit_texts.py apply   <deck>/index.html <deck>/index
 
 # Optional, GENERATE mode only: use visible PPTX pages as source material:
 python <skill-root>/scripts/extract_pptx.py <in.pptx> <out_dir> --visible-only
-
-# Native PPTX baseline / after-edit structural audit:
-python <skill-root>/scripts/audit_pptx_structure.py manifest <deck.pptx>
-python <skill-root>/scripts/audit_pptx_structure.py compare <before.pptx> <after.pptx> --allow-slides <target-pages>
-
-# Rebase approved slide-local work from a package-normalizing candidate:
-python <skill-root>/scripts/transplant_pptx_slides.py \
-  <baseline.pptx> <candidate.pptx> <rebased.pptx> \
-  --pages <target-pages> --component shape-tree
-
-# Enforce the exact property families allowed on each target slide:
-python <skill-root>/scripts/audit_pptx_properties.py <before.pptx> <after.pptx> --scope <scope.json>
-
-# Prove explicitly mapped hidden backups still match their source originals:
-python <skill-root>/scripts/audit_pptx_backups.py <source.pptx> <final.pptx> --map <source-page>:<backup-page>
-
-# Page-number audit (strict auto mode; add expected name/size only when known):
-python <skill-root>/scripts/audit_pptx_page_numbers.py <deck.pptx>
 ```
+
+Native PPTX audit/transplant command syntax lives in the Native-edit references;
+the Scripts table below is the script→purpose→when index.
 
 ## Non-negotiables
 
@@ -105,11 +99,9 @@ python <skill-root>/scripts/audit_pptx_page_numbers.py <deck.pptx>
 6. **Verify the final artifact after the final write.** Inspect every page, not a
    sample. For native PPTX, also verify package integrity, page order, hidden
    state, and unauthorized changes. For generated PDF, require no `DCTDecode`.
-7. **Reformat and cross-format QA.** If the task touches PPTX/PDF/images/HTML,
-   translation, screenshots, or "reformat/restyle", first read the relevant
-   reference files from the "Files & when to read them" table below
-   (*Cross-format references* group). Preserve layout unless the user asks for
-   relayout.
+7. **Reformat and cross-format QA.** For cross-format, translation, or
+   reformat/restyle tasks, read the matching references from the "Files & when
+   to read them" table. Preserve layout unless the user asks for relayout.
 8. **Page identities are separate namespaces.** When hidden pages, inserted
    pages, displayed markers, or a mother draft exist, freeze physical page,
    visible ordinal, displayed marker, stable slide ID, title, and source-page
@@ -163,7 +155,7 @@ for the full instructions before doing it.
 | --- | --- | --- |
 | `references/workflow.md` | Full Phase 0–6 instructions + Design Aesthetics | any generation run (Phase 0–6) |
 | **Cross-format references** (non-negotiable 7) | | |
-| `references/source-contract.md` | Source-of-truth, file/version, path, encoding, and open-file rules | multiple source files, version comparison, "only one file", Windows paths, source file open in Office/WPS |
+| `references/source-contract.md` | Source-of-truth, file/version, path, encoding, and open-file rules | first read for any native edit; also multiple source files, version comparison, "only one file", Windows paths, source file open in Office/WPS |
 | `references/edit-scope-contract.md` | Target-slide/allowed-change contract and before/after verification | native PPTX edits, "minimal change", selected pages/elements, untouched-slide guarantees |
 | `references/native-redesign-fidelity.md` | Physical / visible ordinal / displayed marker / source page mapping, mother-draft fidelity, relationship topology, template composition, and safe candidate rebasing | selected-page native redesign, hidden-page offsets, mother drafts, teaching plans, complex loops/flows |
 | `references/reformat-and-style.md` | Preserve-layout reformat rules and style extraction | reformat/restyle/font/color/background tasks |
@@ -171,7 +163,7 @@ for the full instructions before doing it.
 | `references/image-and-ocr-input.md` | Image, screenshot, chart-image, and OCR input handling | image-to-slide or screenshot source material |
 | `references/translation-copyfit.md` | Natural translation and copy fitting in existing layouts | translation/localization tasks |
 | `references/deck-copy-and-ai-slop.md` | Make slide copy sound like a real presenter while preserving layout and fit | "AI 味" / "太像 AI 写的" deck copy, presenter-language polish |
-| `references/visual-qa.md` | Rendered-page contact sheets and final QA checklist | reformat / translation / cross-format comparison |
+| `references/visual-qa.md` | Rendered-page contact sheets and final QA checklist | native PPTX edits, reformat / translation / cross-format comparison |
 | `references/good-bad-examples.md` | Examples of good and bad handling patterns | ambiguous cross-format/reformat decisions |
 | **Generation assets** | | |
 | `AUTHORING.md` | Source fidelity, deck coherence, fit, and final verification | Phase 1, 3, 4 |
@@ -196,7 +188,7 @@ for the full instructions before doing it.
 | `scripts/audit_pptx_backups.py` | compare explicit source→hidden-backup pairs including dependent media/charts/notes | native edit tasks that require hidden original backups |
 | `scripts/audit_pptx_typography.py` | inventory fonts/sizes/bold by semantic role and enforce expected peers | native font normalization and typography QA |
 | `scripts/transplant_pptx_slides.py` | fail-closed, direct-format shape-tree transplant from a rewritten candidate onto the untouched baseline | high-level PPTX authoring tools that normalize hidden/order/shared package state |
-| `scripts/render_pptx.ps1` | render visible or hidden native PPTX pages from a scratch copy via PowerPoint/WPS | native PPTX visual QA on Windows |
+| `scripts/render_pptx.ps1` | render visible or hidden native PPTX pages from a scratch copy via PowerPoint/WPS | native PPTX visual QA on Windows (non-Windows alternative: see visual-qa.md) |
 | `scripts/make_contact_sheet.py` | align multiple render folders by physical slide number | source/target/translation/hidden-backup comparison |
 | `scripts/audit_rendered_pages.py` | enforce physical-page or explicit source→target render mapping, authorized pixel changes, and coverage-risk checks | final native PPTX visual scope and hidden-backup audit |
 | `scripts/validate_template_pack.py` | validate bold-template index, paths, and runtime contracts | skill/template maintenance |

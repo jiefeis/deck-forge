@@ -8,9 +8,13 @@ Use this small file for title-slide previews only. For final deck generation, re
 
 ## Visual Snapshot
 
-A literary magazine-meets-annual-report presentation system built on a strict three-color palette — blush pink, golden butter, and deep burgundy wine. Despite having eleven CSS variable names, only three hex values exist in the entire system; every alias is a semantic rename of one of those three. Headlines run Bricolage Grotesque (a variable grotesque with an optical-size axis) at extreme weights and negative letter-spacing. Instrument Serif (italic-cut only) appears as the expressive accent face for chapter numerals, pull-quotes, years, and signatures. JetBrains Mono carries all metadata, labels, and section markers at tight uppercase tracking. The aesthetic is "independent arts publication" — the kind with a colophon, hand-numbered editions, and an editorial desk.
+Cover recipe:
 
-Editorial Tri-Tone is a literary magazine presentation system built on the strictest possible palette: three hex values, eleven CSS variable names. The naming system reveals editorial intent — --pink and --sky point at the same blush; --cream, --butter, --lime, and --terracotta all resolve to the same golden yellow; --burgundy, --navy, --forest, and --ink all collapse to the same deep wine. The aliases exist to communicate the role of the color in context, not to introduce variation.
+- Single flat surface in one palette color (butter #F2D86A or burgundy #7A1F35); slide padding 96px top/bottom, 64px sides; no shadows anywhere.
+- Section marker opens the slide: `§ 01 — Title` in JetBrains Mono 24px uppercase, 0.15em tracking.
+- Wordmark title in Bricolage Grotesque weight 800 at 300px, line-height 0.82, letter-spacing -0.04em; one `<em>` word switches to Instrument Serif italic.
+- Tag cloud of cover pills below (44px text, 16px/38px padding, radius 999px), alternating burgundy-bg/pink-text and butter-bg/burgundy-text fills.
+- Footer chrome pinned at left/right 64px, bottom 36px: mono 16px uppercase strings at 0.75 opacity plus an 8px footer-dot row.
 
 ## Preview Ingredients
 

@@ -1,7 +1,7 @@
 ---
 version: alpha
 name: Bold Poster
-description: "A populist editorial poster system that mashes vintage Italian sports-magazine display lettering with classical serif body and tight monospace metadata. The display face is Shrikhand — a heavy slab/script hybrid with playful italic personality — rendered at poster scale (often 200-320px) and routinely tilted off-axis. Body runs Libre Baskerville for a literary editorial register; Space Grotesk handles tiny uppercase labels and chrome. The palette is uncompromising: white canvas, deep brown-black ink (#1C1410), single saturated tomato red (#D8000F), and a warm off-white (#F5F2EF) for alternating panels. Borders are bold 1.5-3px ink rules; the only shadow is a single stacked offset behind red display text. The aesthetic is loud, confident, and unmistakably print-poster — closer to a 1970s European brand annual report or a wine merchant's catalogue than a contemporary slide deck."
+description: "A populist editorial poster system that mashes vintage Italian sports-magazine display lettering with classical serif body and tight monospace metadata. The display face is Shrikhand — a heavy slab/script hybrid with playful italic personality — rendered at poster scale (often 320-600px on the 1920×1080 stage) and routinely tilted off-axis. Body runs Libre Baskerville for a literary editorial register; Space Grotesk handles tiny uppercase labels and chrome. The palette is uncompromising: white canvas, deep brown-black ink (#1C1410), single saturated tomato red (#D8000F), and a warm off-white (#F5F2EF) for alternating panels. Borders are bold 1.5-3px ink rules; the only shadow is a single stacked offset behind red display text. The aesthetic is loud, confident, and unmistakably print-poster — closer to a 1970s European brand annual report or a wine merchant's catalogue than a contemporary slide deck."
 
 colors:
   bg: "#FFFFFF"
@@ -13,196 +13,196 @@ typography:
   hero-title:
     fontFamily: "'Shrikhand', cursive"
     fontWeight: 400
-    fontSize: "clamp(72px, 16vw, 220px)"
+    fontSize: 369px
     lineHeight: 0.88
     letterSpacing: 1px
     color: "{colors.dark}"
   hero-title-red:
     fontFamily: "'Shrikhand', cursive"
     fontWeight: 400
-    fontSize: "clamp(84px, 18vw, 260px)"
+    fontSize: 415px
     lineHeight: 0.85
     color: "{colors.red}"
     transform: "rotate(-4deg)"
   hero-title-bottom:
     fontFamily: "'Shrikhand', cursive"
     fontWeight: 400
-    fontSize: "clamp(64px, 14vw, 200px)"
+    fontSize: 323px
     lineHeight: 0.9
     color: "{colors.dark}"
     transform: "rotate(2deg)"
   close-big:
     fontFamily: "'Shrikhand', cursive"
     fontWeight: 400
-    fontSize: "clamp(80px, 18vw, 260px)"
+    fontSize: 415px
     lineHeight: 0.88
     color: "{colors.red}"
     transform: "rotate(-5deg)"
   stat-big:
     fontFamily: "'Shrikhand', cursive"
     fontWeight: 400
-    fontSize: "clamp(120px, 26vw, 320px)"
+    fontSize: 599px
     lineHeight: 0.82
     color: "{colors.red}"
     transform: "rotate(-6deg)"
   red-quote:
     fontFamily: "'Shrikhand', cursive"
     fontWeight: 400
-    fontSize: "clamp(32px, 7vw, 90px)"
+    fontSize: 161px
     lineHeight: 1.15
     color: "{colors.bg}"
     textShadow: "2px 2px 0 rgba(28,20,16,0.25), 4px 4px 0 rgba(28,20,16,0.2), 6px 6px 0 rgba(28,20,16,0.15)"
   section-header:
     fontFamily: "'Shrikhand', cursive"
     fontWeight: 400
-    fontSize: "clamp(32px, 5vw, 64px)"
+    fontSize: 115px
     lineHeight: 1
     color: "{colors.dark}"
   section-header-lg:
     fontFamily: "'Shrikhand', cursive"
     fontWeight: 400
-    fontSize: "clamp(36px, 6vw, 72px)"
+    fontSize: 138px
     lineHeight: 1
     color: "{colors.dark}"
   cell-number-lg:
     fontFamily: "'Shrikhand', cursive"
     fontWeight: 400
-    fontSize: "clamp(28px, 3.5vw, 52px)"
+    fontSize: 93px
     lineHeight: 1
     color: "{colors.red}"
   cell-number-md:
     fontFamily: "'Shrikhand', cursive"
     fontWeight: 400
-    fontSize: "clamp(28px, 3.5vw, 48px)"
+    fontSize: 81px
     lineHeight: 1
     color: "{colors.red}"
   card-title:
     fontFamily: "'Shrikhand', cursive"
     fontWeight: 400
-    fontSize: "clamp(22px, 3vw, 36px)"
+    fontSize: 69px
     lineHeight: 1.1
     color: "{colors.dark}"
   card-title-sm:
     fontFamily: "'Shrikhand', cursive"
     fontWeight: 400
-    fontSize: "clamp(20px, 2.5vw, 32px)"
+    fontSize: 58px
     lineHeight: 1.1
     color: "{colors.dark}"
   pillar-num:
     fontFamily: "'Shrikhand', cursive"
     fontWeight: 400
-    fontSize: "clamp(36px, 5vw, 64px)"
+    fontSize: 115px
     lineHeight: 1
     color: "{colors.red}"
   pillar-title:
     fontFamily: "'Shrikhand', cursive"
     fontWeight: 400
-    fontSize: "clamp(18px, 2.2vw, 28px)"
+    fontSize: 51px
     lineHeight: 1.15
     color: "{colors.dark}"
   stat-item-num:
     fontFamily: "'Shrikhand', cursive"
     fontWeight: 400
-    fontSize: "clamp(28px, 4vw, 56px)"
+    fontSize: 92px
     lineHeight: 1
     color: "{colors.dark}"
   roadmap-title:
     fontFamily: "'Shrikhand', cursive"
     fontWeight: 400
-    fontSize: "clamp(18px, 2.5vw, 32px)"
+    fontSize: 58px
     lineHeight: 1.1
   inline-stat:
     fontFamily: "'Shrikhand', cursive"
     fontWeight: 400
-    fontSize: "clamp(18px, 2vw, 28px)"
+    fontSize: 46px
     lineHeight: 1
     color: "{colors.red}"
   body:
     fontFamily: "'Libre Baskerville', serif"
     fontWeight: 400
-    fontSize: "clamp(13px, 1.2vw, 16px)"
+    fontSize: 28px
     lineHeight: 1.75
     color: "{colors.dark}"
   body-card:
     fontFamily: "'Libre Baskerville', serif"
     fontWeight: 400
-    fontSize: "clamp(12px, 1.1vw, 14px)"
+    fontSize: 25px
     lineHeight: 1.6
     color: "{colors.dark}"
   body-cell:
     fontFamily: "'Libre Baskerville', serif"
     fontWeight: 400
-    fontSize: "clamp(11px, 1vw, 13px)"
+    fontSize: 23px
     lineHeight: 1.55
     color: "{colors.dark}"
   body-small:
     fontFamily: "'Libre Baskerville', serif"
     fontWeight: 400
-    fontSize: "clamp(11px, 1vw, 13px)"
+    fontSize: 23px
     lineHeight: 1.5
     color: "{colors.dark}"
   hero-meta:
     fontFamily: "'Libre Baskerville', serif"
     fontWeight: 400
-    fontSize: "clamp(11px, 1vw, 14px)"
+    fontSize: 23px
     lineHeight: 1.5
     color: "{colors.dark}"
   tag-body:
     fontFamily: "'Libre Baskerville', serif"
     fontWeight: 400
-    fontSize: "clamp(13px, 1.2vw, 16px)"
+    fontSize: 28px
     lineHeight: 1.6
     color: "{colors.dark}"
   red-cite:
     fontFamily: "'Libre Baskerville', serif"
     fontWeight: 400
-    fontSize: "clamp(13px, 1.3vw, 16px)"
+    fontSize: 30px
     lineHeight: 1.5
     color: "{colors.bg}"
   close-sub:
     fontFamily: "'Libre Baskerville', serif"
     fontWeight: 400
-    fontSize: "clamp(14px, 1.5vw, 18px)"
+    fontSize: 35px
     lineHeight: 1.6
     color: "{colors.dark}"
   label:
     fontFamily: "'Space Grotesk', sans-serif"
     fontWeight: 600
-    fontSize: 10px
+    fontSize: 21px
     letterSpacing: 2px
     textTransform: uppercase
     color: "{colors.dark}"
   label-red:
     fontFamily: "'Space Grotesk', sans-serif"
     fontWeight: 600
-    fontSize: 10px
+    fontSize: 18px
     letterSpacing: 2px
     textTransform: uppercase
     color: "{colors.red}"
   rm-label:
     fontFamily: "'Space Grotesk', sans-serif"
     fontWeight: 600
-    fontSize: 9px
+    fontSize: 19px
     letterSpacing: 3px
     textTransform: uppercase
     color: "{colors.red}"
   tag-label:
     fontFamily: "'Space Grotesk', sans-serif"
     fontWeight: 600
-    fontSize: "clamp(10px, 0.9vw, 12px)"
+    fontSize: 21px
     letterSpacing: 3px
     textTransform: uppercase
     color: "{colors.red}"
   bullet-body:
     fontFamily: "'Space Grotesk', sans-serif"
     fontWeight: 400
-    fontSize: "clamp(10px, 0.9vw, 12px)"
+    fontSize: 21px
     lineHeight: 1.45
     color: "{colors.dark}"
   counter:
     fontFamily: "'Space Grotesk', sans-serif"
     fontWeight: 600
-    fontSize: 11px
+    fontSize: 20px
     lineHeight: 1
     letterSpacing: 2px
     textTransform: uppercase
@@ -210,17 +210,16 @@ typography:
   link:
     fontFamily: "'Space Grotesk', sans-serif"
     fontWeight: 600
-    fontSize: "clamp(10px, 0.9vw, 12px)"
+    fontSize: 21px
     letterSpacing: 2px
     textTransform: uppercase
     color: "{colors.dark}"
   fc-micro:
     fontFamily: "'Space Grotesk', sans-serif"
     fontWeight: 400
-    fontSize: 10px
+    fontSize: 18px
     lineHeight: 1.4
     color: "{colors.dark}"
-
 spacing:
   pad-slide: "48px 56px"
   pad-cell: "22px 20px"
@@ -237,10 +236,9 @@ spacing:
   max-width-services: 1000px
 
 canvas:
-  width: 100vw
-  height: 100vh
+  width: 1920px
+  height: 1080px
   background: "{colors.bg}"
-
 components:
   progress-bar:
     position: "fixed, bottom 0 left 0"
@@ -252,7 +250,7 @@ components:
     color: "{colors.dark}"
     opacity: 0.5
     fontFamily: "'Space Grotesk', sans-serif"
-    fontSize: 11px
+    fontSize: 20px
     letterSpacing: 2px
     description: "Persistent slide counter NN / NN at 50% opacity in Space Grotesk uppercase."
   hint-pill:
@@ -260,7 +258,7 @@ components:
     background: "{colors.light}"
     padding: "6px 14px"
     borderRadius: 4px
-    fontSize: 10px
+    fontSize: 18px
     opacity: 0
     description: "Bottom-center hint pill that fades to 50% opacity on body hover. Subtle wayfinding only."
   section-bordered-grid:
@@ -341,12 +339,14 @@ This policy applies even if the source template was originally implemented with 
 
 Author against the skill's fixed-stage model: full viewport-base.css inline, .slide/.active slides scaled as one unit (transform: scale(), origin 0 0) per html-template.md. Do not reference deck-stage.js (not bundled). Translate any data-anim/data-delay/.is-active entrance vocabulary from the source design into the deck's .reveal + .slide.visible convention. Render each slide at 1920×1080 and verify rendered screenshots for both text overflow and panel overlap.
 
+Page numbers or footers that must appear in the exported PDF must be slide-internal elements (see lumen-2026's .foot/.pageno); never use the reserved deck-chrome classes (.progress-bar, .slide-counter) — export_pdf.py strips them.
+
 
 ## Overview
 
 Bold Poster is a **populist editorial poster system** that lifts its visual vocabulary from vintage Italian sports magazines, mid-century European brand annual reports, and wine-merchant catalogues. The premise is that every slide should feel printed — set in heavy display type, locked to one strong red accent, on a white or off-white sheet, with grids ruled in ink and decoration kept to a strict minimum.
 
-The type system is three faces working in tight roles. **Shrikhand** (Google Fonts) is the display face — a heavy slab/script hybrid with chunky italic terminals, narrow apertures, and a distinctly Italian-sports-script personality. Used at poster scale (often 100-320px) and almost always with playful rotation (-6° to +2°), Shrikhand carries every hero title, every section header, every stat figure, every card title. **Libre Baskerville** (Google Fonts) is the body face — a classical literary serif with strong stroke contrast that anchors the system in editorial register. Used at 11-16px with 1.5-1.75 line-height in deep ink, Libre Baskerville is what makes the system feel printed rather than digital. **Space Grotesk** (Google Fonts) is the chrome face — used exclusively for tiny uppercase labels (9-12px, 2-3px tracking), bullet body inside cards, slide counters, and footer links. The Space Grotesk treatment is the system's "metadata" voice.
+The type system is three faces working in tight roles. **Shrikhand** (Google Fonts) is the display face — a heavy slab/script hybrid with chunky italic terminals, narrow apertures, and a distinctly Italian-sports-script personality. Used at poster scale (often 320-600px on the 1920×1080 stage) and almost always with playful rotation (-6° to +2°), Shrikhand carries every hero title, every section header, every stat figure, every card title. **Libre Baskerville** (Google Fonts) is the body face — a classical literary serif with strong stroke contrast that anchors the system in editorial register. Used at 23-35px with 1.5-1.75 line-height in deep ink, Libre Baskerville is what makes the system feel printed rather than digital. **Space Grotesk** (Google Fonts) is the chrome face — used exclusively for small uppercase labels (19-23px, 2-3px tracking), bullet body inside cards, slide counters, and footer links. The Space Grotesk treatment is the system's "metadata" voice.
 
 The color philosophy is **uncompromising restraint**: white canvas, deep brown-black ink (`{colors.dark}` — `#1C1410`), single saturated tomato red (`{colors.red}` — `#D8000F`), and a warm off-white (`{colors.light}` — `#F5F2EF`) for alternating panels. There are no secondary brand colors, no gradients (except the inside of the stacked text-shadow), no tints, no semantic state colors. Every numerical callout, every active rule, every CTA, every emphasis moment is red — and red is reserved for these moments only (it is never used as body text, never as fill on a card without text on top, never as a tint).
 
@@ -394,71 +394,73 @@ The system commits **hard** to the four-color palette. Don't introduce a fifth c
 ### Font Family Stack
 The system runs three faces, each tightly bound to its role.
 
-**Shrikhand** (Google Fonts) is the display + numerical face. It's a single-weight (400) heavy slab-script with playful italic-leaning forms and narrow apertures — a face that reads as both old-world (postcard-script) and contemporary (variable-weight digital display). Used at every scale from 18px (inline stats) to 320px (the hero stat). Always weight 400 (the face has no other weights). Rotation is part of the face's voice — multiple Shrikhand elements per slide carry transforms ranging from -6° to +2°.
+**Shrikhand** (Google Fonts) is the display + numerical face. It's a single-weight (400) heavy slab-script with playful italic-leaning forms and narrow apertures — a face that reads as both old-world (postcard-script) and contemporary (variable-weight digital display). Used at every scale from 46px (inline stats) to 599px (the hero stat). Always weight 400 (the face has no other weights). Rotation is part of the face's voice — multiple Shrikhand elements per slide carry transforms ranging from -6° to +2°.
 
-**Libre Baskerville** (Google Fonts, 400 / 700 + italic) is the body face. A classical literary serif with high stroke contrast — used for every paragraph, every body cell, every metadata line, every cite, every close-sub. Set at 11-16px with 1.5-1.75 line-height, the face reads as comfortably editorial. The face's italic and bold weights are loaded but used sparingly — italic exists for inline emphasis, bold weight 700 is rarely needed since Shrikhand already handles all the heavy display work.
+**Libre Baskerville** (Google Fonts, 400 / 700 + italic) is the body face. A classical literary serif with high stroke contrast — used for every paragraph, every body cell, every metadata line, every cite, every close-sub. Set at 23-35px with 1.5-1.75 line-height, the face reads as comfortably editorial. The face's italic and bold weights are loaded but used sparingly — italic exists for inline emphasis, bold weight 700 is rarely needed since Shrikhand already handles all the heavy display work.
 
-**Space Grotesk** (Google Fonts, weights 400-700) is the metadata + chrome face. Used at 9-12px in uppercase with 2-3px letter-spacing for labels, eyebrows, slide counters, link text, card bullet bodies (when not using Libre Baskerville), and progress chrome. The wide-tracked uppercase treatment is the system's "stamped metadata" voice.
+**Space Grotesk** (Google Fonts, weights 400-700) is the metadata + chrome face. Used at 19-23px in uppercase with 2-3px letter-spacing for labels, eyebrows, slide counters, link text, card bullet bodies (when not using Libre Baskerville), and progress chrome. The wide-tracked uppercase treatment is the system's "stamped metadata" voice.
 
 The roles are non-overlapping: Shrikhand handles every display moment and every numerical figure; Libre Baskerville handles every body paragraph and editorial text; Space Grotesk handles every uppercase label, bullet, and chrome element. Don't cross — Shrikhand body would be illegible; Libre Baskerville labels would look like book footnotes; Space Grotesk headlines would feel like a tech startup.
 
 ### Typography Scale
 
-| Token | Size (clamp / px) | Family | Weight | Use |
+All sizes are stage px on the fixed 1920×1080 canvas — use them literally, do not rescale.
+
+| Token | Size | Family | Weight | Use |
 |---|---|---|---|---|
-| `{typography.stat-big}` | 120–320px clamp | Shrikhand | 400 | Hero-class stat figure (always rotated -6°, always red) |
-| `{typography.hero-title-red}` | 84–260px clamp | Shrikhand | 400 | Red word in a multi-line hero stack (always rotated -4°) |
-| `{typography.close-big}` | 80–260px clamp | Shrikhand | 400 | Closing-statement title (always rotated -5°, always red) |
-| `{typography.hero-title}` | 72–220px clamp | Shrikhand | 400 | Top line of a hero stack (default no rotation) |
-| `{typography.hero-title-bottom}` | 64–200px clamp | Shrikhand | 400 | Bottom line of a hero stack (always rotated +2°) |
-| `{typography.section-header-lg}` | 36–72px clamp | Shrikhand | 400 | Large section header for financial / dense-data slides |
-| `{typography.section-header}` | 32–64px clamp | Shrikhand | 400 | Standard section header (summary, services, global, close) |
-| `{typography.pillar-num}` | 36–64px clamp | Shrikhand | 400 | Numeral atop a pillar panel (red) |
-| `{typography.cell-number-lg}` / `{typography.cell-number-md}` | 28–52px clamp | Shrikhand | 400 | Tabular cell numerical figure (always red) |
-| `{typography.stat-item-num}` | 28–56px clamp | Shrikhand | 400 | Inline supplementary stat numeral (dark color) |
-| `{typography.card-title}` | 22–36px clamp | Shrikhand | 400 | Service card title or global card title |
-| `{typography.card-title-sm}` | 20–32px clamp | Shrikhand | 400 | Smaller card title (global cards) |
-| `{typography.pillar-title}` | 18–28px clamp | Shrikhand | 400 | Pillar panel title |
-| `{typography.roadmap-title}` | 18–32px clamp | Shrikhand | 400 | Roadmap phase title (white on dark surface) |
-| `{typography.red-quote}` | 32–90px clamp | Shrikhand | 400 | Quote body on a red panel (white text + stacked shadow) |
-| `{typography.inline-stat}` | 18–28px clamp | Shrikhand | 400 | Inline mini-stat number (red) inside a body block |
-| `{typography.body}` | 13–16px clamp | Libre Baskerville | 400 | Standard body paragraph |
-| `{typography.body-card}` | 12–14px clamp | Libre Baskerville | 400 | Card body inside service/global cards |
-| `{typography.body-cell}` | 11–13px clamp | Libre Baskerville | 400 | Tabular cell body inside grids |
-| `{typography.body-small}` | 11–13px clamp | Libre Baskerville | 400 | Small body for summary highlights |
-| `{typography.hero-meta}` | 11–14px clamp | Libre Baskerville | 400 | Hero meta line above the title stack |
-| `{typography.red-cite}` | 13–16px clamp | Libre Baskerville | 400 | Citation under a red-panel quote (white text) |
-| `{typography.close-sub}` | 14–18px clamp | Libre Baskerville | 400 | Subtitle / contact line under a closing title |
-| `{typography.label-red}` / `{typography.tag-label}` | 10–12px | Space Grotesk | 600 | Section label (uppercase, 2-3px tracking, red) |
-| `{typography.label}` | 10px | Space Grotesk | 600 | Cell label inside grids (uppercase, 2px tracking, dark) |
-| `{typography.rm-label}` | 9px | Space Grotesk | 600 | Roadmap phase label (uppercase, 3px tracking, red) |
-| `{typography.bullet-body}` | 10–12px clamp | Space Grotesk | 400 | List bullet body inside cards and pillars |
-| `{typography.counter}` | 11px | Space Grotesk | 600 | Persistent slide counter |
-| `{typography.link}` | 10–12px clamp | Space Grotesk | 600 | Footer / closing link text (uppercase, 2px tracking) |
-| `{typography.fc-micro}` | 10px | Space Grotesk | 400 | Tiny micro-context line at the bottom of a tabular cell |
+| `{typography.stat-big}` | 599px | Shrikhand | 400 | Hero-class stat figure (always rotated -6°, always red) |
+| `{typography.hero-title-red}` | 415px | Shrikhand | 400 | Red word in a multi-line hero stack (always rotated -4°) |
+| `{typography.close-big}` | 415px | Shrikhand | 400 | Closing-statement title (always rotated -5°, always red) |
+| `{typography.hero-title}` | 369px | Shrikhand | 400 | Top line of a hero stack (default no rotation) |
+| `{typography.hero-title-bottom}` | 323px | Shrikhand | 400 | Bottom line of a hero stack (always rotated +2°) |
+| `{typography.red-quote}` | 161px | Shrikhand | 400 | Quote body on a red panel (white text + stacked shadow) |
+| `{typography.section-header-lg}` | 138px | Shrikhand | 400 | Large section header for financial / dense-data slides |
+| `{typography.section-header}` | 115px | Shrikhand | 400 | Standard section header (summary, services, global, close) |
+| `{typography.pillar-num}` | 115px | Shrikhand | 400 | Numeral atop a pillar panel (red) |
+| `{typography.stat-item-num}` | 92px | Shrikhand | 400 | Inline supplementary stat numeral (dark color) |
+| `{typography.cell-number-lg}` / `{typography.cell-number-md}` | 81px | Shrikhand | 400 | Tabular cell numerical figure (always red) |
+| `{typography.card-title}` | 69px | Shrikhand | 400 | Service card title or global card title |
+| `{typography.card-title-sm}` | 58px | Shrikhand | 400 | Smaller card title (global cards) |
+| `{typography.roadmap-title}` | 58px | Shrikhand | 400 | Roadmap phase title (white on dark surface) |
+| `{typography.pillar-title}` | 51px | Shrikhand | 400 | Pillar panel title |
+| `{typography.inline-stat}` | 46px | Shrikhand | 400 | Inline mini-stat number (red) inside a body block |
+| `{typography.close-sub}` | 35px | Libre Baskerville | 400 | Subtitle / contact line under a closing title |
+| `{typography.red-cite}` | 30px | Libre Baskerville | 400 | Citation under a red-panel quote (white text) |
+| `{typography.body}` / `{typography.tag-body}` | 28px | Libre Baskerville | 400 | Standard body paragraph |
+| `{typography.body-card}` | 25px | Libre Baskerville | 400 | Card body inside service/global cards |
+| `{typography.body-cell}` | 23px | Libre Baskerville | 400 | Tabular cell body inside grids |
+| `{typography.body-small}` | 23px | Libre Baskerville | 400 | Small body for summary highlights |
+| `{typography.hero-meta}` | 23px | Libre Baskerville | 400 | Hero meta line above the title stack |
+| `{typography.counter}` | 23px | Space Grotesk | 600 | Persistent slide counter |
+| `{typography.label}` | 21px | Space Grotesk | 600 | Cell label inside grids (uppercase, 2px tracking, dark) |
+| `{typography.label-red}` / `{typography.tag-label}` | 21px | Space Grotesk | 600 | Section label (uppercase, 2-3px tracking, red) |
+| `{typography.bullet-body}` | 21px | Space Grotesk | 400 | List bullet body inside cards and pillars |
+| `{typography.link}` | 21px | Space Grotesk | 600 | Footer / closing link text (uppercase, 2px tracking) |
+| `{typography.fc-micro}` | 21px | Space Grotesk | 400 | Micro-context line at the bottom of a tabular cell |
+| `{typography.rm-label}` | 19px | Space Grotesk | 600 | Roadmap phase label (uppercase, 3px tracking, red) |
 
 ### Defaults
 
-- **Default size for a hero or cover title**: `{typography.hero-title}` (72–220px) at the top of a stack, paired with `{typography.hero-title-red}` (84–260px, red, rotated -4°) on a second line and `{typography.hero-title-bottom}` (64–200px, rotated +2°) on a third line. The three-line stacked composition is the system's standard hero pattern.
-- **Default size for a primary section headline**: `{typography.section-header}` (32–64px). Always Shrikhand.
-- **Default size for a hero-class statistic**: `{typography.stat-big}` (120–320px) rotated -6°, always red.
-- **Default size for a tabular cell numeral**: `{typography.cell-number-md}` (28–52px) in red.
-- **Default size for body**: `{typography.body}` (13–16px) Libre Baskerville at line-height 1.75.
-- **Default size for a card body**: `{typography.body-card}` (12–14px) at line-height 1.6.
-- **Default size for a section eyebrow label**: `{typography.tag-label}` (10–12px) Space Grotesk weight 600 in red, uppercase, with 2-3px letter-spacing.
-- **Default size for a list bullet body**: `{typography.bullet-body}` (10–12px) Space Grotesk weight 400.
+- **Default size for a hero or cover title**: `{typography.hero-title}` (369px) at the top of a stack, paired with `{typography.hero-title-red}` (415px, red, rotated -4°) on a second line and `{typography.hero-title-bottom}` (323px, rotated +2°) on a third line. The three-line stacked composition is the system's standard hero pattern.
+- **Default size for a primary section headline**: `{typography.section-header}` (115px). Always Shrikhand.
+- **Default size for a hero-class statistic**: `{typography.stat-big}` (599px) rotated -6°, always red.
+- **Default size for a tabular cell numeral**: `{typography.cell-number-md}` (81px) in red.
+- **Default size for body**: `{typography.body}` (28px) Libre Baskerville at line-height 1.75.
+- **Default size for a card body**: `{typography.body-card}` (25px) at line-height 1.6.
+- **Default size for a section eyebrow label**: `{typography.tag-label}` (21px) Space Grotesk weight 600 in red, uppercase, with 2-3px letter-spacing.
+- **Default size for a list bullet body**: `{typography.bullet-body}` (21px) Space Grotesk weight 400.
 - **Default weight for Shrikhand**: 400 — the face has no other weights.
 - **Default weight for Libre Baskerville body**: 400. Bold (700) is used only for inline emphasis inside body paragraphs.
 - **Default weight for Space Grotesk labels**: 600. Wide tracking is the system's label voice; weight 400 is for bullet bodies only.
 
-When unsure which display token to reach for, default to `{typography.section-header}` (32–64px) for a primary slide section opener. Reserve `{typography.stat-big}` for hero-stat moments and `{typography.hero-title}` triples for cover-class surfaces.
+When unsure which display token to reach for, default to `{typography.section-header}` (115px) for a primary slide section opener. Reserve `{typography.stat-big}` for hero-stat moments and `{typography.hero-title}` triples for cover-class surfaces.
 
 ### Signature Treatments
 
 These treatments are **non-optional whenever the corresponding element type is used**:
 
 - **Every hero-class Shrikhand element is part of a multi-line stacked composition with at least one rotated line and at least one red line.** A single-line Shrikhand hero title without rotation or color contrast collapses into a generic display moment.
-- **Every tabular numerical cell figure is Shrikhand at the cell-number scale (28–52px) in `{colors.red}`.** Numerical cells in dark text break the system's hierarchy — red is the data signal.
+- **Every tabular numerical cell figure is Shrikhand at the cell-number scale (81px) in `{colors.red}`.** Numerical cells in dark text break the system's hierarchy — red is the data signal.
 - **Every section eyebrow is Space Grotesk weight 600 in `{colors.red}`, uppercase, with 2-3px letter-spacing.** No exceptions. Eyebrows at any other tracking, weight, color, or case are not the system's eyebrow.
 - **Every statement-class Shrikhand element (stat-big, close-big) is rotated -5° to -6° in `{colors.red}`.** Untilted red Shrikhand at hero scale looks like a misplaced word — the tilt is the system's "movement" signal.
 - **Every red-panel display element carries the stacked text-shadow** (`2px 2px 0 rgba(28,20,16,0.25), 4px 4px 0 rgba(28,20,16,0.2), 6px 6px 0 rgba(28,20,16,0.15)`). Without the shadow, white Shrikhand on red reads as floating; with it, the text feels printed-and-pressed into the panel.
@@ -697,7 +699,7 @@ The system's three-face role discipline (Shrikhand display / Libre Baskerville b
 
 ## Iteration Guide
 
-1. Any new content slide starts with a Shrikhand section header at `{typography.section-header}` (32–64px) in `{colors.dark}`, optionally preceded by a Space Grotesk red eyebrow label.
+1. Any new content slide starts with a Shrikhand section header at `{typography.section-header}` (115px) in `{colors.dark}`, optionally preceded by a Space Grotesk red eyebrow label.
 2. Any new numerical callout (cell figure, pillar number, inline stat, summary highlight) is Shrikhand in `{colors.red}` at the appropriate cell-number scale.
 3. Any new body paragraph is Libre Baskerville weight 400 in `{colors.dark}` at line-height 1.5-1.75.
 4. Any new editorial card uses the `{components.red-leftbar-card}` pattern (4px red left rule + 18px padding-left), holding a Shrikhand title + Libre Baskerville body + Space Grotesk red-bullet list.

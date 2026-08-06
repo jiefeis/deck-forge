@@ -20,109 +20,109 @@ color-aliases:
 typography:
   hero-title:
     fontFamily: "Bebas Neue, sans-serif"
-    fontSize: "min(120px, 9vw, 13vh)"
+    fontSize: "120px"
     fontWeight: 400
     lineHeight: 0.9
     letterSpacing: 4px
   jumbo-feature:
     fontFamily: "Bebas Neue, sans-serif"
-    fontSize: "clamp(80px, 15vw, 200px)"
+    fontSize: "288px"
     fontWeight: 400
     lineHeight: 1
     letterSpacing: 12px
   display-statement:
     fontFamily: "Bebas Neue, sans-serif"
-    fontSize: "clamp(42px, 7vw, 100px)"
+    fontSize: "134px"
     fontWeight: 400
     lineHeight: 1
     letterSpacing: 2px
   section-headline:
     fontFamily: "Bebas Neue, sans-serif"
-    fontSize: "clamp(40px, 6vw, 80px)"
+    fontSize: "115px"
     fontWeight: 400
     lineHeight: 1
     letterSpacing: 2px
   column-title:
     fontFamily: "Bebas Neue, sans-serif"
-    fontSize: "clamp(36px, 5vw, 72px)"
+    fontSize: "96px"
     fontWeight: 400
     lineHeight: 1
     letterSpacing: 2px
   stat-numeral:
     fontFamily: "Bebas Neue, sans-serif"
-    fontSize: "clamp(48px, 7vw, 96px)"
+    fontSize: "134px"
     fontWeight: 400
     lineHeight: 1
   card-stat:
     fontFamily: "Bebas Neue, sans-serif"
-    fontSize: "clamp(36px, 4vw, 56px)"
+    fontSize: "77px"
     fontWeight: 400
     lineHeight: 1
   sidebar-value:
     fontFamily: "Bebas Neue, sans-serif"
-    fontSize: "clamp(28px, 3vw, 48px)"
+    fontSize: "58px"
     fontWeight: 400
     lineHeight: 1
   card-title:
     fontFamily: "Bebas Neue, sans-serif"
-    fontSize: "clamp(24px, 2.5vw, 36px)"
+    fontSize: "48px"
     fontWeight: 400
     lineHeight: 1.1
     letterSpacing: 1px
   bar-title:
     fontFamily: "Bebas Neue, sans-serif"
-    fontSize: "clamp(28px, 4vw, 56px)"
+    fontSize: "77px"
     fontWeight: 400
     lineHeight: 1
     letterSpacing: 2px
   meta-figure:
     fontFamily: "Bebas Neue, sans-serif"
-    fontSize: "min(44px, 3.5vw, 5.5vh)"
+    fontSize: "44px"
     fontWeight: 400
     lineHeight: 1
     letterSpacing: 2px
   meta-date:
     fontFamily: "Bebas Neue, sans-serif"
-    fontSize: "min(38px, 3vw, 4.8vh)"
+    fontSize: "38px"
     fontWeight: 400
     lineHeight: 1
     letterSpacing: 2px
   background-numeral:
     fontFamily: "Bebas Neue, sans-serif"
-    fontSize: "clamp(100px, 15vw, 200px)"
+    fontSize: "288px"
     fontWeight: 400
     lineHeight: 1
     description: "Decorative oversized numeral placed inside a coral region at rgba(0,0,0,0.12) — wallpaper opacity. Sits behind the actual column title at full opacity."
   giant-mark:
     fontFamily: "Bebas Neue, sans-serif"
-    fontSize: "clamp(140px, 20vw, 280px)"
+    fontSize: "384px"
     fontWeight: 400
     lineHeight: 1
     description: "Oversized quote mark or single character placed inside a coral region at opacity 0.35 — half-decorative, half-content."
   body:
     fontFamily: "Inter, sans-serif"
-    fontSize: "clamp(15px, 1.4vw, 20px)"
+    fontSize: "27px"
     fontWeight: 400
     lineHeight: 1.7
   body-sm:
     fontFamily: "Inter, sans-serif"
-    fontSize: "clamp(13px, 1.1vw, 16px)"
+    fontSize: "21px"
     fontWeight: 400
     lineHeight: 1.6
   body-light:
     fontFamily: "Inter, sans-serif"
-    fontSize: "clamp(20px, 2.5vw, 36px)"
+    fontSize: "48px"
     fontWeight: 300
     lineHeight: 1.5
     description: "Lighter-weight Inter for pull quotes — weight 300 to contrast against the Bebas Neue dominant voice."
   item-text:
     fontFamily: "Inter, sans-serif"
-    fontSize: "clamp(14px, 1.2vw, 18px)"
+    fontSize: "23px"
     fontWeight: 400
     lineHeight: 1.6
   card-text:
     fontFamily: "Inter, sans-serif"
-    fontSize: "clamp(13px, 1.1vw, 16px)"
+    fontSize: "21px"
     fontWeight: 400
     lineHeight: 1.6
   bar-meta:
@@ -134,7 +134,7 @@ typography:
     textTransform: uppercase
   section-label:
     fontFamily: "Inter, sans-serif"
-    fontSize: "12px"
+    fontSize: "16px"
     fontWeight: 700
     lineHeight: 1
     letterSpacing: 4px
@@ -148,7 +148,7 @@ typography:
     textTransform: uppercase
   meta-label:
     fontFamily: "Inter, sans-serif"
-    fontSize: "11px"
+    fontSize: "15px"
     fontWeight: 600
     lineHeight: 1
     letterSpacing: 3px
@@ -161,7 +161,7 @@ typography:
     letterSpacing: 1px
   quote-attribution:
     fontFamily: "Inter, sans-serif"
-    fontSize: "14px"
+    fontSize: "19px"
     fontWeight: 600
     lineHeight: 1
     letterSpacing: 3px
@@ -174,18 +174,18 @@ typography:
     letterSpacing: 1px
 
 spacing:
-  pad-y: "clamp(40px, 6vh, 80px)"
-  pad-x: "clamp(40px, 8vw, 100px)"
-  pad-y-tight: "clamp(28px, 4.5vh, 60px)"
-  pad-col: "clamp(32px, 4vw, 60px)"
+  pad-y: "65px"
+  pad-x: "154px"
+  pad-y-tight: "49px"
+  pad-col: "77px"
   gap-grid: "32px"
   gap-md: "40px"
-  card-pad: "clamp(24px, 3vh, 40px)"
-  bar-pad: "clamp(24px, 4vh, 40px)"
+  card-pad: "32px"
+  bar-pad: "43px"
 
 canvas:
-  width: 100vw
-  height: 100vh
+  width: 1920px
+  height: 1080px
 
 components:
   diagonal-hatch:
@@ -222,7 +222,7 @@ components:
     height: "48px"
     background: "{colors.coral}"
     fontFamily: "Bebas Neue, sans-serif"
-    fontSize: "24px"
+    fontSize: "32px"
     color: "{colors.white}"
     description: "48px solid coral square (no radius) containing a 1-character Bebas Neue glyph in white. Used as a card mark."
   timeline-line:
@@ -276,6 +276,8 @@ This policy has higher priority than any source-template responsive behavior des
 This policy applies even if the source template was originally implemented with viewport-fluid CSS such as `100vw`, `100vh`, `vw`, `vh`, or `clamp()`. Treat those values as design proportions to translate into 1920×1080 stage coordinates, not as live responsive rules in the generated deck.
 
 Author against the skill's fixed-stage model: full viewport-base.css inline, .slide/.active slides scaled as one unit (transform: scale(), origin 0 0) per html-template.md. Do not reference deck-stage.js (not bundled). Translate any data-anim/data-delay/.is-active entrance vocabulary from the source design into the deck's .reveal + .slide.visible convention. Render each slide at 1920×1080 and verify rendered screenshots for both text overflow and panel overlap.
+
+Page numbers or footers that must appear in the exported PDF must be slide-internal elements (see lumen-2026's .foot/.pageno); never use the reserved deck-chrome classes (.progress-bar, .slide-counter) — export_pdf.py strips them.
 
 
 ## Overview
@@ -339,7 +341,7 @@ The three surfaces are intermixed by composition: a slide may be split coral/cre
 ### Font Family
 The system runs on a **two-face hierarchy**: `Bebas Neue` (display, single weight 400) carries every headline, stat numeral, column title, meta figure, bar title, card stat, sidebar value, and decorative numeral; `Inter` (sans, weights 300 / 400 / 600 / 700) carries every body paragraph, label, eyebrow, meta-label, attribution, role, and chart legend. There is no third face.
 
-Bebas Neue is a tall narrow condensed sans display face — its narrow letterforms allow large sizes without overwhelming the slide width, and its single available weight (400) is treated as the system's only weight. Bebas is always set in its native uppercase. The display character of the system comes from heavy letter-spacing (1–4px on standard headlines, 12px on the largest jumbo feature treatment) and oversized scale (up to 200–280px on jumbo / giant-mark moments).
+Bebas Neue is a tall narrow condensed sans display face — its narrow letterforms allow large sizes without overwhelming the slide width, and its single available weight (400) is treated as the system's only weight. Bebas is always set in its native uppercase. The display character of the system comes from heavy letter-spacing (1–4px on standard headlines, 12px on the largest jumbo feature treatment) and oversized scale (up to 288–384px on jumbo / giant-mark moments).
 
 Inter carries the supporting voice with weight contrast: 300 for pull-quote bodies (a lighter register against Bebas's dominance), 400 for body paragraphs, 600 for meta labels, 700 for section eyebrows. Italic and underline are not used.
 
@@ -347,25 +349,25 @@ Inter carries the supporting voice with weight contrast: 300 for pull-quote bodi
 
 | Token | Size | Family | Weight | Use |
 |---|---|---|---|---|
-| `{typography.giant-mark}` | clamp(140px, 20vw, 280px) | Bebas Neue | 400 | Oversized decorative quote mark or feature character inside a coral region |
-| `{typography.jumbo-feature}` | clamp(80px, 15vw, 200px) | Bebas Neue | 400 | Single dominant word filling a feature region |
-| `{typography.background-numeral}` | clamp(100px, 15vw, 200px) | Bebas Neue | 400 | Decorative wallpaper numeral inside a coral region at 12% opacity |
-| `{typography.hero-title}` | min(120px, 9vw, 13vh) | Bebas Neue | 400 | Largest cover title — 3-line title cap-and-line-broken |
-| `{typography.display-statement}` | clamp(42px, 7vw, 100px) | Bebas Neue | 400 | Big declarative statement on a cream surface |
-| `{typography.stat-numeral}` | clamp(48px, 7vw, 96px) | Bebas Neue | 400 | Hero stat figure |
-| `{typography.section-headline}` | clamp(40px, 6vw, 80px) | Bebas Neue | 400 | Primary section headline |
-| `{typography.column-title}` | clamp(36px, 5vw, 72px) | Bebas Neue | 400 | Column or panel title inside a region |
-| `{typography.card-stat}` | clamp(36px, 4vw, 56px) | Bebas Neue | 400 | Per-card stat figure |
-| `{typography.bar-title}` | clamp(28px, 4vw, 56px) | Bebas Neue | 400 | Info-bar title |
-| `{typography.sidebar-value}` | clamp(28px, 3vw, 48px) | Bebas Neue | 400 | Sidebar tile value |
-| `{typography.card-title}` | clamp(24px, 2.5vw, 36px) | Bebas Neue | 400 | Card or column-card title |
-| `{typography.meta-figure}` | min(44px, 3.5vw, 5.5vh) | Bebas Neue | 400 | Cover meta value (location, date, brand) |
-| `{typography.meta-date}` | min(38px, 3vw, 4.8vh) | Bebas Neue | 400 | Cover date variant |
-| `{typography.body-light}` | clamp(20px, 2.5vw, 36px) | Inter | 300 | Pull-quote body (lighter weight against Bebas dominance) |
-| `{typography.body}` | clamp(15px, 1.4vw, 20px) | Inter | 400 | Standard paragraph body |
-| `{typography.item-text}` | clamp(14px, 1.2vw, 18px) | Inter | 400 | Item body on ink surfaces |
-| `{typography.card-text}` | clamp(13px, 1.1vw, 16px) | Inter | 400 | Card body copy |
-| `{typography.body-sm}` | clamp(13px, 1.1vw, 16px) | Inter | 400 | Compact body |
+| `{typography.giant-mark}` | 384px | Bebas Neue | 400 | Oversized decorative quote mark or feature character inside a coral region |
+| `{typography.jumbo-feature}` | 288px | Bebas Neue | 400 | Single dominant word filling a feature region |
+| `{typography.background-numeral}` | 288px | Bebas Neue | 400 | Decorative wallpaper numeral inside a coral region at 12% opacity |
+| `{typography.hero-title}` | 120px | Bebas Neue | 400 | Largest cover title — 3-line title cap-and-line-broken |
+| `{typography.display-statement}` | 134px | Bebas Neue | 400 | Big declarative statement on a cream surface |
+| `{typography.stat-numeral}` | 134px | Bebas Neue | 400 | Hero stat figure |
+| `{typography.section-headline}` | 115px | Bebas Neue | 400 | Primary section headline |
+| `{typography.column-title}` | 96px | Bebas Neue | 400 | Column or panel title inside a region |
+| `{typography.card-stat}` | 77px | Bebas Neue | 400 | Per-card stat figure |
+| `{typography.bar-title}` | 77px | Bebas Neue | 400 | Info-bar title |
+| `{typography.sidebar-value}` | 58px | Bebas Neue | 400 | Sidebar tile value |
+| `{typography.card-title}` | 48px | Bebas Neue | 400 | Card or column-card title |
+| `{typography.meta-figure}` | 44px | Bebas Neue | 400 | Cover meta value (location, date, brand) |
+| `{typography.meta-date}` | 38px | Bebas Neue | 400 | Cover date variant |
+| `{typography.body-light}` | 48px | Inter | 300 | Pull-quote body (lighter weight against Bebas dominance) |
+| `{typography.body}` | 27px | Inter | 400 | Standard paragraph body |
+| `{typography.item-text}` | 23px | Inter | 400 | Item body on ink surfaces |
+| `{typography.card-text}` | 21px | Inter | 400 | Card body copy |
+| `{typography.body-sm}` | 21px | Inter | 400 | Compact body |
 | `{typography.section-label}` | 12px | Inter | 700 | Section eyebrow above a headline, 4px letter-spacing |
 | `{typography.item-label}` | 11px | Inter | 700 | Item eyebrow in a list, 3px letter-spacing |
 | `{typography.meta-label}` | 11px | Inter | 600 | Cover meta label, 3px letter-spacing |
@@ -375,16 +377,16 @@ Inter carries the supporting voice with weight contrast: 300 for pull-quote bodi
 | `{typography.quote-role}` | 12px | Inter | 400 | Author role below quote attribution, 1px letter-spacing |
 
 ### Defaults
-- **Default size for the primary section headline**: `{typography.section-headline}` (clamp 40–80px).
-- **Default size for a cover/hero title**: `{typography.hero-title}` (min(120px, 9vw, 13vh)).
-- **Default size for a feature dominant word**: `{typography.jumbo-feature}` (clamp 80–200px) with 12px letter-spacing.
-- **Default size for paragraph body**: `{typography.body}` (clamp 15–20px).
+- **Default size for the primary section headline**: `{typography.section-headline}` (115px).
+- **Default size for a cover/hero title**: `{typography.hero-title}` (120px).
+- **Default size for a feature dominant word**: `{typography.jumbo-feature}` (288px) with 12px letter-spacing.
+- **Default size for paragraph body**: `{typography.body}` (27px).
 - **Default size for any uppercase eyebrow / label**: `{typography.section-label}` (12px) at weight 700 with 4px letter-spacing; or `{typography.item-label}` (11px) at weight 700 with 3px letter-spacing for in-list contexts.
 - **Default weight for any Bebas Neue element**: 400 (the only available weight).
 - **Default weight for body**: 400; for pull quotes, 300.
 - **Default weight for labels**: 600 or 700.
-- **Default size for a hero stat figure**: `{typography.stat-numeral}` (clamp 48–96px).
-- **Default size for an in-card stat figure**: `{typography.card-stat}` (clamp 36–56px).
+- **Default size for a hero stat figure**: `{typography.stat-numeral}` (134px).
+- **Default size for an in-card stat figure**: `{typography.card-stat}` (77px).
 
 When unsure, reach for `{typography.section-headline}` for the slide's primary text moment.
 
@@ -408,21 +410,21 @@ Line-height is uniformly tight at the top of the scale: Bebas elements at 0.9–
 ## Layout
 
 ### Canvas System
-The canvas is `100vw × 100vh` — full viewport with hidden overflow. Each `.slide` is absolutely positioned to fill the viewport; one slide carries `.active` (opacity 1, visibility visible) at a time. Transitions are 0.6s opacity + visibility fades.
+Every slide is exactly 1920×1080px. The skill's fixed-stage scaler (viewport-base.css) handles centering and scaling.
 
-The system has **no universal chrome bar**. Each slide is its own self-contained composition with its own padding, region structure, and color treatment. Navigation is per-page (nav arrows + nav dots + slide counter) and floats over the active surface with `.dark` variants for cream surfaces.
+The system has **no universal chrome bar**. Each slide is its own self-contained composition with its own padding, region structure, and color treatment.
 
 ### Padding and Gap Scale
 | Token | Value | Use |
 |---|---|---|
-| `{spacing.pad-y}` | clamp(40px, 6vh, 80px) | Standard vertical slide padding |
-| `{spacing.pad-x}` | clamp(40px, 8vw, 100px) | Standard horizontal slide padding |
-| `{spacing.pad-y-tight}` | clamp(28px, 4.5vh, 60px) | Compact vertical padding (cover bottom-section) |
-| `{spacing.pad-col}` | clamp(32px, 4vw, 60px) | Column padding inside a region |
+| `{spacing.pad-y}` | 65px | Standard vertical slide padding |
+| `{spacing.pad-x}` | 154px | Standard horizontal slide padding |
+| `{spacing.pad-y-tight}` | 49px | Compact vertical padding (cover bottom-section) |
+| `{spacing.pad-col}` | 77px | Column padding inside a region |
 | `{spacing.gap-grid}` | 32px | Column-grid gap |
 | `{spacing.gap-md}` | 40px | Chart container internal gap |
-| `{spacing.card-pad}` | clamp(24px, 3vh, 40px) | Card internal padding |
-| `{spacing.bar-pad}` | clamp(24px, 4vh, 40px) | Info-bar internal padding |
+| `{spacing.card-pad}` | 32px | Card internal padding |
+| `{spacing.bar-pad}` | 43px | Info-bar internal padding |
 
 ### Region Composition
 Coral's primary layout move is **multi-surface composition**. Slides split into regions of solid color, with the boundary between regions defining the layout. Standard splits include:
@@ -479,9 +481,9 @@ All borders are either coral, black, cream, or translucent. There is no border-r
 
 **45° diagonal hatch** — A `repeating-linear-gradient(45deg, transparent, transparent 20px, rgba(0,0,0,0.06) 20px, rgba(0,0,0,0.06) 40px)` applied as a `::before` pseudo-element overlay on coral regions. The signature atmospheric texture. Variants: -45°, 90° vertical, different stride widths.
 
-**Background numeral** — An oversized Bebas Neue numeral (clamp 100–200px) at `rgba(0, 0, 0, 0.12)` placed inside a coral region. Sits behind the region's primary column-title at full opacity, creating a layered "ordinal wallpaper" effect.
+**Background numeral** — An oversized Bebas Neue numeral (288px) at `rgba(0, 0, 0, 0.12)` placed inside a coral region. Sits behind the region's primary column-title at full opacity, creating a layered "ordinal wallpaper" effect.
 
-**Giant mark** — An oversized Bebas Neue character (clamp 140–280px) at `rgba(0, 0, 0, 0.35)` placed inside a coral region. Used as a half-decorative half-content element, typically a quotation mark on the coral left panel of a quote layout.
+**Giant mark** — An oversized Bebas Neue character (384px) at `rgba(0, 0, 0, 0.35)` placed inside a coral region. Used as a half-decorative half-content element, typically a quotation mark on the coral left panel of a quote layout.
 
 **Card (column-card)** — A white-fill rectangle with a 5px coral top border as its only border. Contains a 48px solid coral icon square at top, a Bebas card-title, an Inter card-text body, and a coral card-stat figure at the bottom. The 5px top border is the only chrome — no other border, no shadow, no radius.
 
@@ -529,26 +531,11 @@ All borders are either coral, black, cream, or translucent. There is no border-r
 
 ## Responsive Behavior
 
-Coral is a viewport-fluid 1920×1080 presentation system using `clamp()`, `min()`, and viewport-relative units throughout. There are no explicit responsive breakpoints in the source — every dimension scales between minimum and maximum bounds.
+Source template was viewport-fluid/interactive; those behaviors do not apply to the fixed 1920×1080 stage and PDF delivery.
 
-### Scaling Behavior
-- Hero title scales via `min(120px, 9vw, 13vh)` — capped by both width and height so the 3-line title cannot overflow a short laptop screen.
-- Jumbo feature scales from 80px at minimum viewport to 200px at maximum.
-- Body text scales from 15px to 20px.
-- Padding scales via `clamp` per-region.
-- Borders, icon squares (48px), nav dots (10px), nav arrows (44px), and timeline dots (20px) are fixed and do not scale.
+## Charts
 
-### Presenter Behavior
-- Slides advance via `ArrowRight` or `Space`.
-- Slides reverse via `ArrowLeft`.
-- Nav-dots float at right edge; nav-arrows at bottom-left; slide counter at bottom-right. All three carry `.dark` variants for cream surfaces (ink-translucent fills) and standard variants for coral/ink surfaces (white-translucent fills).
-- Active nav-dot fills with `{colors.coral}` regardless of surface.
-
-### Charts
 Charts are rendered with Chart.js (loaded via CDN). Primary series uses `{colors.coral}`; comparison series uses `{colors.coral-dark}`. Chart styling is configured inline in the JS; restyling requires editing JS, not CSS.
-
-### Print / Export
-Not explicitly handled. Each slide is a 100vw × 100vh block; export workflows should snapshot each slide at 1920×1080. The 45° hatch overlays should render correctly in PDF capture.
 
 ## CJK & International Content
 
@@ -617,8 +604,6 @@ ZCOOL XiaoWei is a single-weight display face with limited glyph coverage compar
 - Decorative oversized numerals are placed as inline content with hardcoded values; there is no generative ordinal system.
 - The cover composition's SVG zigzag-layer is an inline SVG embedded in the source — adjusting the zigzag pattern requires editing SVG markup.
 - The timeline-line's dashed effect is rendered via a `::after` repeating-linear-gradient overlay rather than `border-style: dashed` — this gives precise control over dash dimensions but is unusual.
-- The cover composition uses `min(120px, 9vw, 13vh)` triple-cap sizing to prevent the 3-line title from overflowing on short laptops; new cover variants should follow the same multi-axis cap pattern.
 - The pull-quote layout uses Inter weight 300; Inter weight 300 is loaded explicitly but not used elsewhere — this is the system's only Inter Light deployment.
 - The `cream-dark` and `light-gray` palette tokens are defined but used sparingly across the source; they are available for new compositions that need additional neutral shades.
-- The nav-dot and nav-arrow `.dark` variant must be manually applied on cream-surface slides to maintain visibility — there is no automatic surface detection.
 - Linear-gradient feature regions (135° coral-dark → coral) are the system's only intentional gradient; all other surfaces are flat colors. Using gradients elsewhere breaks the flat-surface aesthetic.

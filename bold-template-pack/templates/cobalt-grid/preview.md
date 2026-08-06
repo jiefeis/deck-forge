@@ -8,9 +8,15 @@ Use this small file for title-slide previews only. For final deck generation, re
 
 ## Visual Snapshot
 
-A Japanese-magazine trend-report system built on warm cream paper, electric cobalt ink, and a graph-paper grid that lives permanently behind every slide. Newsreader serif headlines tower at 18vh while DM Mono carries chrome and ticker text. The signature decoration is a pixel-glitch column — vertical scanlines stair-stepped down the right edge of declarative slides — paired with QR-style 8×8 grid patches. The cultural reference is WIRED Japan, Shift magazine, and architectural trend reports printed in two-color risograph: cream + one cobalt.
+Cover recipe:
 
-Cobalt Grid is a two-color trend-report editorial system built on three immovable foundations: a warm cream paper canvas (#F0EBDE), an electric cobalt ink (#1F2BE0), and a permanent graph-paper grid that sits behind every slide. The grid is not optional decoration — it is rendered via a ::before pseudo on every .stage and cannot be turned off. The aesthetic is "two-color risograph monograph": cream + cobalt only, with the grid lending the entire deck the feel of architectural tracing paper or a Japanese trend report.
+- Surface: full-bleed cream paper #F0EBDE with the permanent 42px cobalt graph-paper grid at 10% opacity behind everything; content sits inside 69px edge insets.
+- Frame: 1.5px cobalt hairlines at 28px from top and 22px from bottom, both inset 69px left/right — the cover carries them like every other slide.
+- Kicker: Hanken Grotesk 600 uppercase 30px at 0.18em tracking in cobalt #1F2BE0, above the title.
+- Title: Newsreader weight 400 at 301px, line-height 0.92, letter-spacing -0.008em, cobalt, left-aligned — size alone carries the hierarchy, never bold.
+- Subtitle: one Newsreader 77px editorial callout (line-height 1.1) directly under the title.
+- Decoration: the signature pixel-glitch column, 614px wide × full height, anchored to the right edge at z-index 3; an 8×8 QR-block patch (58–100px square, paper fill, 1.5px paper outset) punctuates the top-right corner.
+- Chrome: DM Mono 24px page number bottom-right and 22px nav hint bottom-left at 40% opacity, both 52px from the bottom — slide-internal elements, never .progress-bar/.slide-counter.
 
 ## Preview Ingredients
 

@@ -30,100 +30,100 @@ color-aliases:
 typography:
   display:
     fontFamily: "Cormorant Garamond, Noto Serif SC, Georgia, serif"
-    fontSize: 11vw
+    fontSize: 294px
     fontWeight: 400
     fontStyle: italic
     lineHeight: 0.92
     letterSpacing: -0.01em
   h1:
     fontFamily: "Cormorant Garamond, Noto Serif SC, Georgia, serif"
-    fontSize: 7vw
+    fontSize: 187px
     fontWeight: 400
     fontStyle: italic
     lineHeight: 0.95
     letterSpacing: -0.01em
   h2:
     fontFamily: "Cormorant Garamond, Noto Serif SC, Georgia, serif"
-    fontSize: 4vw
+    fontSize: 107px
     fontWeight: 400
     fontStyle: italic
     lineHeight: 1.05
   h3:
     fontFamily: "Cormorant Garamond, Noto Serif SC, Georgia, serif"
-    fontSize: 2.4vw
+    fontSize: 64px
     fontWeight: 500
     fontStyle: italic
     lineHeight: 1.15
   quote-text:
     fontFamily: "Cormorant Garamond, Noto Serif SC, Georgia, serif"
-    fontSize: 3.2vw
+    fontSize: 85px
     fontWeight: 400
     fontStyle: italic
     lineHeight: 1.25
   quote-mark:
     fontFamily: "Cormorant Garamond, Noto Serif SC, Georgia, serif"
-    fontSize: 7vw
+    fontSize: 187px
     fontWeight: 400
     fontStyle: italic
     lineHeight: 0.6
     color: "{colors.teal}"
   stat-value:
     fontFamily: "Cormorant Garamond, Noto Serif SC, Georgia, serif"
-    fontSize: 5.5vw
+    fontSize: 147px
     fontWeight: 400
     fontStyle: italic
     lineHeight: 1
     letterSpacing: -0.02em
   lead:
     fontFamily: "DM Sans, Noto Sans SC, system-ui, sans-serif"
-    fontSize: 1.5vw
+    fontSize: 40px
     fontWeight: 400
     lineHeight: 1.6
   body:
     fontFamily: "DM Sans, Noto Sans SC, system-ui, sans-serif"
-    fontSize: 1.05vw
+    fontSize: 28px
     fontWeight: 400
     lineHeight: 1.65
   caption:
     fontFamily: "DM Sans, Noto Sans SC, system-ui, sans-serif"
-    fontSize: 0.85vw
+    fontSize: 23px
     fontWeight: 400
     lineHeight: 1.5
   label:
     fontFamily: "Courier Prime, Courier New, monospace"
-    fontSize: 0.72vw
+    fontSize: 19px
     fontWeight: 400
     letterSpacing: 0.06em
   pin-note:
     fontFamily: "Courier Prime, Courier New, monospace"
-    fontSize: 1.15vw
+    fontSize: 31px
     fontWeight: 500
     lineHeight: 1.5
     color: "{colors.teal}"
     letterSpacing: 0.01em
   bar-val:
     fontFamily: "Courier Prime, Courier New, monospace"
-    fontSize: 1.1vw
+    fontSize: 29px
     fontWeight: 400
     lineHeight: 1
 
 spacing:
-  pad-x: 6vw
-  pad-y: 6vh
-  gap-lg: 5vh
-  gap-md: 3vh
-  gap-sm: 1.5vh
+  pad-x: 115px
+  pad-y: 65px
+  gap-lg: 54px
+  gap-md: 32px
+  gap-sm: 16px
 
 canvas:
-  width: 100vw
-  height: 100vh
+  width: 1920px
+  height: 1080px
 
 components:
   pin-annotation:
     position: "absolute bottom-left, padding ~0.9 * pad-y from bottom and 1 * pad-x from left"
     typography: "{typography.pin-note}"
     color: "{colors.teal}"
-    maxWidth: "22vw"
+    maxWidth: 422px
     description: "The system's signature element — a small stack of Courier Prime mono lines in dusty teal, sitting in the bottom-left of every slide. Holds slide counter (e.g., '03 / 09'), a short pinned label, and an optional second pin note. Functions as the 'tag stuck to the wall.'"
   kicker:
     typography: "{typography.label}"
@@ -158,7 +158,7 @@ components:
   pin-stat-val:
     typography: "{typography.stat-value}"
     color: "{colors.yellow}"
-    description: "Large italic serif stat numeral (5.5vw italic Cormorant Garamond), centered in a pin-stat tile."
+    description: "Large italic serif stat numeral (147px italic Cormorant Garamond), centered in a pin-stat tile."
   pin-stat-label:
     typography: "{typography.caption}"
     fontFamily: "{typography.label.fontFamily}"
@@ -188,7 +188,7 @@ components:
   quote-mark:
     typography: "{typography.quote-mark}"
     color: "{colors.teal}"
-    description: "A 7vw italic Cormorant Garamond opening quote glyph in dusty teal, sitting centered above a centered pull-quote. The teal color is the system's only large-graphic accent."
+    description: "A 187px italic Cormorant Garamond opening quote glyph in dusty teal, sitting centered above a centered pull-quote. The teal color is the system's only large-graphic accent."
 ---
 
 ## Contents
@@ -209,6 +209,8 @@ This policy has higher priority than any source-template responsive behavior des
 This policy applies even if the source template was originally implemented with viewport-fluid CSS such as `100vw`, `100vh`, `vw`, `vh`, or `clamp()`. Treat those values as design proportions to translate into 1920×1080 stage coordinates, not as live responsive rules in the generated deck.
 
 Author against the skill's fixed-stage model: full viewport-base.css inline, .slide/.active slides scaled as one unit (transform: scale(), origin 0 0) per html-template.md. Do not reference deck-stage.js (not bundled). Translate any data-anim/data-delay/.is-active entrance vocabulary from the source design into the deck's .reveal + .slide.visible convention. Render each slide at 1920×1080 and verify rendered screenshots for both text overflow and panel overlap.
+
+Page numbers or footers that must appear in the exported PDF must be slide-internal elements (see lumen-2026's .foot/.pageno); never use the reserved deck-chrome classes (.progress-bar, .slide-counter) — export_pdf.py strips them. Vellum's pin-annotation counter is already slide-internal and is the correct place for the page mark.
 
 
 ## Overview

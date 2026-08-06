@@ -8,9 +8,15 @@ Use this small file for title-slide previews only. For final deck generation, re
 
 ## Visual Snapshot
 
-A field-notebook editorial system rendered as yellow legal-pad paper with deep cobalt-blue ink. Every slide carries a fractalnoise paper-grain overlay, hand-drawn safety-pin SVG illustrations that "pin" cards to the page, and a hand-script Caveat face for personal annotations. Space Grotesk at heavy weights carries the printed headlines; DM Mono handles archival labels. The aesthetic borrows from analog field reports, vintage public-notice boards, and the diary pages of scientific notebooks — closer to a lab journal pinned to a corkboard than a polished deck.
+Cover recipe:
 
-Pin & Paper is a field-notebook editorial system built on a single material premise: every slide is yellow legal-pad paper. The paper is rendered through a base color (#EFE56A — saturated cadmium yellow), two soft radial-gradient highlights (upper-left light, lower-right shadow), and a non-optional fractal-noise grain overlay on a ::before pseudo-element with multiply blend. This stack creates a surface that reads as physical paper under raking light. Without the grain, the system collapses into flat cartoon-yellow; the texture is foundational, not decorative.
+- Surface: full-bleed paper yellow #EFE56A with its two radial highlights (light at 20%/10%, shadow at 80%/95%) and the non-optional fractal-noise grain overlay at opacity 0.35, multiply blend.
+- Content stage inset 64px left/right, 110px top, 90px bottom. The cover is one of the two sparse slide types — a title block, one annotation, one pin; no card grid.
+- Title: Space Grotesk weight 700 at 196px, mixed case, line-height 1.08, letter-spacing -0.04em, ink cobalt #1F3A8A, left-aligned to the 64px edge.
+- Handwritten layer: one Caveat weight-600 marginal note at 38px in ink, rotated -1.5° to -3°, set beside or below the title.
+- Decoration: one oversized safety-pin SVG (`#pin` closed or `#pin-open`, 110–640px wide) in ink, rotated -14° to +20°, overlapping the title block or anchored in a corner; optionally one cinnabar-red stamp rotated -4°.
+- Top chrome: 44px top / 64px sides — DM Mono uppercase 18px at 0.12em tracking; brand lockup with the inline `#mark` glyph on the left, meta-tag pair on the right.
+- Footer chrome: 36px bottom / 64px sides — DM Mono uppercase 15px at 0.14em tracking, 65% opacity; source attribution left, page-position marker right, both as slide-internal elements.
 
 ## Preview Ingredients
 

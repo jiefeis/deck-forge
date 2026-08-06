@@ -217,9 +217,7 @@ def audit(input_html: Path, expect_slides: int | None,
     httpd, port = _exporter._start_server(input_html.parent)
     try:
         with sync_playwright() as p:
-            launch_args = ({} if browser_executable is None
-                           else {"executable_path": str(browser_executable)})
-            browser = p.chromium.launch(**launch_args)
+            browser = _exporter.launch_chromium(p, browser_executable)
             try:
                 page = browser.new_page(viewport={"width": 1920, "height": 1080})
                 # ERR_ABORTED is routinely benign (media range requests,

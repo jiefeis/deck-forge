@@ -320,6 +320,8 @@ This policy applies even if the source template was originally implemented with 
 
 Author against the skill's fixed-stage model: full viewport-base.css inline, .slide/.active slides scaled as one unit (transform: scale(), origin 0 0) per html-template.md. Do not reference deck-stage.js (not bundled). Translate any data-anim/data-delay/.is-active entrance vocabulary from the source design into the deck's .reveal + .slide.visible convention. Render each slide at 1920×1080 and verify rendered screenshots for both text overflow and panel overlap.
 
+Page numbers or footers that must appear in the exported PDF must be slide-internal elements (see lumen-2026's .foot/.pageno); never use the reserved deck-chrome classes (.progress-bar, .slide-counter) — export_pdf.py strips them.
+
 
 ## Overview
 
@@ -586,12 +588,7 @@ No other border weights exist. There is no 2px, 3px, or thicker border anywhere 
 
 ## Responsive Behavior
 
-The system targets a **fixed 1920×1080 canvas** rendered inside the skill's fixed-stage wrapper. The stage handles proportional scaling to the browser viewport — all pixel-fixed sizes inside the canvas scale uniformly.
-
-### Presenter Behavior
-- Navigation, scaling, and presenter chrome are handled by the fixed-stage wrapper and the deck's inline controller.
-- Keyboard, touch, and mouse-wheel navigation are managed by the stage.
-- The canvas is constant 1920×1080 regardless of viewport.
+Source template was viewport-fluid/interactive; those behaviors do not apply to the fixed 1920×1080 stage and PDF delivery.
 
 ### Print Behavior
 Print/PDF export goes through the skill's export_pdf.py screenshot pipeline. The pink halo text-shadow and the film-grain overlay may render inconsistently in PDF export — test before assuming visual parity.

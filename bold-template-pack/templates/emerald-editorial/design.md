@@ -17,164 +17,164 @@ colors:
 typography:
   numeral-jumbo:
     fontFamily: "'Bodoni Moda', serif"
-    fontSize: 460
+    fontSize: "460px"
     fontWeight: 900
     lineHeight: 0.9
     letterSpacing: -0.04em
   display-section:
     fontFamily: "'Bodoni Moda', serif"
-    fontSize: 200
+    fontSize: "200px"
     fontWeight: 900
     lineHeight: 0.9
     letterSpacing: -0.015em
   display-cover:
     fontFamily: "'Bodoni Moda', serif"
-    fontSize: 184
+    fontSize: "184px"
     fontWeight: 900
     lineHeight: 0.92
     letterSpacing: -0.01em
   display:
     fontFamily: "'Bodoni Moda', serif"
-    fontSize: 130
+    fontSize: "130px"
     fontWeight: 900
     lineHeight: 0.96
     letterSpacing: -0.015em
   display-md:
     fontFamily: "'Bodoni Moda', serif"
-    fontSize: 128
+    fontSize: "128px"
     fontWeight: 900
     lineHeight: 0.95
     letterSpacing: -0.015em
   display-sm:
     fontFamily: "'Bodoni Moda', serif"
-    fontSize: 120
+    fontSize: "120px"
     fontWeight: 900
     lineHeight: 0.95
     letterSpacing: -0.015em
   headline-xl:
     fontFamily: "'Bodoni Moda', serif"
-    fontSize: 104
+    fontSize: "104px"
     fontWeight: 900
     lineHeight: 0.95
     letterSpacing: -0.015em
   headline:
     fontFamily: "'Bodoni Moda', serif"
-    fontSize: 92
+    fontSize: "92px"
     fontWeight: 900
     lineHeight: 1
     letterSpacing: -0.02em
   ornament-word-lg:
     fontFamily: "'Bodoni Moda', serif"
-    fontSize: 84
+    fontSize: "84px"
     fontWeight: 800
     lineHeight: 1
   ornament-word:
     fontFamily: "'Bodoni Moda', serif"
-    fontSize: 76
+    fontSize: "76px"
     fontWeight: 800
     lineHeight: 1
   ornament-word-sm:
     fontFamily: "'Bodoni Moda', serif"
-    fontSize: 68
+    fontSize: "68px"
     fontWeight: 800
     lineHeight: 1
   title-card-lg:
     fontFamily: "'Bodoni Moda', serif"
-    fontSize: 64
+    fontSize: "64px"
     fontWeight: 800
     lineHeight: 1
     letterSpacing: -0.005em
   title-card:
     fontFamily: "'Bodoni Moda', serif"
-    fontSize: 48
+    fontSize: "48px"
     fontWeight: 800
     lineHeight: 1
     letterSpacing: -0.005em
   title-card-sm:
     fontFamily: "'Bodoni Moda', serif"
-    fontSize: 44
+    fontSize: "44px"
     fontWeight: 800
     lineHeight: 1.05
     letterSpacing: -0.005em
   step-numeral:
     fontFamily: "'Bodoni Moda', serif"
-    fontSize: 80
+    fontSize: "80px"
     fontWeight: 900
     lineHeight: 1
   step-title:
     fontFamily: "'Bodoni Moda', serif"
-    fontSize: 40
+    fontSize: "40px"
     fontWeight: 800
     lineHeight: 1
     letterSpacing: -0.005em
   kpi-figure:
     fontFamily: "'Bodoni Moda', serif"
-    fontSize: 144
+    fontSize: "144px"
     fontWeight: 900
     lineHeight: 0.9
     letterSpacing: -0.03em
   kpi-figure-unit:
     fontFamily: "'Bodoni Moda', serif"
-    fontSize: 60
+    fontSize: "60px"
     fontWeight: 800
   stat-figure:
     fontFamily: "'Bodoni Moda', serif"
-    fontSize: 92
+    fontSize: "92px"
     fontWeight: 900
     lineHeight: 1
     letterSpacing: -0.02em
   stat-figure-unit:
     fontFamily: "'Bodoni Moda', serif"
-    fontSize: 48
+    fontSize: "48px"
     fontWeight: 900
   eyebrow:
     fontFamily: "'Manrope', sans-serif"
-    fontSize: 28
+    fontSize: "28px"
     fontWeight: 800
     letterSpacing: 0.18em
     textTransform: uppercase
   label:
     fontFamily: "'Manrope', sans-serif"
-    fontSize: 26
+    fontSize: "26px"
     fontWeight: 700
     letterSpacing: 0.08em
     textTransform: uppercase
   label-tight:
     fontFamily: "'Manrope', sans-serif"
-    fontSize: 26
+    fontSize: "26px"
     fontWeight: 700
     letterSpacing: 0.05em
     textTransform: uppercase
   tag:
     fontFamily: "'Manrope', sans-serif"
-    fontSize: 24
+    fontSize: "24px"
     fontWeight: 800
     letterSpacing: 0.12em
     textTransform: uppercase
   caption:
     fontFamily: "'Manrope', sans-serif"
-    fontSize: 24
+    fontSize: "24px"
     fontWeight: 700
     letterSpacing: 0.1em
     textTransform: uppercase
   body-lg:
     fontFamily: "'Manrope', sans-serif"
-    fontSize: 28
+    fontSize: "28px"
     fontWeight: 500
     lineHeight: 1.5
   body:
     fontFamily: "'Manrope', sans-serif"
-    fontSize: 26
+    fontSize: "26px"
     fontWeight: 500
     lineHeight: 1.5
   body-sm:
     fontFamily: "'Manrope', sans-serif"
-    fontSize: 24
+    fontSize: "24px"
     fontWeight: 500
     lineHeight: 1.45
   credit:
     fontFamily: "'Manrope', sans-serif"
-    fontSize: 28
+    fontSize: "28px"
     fontWeight: 700
     letterSpacing: 0.18em
     textTransform: uppercase
@@ -240,7 +240,7 @@ components:
     padding: "10px 22px"
     fontWeight: 700
     letterSpacing: 0.1em
-    fontSize: 24
+    fontSize: "24px"
     textTransform: uppercase
     description: "A small ink-on-bg pill used as a category mark or section tag. No border-radius — strict rectangle."
   tag-pill:
@@ -249,7 +249,7 @@ components:
     padding: "8px 20px"
     fontWeight: 700
     letterSpacing: 0.12em
-    fontSize: 24
+    fontSize: "24px"
     textTransform: uppercase
   delta-pill:
     background: "{colors.bg}"
@@ -257,7 +257,7 @@ components:
     padding: "6px 16px"
     fontWeight: 800
     letterSpacing: 0.08em
-    fontSize: 24
+    fontSize: "24px"
     textTransform: uppercase
     description: "A small bg-on-ink delta indicator placed inside an inverse kpi tile to show change direction. Inverted to ink-on-bg when inside a paper-tile."
   bar:
@@ -291,6 +291,8 @@ This policy has higher priority than any source-template responsive behavior des
 This policy applies even if the source template was originally implemented with viewport-fluid CSS such as `100vw`, `100vh`, `vw`, `vh`, or `clamp()`. Treat those values as design proportions to translate into 1920×1080 stage coordinates, not as live responsive rules in the generated deck.
 
 Author against the skill's fixed-stage model: full viewport-base.css inline, .slide/.active slides scaled as one unit (transform: scale(), origin 0 0) per html-template.md. Do not reference deck-stage.js (not bundled). Translate any data-anim/data-delay/.is-active entrance vocabulary from the source design into the deck's .reveal + .slide.visible convention. Render each slide at 1920×1080 and verify rendered screenshots for both text overflow and panel overlap.
+
+Page numbers or footers that must appear in the exported PDF must be slide-internal elements (see lumen-2026's .foot/.pageno); never use the reserved deck-chrome classes (.progress-bar, .slide-counter) — export_pdf.py strips them.
 
 
 ## Overview
@@ -521,13 +523,7 @@ Rules are never dashed, never dotted, never colored beyond the ink / currentColo
 
 ## Responsive Behavior
 
-This is a **fixed 1920×1080 presentation system** rendered through the skill's fixed-stage scaler. The canvas is not responsive in the CSS sense — there are no media queries, no breakpoints, no fluid sizing. Every measurement is in fixed pixels at 1920×1080.
-
-### Scaling Behavior
-The fixed-stage wrapper (viewport-base.css) wraps each `<section class="slide">` and scales the 1920×1080 canvas uniformly to fit the browser viewport, letterboxing as needed. Type, padding, gaps, and rule weights are all fixed pixels and scale proportionally with the canvas.
-
-### Presenter Behavior
-Navigation is delegated to the deck's inline controller. Each `<section class="slide">` is one frame; the controller handles transitions.
+Source template was viewport-fluid/interactive; those behaviors do not apply to the fixed 1920×1080 stage and PDF delivery.
 
 ### Print / Export
 Fixed-pixel measurements inside a 1920×1080 canvas export cleanly to PDF at 16:9. Bodoni Moda renders well at print resolution because the heavy display weight carries the page even at large physical sizes.
@@ -612,7 +608,6 @@ The system's commitment to Bodoni Moda weight 900 at 460px (jumbo numerals on in
 ## Known Gaps
 
 - The Google Fonts request loads Bodoni Moda, Playfair Display, DM Serif Display, Rozha One, Yeseva One, and Manrope. **In practice only Bodoni Moda and Manrope are used.** The other four serif families are dormant — loaded but not referenced in the CSS. They are available as alternate display voices but must be wired in explicitly.
-- Canvas scaling and slide navigation come from the skill's fixed-stage model (viewport-base.css plus the deck's inline controller), not an external script.
 - The `:root[data-ornament]` switch (`double` / `single` / `none`) is a global presentation setting. It cannot be applied per-slide or per-ornament — switching variants applies deck-wide.
 - The ink-2 / ink-3 and bg-2 / bg-3 color tokens are defined but not actively used in the published CSS. They are reserved for tonal variation but currently dormant.
 - The bar chart uses hand-set bar heights (CSS `%`). There is no data-binding layer — extending the chart requires manually computing percentages.

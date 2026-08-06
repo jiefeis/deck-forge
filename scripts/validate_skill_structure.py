@@ -65,6 +65,10 @@ def validate(root: Path) -> list[str]:
         if reference.is_file() and reference.name not in skill_text:
             errors.append(f"reference is not routed from SKILL.md: {reference.name}")
     for script in sorted((root / "scripts").glob("*")):
+        # Leading underscore marks a shared helper module that scripts import
+        # but no one invokes; only entry points need a SKILL.md route.
+        if script.name.startswith("_"):
+            continue
         if script.is_file() and script.name not in skill_text:
             errors.append(f"script is not routed from SKILL.md: {script.name}")
 

@@ -36,86 +36,86 @@ color-aliases:
 typography:
   display:
     fontFamily: "Source Serif 4, Noto Serif SC, Georgia, serif"
-    fontSize: 9.5vw
+    fontSize: 254px
     fontWeight: 700
     lineHeight: 0.96
     letterSpacing: -0.02em
   h1:
     fontFamily: "Source Serif 4, Noto Serif SC, Georgia, serif"
-    fontSize: 5.2vw
+    fontSize: 139px
     fontWeight: 600
     lineHeight: 1.08
     letterSpacing: -0.01em
   h2:
     fontFamily: "Source Serif 4, Noto Serif SC, Georgia, serif"
-    fontSize: 3vw
+    fontSize: 80px
     fontWeight: 600
     lineHeight: 1.18
   h3:
     fontFamily: "Source Serif 4, Noto Serif SC, Georgia, serif"
-    fontSize: 1.9vw
+    fontSize: 51px
     fontWeight: 500
     lineHeight: 1.3
   lead:
     fontFamily: "DM Sans, Noto Sans SC, system-ui, sans-serif"
-    fontSize: 1.4vw
+    fontSize: 37px
     fontWeight: 400
     lineHeight: 1.58
   body:
     fontFamily: "DM Sans, Noto Sans SC, system-ui, sans-serif"
-    fontSize: 1.05vw
+    fontSize: 28px
     fontWeight: 400
     lineHeight: 1.65
   caption:
     fontFamily: "DM Sans, Noto Sans SC, system-ui, sans-serif"
-    fontSize: 0.82vw
+    fontSize: 22px
     fontWeight: 400
     lineHeight: 1.5
   label:
     fontFamily: "IBM Plex Mono, JetBrains Mono, monospace"
-    fontSize: 0.7vw
+    fontSize: 19px
     fontWeight: 500
     letterSpacing: 0.14em
     textTransform: uppercase
   stat-value:
     fontFamily: "Source Serif 4, Noto Serif SC, Georgia, serif"
-    fontSize: 5.5vw
+    fontSize: 147px
     fontWeight: 600
     lineHeight: 1
     letterSpacing: -0.02em
   quote-text:
     fontFamily: "Source Serif 4, Noto Serif SC, Georgia, serif"
-    fontSize: 3.6vw
+    fontSize: 96px
     fontWeight: 400
     lineHeight: 1.28
     letterSpacing: -0.01em
   quote-mark:
     fontFamily: "Source Serif 4, Noto Serif SC, Georgia, serif"
-    fontSize: 8vw
+    fontSize: 214px
     fontWeight: 300
     lineHeight: 0.6
   editorial-headline:
     fontFamily: "Source Serif 4, Noto Serif SC, Georgia, serif"
-    fontSize: 2.75vw
+    fontSize: 73px
     fontWeight: 600
     lineHeight: 1.2
   dense-headline:
     fontFamily: "Source Serif 4, Noto Serif SC, Georgia, serif"
-    fontSize: 2.4vw
+    fontSize: 64px
     fontWeight: 600
     lineHeight: 1.2
 
 spacing:
-  pad-x: 7.5vw
-  pad-y: 5.5vh
-  gap-lg: 4vh
-  gap-md: 2.5vh
-  gap-sm: 1.2vh
+  pad-x: 144px
+  pad-y: 59px
+  gap-lg: 43px
+  gap-md: 27px
+  gap-sm: 13px
   grid-cell: 80px
 
 canvas:
-  width: 100vw
-  height: 100vh
+  width: 1920px
+  height: 1080px
 
 components:
   rule-short:
@@ -181,7 +181,7 @@ components:
     description: "Single vertical hairline separating two comparison panels."
   pyramid-band:
     borderLeft: "3px solid {colors.gold}"
-    padding: "1.3vh 2.5vw"
+    padding: "14px 48px"
     fillFunction: "color-mix(in srgb, {colors.gold} N%, {colors.navy})"
     description: "Horizontal band in pyramid layouts; opacity of gold mix decreases from top tier to bottom."
   grid-texture:
@@ -212,6 +212,8 @@ This policy has higher priority than any source-template responsive behavior des
 This policy applies even if the source template was originally implemented with viewport-fluid CSS such as `100vw`, `100vh`, `vw`, `vh`, or `clamp()`. Treat those values as design proportions to translate into 1920×1080 stage coordinates, not as live responsive rules in the generated deck.
 
 Author against the skill's fixed-stage model: full viewport-base.css inline, .slide/.active slides scaled as one unit (transform: scale(), origin 0 0) per html-template.md. Do not reference deck-stage.js (not bundled). Translate any data-anim/data-delay/.is-active entrance vocabulary from the source design into the deck's .reveal + .slide.visible convention. Render each slide at 1920×1080 and verify rendered screenshots for both text overflow and panel overlap.
+
+Page numbers or footers that must appear in the exported PDF must be slide-internal elements (see lumen-2026's .foot/.pageno); never use the reserved deck-chrome classes (.progress-bar, .slide-counter) — export_pdf.py strips them. Signal's chrome-bar / foot-bar mono counter is slide-internal and is the correct place for the page mark.
 
 
 ## Overview

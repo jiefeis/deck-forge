@@ -6,6 +6,7 @@ from __future__ import annotations
 import ast
 import importlib.util
 import os
+import re
 import subprocess
 import sys
 from pathlib import Path
@@ -18,10 +19,20 @@ REQUIRED_MODULES = (
     ("PIL", "Pillow"),
 )
 
+# unittest summary lines: "OK (skipped=3)", "FAILED (failures=1, skipped=2)".
+SKIPPED_RE = re.compile(r"\bskipped=(\d+)")
 
-def run(command: list[str], env: dict[str, str]) -> int:
+
+def run(command: list[str], env: dict[str, str]) -> tuple[int, int]:
+    """Run a command, echo its output, and return (returncode, skipped)."""
     print("\n$ " + " ".join(command), flush=True)
-    return subprocess.run(command, env=env, check=False).returncode
+    result = subprocess.run(
+        command, env=env, check=False, capture_output=True,
+        text=True, encoding="utf-8", errors="replace",
+    )
+    output = result.stdout + result.stderr
+    print(output, end="", flush=True)
+    return result.returncode, sum(int(n) for n in SKIPPED_RE.findall(output))
 
 
 def validate_python_syntax(root: Path) -> list[str]:
@@ -75,21 +86,37 @@ def main() -> int:
         root.parent / ".system" / "skill-creator" / "scripts" /
         "quick_validate.py"
     )
+    skipped_commands: list[str] = []
     if validator.is_file():
-        failures += run([python, "-B", str(validator), str(root)], env) != 0
+        failures += run([python, "-B", str(validator), str(root)], env)[0] != 0
     else:
         print(f"SKIP quick_validate.py not found at {validator}")
+        skipped_commands.append(f"quick_validate.py (not found at {validator})")
 
     failures += run(
         [python, "-B", str(root / "scripts" / "validate_template_pack.py")], env
-    ) != 0
+    )[0] != 0
     failures += run(
         [python, "-B", str(root / "scripts" / "validate_skill_structure.py")], env
-    ) != 0
+    )[0] != 0
+    skipped_total = 0
+    skipped_files: list[tuple[str, int]] = []
     for test in sorted((root / "tests").glob("test_*.py")):
-        failures += run([python, "-B", str(test)], env) != 0
+        code, skipped = run([python, "-B", str(test)], env)
+        failures += code != 0
+        if skipped:
+            skipped_total += skipped
+            skipped_files.append((test.relative_to(root).as_posix(), skipped))
 
-    print(f"\nRESULT: {'FAIL' if failures else 'OK'} ({failures} failing command(s))")
+    print(
+        f"\nRESULT: {'FAIL' if failures else 'OK'} "
+        f"({failures} failing command(s), {skipped_total} skipped test(s), "
+        f"{len(skipped_commands)} skipped command(s))"
+    )
+    for name, count in skipped_files:
+        print(f"  skipped test(s): {name} ({count})")
+    for name in skipped_commands:
+        print(f"  skipped command: {name}")
     return 1 if failures else 0
 
 

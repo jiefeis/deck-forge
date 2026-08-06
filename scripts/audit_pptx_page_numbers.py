@@ -70,6 +70,9 @@ def xml_bool(value: str | None, *, default: bool) -> bool:
 
 
 def resolve_target(folder: str, target: str) -> str:
+    # Fragment strip matches _pptx_common._resolve_target; a "part.xml#anchor"
+    # target must resolve to the part, not to a name that is not in the ZIP.
+    target = target.split("#", 1)[0]
     if target.startswith("/"):
         return target.lstrip("/")
     return posixpath.normpath(posixpath.join(folder, target))

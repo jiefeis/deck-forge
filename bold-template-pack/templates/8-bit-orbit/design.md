@@ -24,43 +24,43 @@ shadows:
 typography:
   pixel-hero:
     fontFamily: "'Tektur', cursive"
-    fontSize: "clamp(48px, 10vw, 128px)"
+    fontSize: 128px
     fontWeight: 900
     lineHeight: 1.05
     letterSpacing: 0.04em
   display:
     fontFamily: "'Tektur', cursive"
-    fontSize: "clamp(32px, 5vw, 64px)"
+    fontSize: 96px
     fontWeight: 700
     lineHeight: 1.15
   headline:
     fontFamily: "'Tektur', cursive"
-    fontSize: "clamp(24px, 3.5vw, 45px)"
+    fontSize: 45px
     fontWeight: 700
     lineHeight: 1.15
   subhead:
     fontFamily: "'Tektur', cursive"
-    fontSize: "clamp(17.6px, 2vw, 24px)"
+    fontSize: 38px
     fontWeight: 700
     lineHeight: 1.15
   stat-number:
     fontFamily: "'Tektur', cursive"
-    fontSize: "clamp(32px, 4vw, 56px)"
+    fontSize: 56px
     fontWeight: 900
     lineHeight: 1
   body:
     fontFamily: "'Chakra Petch', sans-serif"
-    fontSize: "clamp(14.4px, 1.2vw, 18.4px)"
+    fontSize: 24px
     fontWeight: 400
     lineHeight: 1.7
   hero-tagline:
     fontFamily: "'Chakra Petch', sans-serif"
-    fontSize: "clamp(14.4px, 1.5vw, 19.2px)"
+    fontSize: 19px
     fontWeight: 400
     lineHeight: 1.8
   quote-body:
     fontFamily: "'Chakra Petch', sans-serif"
-    fontSize: "clamp(17.6px, 2.2vw, 25.6px)"
+    fontSize: 42px
     fontWeight: 500
     lineHeight: 1.8
   label-pill:
@@ -109,8 +109,8 @@ typography:
 
 spacing:
   pixel-unit: 4px
-  pad-slide-y: "3vh"
-  pad-slide-x: "4vw"
+  pad-slide-y: 32px
+  pad-slide-x: 77px
   pad-card-lg: "32px 40px"
   pad-card-md: "28px"
   pad-card-sm: "16px 20px"
@@ -120,8 +120,8 @@ spacing:
   content-max-width: 1200px
 
 canvas:
-  width: 100vw
-  height: 100vh
+  width: 1920px
+  height: 1080px
 
 components:
   label-pill:
@@ -244,7 +244,7 @@ This policy has higher priority than any source-template responsive behavior des
 
 This policy applies even if the source template was originally implemented with viewport-fluid CSS such as `100vw`, `100vh`, `vw`, `vh`, or `clamp()`. Treat those values as design proportions to translate into 1920×1080 stage coordinates, not as live responsive rules in the generated deck.
 
-Author against the skill's fixed-stage model: full viewport-base.css inline, .slide/.active slides scaled as one unit (transform: scale(), origin 0 0) per html-template.md. Do not reference deck-stage.js (not bundled). Translate any data-anim/data-delay/.is-active entrance vocabulary from the source design into the deck's .reveal + .slide.visible convention. Render each slide at 1920×1080 and verify rendered screenshots for both text overflow and panel overlap.
+Author against the skill's fixed-stage model: full viewport-base.css inline, .slide/.active slides scaled as one unit (transform: scale(), origin 0 0) per html-template.md. Do not reference deck-stage.js (not bundled). Translate any data-anim/data-delay/.is-active entrance vocabulary from the source design into the deck's .reveal + .slide.visible convention. Render each slide at 1920×1080 and verify rendered screenshots for both text overflow and panel overlap. Page numbers or footers that must appear in the exported PDF must be slide-internal elements (see lumen-2026's .foot/.pageno); never use the reserved deck-chrome classes (.progress-bar, .slide-counter) — export_pdf.py strips them.
 
 
 ## Overview
@@ -303,7 +303,7 @@ The system runs three faces, each locked to its role.
 
 **Tektur** is the display face — a wide-bodied, semi-geometric grotesque with subtle pixel-grid cuts. Used for every hero title, headline, stat numeral, quote mark, and large numeral. Tektur's chunky personality is what makes the system feel arcade-native; replacing it with Inter or Space Grotesk breaks the entire aesthetic.
 
-**Chakra Petch** is the body face — a humanist sans with mild geometric/squared character that reads cleanly at 14-22px and has enough personality to sit next to Tektur without disappearing. Used for paragraphs, hero taglines, quote bodies, and any longer-form prose.
+**Chakra Petch** is the body face — a humanist sans with mild geometric/squared character that reads cleanly at body sizes and has enough personality to sit next to Tektur without disappearing. Used for paragraphs, hero taglines, quote bodies, and any longer-form prose.
 
 **Space Mono** is the HUD face — a monospace used exclusively for labels, badges, chart values/axes, page counters, date chips, and any element that should feel like a system readout. The mono + wide-tracked uppercase combination is the system's "interface" voice.
 
@@ -311,16 +311,16 @@ Never use Tektur for body, never use Chakra Petch for chrome/HUD, never use Spac
 
 ### Typography Scale
 
-| Token | Size (clamp) | Family | Weight | Use |
+| Token | Size | Family | Weight | Use |
 |---|---|---|---|---|
-| `{typography.pixel-hero}` | 48–128px | Tektur | 900 | Hero or cover display title — always carries the two-layer text shadow |
-| `{typography.display}` | 32–64px | Tektur | 700 | Large section opener |
-| `{typography.headline}` | 24–45px | Tektur | 700 | Primary section headline |
-| `{typography.subhead}` | 17.6–24px | Tektur | 700 | Region-level subheading or card title |
-| `{typography.stat-number}` | 32–56px | Tektur | 900 | Stat tile numeral — pairs with the small text shadow |
-| `{typography.body}` | 14.4–18.4px | Chakra Petch | 400 | Paragraph body |
-| `{typography.hero-tagline}` | 14.4–19.2px | Chakra Petch | 400 | Hero subtitle / lede paragraph below a pixel-hero |
-| `{typography.quote-body}` | 17.6–25.6px | Chakra Petch | 500 | Quote text |
+| `{typography.pixel-hero}` | 192px | Tektur | 900 | Hero or cover display title — always carries the two-layer text shadow |
+| `{typography.display}` | 96px | Tektur | 700 | Large section opener |
+| `{typography.headline}` | 67px | Tektur | 700 | Primary section headline |
+| `{typography.subhead}` | 38px | Tektur | 700 | Region-level subheading or card title |
+| `{typography.stat-number}` | 77px | Tektur | 900 | Stat tile numeral — pairs with the small text shadow |
+| `{typography.body}` | 24px | Chakra Petch | 400 | Paragraph body |
+| `{typography.hero-tagline}` | 29px | Chakra Petch | 400 | Hero subtitle / lede paragraph below a pixel-hero |
+| `{typography.quote-body}` | 42px | Chakra Petch | 500 | Quote text |
 | `{typography.label-pill}` | 12px | Space Mono | 700 | Text inside the navy label pill |
 | `{typography.label-eyebrow}` | 13.6px | Space Mono | 400 | Standalone uppercase eyebrow above a headline (heavier tracking than the pill) |
 | `{typography.badge}` | 11.2px | Space Mono | 400 | Outline-only hero badge text |
@@ -331,10 +331,10 @@ Never use Tektur for body, never use Chakra Petch for chrome/HUD, never use Spac
 
 ### Defaults
 
-- **Default size for a hero or cover title**: `{typography.pixel-hero}` (48–128px clamp) — always Tektur weight 900 with the two-layer text shadow.
-- **Default size for a primary section headline**: `{typography.headline}` (24–45px clamp) — Tektur weight 700.
-- **Default size for paragraph body**: `{typography.body}` (14.4–18.4px clamp) — Chakra Petch weight 400.
-- **Default size for a stat numeral**: `{typography.stat-number}` (32–56px clamp) — Tektur weight 900, always carries the 3px navy text shadow.
+- **Default size for a hero or cover title**: `{typography.pixel-hero}` (192px) — always Tektur weight 900 with the two-layer text shadow.
+- **Default size for a primary section headline**: `{typography.headline}` (67px) — Tektur weight 700.
+- **Default size for paragraph body**: `{typography.body}` (24px) — Chakra Petch weight 400.
+- **Default size for a stat numeral**: `{typography.stat-number}` (77px) — Tektur weight 900, always carries the 3px navy text shadow.
 - **Default size for an eyebrow label**: `{typography.label-pill}` (12px) housed in the navy pill — or `{typography.label-eyebrow}` (13.6px) if the eyebrow sits standalone.
 - **Default tracking for any Space Mono label**: 0.1em (badges) to 0.3em (eyebrow labels). Mono without wide tracking reads as code, not HUD.
 - **Default body weight**: 400 for Chakra Petch, 500 for quote bodies.
@@ -363,9 +363,9 @@ Tektur should always feel **planted** — left-aligned, generous line-height, ne
 ## Layout
 
 ### Canvas System
-The system targets `100vw × 100vh` per slide. Slides are stacked vertically inside a `slides-container` and translated via `transform: translateY(...)` for navigation. Only one slide occupies the viewport at a time, with cubic-bezier `(0.22, 1, 0.36, 1)` easing on an 800ms transition.
+Every slide is exactly 1920×1080px. The skill's fixed-stage scaler (viewport-base.css) handles centering and scaling.
 
-Default slide padding is `3vh 4vw`. The inner `slide-content` caps at `max-width: 1200px` and centers, so on wide displays content keeps editorial column width while the colored background fills the viewport.
+Default slide padding is `32px 77px`. The inner `slide-content` caps at `max-width: 1200px` and centers, so content keeps editorial column width while the colored background fills the stage.
 
 ### Pixel Unit
 Every measurement in the system snaps to a **4px grid**. Border widths are 2px or 4px. Shadow offsets are 4px or 8px. Corner brackets are 24×24 with 4px stroke. The background grid is 40px (10 × pixel-unit). Card padding usually resolves to multiples of 8 (16, 24, 32, 48). This discipline is what makes the system feel rasterized rather than vector.
@@ -481,33 +481,7 @@ Borders are always solid, always navy or neon, never dashed except for the timel
 
 ## Responsive Behavior
 
-8-Bit Orbit is a **viewport-fluid system** built around `vw/vh`-based sizing and CSS `clamp()` ranges. There are no hard breakpoints for the deck itself — every font size, padding value, and gap interpolates between a minimum and maximum based on viewport width.
-
-### Scaling Behavior
-- Hero text scales 48px → 128px on viewport width.
-- Stat numerals scale 32px → 56px.
-- Body scales 14.4px → 18.4px.
-- The 4px pixel unit, 40px grid size, scanline 4px stripe, and corner-bracket dimensions are fixed — they do not scale, which means at larger viewports the pixel chrome appears proportionally finer (intentionally — the larger the canvas, the smaller and more refined the pixels read).
-
-### Component Breakpoints
-Three component-level breakpoints exist:
-- `max-width: 1024px` — feature grid collapses 4→2 columns, two-column split layouts stack.
-- `max-width: 900px` — feature grid further collapses, hbar chart label column shrinks.
-- `max-width: 500px` — feature grid becomes single column, stats grid stacks.
-
-### Presenter Behavior
-- Slides advance via `ArrowDown`, `ArrowRight`, or `Space`.
-- Slides reverse via `ArrowUp` or `ArrowLeft`.
-- `Home` jumps to first, `End` to last.
-- Vertical swipe on touch devices advances/reverses with a 50px threshold.
-- Mouse wheel scroll advances/reverses with an 800ms debounce lock.
-- Slide transitions use 800ms cubic-bezier `(0.22, 1, 0.36, 1)` on a translateY transform.
-
-### Animation Triggers
-Chart bars and stat counters animate in on slide entry with `setTimeout` staggers (100-150ms between items). When a slide is exited, its bars/counters reset to 0 so re-entry replays the animation. The `prefers-reduced-motion` media query disables transitions and the starfield/particle twinkle keyframes.
-
-### Print Behavior
-The system has no `@media print` rule. The deck is screen-first; printing produces only the active slide. For static export, screenshots of each slide preserve all atmospheric overlays (scanlines and grain are CSS-rendered, not assets).
+Source template was viewport-fluid/interactive; those behaviors do not apply to the fixed 1920×1080 stage and PDF delivery.
 
 ## CJK & International Content
 
@@ -576,7 +550,5 @@ The system's Space Mono label-pill (navy fill, neon-yellow text, 0.2em tracking,
 - **The chart system is hardcoded**: bar heights, hbar widths, and stat counter targets are stored in `data-*` attributes and animated via `setTimeout` staggers triggered by slide-index matching. There is no data-binding layer — adding a new chart requires copying the HTML pattern and updating the JS slide-index matcher.
 - **The pixel-landscape on CTA surfaces is JS-generated** from a hardcoded heights array `[30, 50, 70, ...]`. Width varies per mountain (60 + (i % 3) * 20px). Replacing the landscape requires editing the JS heights array.
 - **The CRT vignette glow uses a fixed dark-navy radial gradient.** Adjusting it requires editing the CSS gradient stops; there is no tokenized vignette intensity.
-- **The cursor is set to `crosshair` deck-wide** for atmospheric reasons. This may conflict with text-selection expectations in contexts where the deck is embedded.
-- **No keyboard navigation hint exists for the wheel/touch fallback.** The nav-hint reads `USE KEYS ↑ ↓` even though wheel and touch are also wired up.
 - **The slide counter format is fixed at `NN / NN` zero-padded.** Decks with more than 99 slides would render with a layout-shifting counter.
 - **The pixel-corner-bracket sizing is fixed at 24×24 with 4px stroke** and does not scale with viewport. On very large or very small viewports the brackets may feel proportionally off.

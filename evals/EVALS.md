@@ -54,9 +54,10 @@ for i in range(1, 13):
     slide.shapes.title.text = f"第 {i} 页 · 业务回顾"
     box = slide.shapes.add_textbox(Inches(1), Inches(2), Inches(8), Inches(3))
     box.text_frame.text = f"要点 {i}：本页包含两行正文，用于最小修改测试。"
+slide._element.set("show", "0")  # hide the last slide (the backup)
 prs.save("eval-deck.pptx")
-# Then hide the last slide in PowerPoint/WPS, or leave all visible and drop
-# the hidden-state assertions from the scenario.
+# Or leave all slides visible and drop the hidden-state assertions from the
+# scenario.
 ```
 
 This synthetic deck renders NO page numbers (layout 5 has no number

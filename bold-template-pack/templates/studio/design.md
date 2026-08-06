@@ -31,76 +31,76 @@ color-aliases:
 typography:
   display:
     fontFamily: "Barlow, Noto Sans SC, sans-serif"
-    fontSize: 12vw
+    fontSize: 288px
     fontWeight: 900
     lineHeight: 0.9
     letterSpacing: -0.02em
     textTransform: uppercase
   h1:
     fontFamily: "Barlow, Noto Sans SC, sans-serif"
-    fontSize: 7.5vw
+    fontSize: 180px
     fontWeight: 900
     lineHeight: 0.92
     letterSpacing: -0.02em
     textTransform: uppercase
   h2:
     fontFamily: "Barlow, Noto Sans SC, sans-serif"
-    fontSize: 4.8vw
+    fontSize: 115px
     fontWeight: 900
     lineHeight: 0.95
     letterSpacing: -0.01em
     textTransform: uppercase
   h3:
     fontFamily: "Barlow, Noto Sans SC, sans-serif"
-    fontSize: 2.8vw
+    fontSize: 67px
     fontWeight: 700
     lineHeight: 1.1
     textTransform: uppercase
   quote-text:
     fontFamily: "Barlow, Noto Sans SC, sans-serif"
-    fontSize: 3.8vw
+    fontSize: 91px
     fontWeight: 900
     lineHeight: 1.05
     letterSpacing: -0.02em
     textTransform: uppercase
   stat-value:
     fontFamily: "Barlow, Noto Sans SC, sans-serif"
-    fontSize: 5.5vw
+    fontSize: 132px
     fontWeight: 900
     lineHeight: 0.9
     letterSpacing: -0.03em
     textTransform: uppercase
   lead:
     fontFamily: "Barlow, Noto Sans SC, system-ui, sans-serif"
-    fontSize: 1.6vw
+    fontSize: 38px
     fontWeight: 500
     lineHeight: 1.45
   body:
     fontFamily: "Barlow, Noto Sans SC, system-ui, sans-serif"
-    fontSize: 1.15vw
+    fontSize: 28px
     fontWeight: 400
     lineHeight: 1.6
   caption:
     fontFamily: "Barlow, Noto Sans SC, system-ui, sans-serif"
-    fontSize: 0.85vw
+    fontSize: 20px
     fontWeight: 400
     lineHeight: 1.5
   label:
     fontFamily: "IBM Plex Mono, monospace"
-    fontSize: 0.72vw
+    fontSize: 17px
     fontWeight: 500
     letterSpacing: 0.06em
 
 spacing:
-  pad-x: 5vw
-  pad-y: 5vh
-  gap-lg: 3.5vh
-  gap-md: 2vh
-  gap-sm: 1vh
+  pad-x: 96px
+  pad-y: 54px
+  gap-lg: 38px
+  gap-md: 22px
+  gap-sm: 11px
 
 canvas:
-  width: 100vw
-  height: 100vh
+  width: 1920px
+  height: 1080px
 
 components:
   chrome-bar:
@@ -120,7 +120,7 @@ components:
   stat-card:
     borderTop: "2px solid (acid-yellow on dark, near-black on yellow)"
     padding: "{spacing.gap-md} {spacing.gap-md} {spacing.gap-md} 0"
-    description: "Stat tile with a 2px top rule. Value at 5.5vw weight 900 in the surface's foreground color; label and mono note beneath."
+    description: "Stat tile with a 2px top rule. Value at 132px weight 900 in the surface's foreground color; label and mono note beneath."
   bullet-marker:
     content: "—"
     color: "acid-yellow on dark, near-black on yellow"
@@ -167,6 +167,8 @@ This policy applies even if the source template was originally implemented with 
 
 Author against the skill's fixed-stage model: full viewport-base.css inline, .slide/.active slides scaled as one unit (transform: scale(), origin 0 0) per html-template.md. Do not reference deck-stage.js (not bundled). Translate any data-anim/data-delay/.is-active entrance vocabulary from the source design into the deck's .reveal + .slide.visible convention. Render each slide at 1920×1080 and verify rendered screenshots for both text overflow and panel overlap.
 
+Page numbers or footers that must appear in the exported PDF must be slide-internal elements (see lumen-2026's .foot/.pageno); never use the reserved deck-chrome classes (.progress-bar, .slide-counter) — export_pdf.py strips them.
+
 
 ## Overview
 
@@ -174,16 +176,16 @@ Studio is a **type-as-graphic-mass** presentation system — the visual register
 
 The palette is **binary plus one**. The dark surface is `{colors.near-black}` (#1C1C1C) — a warm dark, not cold neutral. The light surface is `{colors.acid-yellow}` (#F5D200) — a saturated cadmium yellow that fills the entire slide, not as an accent but as the environment. On dark slides, text is `{colors.acid-yellow}`. On yellow slides, text is `{colors.near-black}`. That's the entire color system: dark/yellow, yellow/dark. There are no secondary colors, no grays, no warming accents. Even muted text is just the same color at reduced opacity (yellow at 58%, near-black at 62%).
 
-The typeface stack is **functional rather than expressive**. Barlow at weight 900 carries every headline at every scale — from 1.15vw body all the way up to 12vw cover display. Barlow at 500 carries body and lead paragraphs. IBM Plex Mono carries the metadata footer, slide counter, and three-column cover lockup — and is the only point in the system where a second face appears. Mono is the system's "spec sheet" voice; everywhere else, Barlow dominates.
+The typeface stack is **functional rather than expressive**. Barlow at weight 900 carries every headline at every scale — from 28px body all the way up to 288px cover display. Barlow at 500 carries body and lead paragraphs. IBM Plex Mono carries the metadata footer, slide counter, and three-column cover lockup — and is the only point in the system where a second face appears. Mono is the system's "spec sheet" voice; everywhere else, Barlow dominates.
 
 Depth is **flat and severe**. No drop shadows. No rounded corners. No gradients. Borders are 1px or 2px hairlines in `{colors.border-dark}` or `{colors.border-light}`. The 2px chart baseline and 2px stat-card top-rule are the heaviest lines in the system. The system reads as an architectural drawing or a manifesto poster — every line is intentional, nothing decorative.
 
-**Density philosophy: low and deliberate.** Studio is sparse by design. A statement slide is one headline filling most of the canvas with empty surface above and below. A chapter slide is a small mono label and a headline. A cover is an image placeholder behind a single word at 12vw. Padding runs tighter than Signal (5vw / 5vh vs 7.5vw / 5.5vh) because the type itself runs nearly to the edge — the heading is the spatial fill, not the margin. A slide that feels broken in Studio is one that contains multiple competing elements or fills its canvas with body paragraphs. The correct register is "one massive thing, said once, in 900 weight uppercase."
+**Density philosophy: low and deliberate.** Studio is sparse by design. A statement slide is one headline filling most of the canvas with empty surface above and below. A chapter slide is a small mono label and a headline. A cover is an image placeholder behind a single word at 288px. Padding runs tighter than Signal (5vw / 5vh vs 7.5vw / 5.5vh) because the type itself runs nearly to the edge — the heading is the spatial fill, not the margin. A slide that feels broken in Studio is one that contains multiple competing elements or fills its canvas with body paragraphs. The correct register is "one massive thing, said once, in 900 weight uppercase."
 
 **Key Characteristics:**
 - Binary palette — `{colors.near-black}` field with `{colors.acid-yellow}` type, or `{colors.acid-yellow}` field with `{colors.near-black}` type. No third color.
 - Barlow at weight 900 uppercase for every headline at every scale; Barlow 400/500 for body; IBM Plex Mono only for metadata chrome.
-- Headlines run massive — cover display at 12vw (~230px at 1920px viewport), statements at 7.5vw, section headers at 4.8vw.
+- Headlines run massive — cover display at 288px, statements at 180px, section headers at 115px.
 - Tight negative letter-spacing on all display type (-0.01 to -0.03em); uppercase non-negotiable.
 - Flat: no drop shadows, no rounded corners, no gradients, no accent colors beyond the yellow/dark binary.
 - Hairline 1px borders on chrome; 2px on stat-card tops, chart baselines, and compare panel dividers.
@@ -238,36 +240,36 @@ Barlow weight 900 at display scale stops behaving like a typeface and starts beh
 
 | Token | Size | Family | Weight | Use |
 |---|---|---|---|---|
-| `{typography.display}` | 12vw | Barlow | 900 | Cover hero at maximum scale |
-| `{typography.h1}` | 7.5vw | Barlow | 900 | Chapter title, full-slide statement headline |
-| `{typography.stat-value}` | 5.5vw | Barlow | 900 | Statistical numeral inside a stat card |
-| `{typography.h2}` | 4.8vw | Barlow | 900 | Primary slide headline |
-| `{typography.quote-text}` | 3.8vw | Barlow | 900 | Pull-quote body (uppercase, no quote marks) |
-| `{typography.h3}` | 2.8vw | Barlow | 700 | Sub-headline, panel title |
-| `{typography.lead}` | 1.6vw | Barlow | 500 | Lead paragraph, intro sentence |
-| `{typography.body}` | 1.15vw | Barlow | 400 | Default body paragraph, bullet body |
-| `{typography.caption}` | 0.85vw | Barlow | 400 | Caption, source attribution |
-| `{typography.label}` | 0.72vw | IBM Plex Mono | 500 | Mono chrome, slide counter, chapter number, stat note, cover-meta |
+| `{typography.display}` | 288px | Barlow | 900 | Cover hero at maximum scale |
+| `{typography.h1}` | 180px | Barlow | 900 | Chapter title, full-slide statement headline |
+| `{typography.stat-value}` | 132px | Barlow | 900 | Statistical numeral inside a stat card |
+| `{typography.h2}` | 115px | Barlow | 900 | Primary slide headline |
+| `{typography.quote-text}` | 91px | Barlow | 900 | Pull-quote body (uppercase, no quote marks) |
+| `{typography.h3}` | 67px | Barlow | 700 | Sub-headline, panel title |
+| `{typography.lead}` | 38px | Barlow | 500 | Lead paragraph, intro sentence |
+| `{typography.body}` | 28px | Barlow | 400 | Default body paragraph, bullet body |
+| `{typography.caption}` | 20px | Barlow | 400 | Caption, source attribution |
+| `{typography.label}` | 17px | IBM Plex Mono | 500 | Mono chrome, slide counter, chapter number, stat note, cover-meta |
 
 ### Defaults
 
-- **Default size for a primary section headline**: `{typography.h2}` (4.8vw).
-- **Default size for a chapter or statement headline**: `{typography.h1}` (7.5vw).
-- **Default size for a cover hero**: `{typography.display}` (12vw).
-- **Default size for a paragraph body**: `{typography.body}` (1.15vw).
-- **Default size for a lead sentence**: `{typography.lead}` (1.6vw).
-- **Default size for any chrome label, counter, or mono caption**: `{typography.label}` (0.72vw).
-- **Default size for a statistical numeral**: `{typography.stat-value}` (5.5vw) in the surface accent.
+- **Default size for a primary section headline**: `{typography.h2}` (115px).
+- **Default size for a chapter or statement headline**: `{typography.h1}` (180px).
+- **Default size for a cover hero**: `{typography.display}` (288px).
+- **Default size for a paragraph body**: `{typography.body}` (28px).
+- **Default size for a lead sentence**: `{typography.lead}` (38px).
+- **Default size for any chrome label, counter, or mono caption**: `{typography.label}` (17px).
+- **Default size for a statistical numeral**: `{typography.stat-value}` (132px) in the surface accent.
 - **Default weight for any headline**: 900.
 - **Default weight for any body element**: 400 (lead = 500).
 
-When unsure between sizes, lean larger. Studio's identity depends on type running massive — a 4.8vw h2 reads as the system; a 2.8vw h3 used as a primary headline reads as a different system.
+When unsure between sizes, lean larger. Studio's identity depends on type running massive — a 115px h2 reads as the system; a 67px h3 used as a primary headline reads as a different system.
 
 ### Signature Treatments
 
 These treatments are **non-optional whenever the corresponding element type is used**:
 
-- **Every display, h1, h2, h3, quote-text, and stat-value is uppercase.** Sentence-case display type does not exist. Even h3 (2.8vw) at weight 700 runs uppercase.
+- **Every display, h1, h2, h3, quote-text, and stat-value is uppercase.** Sentence-case display type does not exist. Even h3 (67px) at weight 700 runs uppercase.
 - **Every display headline uses weight 900.** Display, h1, h2, quote-text, and stat-value are all weight 900 — no exceptions. Using weight 800 or 700 at display scale breaks the type-as-graphic-mass effect.
 - **Every display element uses negative letter-spacing.** Display at –0.02em, h1 at –0.02em, h2 at –0.01em, stat-value at –0.03em. Display Barlow 900 without negative tracking reads as untreated; the negative tracking is what gives the type its compressed density.
 - **All chrome, labels, counters, and metadata are IBM Plex Mono at 0.06em tracking.** No exceptions. Mono labels in Barlow break the metadata/content separation.
@@ -296,11 +298,11 @@ Studio targets `100vw × 100vh` — full viewport. Each `.slide` flexes to fill 
 
 | Token | Value | Use |
 |---|---|---|
-| `{spacing.pad-x}` | 5vw | Horizontal slide padding |
-| `{spacing.pad-y}` | 5vh | Vertical slide padding |
-| `{spacing.gap-lg}` | 3.5vh | Between major content sections |
-| `{spacing.gap-md}` | 2vh | Between related elements |
-| `{spacing.gap-sm}` | 1vh | Between tightly coupled elements |
+| `{spacing.pad-x}` | 96px | Horizontal slide padding |
+| `{spacing.pad-y}` | 54px | Vertical slide padding |
+| `{spacing.gap-lg}` | 38px | Between major content sections |
+| `{spacing.gap-md}` | 22px | Between related elements |
+| `{spacing.gap-sm}` | 11px | Between tightly coupled elements |
 
 Statement and chapter slides increase bottom padding to 1.5× pad-y so the headline drops to the lower portion of the slide with deliberate empty space above. The cover slide uses zero outer padding because the image area fills the entire canvas.
 
@@ -317,7 +319,7 @@ The cover, chapter, statement, quote, and end slides omit standard chrome — th
 
 The cover slide is the system's signature layout:
 - An image placeholder fills the entire canvas behind everything.
-- A single display headline (typically one word at 12vw) sits in the top area as `cover-type`.
+- A single display headline (typically one word at 288px) sits in the top area as `cover-type`.
 - A three-column mono metadata footer sits at the bottom — column 1 left ("studio × client" + date), column 2 center (presentation title), column 3 right (studio name) — separated from the image area by a 1px hairline in yellow at 25% opacity.
 
 ## Depth and Elevation
@@ -350,13 +352,13 @@ Studio has **no rounded chrome**. Cards, panels, stat tiles, chart frames, image
 
 ### Decorative Element Types
 
-**Display headline as graphic mass** — Barlow at weight 900 at display scale (4.8vw and above) sits as a black or yellow geometric block. The headline is the primary decorative element of every slide; there are no additional ornaments.
+**Display headline as graphic mass** — Barlow at weight 900 at display scale (115px and above) sits as a black or yellow geometric block. The headline is the primary decorative element of every slide; there are no additional ornaments.
 
 **Hairline rule** — a 1px solid line in the surface border color. Used to separate chrome from body, body from foot, and inside compare panels. The rule is the system's only structural divider.
 
 **Heavy rule** — a 2px solid line in the surface accent (or muted accent). Used on stat-card tops, chart baselines, compare-panel vertical dividers. Heavier than the chrome hairline; reads as "anchor" rather than "separator."
 
-**Stat card** — a flat region with a 2px top rule, a stat numeral (5.5vw Barlow 900) in the surface accent, a stat label (1.15vw Barlow 500), and an optional mono stat-note (0.85vw IBM Plex Mono at tier-3 opacity). Padding right and bottom; left padding is zero (the rule starts flush with the card's left edge).
+**Stat card** — a flat region with a 2px top rule, a stat numeral (132px Barlow 900) in the surface accent, a stat label (28px Barlow 500), and an optional mono stat-note (20px IBM Plex Mono at tier-3 opacity). Padding right and bottom; left padding is zero (the rule starts flush with the card's left edge).
 
 **Cover-meta lockup** — the three-column mono footer at the bottom of the cover slide. Column 1: studio × client name on row 1, date on row 2. Column 2: presentation title (centered). Column 3: studio name (right-aligned). Separated from the cover-type by a 1px hairline in yellow at 25% opacity.
 
@@ -380,7 +382,7 @@ Studio has **no rounded chrome**. Cards, panels, stat tiles, chart frames, image
 - Mute secondary text with opacity (.58 on yellow, .62 on near-black), not with a separate grey color. The system has no greys — only opacity variants of yellow and near-black.
 - Apply 2px rules to stat-card tops, chart baselines, and compare-panel dividers. The 2px weight differentiates "anchor" elements from chrome hairlines.
 - Use em-dashes in the surface accent color as bullet markers — never dots, never circles.
-- Pad slides tight (5vw / 5vh) so display type runs near the edge. Studio depends on type filling the canvas; generous padding breaks the scale effect.
+- Pad slides tight (96px / 54px) so display type runs near the edge. Studio depends on type filling the canvas; generous padding breaks the scale effect.
 - Leave statement and chapter slides deliberately sparse. One massive headline against empty surface is the correct register for those slide types.
 
 ### Don't
@@ -424,7 +426,7 @@ There is no embedded print stylesheet. The horizontal-strip layout would need to
 
 | Role | Latin face (default) | Chinese face | Weight | Notes |
 |---|---|---|---|---|
-| Display / h1 / h2 / quote-text / stat-value | Barlow 900 uppercase | 思源宋体 / Noto Serif SC | 700 | Studio's defining "type-as-graphic-mass" effect depends on a single typeface at maximum weight. NSC 700 is the heaviest Song-style serif on CDN that holds visual mass at 12vw / 7.5vw / 4.8vw display sizes. |
+| Display / h1 / h2 / quote-text / stat-value | Barlow 900 uppercase | 思源宋体 / Noto Serif SC | 700 | Studio's defining "type-as-graphic-mass" effect depends on a single typeface at maximum weight. NSC 700 is the heaviest Song-style serif on CDN that holds visual mass at 288px / 180px / 115px display sizes. |
 | h3 | Barlow 700 uppercase | 思源宋体 / Noto Serif SC | 700 | Sub-headline weight matches. |
 | Lead / Body / Caption | Barlow 500 / 400 | 思源宋体 / Noto Serif SC | 400 | Minimal editorial body — NSC 400 reads cleanly in the system's sparse layouts. |
 | Metadata / chrome / label / stat-note | IBM Plex Mono 500 | IBM Plex Mono + Noto Sans Mono CJK fallback | 400–500 | Mono CJK is rarely needed (most metadata stays in Latin: dates, counters, studio names) but if Chinese appears in chrome, use Noto Sans Mono CJK SC. |
@@ -457,7 +459,7 @@ The Barlow stack in the original design.md already wires Noto Sans SC as the CJK
 
 Apply on any element rendering Chinese content (typically scope via `:lang(zh)` or `<span lang="zh">`):
 
-- **Line-height**: body 1.75–1.85 (Studio's 1.5–1.6 Barlow-default is fine for Latin but tight for CJK strokes); display 1.15–1.25 (looser than Latin 0.9–0.95 because CJK glyphs at 12vw need vertical breathing).
+- **Line-height**: body 1.75–1.85 (Studio's 1.5–1.6 Barlow-default is fine for Latin but tight for CJK strokes); display 1.15–1.25 (looser than Latin 0.9–0.95 because CJK glyphs at 288px need vertical breathing).
 - **Letter-spacing**: 0 on CJK. Studio's negative tracking (-0.01 to -0.03em) on display Latin is wrong for Chinese — CJK glyphs are pre-spaced; negative tracking causes glyphs to touch or overlap at display scale.
 - **Text-transform**: no uppercase on CJK. Studio's `text-transform: uppercase` on display tokens is a no-op on Han characters, but ensure no parent rule attempts unexpected behavior. The "uppercase" identity of the system drops away in Chinese.
 - **Full-width punctuation**: use `，。：；！？` (full-width) not `,.:;!?` (half-width). The full-width forms include their own surrounding whitespace and align to the CJK em-box.
@@ -467,19 +469,19 @@ Apply on any element rendering Chinese content (typically scope via `:lang(zh)` 
 
 ### Aesthetic Notes for This System
 
-Studio's binary palette (acid yellow on near-black, near-black on acid yellow) is perfectly preserved in CJK — no color decisions change. NSC 700 in `{colors.acid-yellow}` against the `{colors.near-black}` field at 12vw display size carries the same visual punch as Barlow 900 in the same role; the saturated yellow against the warm dark surface makes Chinese characters read with the same poster-like authority.
+Studio's binary palette (acid yellow on near-black, near-black on acid yellow) is perfectly preserved in CJK — no color decisions change. NSC 700 in `{colors.acid-yellow}` against the `{colors.near-black}` field at 288px display size carries the same visual punch as Barlow 900 in the same role; the saturated yellow against the warm dark surface makes Chinese characters read with the same poster-like authority.
 
 The "type-as-graphic-mass" effect is genuinely altered in CJK, but in an interesting way: where Barlow 900 uppercase blocks read as Western signage / industrial manifesto, NSC 700 at display scale reads as **Chinese woodblock or letterpress poster** — equally severe, equally graphic, but in a different cultural register. For Chinese-language audiences this reads as authoritative and well-designed; for mixed audiences it shifts the perceived tone slightly toward "editorial publication" and away from "design agency."
 
 The em-dash bullet markers translate directly — keep `—` in the surface accent color. The three-column mono cover-meta lockup also translates without modification — write the studio × client / presentation title / studio name in either Chinese or Latin and the IBM Plex Mono renders both cleanly (with CJK falling back to Noto Sans Mono CJK SC if Chinese appears in the lockup).
 
-Stat cards work well in CJK — the 5.5vw italic-style stat numeral can render in NSC 700 if the value is a Chinese numeral (`三百万`) or stay in Barlow if Arabic (`3M`). The 2px top rule and the stat-note (mono) are unaffected.
+Stat cards work well in CJK — the 132px italic-style stat numeral can render in NSC 700 if the value is a Chinese numeral (`三百万`) or stay in Barlow if Arabic (`3M`). The 2px top rule and the stat-note (mono) are unaffected.
 
 ### Known CJK Gap
 
 - The "uppercase + negative tracking + weight 900" formula that defines the system cannot be reproduced in CJK. Chinese gets weight 700 (the heaviest NSC weight), no case transformation, and zero tracking. The system loses ~30% of its Latin character in pure-Chinese mode.
 - IBM Plex Mono is Latin-only at its full feature set. If Chinese characters appear in metadata (rare in Studio decks), they fall back to Noto Sans Mono CJK SC or system monospace, which may have visually different proportions than the Plex Mono around them.
-- NSC 900 weight (which would better match Barlow 900) exists on Google Fonts but is heavy enough at large sizes that counter shapes start to close — at 12vw display, NSC 900 may render some characters as near-solid blocks. NSC 700 is the recommended ceiling; for extreme display moments, test NSC 900 case-by-case.
+- NSC 900 weight (which would better match Barlow 900) exists on Google Fonts but is heavy enough at large sizes that counter shapes start to close — at 288px display, NSC 900 may render some characters as near-solid blocks. NSC 700 is the recommended ceiling; for extreme display moments, test NSC 900 case-by-case.
 - The system's "alternate dark/yellow surfaces" rhythm is unaffected by CJK, but Chinese readers may parse the rhythm differently than Western readers (cultural reading conventions for color affect pacing perception).
 
 ## Iteration Guide
@@ -489,7 +491,7 @@ Stat cards work well in CJK — the 5.5vw italic-style stat numeral can render i
 3. Any new chrome, metadata, label, or counter uses IBM Plex Mono. Mono in any other role breaks the metadata separation.
 4. Any new color introduces a third option to the binary palette — don't. Stick to yellow and near-black, with opacity variants for muting.
 5. Any new bullet list uses em-dash markers in the surface accent. Dot bullets break the system.
-6. Stat cards use the 2px top rule plus a 5.5vw weight 900 numeral. Smaller stats, sentence-case stats, or rounded stat tiles break the pattern.
+6. Stat cards use the 2px top rule plus a 132px weight 900 numeral. Smaller stats, sentence-case stats, or rounded stat tiles break the pattern.
 7. Cover slides use the three-column mono lockup at the bottom. Don't omit it; it is the system's most identifiable pattern.
 8. Chapter, statement, quote, and end slides are chromeless. Standard slides carry chrome and foot. Don't blend the two — a chromeless quote is correct; a chromed quote reads as a different system.
 9. New layouts should aim for one dominant element (the headline) plus minimal supporting elements. Multi-element layouts (more than 4–5 distinct regions) crowd the design.
@@ -502,5 +504,5 @@ Stat cards work well in CJK — the 5.5vw italic-style stat numeral can render i
 - The `--c-bg-alt`, `--c-bg-light-alt`, and several muted color tokens are defined but used sparingly — they exist as a reserve for adjacent-surface differentiation.
 - The slide navigation JS is embedded inline; the system depends on it for the slide deck transform behavior and the `is-active` class management.
 - The cover image placeholder uses a hardcoded `IMAGE PLACEHOLDER` label and a flat near-black-alt fill; real image insertion requires replacing the placeholder div with a background-image-styled element matching the parent canvas.
-- The 5vw / 5vh padding is intentionally tight, which means at very small viewports headlines may approach the edge uncomfortably; the system is tuned for 16:9 displays at 1280px and above.
+- The 96px / 54px padding is intentionally tight, which means at very small viewports headlines may approach the edge uncomfortably; the system is tuned for 16:9 displays at 1280px and above.
 - The compare panel uses a 2px right border on the left panel only (no left border on the right), creating an asymmetry between the two panels — this is intentional but worth noting if extending the compare layout to 3-up.

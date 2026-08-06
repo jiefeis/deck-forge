@@ -22,198 +22,198 @@ color-aliases:
 typography:
   display-jumbo-numeral:
     fontFamily: "'Fraunces', Georgia, serif"
-    fontSize: "clamp(180px, min(22vw, 38vh), 480px)"
+    fontSize: 492px
     fontWeight: 400
     lineHeight: 0.86
     letterSpacing: -0.02em
     fontStyle: italic
   display-cover:
     fontFamily: "'Bricolage Grotesque', sans-serif"
-    fontSize: "clamp(82px, min(8.8vw, 15vh), 180px)"
+    fontSize: 194px
     fontWeight: 800
     lineHeight: 0.92
     letterSpacing: -0.012em
     textTransform: uppercase
   display:
     fontFamily: "'Bricolage Grotesque', sans-serif"
-    fontSize: "clamp(72px, min(7.6vw, 13vh), 160px)"
+    fontSize: 168px
     fontWeight: 800
     lineHeight: 0.9
     letterSpacing: -0.012em
     textTransform: uppercase
   headline-xl:
     fontFamily: "'Bricolage Grotesque', sans-serif"
-    fontSize: "clamp(60px, min(6.4vw, 10.5vh), 140px)"
+    fontSize: 136px
     fontWeight: 800
     lineHeight: 0.9
     letterSpacing: -0.012em
     textTransform: uppercase
   headline:
     fontFamily: "'Bricolage Grotesque', sans-serif"
-    fontSize: "clamp(56px, min(6vw, 10vh), 120px)"
+    fontSize: 130px
     fontWeight: 800
     lineHeight: 0.9
     letterSpacing: -0.012em
     textTransform: uppercase
   headline-md:
     fontFamily: "'Bricolage Grotesque', sans-serif"
-    fontSize: "clamp(48px, min(5vw, 8.4vh), 100px)"
+    fontSize: 109px
     fontWeight: 800
     lineHeight: 0.92
     letterSpacing: -0.012em
     textTransform: uppercase
   quote:
     fontFamily: "'Bricolage Grotesque', sans-serif"
-    fontSize: "clamp(40px, min(4.4vw, 7.4vh), 96px)"
+    fontSize: 96px
     fontWeight: 700
     lineHeight: 0.95
     letterSpacing: -0.012em
     textTransform: uppercase
   card-title:
     fontFamily: "'Bricolage Grotesque', sans-serif"
-    fontSize: "clamp(28px, 2.4vw, 44px)"
+    fontSize: 55px
     fontWeight: 800
     lineHeight: 0.95
     letterSpacing: -0.008em
     textTransform: uppercase
   course-name:
     fontFamily: "'Bricolage Grotesque', sans-serif"
-    fontSize: "clamp(20px, 1.5vw, 28px)"
+    fontSize: 35px
     fontWeight: 700
     lineHeight: 1.05
     letterSpacing: -0.005em
     textTransform: uppercase
   info-value:
     fontFamily: "'Bricolage Grotesque', sans-serif"
-    fontSize: "clamp(20px, 1.6vw, 28px)"
+    fontSize: 37px
     fontWeight: 700
     lineHeight: 1.1
     letterSpacing: -0.005em
     textTransform: uppercase
   edition-label-tracked:
     fontFamily: "'Bricolage Grotesque', sans-serif"
-    fontSize: "clamp(15px, 1.1vw, 18px)"
+    fontSize: 25px
     fontWeight: 700
     letterSpacing: 0.18em
     textTransform: uppercase
   who-tag:
     fontFamily: "'Bricolage Grotesque', sans-serif"
-    fontSize: "clamp(15px, 1.05vw, 18px)"
+    fontSize: 24px
     fontWeight: 700
     letterSpacing: -0.005em
     textTransform: uppercase
   body-serif-italic-lg:
     fontFamily: "'Fraunces', Georgia, serif"
-    fontSize: "clamp(20px, 1.5vw, 28px)"
+    fontSize: 35px
     fontWeight: 400
     lineHeight: 1.45
     fontStyle: italic
   body-serif-italic:
     fontFamily: "'Fraunces', Georgia, serif"
-    fontSize: "clamp(17px, 1.2vw, 22px)"
+    fontSize: 28px
     fontWeight: 400
     lineHeight: 1.5
     fontStyle: italic
   body-roman:
     fontFamily: "'Fraunces', Georgia, serif"
-    fontSize: "clamp(15px, 1vw, 17px)"
+    fontSize: 23px
     fontWeight: 400
     lineHeight: 1.45
   edition-label:
     fontFamily: "'Fraunces', Georgia, serif"
-    fontSize: "clamp(20px, 1.6vw, 30px)"
+    fontSize: 37px
     fontWeight: 400
     lineHeight: 1
     fontStyle: italic
   tagline:
     fontFamily: "'Fraunces', Georgia, serif"
-    fontSize: "clamp(18px, 1.4vw, 26px)"
+    fontSize: 32px
     fontWeight: 400
     lineHeight: 1.35
     fontStyle: italic
   stats:
     fontFamily: "'Fraunces', Georgia, serif"
-    fontSize: "clamp(17px, 1.2vw, 22px)"
+    fontSize: 28px
     fontWeight: 400
     lineHeight: 1.4
     fontStyle: italic
   pill-text:
     fontFamily: "'Fraunces', Georgia, serif"
-    fontSize: "clamp(15px, 1.1vw, 20px)"
+    fontSize: 25px
     fontWeight: 400
     lineHeight: 1
     fontStyle: italic
   meta-tag:
     fontFamily: "'Fraunces', Georgia, serif"
-    fontSize: "clamp(14px, 0.95vw, 16px)"
+    fontSize: 22px
     fontWeight: 400
     lineHeight: 1.4
     fontStyle: italic
   info-key:
     fontFamily: "'Fraunces', Georgia, serif"
-    fontSize: "clamp(14px, 0.95vw, 16px)"
+    fontSize: 22px
     fontWeight: 400
     letterSpacing: 0.16em
     textTransform: uppercase
     fontStyle: italic
   pagenum:
     fontFamily: "'Fraunces', Georgia, serif"
-    fontSize: "clamp(14px, 0.95vw, 16px)"
+    fontSize: 22px
     fontWeight: 400
     letterSpacing: 0.02em
     fontStyle: italic
   nav-hint:
     fontFamily: "'Fraunces', Georgia, serif"
-    fontSize: "clamp(11px, 0.78vw, 13px)"
+    fontSize: 18px
     fontWeight: 400
     letterSpacing: 0.02em
     fontStyle: italic
 
 spacing:
-  slide-pad-h-default: "clamp(60px, 5vw, 110px)"
-  slide-pad-h-wide: "clamp(80px, 7vw, 160px)"
-  slide-pad-h-narrow: "clamp(120px, 12vw, 280px)"
-  slide-pad-top-default: "clamp(96px, 10vh, 160px)"
-  slide-pad-top-cover: "clamp(60px, 6vh, 100px)"
-  slide-pad-bottom-default: "clamp(110px, 11vh, 170px)"
-  slide-pad-bottom-wide: "clamp(150px, 14vh, 220px)"
-  gap-section: "clamp(28px, 3vh, 50px)"
-  gap-content: "clamp(18px, 2vh, 32px)"
-  gap-row: "clamp(14px, 1.6vh, 24px)"
-  gap-tight: "clamp(10px, 1.2vh, 18px)"
+  slide-pad-h-default: 96px
+  slide-pad-h-wide: 134px
+  slide-pad-h-narrow: 230px
+  slide-pad-top-default: 108px
+  slide-pad-top-cover: 65px
+  slide-pad-bottom-default: 119px
+  slide-pad-bottom-wide: 151px
+  gap-section: 32px
+  gap-content: 22px
+  gap-row: 17px
+  gap-tight: 13px
   border-weight: "1.5px"
   rule-dashed-color: "{colors.ink-32}"
 
 canvas:
-  width: 100vw
-  height: 100vh
+  width: 1920px
+  height: 1080px
 
 components:
   pill:
-    description: "Outlined rounded-rectangle (border-radius 999px → fully pill) holding short italic Fraunces text. The system's CTA / action button. Border is 1.5px solid {colors.ink}; padding is generous (~12px / 28px); text-color is {colors.ink}."
+    description: "Outlined rounded-rectangle (border-radius 999px → fully pill) holding short italic Fraunces text. The system's CTA / action button. Border is 1.5px solid {colors.ink}; padding is generous (11px / 38px); text-color is {colors.ink}."
     border: "1.5px solid {colors.ink}"
     borderRadius: "999px"
-    padding: "clamp(8px, 1vh, 14px) clamp(20px, 2vw, 32px)"
+    padding: "11px 38px"
     typography: "{typography.pill-text}"
   pill-divider:
     typography: "{typography.pill-text}"
     opacity: 0.7
     description: "A small italic Fraunces divider character (typically · or /) used inline between adjacent pills."
   ed-badge:
-    description: "A small circular outlined badge (~38px) holding a single italic Fraunces digit. The edition / chapter ordinal marker. Border is 1.5px solid {colors.ink}; background is transparent."
-    width: "clamp(34px, 2.6vw, 44px)"
-    height: "clamp(34px, 2.6vw, 44px)"
+    description: "A small circular outlined badge (50px) holding a single italic Fraunces digit. The edition / chapter ordinal marker. Border is 1.5px solid {colors.ink}; background is transparent."
+    width: "50px"
+    height: "50px"
     border: "1.5px solid {colors.ink}"
     borderRadius: "50%"
   rect-tag:
     description: "Outlined rectangular tag — like the pill but with sharp corners. Holds short italic Fraunces text. Used as a category / status / metadata chip when the pill's roundness isn't appropriate."
     border: "1.5px solid {colors.ink}"
-    padding: "clamp(7px, 0.9vh, 12px) clamp(14px, 1.4vw, 22px)"
+    padding: "10px 27px"
     typography: "{typography.pill-text}"
   card-outlined:
     description: "A 1.5px ink-outlined rectangular content card. Holds a card-top metadata row (separated below by a 1px @ 32%-opacity rule), a Bricolage card-name, a Fraunces body description, and a meta-row at the bottom (separated above by a 1px dashed @ 32%-opacity rule). The system's primary content card pattern."
     border: "1.5px solid {colors.ink}"
-    padding: "clamp(20px, 2vh, 32px) clamp(20px, 1.8vw, 30px)"
+    padding: "22px 35px"
     internalDivider-solid: "1px solid {colors.ink-32}"
     internalDivider-dashed: "1px dashed {colors.ink-32}"
   paper-texture:
@@ -226,20 +226,20 @@ components:
     borderBottom: "1.5px solid {colors.ink}"
   pagenum:
     position: "absolute"
-    placement: "right: clamp(36px, 3.6vw, 80px); bottom: clamp(40px, 4vh, 64px)"
+    placement: "right: 69px; bottom: 43px"
     typography: "{typography.pagenum}"
     color: "{colors.ink}"
     description: "Italic Fraunces page number at the bottom-right of every slide."
   nav-hint:
     position: "fixed"
-    placement: "left: clamp(36px, 3.6vw, 80px); bottom: clamp(40px, 4vh, 64px)"
+    placement: "left: 69px; bottom: 43px"
     typography: "{typography.nav-hint}"
     color: "{colors.ink}"
     opacity: 0.45
     description: "A faint italic Fraunces hint string at the bottom-left of the viewport (e.g. '← → to navigate'). Bonus interactivity affordance."
   ledger-row:
     description: "A horizontal ledger-style row in a calendar/schedule context. Multi-column grid (typical: 80px / 130px / 1.6fr / 0.9fr / auto) with a 1px @ 32%-opacity ink border-bottom. Each cell is a tag, label, or pill. Reads as a guestbook / restaurant-reservation log."
-    rowPad: "clamp(11px, 1.3vh, 18px) 0"
+    rowPad: "14px 0"
     borderBottom: "1px solid {colors.ink-32}"
 ---
 
@@ -262,6 +262,8 @@ This policy applies even if the source template was originally implemented with 
 
 Author against the skill's fixed-stage model: full viewport-base.css inline, .slide/.active slides scaled as one unit (transform: scale(), origin 0 0) per html-template.md. Do not reference deck-stage.js (not bundled). Translate any data-anim/data-delay/.is-active entrance vocabulary from the source design into the deck's .reveal + .slide.visible convention. Render each slide at 1920×1080 and verify rendered screenshots for both text overflow and panel overlap.
 
+Page numbers or footers that must appear in the exported PDF must be slide-internal elements (see lumen-2026's .foot/.pageno); never use the reserved deck-chrome classes (.progress-bar, .slide-counter) — export_pdf.py strips them.
+
 
 ## Overview
 
@@ -276,7 +278,7 @@ The typographic stack is a two-face pairing:
 - **Bricolage Grotesque** at weights 700 and 800 in **strict uppercase** carries every display moment — covers, headlines, card titles, course names, quote bodies, info values, who-tags. Bricolage is a wide, slightly-condensed grotesque with strong personality; its uppercase set has the impact of a hand-lettered poster. The optical-size axis (`opsz` 12..96) is engaged.
 - **Fraunces** at weight 400–600 carries every body paragraph, every metadata field, every pill, every page number, every edition label. **Italic Fraunces is the default body style** — the slanted serif is the system's body voice, lending warmth and editorial personality. Roman Fraunces appears only for specific tight cases (info keys, the description body inside index cards). The optical-size axis (`opsz` 9..144) is engaged for both styles.
 
-A massive **italic Fraunces edition numeral** at up to 480px is the system's signature display anchor — it replaces the hand-drawn illustration that would traditionally fill the cover/featured slide right-half, giving the slide a typographic centerpiece in the same ink as the rest of the page.
+A massive **italic Fraunces edition numeral** at 492px is the system's signature display anchor — it replaces the hand-drawn illustration that would traditionally fill the cover/featured slide right-half, giving the slide a typographic centerpiece in the same ink as the rest of the page.
 
 Depth is **flat and printed**. There are no shadows, no gradients, no blur, no glow. Elevation is communicated entirely through 1.5px solid ink borders on cards, badges, pills, and tags; 1px solid or 1px-dashed internal dividers at 32% opacity; and the texture overlay's atmospheric quality. The whole system reads as ink soaked into paper.
 
@@ -287,7 +289,7 @@ Depth is **flat and printed**. There are no shadows, no gradients, no blur, no g
 - Bricolage Grotesque weight 700–800 uppercase for every display moment; Fraunces 400–600 italic-default for every body and metadata moment.
 - Subtle 4px radial-dot paper texture on every slide via `.stage::before` — invisible at distance, present up close.
 - Pill buttons (border-radius 999px), edition badges (circular), rect-tags (sharp-cornered), and outlined cards (1.5px solid) — all single-weight ink outlines, no fills.
-- A massive italic Fraunces edition numeral (up to 480px) is the system's hero typographic anchor on cover-class slides.
+- A massive italic Fraunces edition numeral (492px) is the system's hero typographic anchor on cover-class slides.
 - 1.5px structural borders, 1px @ 32%-opacity solid or dashed internal dividers. No thicker borders, no shadows.
 - Page number (italic Fraunces) at every slide's bottom-right; nav-hint (italic Fraunces at 45% opacity) at the bottom-left.
 - The system is single-ink by design — adding any second color (a navy, a green, a yellow) shatters the printed-program register.
@@ -314,7 +316,7 @@ Depth is **flat and printed**. There are no shadows, no gradients, no blur, no g
 - **Default page-number / nav-hint color**: `{colors.ink}` (full opacity for pagenum; 45% opacity for nav-hint).
 - **Default de-emphasized metadata color**: `{colors.ink-78}` — when a small piece of supporting text needs to recede from a primary line.
 
-The palette is intentionally single-ink. There is no "accent color" to reach for — the design language depends on the one-ink constraint. If a moment needs to stand out, scale up the type (Bricolage 800 at 180px) or reach for the italic Fraunces edition numeral; do not introduce a second color.
+The palette is intentionally single-ink. There is no "accent color" to reach for — the design language depends on the one-ink constraint. If a moment needs to stand out, scale up the type (Bricolage 800 at 194px) or reach for the italic Fraunces edition numeral; do not introduce a second color.
 
 ## Typography
 
@@ -326,48 +328,48 @@ The system loads exactly two web fonts from Google Fonts, both with optical-size
 
 The two-face role split is strict: **Bricolage uppercase carries every display moment** (covers, headlines, card titles, course names, quote bodies, info values, who-tags, edition labels with tracking). **Fraunces italic carries every body moment** (paragraphs, leads, metadata, taglines, pills, page numbers, info keys, edition labels without tracking). **Fraunces roman** is reserved for specific tight roles (info keys in info-rows where italic tracking would feel out of place, and the description body inside index cards where roman is more readable).
 
-The optical-size axis is critical: the same Fraunces face renders with subtly different letterforms at 14px metadata sizes versus 480px hero-numeral sizes — small sizes pick up sturdier strokes; large sizes pick up finer detail. Self-hosted fallbacks without `opsz` will lose this quality.
+The optical-size axis is critical: the same Fraunces face renders with subtly different letterforms at 22px metadata sizes versus 492px hero-numeral sizes — small sizes pick up sturdier strokes; large sizes pick up finer detail. Self-hosted fallbacks without `opsz` will lose this quality.
 
 ### Display, Body, and Chrome Scale
 
 | Token | Size | Family | Weight / Style | Use |
 |---|---|---|---|---|
-| `{typography.display-jumbo-numeral}` | up to 480px | Fraunces | 400 italic | Hero edition numeral (cover-class typographic anchor) |
-| `{typography.display-cover}` | up to 180px | Bricolage | 800 uppercase | Cover-scale Bricolage title |
-| `{typography.display}` | up to 160px | Bricolage | 800 uppercase | Section-opener / manifesto headline |
-| `{typography.headline-xl}` | up to 140px | Bricolage | 800 uppercase | Featured-edition title |
-| `{typography.headline}` | up to 120px | Bricolage | 800 uppercase | Topbar headline on index / calendar slides |
-| `{typography.headline-md}` | up to 100px | Bricolage | 800 uppercase | Menu / programme title |
-| `{typography.quote}` | up to 96px | Bricolage | 700 uppercase | Pull-quote / testimonial body |
-| `{typography.card-title}` | up to 44px | Bricolage | 800 uppercase | Title inside an outlined card |
-| `{typography.course-name}` | up to 28px | Bricolage | 700 uppercase | Course / item name in a ledger row |
-| `{typography.info-value}` | up to 28px | Bricolage | 700 uppercase | Value in a key/value info row |
-| `{typography.edition-label-tracked}` | up to 18px | Bricolage | 700 uppercase / 0.18em | Big-edition label beneath a hero numeral |
-| `{typography.who-tag}` | up to 18px | Bricolage | 700 uppercase | Attribution name in a quote row |
-| `{typography.body-serif-italic-lg}` | up to 28px | Fraunces | 400 italic | Lead paragraph in a manifesto / letter |
-| `{typography.body-serif-italic}` | up to 22px | Fraunces | 400 italic | Standard body paragraph / lede |
-| `{typography.body-roman}` | up to 17px | Fraunces | 400 roman | Card description body (tighter setting for legibility at small size) |
-| `{typography.edition-label}` | up to 30px | Fraunces | 400 italic | "EDITION N." italic label beside an edition badge |
-| `{typography.tagline}` | up to 26px | Fraunces | 400 italic | Tagline / subtitle beneath a cover title |
-| `{typography.stats}` | up to 22px | Fraunces | 400 italic | Stats line ("N seats · M cities · L hours") |
-| `{typography.pill-text}` | up to 20px | Fraunces | 400 italic | Text inside a pill button or rect-tag |
-| `{typography.meta-tag}` | up to 16px | Fraunces | 400 italic | Card metadata (city tag, num tag, seats tag, date tag) |
-| `{typography.info-key}` | up to 16px | Fraunces | 400 italic / 0.16em / UPPER | Key in a key/value info row |
-| `{typography.pagenum}` | up to 16px | Fraunces | 400 italic | Page number at the bottom-right of every slide |
-| `{typography.nav-hint}` | up to 13px | Fraunces | 400 italic / 45% opacity | Navigation hint at the bottom-left of the viewport |
+| `{typography.display-jumbo-numeral}` | 492px | Fraunces | 400 italic | Hero edition numeral (cover-class typographic anchor) |
+| `{typography.display-cover}` | 194px | Bricolage | 800 uppercase | Cover-scale Bricolage title |
+| `{typography.display}` | 168px | Bricolage | 800 uppercase | Section-opener / manifesto headline |
+| `{typography.headline-xl}` | 136px | Bricolage | 800 uppercase | Featured-edition title |
+| `{typography.headline}` | 130px | Bricolage | 800 uppercase | Topbar headline on index / calendar slides |
+| `{typography.headline-md}` | 109px | Bricolage | 800 uppercase | Menu / programme title |
+| `{typography.quote}` | 96px | Bricolage | 700 uppercase | Pull-quote / testimonial body |
+| `{typography.card-title}` | 55px | Bricolage | 800 uppercase | Title inside an outlined card |
+| `{typography.course-name}` | 35px | Bricolage | 700 uppercase | Course / item name in a ledger row |
+| `{typography.info-value}` | 37px | Bricolage | 700 uppercase | Value in a key/value info row |
+| `{typography.edition-label-tracked}` | 25px | Bricolage | 700 uppercase / 0.18em | Big-edition label beneath a hero numeral |
+| `{typography.who-tag}` | 24px | Bricolage | 700 uppercase | Attribution name in a quote row |
+| `{typography.body-serif-italic-lg}` | 35px | Fraunces | 400 italic | Lead paragraph in a manifesto / letter |
+| `{typography.body-serif-italic}` | 28px | Fraunces | 400 italic | Standard body paragraph / lede |
+| `{typography.body-roman}` | 23px | Fraunces | 400 roman | Card description body (tighter setting for legibility at small size) |
+| `{typography.edition-label}` | 37px | Fraunces | 400 italic | "EDITION N." italic label beside an edition badge |
+| `{typography.tagline}` | 32px | Fraunces | 400 italic | Tagline / subtitle beneath a cover title |
+| `{typography.stats}` | 28px | Fraunces | 400 italic | Stats line ("N seats · M cities · L hours") |
+| `{typography.pill-text}` | 25px | Fraunces | 400 italic | Text inside a pill button or rect-tag |
+| `{typography.meta-tag}` | 22px | Fraunces | 400 italic | Card metadata (city tag, num tag, seats tag, date tag) |
+| `{typography.info-key}` | 22px | Fraunces | 400 italic / 0.16em / UPPER | Key in a key/value info row |
+| `{typography.pagenum}` | 22px | Fraunces | 400 italic | Page number at the bottom-right of every slide |
+| `{typography.nav-hint}` | 18px | Fraunces | 400 italic / 45% opacity | Navigation hint at the bottom-left of the viewport |
 
 ### Defaults
-- **Default size for a primary slide headline**: `{typography.headline}` (up to 120px) in Bricolage 800 uppercase.
-- **Default size for a cover-scale title**: `{typography.display-cover}` (up to 180px).
-- **Default size for the hero typographic anchor on cover-class slides**: `{typography.display-jumbo-numeral}` (italic Fraunces up to 480px) — the system's signature hero element.
-- **Default size for a body paragraph**: `{typography.body-serif-italic}` (up to 22px) in italic Fraunces.
-- **Default size for a lede paragraph**: `{typography.body-serif-italic-lg}` (up to 28px).
-- **Default size for body text inside a card**: `{typography.body-roman}` (up to 17px) in **roman** Fraunces — the roman is more readable at small sizes than italic.
-- **Default size for an "EDITION N." label**: `{typography.edition-label}` (up to 30px) in italic Fraunces, paired with an `{components.ed-badge}` circular ordinal.
+- **Default size for a primary slide headline**: `{typography.headline}` (130px) in Bricolage 800 uppercase.
+- **Default size for a cover-scale title**: `{typography.display-cover}` (194px).
+- **Default size for the hero typographic anchor on cover-class slides**: `{typography.display-jumbo-numeral}` (italic Fraunces at 492px) — the system's signature hero element.
+- **Default size for a body paragraph**: `{typography.body-serif-italic}` (28px) in italic Fraunces.
+- **Default size for a lede paragraph**: `{typography.body-serif-italic-lg}` (35px).
+- **Default size for body text inside a card**: `{typography.body-roman}` (23px) in **roman** Fraunces — the roman is more readable at small sizes than italic.
+- **Default size for an "EDITION N." label**: `{typography.edition-label}` (37px) in italic Fraunces, paired with an `{components.ed-badge}` circular ordinal.
 - **Default weight for any Bricolage display moment**: 800. (Weight 700 is reserved for the quote body and course/who-tag elements; weight 800 is the primary display weight.)
 - **Default weight for any Fraunces body moment**: 400.
 
-When unsure, reach for `{typography.headline}` (up to 120px) for a routine slide headline. The 140–180px tier is for featured-edition titles and covers; the 160px tier is for section openers. Use the jumbo edition numeral when the slide is a cover-class moment and needs a hero anchor.
+When unsure, reach for `{typography.headline}` (130px) for a routine slide headline. The 136–194px tier is for featured-edition titles and covers; the 168px tier is for section openers. Use the jumbo edition numeral when the slide is a cover-class moment and needs a hero anchor.
 
 ### Signature Treatments
 These treatments are **non-optional whenever the corresponding element type is used**:
@@ -390,23 +392,23 @@ Underline is not used. Bold within body paragraphs uses Fraunces weight 600 (not
 ### Canvas System
 The system targets a fluid viewport — each `.slide` is `100vw × 100vh` with absolute positioning. Slides stack inside a `.stage` container with the paper-texture overlay sitting absolutely on the stage. Only one `.slide.active` is visible at a time; opacity transitions between slides take 280ms.
 
-### Padding Scale (uses `clamp()` ranges)
-| Token | Range | Use |
+### Padding Scale
+| Token | Value | Use |
 |---|---|---|
-| `{spacing.slide-pad-h-default}` | clamp(60px, 5vw, 110px) | Default horizontal slide padding |
-| `{spacing.slide-pad-h-wide}` | clamp(80px, 7vw, 160px) | Wider horizontal padding for featured / calendar slides |
-| `{spacing.slide-pad-h-narrow}` | clamp(120px, 12vw, 280px) | Narrow horizontal padding for menu / quote slides (forces content into a column) |
-| `{spacing.slide-pad-top-default}` | clamp(96px, 10vh, 160px) | Default top padding |
-| `{spacing.slide-pad-top-cover}` | clamp(60px, 6vh, 100px) | Cover top padding (less, to give the title room) |
-| `{spacing.slide-pad-bottom-default}` | clamp(110px, 11vh, 170px) | Default bottom padding (leaves room for page-num chrome) |
-| `{spacing.slide-pad-bottom-wide}` | clamp(150px, 14vh, 220px) | Wider bottom padding for featured / quote slides |
-| `{spacing.gap-section}` | clamp(28px, 3vh, 50px) | Between major content sections |
-| `{spacing.gap-content}` | clamp(18px, 2vh, 32px) | Between related content blocks |
-| `{spacing.gap-row}` | clamp(14px, 1.6vh, 24px) | Between row-level elements (course rows, ledger rows) |
-| `{spacing.gap-tight}` | clamp(10px, 1.2vh, 18px) | Between tightly coupled elements |
+| `{spacing.slide-pad-h-default}` | 96px | Default horizontal slide padding |
+| `{spacing.slide-pad-h-wide}` | 134px | Wider horizontal padding for featured / calendar slides |
+| `{spacing.slide-pad-h-narrow}` | 230px | Narrow horizontal padding for menu / quote slides (forces content into a column) |
+| `{spacing.slide-pad-top-default}` | 108px | Default top padding |
+| `{spacing.slide-pad-top-cover}` | 65px | Cover top padding (less, to give the title room) |
+| `{spacing.slide-pad-bottom-default}` | 119px | Default bottom padding (leaves room for page-num chrome) |
+| `{spacing.slide-pad-bottom-wide}` | 151px | Wider bottom padding for featured / quote slides |
+| `{spacing.gap-section}` | 32px | Between major content sections |
+| `{spacing.gap-content}` | 22px | Between related content blocks |
+| `{spacing.gap-row}` | 17px | Between row-level elements (course rows, ledger rows) |
+| `{spacing.gap-tight}` | 13px | Between tightly coupled elements |
 
 ### Chrome Anatomy
-Every slide carries a **page-number marker** at the bottom-right (italic Fraunces, ~16px max). The viewport also carries a **nav-hint** at the bottom-left (italic Fraunces, 45% opacity), suggesting keyboard navigation. These two chrome elements are the system's universal slide anchors.
+Every slide carries a **page-number marker** at the bottom-right (italic Fraunces, 22px). The viewport also carries a **nav-hint** at the bottom-left (italic Fraunces, 45% opacity), suggesting keyboard navigation. These two chrome elements are the system's universal slide anchors.
 
 Slides with a topbar (index, calendar) carry a Bricolage headline on the left + a small italic Fraunces label-tag on the right, separated below by a 1.5px solid ink horizontal rule. The topbar-divider is the system's universal page-divider device.
 
@@ -449,7 +451,7 @@ Borders are never thicker than 1.5px. Never colored beyond ink (full or 32%). Ne
 
 **Pill Divider** (`{components.pill-divider}`) — A small italic Fraunces character (typically `·` or `/`) at 70% opacity placed between pills in a row.
 
-**Edition Badge** (`{components.ed-badge}`) — A ~38px circular outlined badge holding a single italic Fraunces digit. The system's edition / chapter ordinal marker; always paired with an italic "EDITION N." label.
+**Edition Badge** (`{components.ed-badge}`) — A 50px circular outlined badge holding a single italic Fraunces digit. The system's edition / chapter ordinal marker; always paired with an italic "EDITION N." label.
 
 **Rect Tag** (`{components.rect-tag}`) — An outlined sharp-cornered rectangular tag holding short italic Fraunces text. The sharp-cornered cousin of the pill; used where roundness isn't appropriate.
 
@@ -463,7 +465,7 @@ Borders are never thicker than 1.5px. Never colored beyond ink (full or 32%). Ne
 
 **Course Row** — A 64px / 1fr / auto grid row with a 1px @ 32% solid border-bottom. Holds a Fraunces num-tag, an item (Bricolage name + Fraunces description), and a Fraunces pairing tag. The menu / programme pattern.
 
-**Italic Jumbo Edition Numeral** — A massive italic Fraunces digit at up to 480px. The system's signature hero typographic anchor on cover-class slides, paired with a small tracked Bricolage label beneath and an italic Fraunces meta line.
+**Italic Jumbo Edition Numeral** — A massive italic Fraunces digit at 492px. The system's signature hero typographic anchor on cover-class slides, paired with a small tracked Bricolage label beneath and an italic Fraunces meta line.
 
 **Page Number** (`{components.pagenum}`) — Italic Fraunces at the bottom-right of every slide.
 
@@ -476,7 +478,7 @@ Borders are never thicker than 1.5px. Never colored beyond ink (full or 32%). Ne
 - Apply the paper-texture overlay to every slide. The 4px radial-dot pattern at 10% opacity is part of the design system, not optional polish.
 - Run every Bricolage display element at weight 800 (or 700 for quote / course-name / who-tag) in strict uppercase with negative letter-spacing.
 - Run every Fraunces body element in italic by default. Use roman only for info-keys (where italic tracking would feel out of place) and card body descriptions (where italic at small size is less readable).
-- Reach for the italic Fraunces jumbo numeral (up to 480px) as the hero typographic anchor on cover-class slides. It's the system's signature.
+- Reach for the italic Fraunces jumbo numeral (492px) as the hero typographic anchor on cover-class slides. It's the system's signature.
 - Pair every edition badge with an italic "EDITION N." Fraunces label — the circle ordinal and the text label are one unit.
 - Use the outlined-card pattern (1.5px ink border + internal 1px @ 32% solid divider above content + 1px @ 32% dashed divider below content) for primary content cards. The solid/dashed pairing is the system's rhythm.
 - Use the pill (border-radius 999px) and the rect-tag (sharp corners) intentionally — pill for actions, rect for metadata / status. Don't conflate them.
@@ -520,9 +522,9 @@ There is no `@media print` rule in the system. Print export will render only the
 
 | Role | Chinese Face | Weight | Why |
 |---|---|---|---|
-| Display / cover / headline (Bricolage roles, 96–180px) | 思源宋体 Noto Serif SC | 700 | Mincho heavy weight carries the printed-program mass that Bricolage 800 provides in Latin |
-| Card title / course-name / info-value (28–44px) | 思源宋体 Noto Serif SC | 700 | Same Mincho voice at smaller sizes for consistency |
-| Hero edition numeral (480px italic Fraunces) | 思源宋体 Noto Serif SC | 400 | Use a Chinese ordinal character (一二三 / 春夏秋) for the hero anchor instead of a Western digit |
+| Display / cover / headline (Bricolage roles, 96–194px) | 思源宋体 Noto Serif SC | 700 | Mincho heavy weight carries the printed-program mass that Bricolage 800 provides in Latin |
+| Card title / course-name / info-value (35–55px) | 思源宋体 Noto Serif SC | 700 | Same Mincho voice at smaller sizes for consistency |
+| Hero edition numeral (492px italic Fraunces) | 思源宋体 Noto Serif SC | 400 | Use a Chinese ordinal character (一二三 / 春夏秋) for the hero anchor instead of a Western digit |
 | Body / lede / tagline (Fraunces italic roles) | 思源宋体 Noto Serif SC | 400 | Mincho body voice — warmth without italic, since Chinese has no italic |
 | Pill text / meta-tag / pagenum | 思源宋体 Noto Serif SC | 400 | Keep all chrome in Mincho 400; the system's single-ink discipline carries through |
 | Info-key / edition-label-tracked (uppercase tracked roles) | 思源宋体 Noto Serif SC | 400 with 0.16em letter-spacing | Maintains the tracked-chrome feel |
@@ -568,7 +570,7 @@ Long Table's whole voice is "supper-club poster / Risograph zine / small-press d
 
 The default-italic body rule does not translate to Chinese (Chinese has no italic concept; slanted Han glyphs read as broken, not as a body voice). In Chinese, every Fraunces-italic role simply becomes **Noto Serif SC weight 400 upright** — the warmth comes from the Mincho character itself, not from the slant. This is the right trade-off for this system.
 
-The hero italic Fraunces jumbo numeral (up to 480px) is the system's signature anchor in Latin — a single italic digit acting as a typographic centerpiece. In Chinese, **use a Chinese ordinal or season character instead of a Western digit**: 「三」、「五」、「春」、「秋」, rendered in Noto Serif SC at weight 400. The Han glyph's denser visual weight at 480px balances the cover slide better than a Western digit would; the cream paper background and warm rust ink carry the printed-program feel through unchanged.
+The hero italic Fraunces jumbo numeral (492px) is the system's signature anchor in Latin — a single italic digit acting as a typographic centerpiece. In Chinese, **use a Chinese ordinal or season character instead of a Western digit**: 「三」、「五」、「春」、「秋」, rendered in Noto Serif SC at weight 400. The Han glyph's denser visual weight at 492px balances the cover slide better than a Western digit would; the cream paper background and warm rust ink carry the printed-program feel through unchanged.
 
 The system's outlined-shape vocabulary (pills, edition badges, rect-tags, outlined cards) works identically in Chinese — no adjustments needed. The "EDITION N." label paired with the circular badge becomes 「第三期」or 「第 03 期」inside the circle, with the meta-label below in Noto Serif SC 400. The 32%-opacity solid / dashed internal divider rhythm is purely structural and unaffected by language.
 
@@ -579,7 +581,7 @@ The Fraunces italic-default body voice is one of Long Table's most distinctive t
 ## Iteration Guide
 
 1. Any new mark on a slide is in `{colors.ink}` — full opacity for primary, 78% for de-emphasized metadata, 32% for internal dividers. No second color.
-2. Any new headline is Bricolage Grotesque weight 800 uppercase with negative letter-spacing. Pick the size from the headline ladder (96 / 100 / 120 / 140 / 160 / 180px max) — do not invent a new size.
+2. Any new headline is Bricolage Grotesque weight 800 uppercase with negative letter-spacing. Pick the size from the headline ladder (96 / 109 / 130 / 136 / 168 / 194px) — do not invent a new size.
 3. Any new body paragraph is Fraunces italic at weight 400. Use roman only for info-keys (tracked uppercase) and card-body descriptions.
 4. Any new edition / ordinal marker uses the `{components.ed-badge}` (circular outline) paired with an italic "EDITION N." Fraunces label.
 5. Any new action button is the `{components.pill}` (border-radius 999px); any new metadata tag is the `{components.rect-tag}` (sharp corners). Don't conflate the two.
@@ -592,12 +594,12 @@ The Fraunces italic-default body voice is one of Long Table's most distinctive t
 ## Known Gaps
 
 - The two Google Fonts (Bricolage Grotesque with `opsz` 12..96, Fraunces with `opsz` 9..144) are loaded via `<link>`. Offline rendering will fall back to system sans (for Bricolage) and Georgia (for Fraunces) — which loses the optical-size axis and the personality of both faces. Self-hosting recommended for offline / print reliability.
-- The `opsz` optical-size axis is critical to quality at large display sizes (480px jumbo numeral) and small metadata sizes (14px page-number). Fallback faces without `opsz` will look noticeably flat at the extremes.
+- The `opsz` optical-size axis is critical to quality at large display sizes (492px jumbo numeral) and small metadata sizes (22px page-number). Fallback faces without `opsz` will look noticeably flat at the extremes.
 - The system is single-ink by design. If a deck needs a second emphasis color (a "callout" or "warning" hue), the system cannot accommodate it without breaking the printed-program register. Use Bricolage scale + opacity + italic/roman switch as the only emphasis mechanisms.
 - The paper-texture overlay uses a `background-image` radial-gradient that may render with subtle compression artifacts on some browsers at high zoom. The texture is essential to the system identity; do not remove it as a "performance optimization."
 - Body paragraphs are italic by default. For deck content where italic at body scale is hard to read (long technical paragraphs, code samples), the system has no clean fallback — italic is the body voice. Keep paragraphs short and lyrical.
 - The CSS has several empty rule blocks (`.body-it { ... }`, `.s-cover .stats .num { font-weight: 600; }` etc.) where the original commented-out italic / weight properties have been stripped. The intended treatment in many places is "italic Fraunces at weight 400" — the default style — but the empty blocks make this implicit rather than explicit. Treat italic as the default everywhere the comments hint at it.
 - The system loads Bricolage weights 400 and 600 and Fraunces weights 500 — these are not actively used in the published CSS. Using them would introduce intermediate weights that break the single-weight commitment per face.
 - The fallback `.body-it` and `.body-ro` utility classes are defined but use the explicit class names sparingly in the markup. Most slides set typography per-element rather than via the utility classes — copy the per-element styles when authoring new slides, not the utilities.
-- The hero italic Fraunces jumbo numeral at 480px is a literal numeral character — there is no glyph alternation or kerning fix for specific characters. The "0" and "8" glyphs may need optical adjustment at extreme sizes; check rendering at the target viewport.
+- The hero italic Fraunces jumbo numeral at 492px is a literal numeral character — there is no glyph alternation or kerning fix for specific characters. The "0" and "8" glyphs may need optical adjustment at extreme sizes; check rendering on the 1920×1080 stage.
 - The system has no `@media print` rule. Print export will not paginate; treat Long Table as screen-first.

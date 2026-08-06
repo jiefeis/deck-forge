@@ -125,6 +125,11 @@ def build(rows: list[tuple[str, Path]], output: Path, columns: int,
 
 
 def main() -> None:
+    # Printed paths may contain non-ASCII; never let a cp1252/cp936 console
+    # pipe kill the run with UnicodeEncodeError.
+    for stream in (sys.stdout, sys.stderr):
+        if hasattr(stream, "reconfigure"):
+            stream.reconfigure(errors="replace")
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--row", action="append", required=True, type=parse_row,
                         help="labeled render directory, e.g. source=render/source")

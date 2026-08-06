@@ -16,113 +16,113 @@ colors:
 typography:
   display-hero:
     fontFamily: "'Source Serif 4', 'Source Serif Pro', Georgia, serif"
-    fontSize: 220
+    fontSize: "220px"
     fontWeight: 500
     lineHeight: 0.92
     letterSpacing: -0.02em
   display:
     fontFamily: "'Source Serif 4', 'Source Serif Pro', Georgia, serif"
-    fontSize: 140
+    fontSize: "140px"
     fontWeight: 500
     lineHeight: 1.02
     letterSpacing: -0.02em
   headline-xl:
     fontFamily: "'Source Serif 4', 'Source Serif Pro', Georgia, serif"
-    fontSize: 96
+    fontSize: "96px"
     fontWeight: 500
     lineHeight: 0.96
     letterSpacing: -0.02em
   headline:
     fontFamily: "'Source Serif 4', 'Source Serif Pro', Georgia, serif"
-    fontSize: 84
+    fontSize: "84px"
     fontWeight: 500
     lineHeight: 1.0
     letterSpacing: -0.02em
   headline-sm:
     fontFamily: "'Source Serif 4', 'Source Serif Pro', Georgia, serif"
-    fontSize: 80
+    fontSize: "80px"
     fontWeight: 500
     lineHeight: 0.98
     letterSpacing: -0.02em
   title-card-lg:
     fontFamily: "'Source Serif 4', 'Source Serif Pro', Georgia, serif"
-    fontSize: 84
+    fontSize: "84px"
     fontWeight: 500
     lineHeight: 0.98
     letterSpacing: -0.01em
   title-card:
     fontFamily: "'Source Serif 4', 'Source Serif Pro', Georgia, serif"
-    fontSize: 68
+    fontSize: "68px"
     fontWeight: 500
     lineHeight: 0.96
     letterSpacing: -0.01em
   title-card-sm:
     fontFamily: "'Source Serif 4', 'Source Serif Pro', Georgia, serif"
-    fontSize: 56
+    fontSize: "56px"
     fontWeight: 500
     lineHeight: 0.98
     letterSpacing: -0.01em
   figure-caption-serif:
     fontFamily: "'Source Serif 4', 'Source Serif Pro', Georgia, serif"
-    fontSize: 56
+    fontSize: "56px"
     fontWeight: 500
     lineHeight: 1.05
   name:
     fontFamily: "'Source Serif 4', 'Source Serif Pro', Georgia, serif"
-    fontSize: 44
+    fontSize: "44px"
     fontWeight: 600
     lineHeight: 1.0
   meta-value:
     fontFamily: "'Source Serif 4', 'Source Serif Pro', Georgia, serif"
-    fontSize: 32
+    fontSize: "32px"
     fontWeight: 500
   body-lg:
     fontFamily: "'Source Serif 4', 'Source Serif Pro', Georgia, serif"
-    fontSize: 32
+    fontSize: "32px"
     fontWeight: 400
     lineHeight: 1.32
   body:
     fontFamily: "'Source Serif 4', 'Source Serif Pro', Georgia, serif"
-    fontSize: 30
+    fontSize: "30px"
     fontWeight: 400
     lineHeight: 1.38
   body-card:
     fontFamily: "'Source Serif 4', 'Source Serif Pro', Georgia, serif"
-    fontSize: 26
+    fontSize: "26px"
     fontWeight: 400
     lineHeight: 1.34
   label:
     fontFamily: "'JetBrains Mono', ui-monospace, Menlo, monospace"
-    fontSize: 26
+    fontSize: "26px"
     fontWeight: 500
     letterSpacing: 0.18em
     textTransform: uppercase
   label-tight:
     fontFamily: "'JetBrains Mono', ui-monospace, Menlo, monospace"
-    fontSize: 26
+    fontSize: "26px"
     fontWeight: 500
     letterSpacing: 0.14em
     textTransform: uppercase
   caption-mono:
     fontFamily: "'JetBrains Mono', ui-monospace, Menlo, monospace"
-    fontSize: 24
+    fontSize: "24px"
     fontWeight: 500
     letterSpacing: 0.14em
     textTransform: uppercase
   axis-mono:
     fontFamily: "'JetBrains Mono', ui-monospace, Menlo, monospace"
-    fontSize: 26
+    fontSize: "26px"
     fontWeight: 500
     letterSpacing: 0.08em
   stat-figure:
     fontFamily: "'Source Serif 4', 'Source Serif Pro', Georgia, serif"
-    fontSize: 220
+    fontSize: "220px"
     fontWeight: 500
     lineHeight: 0.92
     letterSpacing: -0.03em
   stat-figure-unit:
     fontFamily: "'Source Serif 4', 'Source Serif Pro', Georgia, serif"
-    fontSize: 110
+    fontSize: "110px"
     fontWeight: 500
     lineHeight: 0.92
 
@@ -162,7 +162,7 @@ components:
     borderRadius: "{spacing.radius-mark-circle}"
     border: "2px solid {colors.pink}"
     fontFamily: "JetBrains Mono"
-    fontSize: 28
+    fontSize: "28px"
     letterSpacing: 0.1em
     fontWeight: 500
     description: "Outlined round mark holding a short mono monogram. The system's signature identity stamp."
@@ -215,6 +215,8 @@ This policy has higher priority than any source-template responsive behavior des
 This policy applies even if the source template was originally implemented with viewport-fluid CSS such as `100vw`, `100vh`, `vw`, `vh`, or `clamp()`. Treat those values as design proportions to translate into 1920×1080 stage coordinates, not as live responsive rules in the generated deck.
 
 Author against the skill's fixed-stage model: full viewport-base.css inline, .slide/.active slides scaled as one unit (transform: scale(), origin 0 0) per html-template.md. Do not reference deck-stage.js (not bundled). Translate any data-anim/data-delay/.is-active entrance vocabulary from the source design into the deck's .reveal + .slide.visible convention. Render each slide at 1920×1080 and verify rendered screenshots for both text overflow and panel overlap.
+
+Page numbers or footers that must appear in the exported PDF must be slide-internal elements (see lumen-2026's .foot/.pageno); never use the reserved deck-chrome classes (.progress-bar, .slide-counter) — export_pdf.py strips them.
 
 
 ## Overview
@@ -427,13 +429,7 @@ Borders take the region's accent color (`{colors.green}` on cream, `{colors.pink
 
 ## Responsive Behavior
 
-This is a **fixed 1920×1080 presentation system** rendered through the skill's fixed-stage scaler. The canvas is not responsive in the web sense — there are no media queries, no breakpoints, no fluid sizing. Every measurement is in fixed pixels at 1920×1080.
-
-### Scaling Behavior
-The fixed-stage wrapper (viewport-base.css) wraps each `<section>` and scales the 1920×1080 canvas uniformly to fit the browser viewport, letterboxing as needed. Type, padding, gaps, and rule weights are all in pixels and scale proportionally with the canvas. Borders that read as 2px at 1920px will read as 1px at 960px viewport width — this is acceptable inside the system's tolerance.
-
-### Presenter Behavior
-Navigation is delegated to the deck's inline controller. Treat each `<section>` as a slide; the controller handles transitions.
+Source template was viewport-fluid/interactive; those behaviors do not apply to the fixed 1920×1080 stage and PDF delivery.
 
 ### Print / Export
 Because every measurement is fixed-pixel inside a 1920×1080 canvas, the system exports cleanly to PDF at the same aspect ratio (16:9). Source Serif 4 with the optical-size axis renders well at print resolution because the small-sized variants pick up the print-appropriate letterform detail automatically.
@@ -508,7 +504,6 @@ LXGW WenKai's brushwork warmth is its strength at large display sizes, but at bo
 
 ## Known Gaps
 
-- Canvas scaling and slide navigation come from the skill's fixed-stage model (viewport-base.css plus the deck's inline controller), not an external script.
 - Source Serif 4 and JetBrains Mono are loaded from Google Fonts via `<link>`. Offline rendering will fall back to Georgia serif and Menlo mono respectively, which will preserve the rough character but lose the optical-size axis and the JetBrains Mono identity. Self-hosting recommended for offline / print reliability.
 - The Source Serif 4 optical-size axis (`opsz` 8..60) is critical to the system's quality — using a non-opsz fallback face flattens the size-aware letterform contrast.
 - The bar chart uses hand-set bar heights (`%` of a fixed 520px plot region). There is no data-binding — extending the chart requires manually computing heights.

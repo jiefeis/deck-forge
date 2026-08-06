@@ -1,4 +1,4 @@
 interface:
   display_name: "Deck Forge"
-  short_description: "Build, edit, compare, and verify PPTX or PDF decks."
-  default_prompt: "Use $deck-forge to build or minimally edit this deck, preserve the requested structure, and verify every page."
+  short_description: "Generate PDF decks; minimally edit or audit existing PPTX."
+  default_prompt: "Use $deck-forge to build, minimally edit, compare, or audit this deck, preserve the requested structure, and verify every page."

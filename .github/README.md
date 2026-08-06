@@ -78,8 +78,10 @@ flowchart LR
 ### Codex
 
 ```powershell
-git clone https://github.com/jiefeis/deck-forge.git "$env:USERPROFILE\.codex\skills\deck-forge"
+git clone https://github.com/jiefeis/deck-forge.git "$env:USERPROFILE\.agents\skills\deck-forge"
 ```
+
+旧版 Codex 扫描的是 `~/.codex/skills`,老版本请克隆到该目录。
 
 ### Claude Code
 
@@ -88,6 +90,8 @@ git clone https://github.com/jiefeis/deck-forge.git ~/.claude/skills/deck-forge
 ```
 
 也可以让支持 GitHub 技能安装的编码代理安装仓库根目录。标准入口是 [`SKILL.md`](../SKILL.md)。
+
+若通过 GitHub ZIP 下载,解压后的目录名是 `deck-forge-main`,须重命名为 `deck-forge`——技能 name 与目录名必须一致。
 
 ## 依赖
 

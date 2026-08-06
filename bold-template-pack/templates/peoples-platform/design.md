@@ -410,6 +410,8 @@ This policy applies even if the source template was originally implemented with 
 
 Author against the skill's fixed-stage model: full viewport-base.css inline, .slide/.active slides scaled as one unit (transform: scale(), origin 0 0) per html-template.md. Do not reference deck-stage.js (not bundled). Translate any data-anim/data-delay/.is-active entrance vocabulary from the source design into the deck's .reveal + .slide.visible convention. Render each slide at 1920×1080 and verify rendered screenshots for both text overflow and panel overlap.
 
+Page numbers or footers that must appear in the exported PDF must be slide-internal elements (see lumen-2026's .foot/.pageno); never use the reserved deck-chrome classes (.progress-bar, .slide-counter) — export_pdf.py strips them.
+
 
 ## Overview
 
@@ -630,11 +632,7 @@ The system is almost entirely square. The only soft shapes are the pill (for met
 
 ## Responsive Behavior
 
-This template is designed exclusively for 1920×1080 presentation display. The skill's fixed-stage scaler handles viewport scaling via CSS transforms — the 1920×1080 canvas scales proportionally to any screen size without layout changes.
-
-Slides advance via keyboard or presentation clicker through the deck's inline controller. No hover states, no interactive form elements, no responsive breakpoints.
-
-For print and PDF export: at 96dpi, the 1920×1080 canvas maps to a 20×11.25 inch frame. The grain overlay uses `mix-blend-mode: multiply` — in PDF export, blend modes may flatten; test print output and consider disabling the grain for printed formats.
+Source template was viewport-fluid/interactive; those behaviors do not apply to the fixed 1920×1080 stage and PDF delivery. PDF-relevant caveat: the grain overlay's `mix-blend-mode: multiply` may flatten in PDF export — verify output and consider disabling the grain for print.
 
 ## CJK & International Content
 

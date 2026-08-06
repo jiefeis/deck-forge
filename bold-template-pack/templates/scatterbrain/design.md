@@ -24,68 +24,68 @@ colors:
 typography:
   display-hero:
     fontFamily: "'Shrikhand', cursive"
-    fontSize: "clamp(2.5rem, 5vw, 4.5rem)"
+    fontSize: 96px
     fontWeight: 400
     lineHeight: 1.1
     letterSpacing: 0.02em
   statement:
     fontFamily: "'Shrikhand', cursive"
-    fontSize: "clamp(2rem, 4vw, 3.5rem)"
+    fontSize: 77px
     fontWeight: 400
     lineHeight: 1.1
     letterSpacing: 0.02em
   headline:
     fontFamily: "'Shrikhand', cursive"
-    fontSize: "clamp(1.8rem, 3.5vw, 3rem)"
+    fontSize: 67px
     fontWeight: 400
     lineHeight: 1.1
     letterSpacing: 0.02em
   title:
     fontFamily: "'Shrikhand', cursive"
-    fontSize: "clamp(1.3rem, 2.5vw, 1.8rem)"
+    fontSize: 48px
     fontWeight: 400
     lineHeight: 1.1
     letterSpacing: 0.02em
   body:
     fontFamily: "'Zilla Slab', serif"
-    fontSize: "clamp(1rem, 1.5vw, 1.25rem)"
+    fontSize: 29px
     fontWeight: 400
     lineHeight: 1.7
   list-item:
     fontFamily: "'Zilla Slab', serif"
-    fontSize: "1.1rem"
+    fontSize: 25px
     fontWeight: 400
     lineHeight: 1.6
   handwritten:
     fontFamily: "'Caveat', cursive"
-    fontSize: "clamp(1.2rem, 2vw, 1.6rem)"
+    fontSize: 38px
     fontWeight: 400
     lineHeight: 1.4
   handwritten-lg:
     fontFamily: "'Caveat', cursive"
-    fontSize: "clamp(1.4rem, 2.5vw, 2rem)"
+    fontSize: 48px
     fontWeight: 600
     lineHeight: 1.3
   handwritten-sm:
     fontFamily: "'Caveat', cursive"
-    fontSize: "clamp(1.2rem, 1.5vw, 1.4rem)"
+    fontSize: 29px
     fontWeight: 500
     lineHeight: 1.3
   label-script:
     fontFamily: "'Caveat', cursive"
-    fontSize: "0.9rem"
+    fontSize: 21px
     fontWeight: 400
     lineHeight: 1.2
     letterSpacing: 0.15em
     textTransform: uppercase
   stat-value:
     fontFamily: "'Shrikhand', cursive"
-    fontSize: "1.8rem"
+    fontSize: 41px
     fontWeight: 400
     lineHeight: 1.1
   caption-subtitle:
     fontFamily: "'Zilla Slab', serif"
-    fontSize: "1.3rem"
+    fontSize: 30px
     fontWeight: 400
     lineHeight: 1.6
 
@@ -100,8 +100,8 @@ spacing:
   gap-sm: "2rem"
 
 canvas:
-  width: 100vw
-  height: 100vh
+  width: 1920px
+  height: 1080px
 
 components:
   bg-cork:
@@ -176,7 +176,7 @@ components:
     border: "3px solid {colors.ink}"
     borderRadius: "50%"
     fontFamily: "'Shrikhand', cursive"
-    fontSize: 1.5rem
+    fontSize: 34px
     description: "Round ink-bordered icon containing a single character (letter, number, or symbol) in Shrikhand display. Used as a category marker at the top of feature post-its."
   versus-circle:
     width: 60px
@@ -185,7 +185,7 @@ components:
     color: "{colors.paper}"
     borderRadius: "50%"
     fontFamily: "'Shrikhand', cursive"
-    fontSize: 1.2rem
+    fontSize: 19px
     boxShadow: "0 2px 8px {colors.shadow-deep}"
     description: "Ink-filled circle with cream text used between two compare-cards. Centered between the two cards with absolute positioning; reads as a 'vs' / 'and' connector."
   photo-frame:
@@ -236,6 +236,8 @@ This policy has higher priority than any source-template responsive behavior des
 This policy applies even if the source template was originally implemented with viewport-fluid CSS such as `100vw`, `100vh`, `vw`, `vh`, or `clamp()`. Treat those values as design proportions to translate into 1920×1080 stage coordinates, not as live responsive rules in the generated deck.
 
 Author against the skill's fixed-stage model: full viewport-base.css inline, .slide/.active slides scaled as one unit (transform: scale(), origin 0 0) per html-template.md. Do not reference deck-stage.js (not bundled). Translate any data-anim/data-delay/.is-active entrance vocabulary from the source design into the deck's .reveal + .slide.visible convention. Render each slide at 1920×1080 and verify rendered screenshots for both text overflow and panel overlap.
+
+Page numbers or footers that must appear in the exported PDF must be slide-internal elements (see lumen-2026's .foot/.pageno); never use the reserved deck-chrome classes (.progress-bar, .slide-counter) — export_pdf.py strips them.
 
 
 ## Overview
@@ -313,30 +315,30 @@ Italic exists for Zilla Slab (300 and 400 italic) but is rarely used — emphasi
 
 ### Type Scale
 
-| Token | Size (clamp) | Family | Weight | Use |
+| Token | Size | Family | Weight | Use |
 |---|---|---|---|---|
-| `{typography.display-hero}` | 2.5–4.5rem | Shrikhand | 400 | Cover or closing oversized headline |
-| `{typography.statement}` | 2–3.5rem | Shrikhand | 400 | Centered statement or pulled quote |
-| `{typography.headline}` | 1.8–3rem | Shrikhand | 400 | Primary slide headline / section headline |
-| `{typography.title}` | 1.3–1.8rem | Shrikhand | 400 | Sub-region or card title |
-| `{typography.caption-subtitle}` | 1.3rem | Zilla Slab | 400 | Slide subtitle below a hero headline |
-| `{typography.body}` | 1–1.25rem | Zilla Slab | 400 | Standard paragraph body |
-| `{typography.list-item}` | 1.1rem | Zilla Slab | 400 | Bulleted / check-marked list row |
-| `{typography.handwritten}` | 1.2–1.6rem | Caveat | 400 | Decorative quip, personal note |
-| `{typography.handwritten-lg}` | 1.4–2rem | Caveat | 600 | Larger handwritten subtitle |
-| `{typography.handwritten-sm}` | 1.2–1.4rem | Caveat | 500 | Small accent label |
-| `{typography.label-script}` | 0.9rem | Caveat | 400 | Tracked-caps eyebrow label |
-| `{typography.stat-value}` | 1.8rem | Shrikhand | 400 | Numerical value in a stat-row |
+| `{typography.display-hero}` | 96px | Shrikhand | 400 | Cover or closing oversized headline |
+| `{typography.statement}` | 77px | Shrikhand | 400 | Centered statement or pulled quote |
+| `{typography.headline}` | 67px | Shrikhand | 400 | Primary slide headline / section headline |
+| `{typography.title}` | 48px | Shrikhand | 400 | Sub-region or card title |
+| `{typography.caption-subtitle}` | 30px | Zilla Slab | 400 | Slide subtitle below a hero headline |
+| `{typography.body}` | 29px | Zilla Slab | 400 | Standard paragraph body |
+| `{typography.list-item}` | 25px | Zilla Slab | 400 | Bulleted / check-marked list row |
+| `{typography.handwritten}` | 38px | Caveat | 400 | Decorative quip, personal note |
+| `{typography.handwritten-lg}` | 48px | Caveat | 600 | Larger handwritten subtitle |
+| `{typography.handwritten-sm}` | 29px | Caveat | 500 | Small accent label |
+| `{typography.label-script}` | 21px | Caveat | 400 | Tracked-caps eyebrow label |
+| `{typography.stat-value}` | 41px | Shrikhand | 400 | Numerical value in a stat-row |
 
 ### Defaults
-- **Default size for a primary section headline (inside a post-it)**: `{typography.headline}` (1.8–3rem clamp) in Shrikhand.
-- **Default size for a cover or closing oversized headline**: `{typography.display-hero}` (2.5–4.5rem clamp).
-- **Default size for a centered manifesto / pulled-quote statement**: `{typography.statement}` (2–3.5rem clamp).
-- **Default size for paragraph body**: `{typography.body}` (1–1.25rem clamp) in Zilla Slab 400.
-- **Default size for list rows (bulleted, check-marked, or compare-list)**: `{typography.list-item}` (1.1rem) in Zilla Slab 400.
-- **Default size for a side note or quip**: `{typography.handwritten}` (1.2–1.6rem clamp) in Caveat 400.
-- **Default size for an eyebrow label above a card headline**: `{typography.label-script}` (0.9rem) in Caveat, uppercase, 0.15em tracking.
-- **Default size for a stat value**: `{typography.stat-value}` (1.8rem) in Shrikhand.
+- **Default size for a primary section headline (inside a post-it)**: `{typography.headline}` (67px) in Shrikhand.
+- **Default size for a cover or closing oversized headline**: `{typography.display-hero}` (96px).
+- **Default size for a centered manifesto / pulled-quote statement**: `{typography.statement}` (77px).
+- **Default size for paragraph body**: `{typography.body}` (29px) in Zilla Slab 400.
+- **Default size for list rows (bulleted, check-marked, or compare-list)**: `{typography.list-item}` (25px) in Zilla Slab 400.
+- **Default size for a side note or quip**: `{typography.handwritten}` (38px) in Caveat 400.
+- **Default size for an eyebrow label above a card headline**: `{typography.label-script}` (21px) in Caveat, uppercase, 0.15em tracking.
+- **Default size for a stat value**: `{typography.stat-value}` (41px) in Shrikhand.
 - **Default weight for Shrikhand**: 400 (the only weight).
 - **Default weight for Zilla Slab body**: 400. For emphasized body: 500–700. For light captions: 300.
 - **Default weight for Caveat**: 400 for casual notes; 500–700 for emphasis.
@@ -346,7 +348,7 @@ When unsure between `{typography.headline}` and `{typography.title}` for a card'
 ### Signature Treatments
 These treatments are **non-optional whenever the corresponding element type is used**:
 
-- **Every display headline is set in Shrikhand.** Substituting Zilla Slab or another display face loses the workshop voice. Even small titles (1.3rem) inside feature cards use Shrikhand.
+- **Every display headline is set in Shrikhand.** Substituting Zilla Slab or another display face loses the workshop voice. Even small titles (48px) inside feature cards use Shrikhand.
 - **Every body paragraph and list item is set in Zilla Slab.** Setting body in Shrikhand reads as overproduced and unreadable.
 - **Every casual / personal note is set in Caveat.** This includes side notes, decorative quips ("Jot it down before you forget!", "OK", ":)"), and stat-divider personal observations. Switching to italic Zilla loses the hand-drawn voice.
 - **Every label-script eyebrow is uppercase with 0.15em tracking.** Caveat at normal tracking reads as a body cursive; the uppercase + tracking turns it into a categorical label.
@@ -569,7 +571,7 @@ Caveat — the system's most distinctive voice (the casual ballpoint hand-script
 4. Every new post-it carries the standard soft drop shadow (`2px 3px 15px shadow, 0 1px 3px shadow-deep`).
 5. Every new primary post-it carries a pin via `::before` (red default; blue / green / gold variants for color cohesion).
 6. Hero / statement / closing post-its add a tape strip via `::after` for the "officially posted" treatment.
-7. Headlines use Shrikhand at sizes from `{typography.title}` (1.3rem) for small card titles up to `{typography.display-hero}` (4.5rem) for cover/closing. Body uses Zilla Slab. Personal notes use Caveat.
+7. Headlines use Shrikhand at sizes from `{typography.title}` (48px) for small card titles up to `{typography.display-hero}` (96px) for cover/closing. Body uses Zilla Slab. Personal notes use Caveat.
 8. Feature post-its open with a 60px round ink-bordered feature-icon containing a single Shrikhand character (A/B/C, 1/2/3, !/✓/✗).
 9. Decorative SVG doodles (circles, squiggles, triangles, X marks) live in 1–2 unoccupied corners per slide at 0.15 opacity, 3px ink stroke.
 10. Charts and diagrams sit inside a white chart-canvas (`{components.chart-canvas}`) with the same drop shadow + small rotation as post-its. SVG fills use the post-it palette (yellow, blue, pink, green).

@@ -8,9 +8,14 @@ Use this small file for title-slide previews only. For final deck generation, re
 
 ## Visual Snapshot
 
-A literary editorial system rendered in black ink on cream paper. Ultra-light geometric sans (Jost at weight 200–300) carries every headline; Lora italic serif handles quote text and insight-card titles; JetBrains Mono provides the structural chrome. There are no chromatic accents — every color in the palette is a graphite or cream tone, and "accent" simply means "darker ink." The aesthetic borrows from independent research reports, scholarly monographs, and the quietest end of contemporary editorial design — closer to a printed journal than a tech presentation.
+Cover recipe:
 
-Monochrome (Ivory Ledger) is a literary editorial system built on a single material constraint: black ink on cream paper, and nothing else. The palette has seven tokens, all of them tonal variations of cream or graphite. There is no chromatic accent — the "accent" color is just darker ink. The result is a system that reads as a carefully typeset research report or a quiet contemporary monograph, not a presentation.
+- Surface: full-bleed cream-paper #FAFADF; no chrome header/foot on the cover; content sits in the middle 60–70% of the canvas inside 154px horizontal padding.
+- Kicker: JetBrains Mono uppercase 14px, 0.14em tracking, ink-graphite-light #8A8A80, placed above the title.
+- Rule: the signature 36px × 1px solid ink-black accent rule under the kicker.
+- Title: Jost weight 200 at 163px, mixed case, letter-spacing -0.02em, ink-black #1A1A16, left-aligned — a single typographic moment anchoring a nearly-empty slide.
+- Support: one lead line in Jost 300 at 29px, ink-graphite #5E5E54.
+- Footer: optional single mono caption line (16px) at the bottom edge; any page number must be a slide-internal element.
 
 ## Preview Ingredients
 

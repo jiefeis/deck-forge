@@ -99,7 +99,7 @@ typography:
     letterSpacing: -0.015em
   body:
     fontFamily: "Space Grotesk, Helvetica Neue, Arial, sans-serif"
-    fontSize: 22px
+    fontSize: 26px
     fontWeight: 400
     lineHeight: 1.45
   body-md:
@@ -290,7 +290,7 @@ components:
   number-script:
     fontFamily: "Caveat, cursive"
     fontWeight: 700
-    fontSize: "60–70px"
+    fontSize: "70px"
     color: "{colors.ink}"
     description: "Hand-script numeral used as step numbers in process diagrams and ordered CTA steps. The script face makes ordering feel hand-counted, not algorithmic."
 ---
@@ -313,6 +313,8 @@ This policy has higher priority than any source-template responsive behavior des
 This policy applies even if the source template was originally implemented with viewport-fluid CSS such as `100vw`, `100vh`, `vw`, `vh`, or `clamp()`. Treat those values as design proportions to translate into 1920×1080 stage coordinates, not as live responsive rules in the generated deck.
 
 Author against the skill's fixed-stage model: full viewport-base.css inline, .slide/.active slides scaled as one unit (transform: scale(), origin 0 0) per html-template.md. Do not reference deck-stage.js (not bundled). Translate any data-anim/data-delay/.is-active entrance vocabulary from the source design into the deck's .reveal + .slide.visible convention. Render each slide at 1920×1080 and verify rendered screenshots for both text overflow and panel overlap.
+
+Page numbers or footers that must appear in the exported PDF must be slide-internal elements (see lumen-2026's .foot/.pageno); never use the reserved deck-chrome classes (.progress-bar, .slide-counter) — export_pdf.py strips them.
 
 
 ## Overview
@@ -562,12 +564,7 @@ The system uses a **4px micro-radius** on every card — small enough to read as
 
 ## Responsive Behavior
 
-The system targets a **fixed 1920×1080 canvas** rendered inside the skill's fixed-stage wrapper. The stage handles proportional scaling to the browser viewport — all pixel-fixed sizes inside the canvas scale uniformly.
-
-### Presenter Behavior
-- The fixed-stage wrapper and the deck's inline controller manage navigation, scaling, and presenter chrome.
-- Keyboard, touch, and mouse-wheel navigation are handled by the stage component.
-- The slide canvas is constant 1920×1080 regardless of viewport size.
+Source template was viewport-fluid/interactive; those behaviors do not apply to the fixed 1920×1080 stage and PDF delivery.
 
 ### Print Behavior
 Print/PDF export goes through the skill's export_pdf.py screenshot pipeline. The fractal-noise grain overlay may not render in all PDF exports — test before assuming texture transfers.

@@ -27,80 +27,80 @@ color-aliases:
 typography:
   display:
     fontFamily: "Jost, Noto Sans SC, system-ui, sans-serif"
-    fontSize: 8.5vw
+    fontSize: 163px
     fontWeight: 200
     lineHeight: 0.96
     letterSpacing: -0.02em
   h1:
     fontFamily: "Jost, Noto Sans SC, system-ui, sans-serif"
-    fontSize: 5vw
+    fontSize: 96px
     fontWeight: 200
     lineHeight: 1.1
     letterSpacing: -0.01em
   h2:
     fontFamily: "Jost, Noto Sans SC, system-ui, sans-serif"
-    fontSize: 3.2vw
+    fontSize: 61px
     fontWeight: 300
     lineHeight: 1.2
   h3:
     fontFamily: "Jost, Noto Sans SC, system-ui, sans-serif"
-    fontSize: 2vw
+    fontSize: 38px
     fontWeight: 400
     lineHeight: 1.3
   lead:
     fontFamily: "Jost, Noto Sans SC, system-ui, sans-serif"
-    fontSize: 1.5vw
+    fontSize: 29px
     fontWeight: 300
     lineHeight: 1.65
   body:
     fontFamily: "Jost, Noto Sans SC, system-ui, sans-serif"
-    fontSize: 1.1vw
+    fontSize: 24px
     fontWeight: 300
     lineHeight: 1.7
   caption:
     fontFamily: "Jost, Noto Sans SC, system-ui, sans-serif"
-    fontSize: 0.85vw
+    fontSize: 16px
     fontWeight: 300
     lineHeight: 1.55
   label:
     fontFamily: "JetBrains Mono, monospace"
-    fontSize: 0.72vw
+    fontSize: 14px
     fontWeight: 400
     letterSpacing: 0.12em
     textTransform: uppercase
   quote-serif:
     fontFamily: "Lora, Noto Serif SC, Georgia, serif"
-    fontSize: 3.2vw
+    fontSize: 61px
     fontWeight: 400
     lineHeight: 1.35
   insight-serif:
     fontFamily: "Lora, Noto Serif SC, Georgia, serif"
-    fontSize: 2.8vw
+    fontSize: 54px
     fontWeight: 400
     lineHeight: 1.15
   stat-value:
     fontFamily: "Jost, Noto Sans SC, system-ui, sans-serif"
-    fontSize: 5.5vw
+    fontSize: 106px
     fontWeight: 200
     lineHeight: 1.0
     letterSpacing: -0.03em
   flow-num:
     fontFamily: "Jost, Noto Sans SC, system-ui, sans-serif"
-    fontSize: 3.5vw
+    fontSize: 67px
     fontWeight: 200
     lineHeight: 1.0
     letterSpacing: -0.02em
 
 spacing:
-  pad-x: 8vw
-  pad-y: 6vh
-  gap-lg: 5vh
-  gap-md: 3vh
-  gap-sm: 1.5vh
+  pad-x: 154px
+  pad-y: 65px
+  gap-lg: 54px
+  gap-md: 32px
+  gap-sm: 16px
 
 canvas:
-  width: 100vw
-  height: 100vh
+  width: 1920px
+  height: 1080px
 
 components:
   rule:
@@ -136,12 +136,12 @@ components:
   insight-card:
     background: "{colors.cream-warm}"
     borderRadius: 16px
-    padding: "3vh 2.5vw"
+    padding: "32px 48px"
     description: "Tall rounded-rectangle card in cream tone (one of three near-identical creams). Holds a large Lora serif title and a Jost body block at the bottom."
   stat-cell:
     borderTop: "1px solid {colors.ink-black}"
     padding: "{spacing.gap-md} {spacing.gap-md} {spacing.gap-md} 0"
-    description: "Rule-topped vertical cell with a 5.5vw weight-200 numeral, a Jost label, and a mono source note."
+    description: "Rule-topped vertical cell with a 106px weight-200 numeral, a Jost label, and a mono source note."
   timeline-dot:
     width: 8px
     height: 8px
@@ -154,8 +154,8 @@ components:
     background: "{colors.ink-black}"
     description: "1px vertical rule that anchors a vertical timeline. Carries a 9px solid black dot at the top of each entry."
   pie-donut:
-    width: "min(26vw, 42vh)"
-    height: "min(26vw, 42vh)"
+    width: "454px"
+    height: "454px"
     borderRadius: 50%
     description: "Donut ring rendered by overlaying a same-color circular ::after pseudo on a conic-gradient or similar. Center cutout is the slide background."
   pyramid-bar:
@@ -193,6 +193,8 @@ This policy applies even if the source template was originally implemented with 
 
 Author against the skill's fixed-stage model: full viewport-base.css inline, .slide/.active slides scaled as one unit (transform: scale(), origin 0 0) per html-template.md. Do not reference deck-stage.js (not bundled). Translate any data-anim/data-delay/.is-active entrance vocabulary from the source design into the deck's .reveal + .slide.visible convention. Render each slide at 1920×1080 and verify rendered screenshots for both text overflow and panel overlap.
 
+Page numbers or footers that must appear in the exported PDF must be slide-internal elements (see lumen-2026's .foot/.pageno); never use the reserved deck-chrome classes (.progress-bar, .slide-counter) — export_pdf.py strips them.
+
 
 ## Overview
 
@@ -204,7 +206,7 @@ The palette functions in three roles. **Cream paper** (`{colors.cream-paper}` an
 
 Depth is achieved entirely through **1px hairline rules** and **generous whitespace**. There are no drop shadows, no gradients, no elevation, no atmospheric effects. When two regions need separation, a 1px black line divides them. When a region needs visual weight, it gets more padding, not a fill change. The insight-card surfaces are nearly indistinguishable from the page itself — the cards are defined by their corner radius and padding, not by a contrast jump.
 
-**Density philosophy: sparse.** Ivory Ledger reads as elegant when generous whitespace dominates and a single typographic moment anchors the slide. The horizontal padding is set to 8vw (the most generous in the library), and content typically uses only the middle 60–70% of the canvas. A slide that fills 80% of its area with type reads as cramped and breaks the editorial reading. The system is asking the agent to leave space — to let a single Jost-200 headline carry an otherwise nearly-empty slide. When density is required (a research timeline, a two-column dense-text spread, a 12-row table), the system holds together only because the type is so light and the rules so thin that even dense content reads as airy.
+**Density philosophy: sparse.** Ivory Ledger reads as elegant when generous whitespace dominates and a single typographic moment anchors the slide. The horizontal padding is set to 154px (the most generous in the library), and content typically uses only the middle 60–70% of the canvas. A slide that fills 80% of its area with type reads as cramped and breaks the editorial reading. The system is asking the agent to leave space — to let a single Jost-200 headline carry an otherwise nearly-empty slide. When density is required (a research timeline, a two-column dense-text spread, a 12-row table), the system holds together only because the type is so light and the rules so thin that even dense content reads as airy.
 
 **Key Characteristics:**
 - Cream paper background (`{colors.cream-paper}`) on every slide — never white, never dark by default. The cream is the surface, not a stylistic choice.
@@ -214,7 +216,7 @@ Depth is achieved entirely through **1px hairline rules** and **generous whitesp
 - The system has no chromatic accent. The accent color is `{colors.ink-black}` — slightly darker ink.
 - All structural separation is 1px hairline rules in black, plus the signature 36px short rule (`{components.rule}`) used as a small punctuation mark.
 - The bullet list marker is an em-dash in muted graphite via JetBrains Mono.
-- Generous 8vw horizontal padding — the most spacious in the template library.
+- Generous 154px horizontal padding — the most spacious in the template library.
 
 ## Colors
 
@@ -260,26 +262,26 @@ The emotional register is deliberate:
 
 | Token | Size | Family | Weight | Use |
 |---|---|---|---|---|
-| `{typography.display}` | 8.5vw | Jost | 200 | Cover or opening hero display — generous and airy |
-| `{typography.h1}` | 5vw | Jost | 200 | Chapter-opening or section-break headline |
-| `{typography.h2}` | 3.2vw | Jost | 300 | Primary content-slide headline |
-| `{typography.stat-value}` | 5.5vw | Jost | 200 | Large numerical figure inside a stat cell |
-| `{typography.quote-serif}` | 3.2vw | Lora italic | 400 | Pull-quote body text |
-| `{typography.insight-serif}` | 2.8vw | Lora | 400 | Insight-card title |
-| `{typography.h3}` | 2vw | Jost | 400 | Sub-headline, region heading, flow-step title |
-| `{typography.lead}` | 1.5vw | Jost | 300 | Lead paragraph or large bullet item |
-| `{typography.body}` | 1.1vw | Jost | 300 | Body paragraph |
-| `{typography.caption}` | 0.85vw | Jost | 300 | Image caption, source note, fine print |
-| `{typography.label}` | 0.72vw | JetBrains Mono | 400 | Kicker, chrome label, axis label, version tag |
-| `{typography.flow-num}` | 3.5vw | Jost | 200 | Large step numeral in a process diagram |
+| `{typography.display}` | 163px | Jost | 200 | Cover or opening hero display — generous and airy |
+| `{typography.h1}` | 96px | Jost | 200 | Chapter-opening or section-break headline |
+| `{typography.h2}` | 61px | Jost | 300 | Primary content-slide headline |
+| `{typography.stat-value}` | 106px | Jost | 200 | Large numerical figure inside a stat cell |
+| `{typography.quote-serif}` | 61px | Lora italic | 400 | Pull-quote body text |
+| `{typography.insight-serif}` | 54px | Lora | 400 | Insight-card title |
+| `{typography.h3}` | 38px | Jost | 400 | Sub-headline, region heading, flow-step title |
+| `{typography.lead}` | 29px | Jost | 300 | Lead paragraph or large bullet item |
+| `{typography.body}` | 24px | Jost | 300 | Body paragraph |
+| `{typography.caption}` | 16px | Jost | 300 | Image caption, source note, fine print |
+| `{typography.label}` | 14px | JetBrains Mono | 400 | Kicker, chrome label, axis label, version tag |
+| `{typography.flow-num}` | 67px | Jost | 200 | Large step numeral in a process diagram |
 
 ### Defaults
 
-- **Default primary section headline**: `{typography.h2}` (3.2vw at weight 300). Don't reach for `{typography.h1}` for a standard content slide — that size is for chapter breaks.
-- **Default opening or cover display**: `{typography.display}` (8.5vw at weight 200).
-- **Default body paragraph size**: `{typography.body}` (1.1vw at weight 300).
-- **Default lead paragraph size**: `{typography.lead}` (1.5vw at weight 300) when a paragraph is the single supporting block under a headline.
-- **Default label / kicker size**: `{typography.label}` (0.72vw).
+- **Default primary section headline**: `{typography.h2}` (61px at weight 300). Don't reach for `{typography.h1}` for a standard content slide — that size is for chapter breaks.
+- **Default opening or cover display**: `{typography.display}` (163px at weight 200).
+- **Default body paragraph size**: `{typography.body}` (24px at weight 300).
+- **Default lead paragraph size**: `{typography.lead}` (29px at weight 300) when a paragraph is the single supporting block under a headline.
+- **Default label / kicker size**: `{typography.label}` (14px).
 - **Default weight for any display element**: 200. Jost at 200 is the system's display voice.
 - **Default weight for body**: 300.
 
@@ -307,19 +309,19 @@ Italic is used exclusively in Lora (pull-quote body) and not in Jost. Underline 
 
 ### Canvas System
 
-The system targets a fluid `100vw × 100vh` viewport with all sizes in `vw`/`vh`. The deck is a horizontal flex strip with slide-to-slide transitions at 0.9s with a smooth easing curve. Animation tokens (`fade-up`, `fade-in`, `reveal-right`, `reveal-left`, `scale-in`) are available with stagger delays via `data-delay` attributes — these run on each slide entrance.
+Every slide is exactly 1920×1080px. The skill's fixed-stage scaler (viewport-base.css) handles centering and scaling. The source's entrance-animation vocabulary (`data-anim`/`data-delay`) translates to the deck's `.reveal` + `.slide.visible` convention per the Fixed-Stage Policy.
 
 ### Padding and Gap Scale
 
 | Token | Value | Use |
 |---|---|---|
-| `{spacing.pad-x}` | 8vw | Slide horizontal padding (the most generous in the library) |
-| `{spacing.pad-y}` | 6vh | Slide vertical padding |
-| `{spacing.gap-lg}` | 5vh | Between major content sections |
-| `{spacing.gap-md}` | 3vh | Between related elements |
-| `{spacing.gap-sm}` | 1.5vh | Between tightly related elements |
+| `{spacing.pad-x}` | 154px | Slide horizontal padding (the most generous in the library) |
+| `{spacing.pad-y}` | 65px | Slide vertical padding |
+| `{spacing.gap-lg}` | 54px | Between major content sections |
+| `{spacing.gap-md}` | 32px | Between related elements |
+| `{spacing.gap-sm}` | 16px | Between tightly related elements |
 
-The slide container reserves an additional 3.5vw on the left for a vertical sidebar element (currently disabled in the source — see Known Gaps), so total left padding is ~11.5vw. Content sits inside this generous gutter system.
+The slide container reserves an additional 67px on the left for a vertical sidebar element (currently disabled in the source — see Known Gaps), so total left padding is ~221px. Content sits inside this generous gutter system.
 
 ### Chrome Frame
 
@@ -337,7 +339,7 @@ The system uses **zero box-shadow declarations** on any structural element. Dept
 
 1. **1px hairline rules in solid `{colors.ink-black}`** — under chrome bands, above foot bands, between compare panels, above stat cells, across timeline tracks, across chart baselines. The rule is the divider, the separator, the structural mark.
 2. **The 36px short rule** (`{components.rule}`) — a small punctuation mark used under chapter labels, beside kickers, or as a delicate accent break.
-3. **Generous whitespace** — the primary depth signal is the 8vw horizontal gutter and the space around each typographic moment.
+3. **Generous whitespace** — the primary depth signal is the 154px horizontal gutter and the space around each typographic moment.
 
 ### No Atmospheric Effects
 
@@ -373,15 +375,15 @@ There is no thicker border weight, no dashed border (except a `1px dashed` graph
 
 **Bullet em-dash** — A `—` glyph in JetBrains Mono colored `{colors.ink-graphite-light}`, prepended to each list item via a CSS grid marker column (`grid-template-columns: 1.2em 1fr`).
 
-**Insight card** — A 16px-rounded rectangle (`{components.insight-card}`) on a slightly warmer cream surface. Carries a Lora roman title (2.8vw weight 400) and a Jost body block (weight 300) pushed to the bottom of the card. The card is identified by its rounded corners and its serif title, not by a color contrast.
+**Insight card** — A 16px-rounded rectangle (`{components.insight-card}`) on a slightly warmer cream surface. Carries a Lora roman title (54px weight 400) and a Jost body block (weight 300) pushed to the bottom of the card. The card is identified by its rounded corners and its serif title, not by a color contrast.
 
-**Stat cell** — A vertical region with a 1px solid black top rule (`{components.stat-cell}`), containing a 5.5vw Jost-200 numeral, a Jost label, and a small mono source note. Three stat cells side by side is the canonical arrangement.
+**Stat cell** — A vertical region with a 1px solid black top rule (`{components.stat-cell}`), containing a 106px Jost-200 numeral, a Jost label, and a small mono source note. Three stat cells side by side is the canonical arrangement.
 
 **Timeline dot** — An 8px solid black circle with a 2px cream-warm border ring (`{components.timeline-dot}`) that punches through the horizontal connector rule. The ring color matches the warm-cream slide surface so the dot reads as floating on the rule, not crossing it.
 
 **Vertical timeline spine** — A 1px-wide vertical solid black line (`{components.vtimeline-spine}`) with 9px solid black dots at the top of each entry. Used in long chronological lists.
 
-**Pie / donut chart** — A circle (`{components.pie-donut}`) at min(26vw, 42vh) size, with a same-color circular cutout via `::after` to create the donut ring. The chart sits beside a legend column.
+**Pie / donut chart** — A circle (`{components.pie-donut}`) at 454px size, with a same-color circular cutout via `::after` to create the donut ring. The chart sits beside a legend column.
 
 **Pyramid bar** — A horizontal bar (`{components.pyramid-bar}`) with a 2px solid black left edge and a tonal cream-to-graphite fill computed via `color-mix(in srgb, ink-black N%, cream-paper)` where N ranges from 4% to 55% across the five levels. Widths step from 36% (top, darkest) to 100% (bottom, lightest).
 
@@ -409,7 +411,7 @@ There is no thicker border weight, no dashed border (except a `1px dashed` graph
 - Don't put a pull-quote in Jost. The Lora italic body is the quote's identity — switching to sans collapses the typographic distinction.
 - Don't use box-shadow on any element. The system has no elevation.
 - Don't use a card surface with chromatic contrast. Insight cards are identified by corner radius and serif title; a colored fill breaks the monochrome reading.
-- Don't crowd a slide. The horizontal padding is 8vw for a reason — content needs to breathe.
+- Don't crowd a slide. The horizontal padding is 154px for a reason — content needs to breathe.
 - Don't use bold to emphasize body text. Inline emphasis is rare; when used, switch to Lora italic, not weight increase.
 - Don't substitute the em-dash bullet marker with a dot, check, arrow, or numeral. The em-dash is the system's only list mark.
 - Don't enable the disabled sidebar (`.slide-sidebar`). It's hidden intentionally — re-enabling it adds visual noise that the system was tuned to remove.
@@ -417,18 +419,7 @@ There is no thicker border weight, no dashed border (except a `1px dashed` graph
 
 ## Responsive Behavior
 
-The system is viewport-fluid by design. All sizes use `vw`/`vh` so the same composition renders correctly across any 16:9 viewport without breakpoints. At smaller viewports, both typography and padding scale linearly so the visual density and the negative-space ratio stay constant.
-
-### Presenter Behavior
-- Standard keyboard navigation: arrows, space, Home, End.
-- Touch swipe for mobile.
-- Mouse wheel with debounce to prevent multi-skip.
-- Slide-to-slide transitions animate over 0.9s with a smooth easing curve.
-- Each slide can declare entrance animations on individual elements via `data-anim` (fade-up, fade-in, reveal-right, reveal-left, scale-in) with stagger delays via `data-delay="N"` where N maps to a discrete delay step (0s, 0.08s, 0.18s, 0.3s, 0.44s, 0.6s, 0.78s, 0.96s).
-- Elements with `[data-anim]` start invisible (opacity:0) and animate on `.is-active` — re-visiting a slide replays the entrance.
-
-### Print Behavior
-The template does not declare a `@media print` rule. Browser-driven PDF export will capture only the active slide; multi-slide export requires manual navigation per slide.
+Source template was viewport-fluid/interactive; those behaviors do not apply to the fixed 1920×1080 stage and PDF delivery.
 
 ## CJK & International Content
 
@@ -475,7 +466,7 @@ The em-dash bullet marker (`—`) works perfectly in Chinese — the Chinese em-
 
 ### Known CJK Gap
 
-The 8vw horizontal padding (the most generous in the library) was tuned for Latin's narrower glyph widths. Chinese characters are roughly square and consume more horizontal space at the same point size. Long Chinese headlines that would fit on one line in English may wrap to two. Reduce display headline sizes by ~15% (Jost 8.5vw → Noto Sans SC 7.2vw) when the headline is pure Chinese, or accept the wrap as part of the editorial rhythm.
+The 154px horizontal padding (the most generous in the library) was tuned for Latin's narrower glyph widths. Chinese characters are roughly square and consume more horizontal space at the same point size. Long Chinese headlines that would fit on one line in English may wrap to two. Reduce display headline sizes by ~15% (Jost 163px → Noto Sans SC 138px) when the headline is pure Chinese, or accept the wrap as part of the editorial rhythm.
 
 ## Iteration Guide
 
@@ -496,7 +487,6 @@ The 8vw horizontal padding (the most generous in the library) was tuned for Lati
 - The three insight-card surface tokens (`--c-card-a`, `--c-card-b`, `--c-card-c`) resolve to two near-identical values (#FAFADF, #F5F0E4). The card "color variation" is effectively cosmetic — cards are distinguished by serif title and padding, not surface tone.
 - The pie/donut chart uses a `::after` pseudo cutout that requires the chart background to match the slide surface. Slides with a different background (e.g., the cream-warm variant) need the `--c-bg-light` token adjusted for the cutout to disappear correctly.
 - The pyramid chart uses `color-mix(in srgb, ...)` which requires a modern browser. Older browsers will render the bars as solid `{colors.cream-paper}`.
-- The animation system requires the `.is-active` class to be applied to a slide for entrance animations to play. Without proper navigation engine wiring, `[data-anim]` elements will remain at opacity 0.
-- Lora italic at large sizes (3.2vw quote body) has noticeably wider stroke contrast than the surrounding Jost — this is intentional but creates a perceived weight jump. Don't compensate by making the surrounding text heavier.
+- Lora italic at large sizes (61px quote body) has noticeably wider stroke contrast than the surrounding Jost — this is intentional but creates a perceived weight jump. Don't compensate by making the surrounding text heavier.
 - The bar-chart `bar-fill` uses inline `style="height: XX%"` declarations — there's no data-binding layer. Heights are computed manually.
 - The system was originally named "Ivory Ledger" in the source comments. The template is exposed in the library as "Monochrome"; both names refer to the same design system.

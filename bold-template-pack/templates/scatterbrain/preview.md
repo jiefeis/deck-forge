@@ -8,9 +8,15 @@ Use this small file for title-slide previews only. For final deck generation, re
 
 ## Visual Snapshot
 
-A Post-it-note-and-cork-board presentation system. Every content block is a colored sticky note on a textured paper or cork surface, layered with red thumbtacks, masking tape, and decorative doodles. Display type runs in Shrikhand (a chunky decorative display serif) on every headline; body type runs in Zilla Slab (a friendly slab serif); handwritten emphasis runs in Caveat. The palette is pastel sticky-note colors (yellow, blue, pink, green, orange, purple) on cream paper / cork / warm gradient backgrounds. The aesthetic borrows from creative-workshop wall art, brainstorming boards, and indie-studio mood boards: scattered slight rotations, multiple background texture variants per slide, pin / tape / drop-shadow combinations. The effect is warmth, play, and tactile creative-process energy.
+Cover recipe:
 
-Scatterbrain is a Post-it-note-and-cork-board presentation system. Every content block is a colored sticky note (`post-it`) layered onto one of three textured background variants — cork board, desk paper, or warm gradient — with red / blue / green / gold thumbtacks pinning the notes and translucent masking tape sometimes added on top. The visual metaphor is total: the deck is a creative-workshop wall, a brainstorming board, or a thinker's desk, and the content is the cluster of sticky notes pinned across it.
+- Surface: the warm-gradient background variant (cream base with soft yellow / blue / pink glow ellipses), with the fixed SVG grain overlay at 4% opacity above everything.
+- Hero note: one large yellow post-it (135° #FFE066 → #FFD43B gradient), 3rem 4rem padding, rotated ±1–3°, carrying the standard soft drop shadow (2px 3px 15px + 0 1px 3px).
+- Posted treatment: the hero note takes both a red thumbtack via ::before and a translucent tape strip via ::after — the system's "officially posted" pairing.
+- Title: Shrikhand 400 at 96px in ink #2d2a26, line-height 1.1, letter-spacing 0.02em.
+- Support: a Zilla Slab 400 subtitle at 30px under the title, plus one Caveat 400 quip at 38px on a small accent post-it rotated ±5–15° in the opposite direction.
+- Decoration: 1–2 SVG doodles (circle, squiggle, triangle) in unoccupied corners at 0.15 opacity, 3px ink stroke.
+- Chrome: the system carries no persistent slide chrome; any page number must be a slide-internal element.
 
 ## Preview Ingredients
 

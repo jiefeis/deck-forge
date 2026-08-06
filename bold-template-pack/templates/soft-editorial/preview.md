@@ -8,9 +8,15 @@ Use this small file for title-slide previews only. For final deck generation, re
 
 ## Visual Snapshot
 
-A warm magazine spread aesthetic — the kind of layout a small print quarterly with field-notes pretensions would commission. Cormorant Garamond carries every headline and ornamental moment with mixed roman and italic; Work Sans recedes into supporting body. The palette is cream paper with a quartet of pastel candy accents (dusty pink, chartreuse lemon, soft peach blush, sage green, lilac) used as colored card backgrounds. Generous rounded cards (24–36px radius) float on translucent white over the cream field. The mood is editorial calm with a sprinkling of riso-print color — closer to a literary research notebook than a corporate deck.
+Cover recipe:
 
-Soft Editorial is a warm magazine spread presentation system that takes its visual cues from small-press literary quarterlies and design-research notebooks. The premise is a single typeface (Cormorant Garamond) doing nearly all the talking, supported by a sober humanist sans (Work Sans) only where the serif would tire. The cream paper field is the constant — every slide sits on #F2EEDF (#F2EEDF), a warm aged-cream that reads as physical paper, not screen white. On top of the field, rounded cards float in two registers: translucent white softness for default content, and saturated pastel candy for accent moments.
+- Surface: full-bleed cream paper #F2EEDF with no cards — the open field is the composition; 80px left/right inset, 60px top, 50px bottom. No drop shadows anywhere.
+- Eyebrow: deck or section name top-left at 60px top / 80px left, Work Sans 28px in ink #2A241B — plain, never italic, never uppercase.
+- Swatch row: the cover's identity mark — 3–5 circular 56px pastel discs at top-right, replacing the standard italic page numeral.
+- Kicker: italic Cormorant Garamond 38px weight 400 sitting directly above the title.
+- Title: Cormorant Garamond weight 500 at 188–232px, line-height 0.92–0.95, -0.015 to -0.02em, ink, left-aligned; one `<em>` phrase drops to italic weight 400 — the system's signature weight drop.
+- Support: a single Work Sans 26px lead line beneath the title in ink-soft #5C5345.
+- Footer: two-column italic Cormorant Garamond 26px in ink-soft, 50px from the bottom and 80px from each side — date left, publication name right; any page number belongs in this row as a slide-internal element.
 
 ## Preview Ingredients
 

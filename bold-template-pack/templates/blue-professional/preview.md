@@ -8,9 +8,15 @@ Use this small file for title-slide previews only. For final deck generation, re
 
 ## Visual Snapshot
 
-A restrained, consulting-grade presentation system on a warm cream canvas (#fdfae7) with a single saturated cobalt blue (#1e2bfa) as the only accent color. Display type runs Space Grotesk for headlines and numerical callouts; Inter handles body and chrome. Cards are soft-tinted cobalt at 4% opacity with 1.5px translucent borders and 10-14px rounded corners — quiet, never bordered in solid color. The aesthetic borrows from investment-research reports, McKinsey-grade quarterly briefings, and contemporary financial dashboards — measured, data-dense without feeling crowded, and unmistakably professional. The system is built for executive readability at distance, with strong typographic hierarchy and a single accent color carrying every emphasis moment.
+Cover recipe:
 
-Blue Professional is a consulting-grade presentation system designed for executive briefings, research deliverables, and quarterly reviews. Its foundational visual premise is restraint with one strong commitment: a warm cream canvas (#fdfae7) and a single saturated cobalt (#1e2bfa) that carries every accent, every metric, every CTA, every eyebrow, every chart fill. There is no secondary brand color, no palette of pastels, no warm/cool pairing — just cream, cobalt, and a tight ladder of muted grays for body text.
+- Surface: warm cream #fdfae7 full-bleed; the cover drops the usual slide-header (eyebrow + tag pill) and runs a single left-aligned text block inside 77px side / 67px top padding.
+- Split: text occupies the left ~60%; a cobalt-at-8% diagonal panel fills the right ~35%, cut by `clip-path: polygon(30% 0, 100% 0, 100% 100%, 0% 100%)`.
+- Rule: the 60×4px cobalt accent-line (2px radius) sits directly above the title — the cover's signature opener.
+- Title: Space Grotesk weight 700 at 128px, line-height 1.1, letter-spacing -0.02em, in near-black #111111 — never cobalt.
+- Support: one Inter 28px line at line-height 1.6 in #6b6b6b beneath the title; a Space Grotesk 25px meta line (date / confidential marker) in #9a9a9a below that.
+- Decoration: a 3×3 grid of 6px cobalt dots at 12px gap, 25% opacity, tucked into an open corner.
+- Chrome: 3px cobalt progress strip, counter bottom-left, circular nav buttons bottom-right — all reserved presentation chrome; any page number that must appear in the PDF has to be a slide-internal element instead.
 
 ## Preview Ingredients
 

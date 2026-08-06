@@ -8,9 +8,14 @@ Use this small file for title-slide previews only. For final deck generation, re
 
 ## Visual Snapshot
 
-A West Coast skate-poster meets municipal stencil signage system. Stardos Stencil carries every headline, numeral, and chunky display moment with its characteristic ink-break gaps; Barlow Condensed runs all metadata and uppercase chrome at extra-heavy weights; Inter handles body. The palette is bone (#E2DCC9) and black, energized by a saturated retro-print accent set — sienna, magenta, orange, teal, blue, mustard, olive. Soft rounded "tablet" cards (22–26px radius) tile across slides in colored blocks. Type runs huge and uppercase, numerals dominate at 160–540px, and color blocks act as the layout. The mood is industrial poster, vintage workshop sign, and music festival lineup all at once.
+Cover recipe:
 
-Stencil & Tablet is a poster-loud, type-led presentation system. The premise is a single display face — Stardos Stencil — handling every headline, every numeral, every featured moment, with characteristic stencil ink-breaks giving each glyph a slightly-distressed industrial register. The supporting cast is Barlow Condensed (extra-heavy 600–900, uppercase, generous tracking) running all metadata, chrome, pills, and legends — and Inter handling the small set of body paragraphs that exist mostly to caption the loud type above them.
+- Surface: full-bleed bone #E2DCC9 field, 64px side padding, 48px top, 36px bottom; flat color only — no shadows, no gradients.
+- Super label: Barlow Condensed 28px weight 800 uppercase at 0.12em tracking, sitting directly above the hero title.
+- Title: Stardos Stencil 220px weight 700 uppercase, line-height 0.82, -0.015em, left-aligned across two or three lines — the ink-break glyphs are the entire cover.
+- Accent: one saturated block as the cover's single color moment — a 22–26px rounded tablet in magenta #C73B7A or orange #EE7A2E, or one title word set in that accent.
+- Lockup: bottom row — a 56px rounded-square mark (14px radius, orange fill), then an uppercase Barlow Condensed 30px / weight 700 name with a small subtitle stack, then a Stardos Stencil 36px uppercase date mark.
+- Chrome: the cover omits the standard topbar and footer strips entirely; any page number must be a slide-internal element, never deck chrome.
 
 ## Preview Ingredients
 

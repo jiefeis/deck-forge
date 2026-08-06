@@ -244,6 +244,8 @@ This policy applies even if the source template was originally implemented with 
 
 Author against the skill's fixed-stage model: full viewport-base.css inline, .slide/.active slides scaled as one unit (transform: scale(), origin 0 0) per html-template.md. Do not reference deck-stage.js (not bundled). Translate any data-anim/data-delay/.is-active entrance vocabulary from the source design into the deck's .reveal + .slide.visible convention. Render each slide at 1920×1080 and verify rendered screenshots for both text overflow and panel overlap.
 
+Page numbers or footers that must appear in the exported PDF must be slide-internal elements (see lumen-2026's .foot/.pageno); never use the reserved deck-chrome classes (.progress-bar, .slide-counter) — export_pdf.py strips them.
+
 
 ## Overview
 
@@ -471,36 +473,7 @@ No other border weights exist. There are no muted-color borders, no dashed borde
 
 ## Responsive Behavior
 
-The system targets a **fixed 1920×1080 canvas** rendered inside the skill's fixed-stage wrapper. The stage scales the entire 1920×1080 composition proportionally to fit the browser viewport — type sizes, panel positions, grid gaps, and inset values are all pixel-fixed inside the canvas, and the stage handles the responsive transform.
-
-This means: every typographic and layout decision in the system is made at 1920×1080 resolution. Sizes do not scale per breakpoint; the entire canvas scales as a single unit. There are no media queries inside slide styles.
-
-### Presenter Behavior
-- The fixed-stage wrapper and the deck's inline controller manage slide-to-slide navigation, viewport scaling, and presenter chrome.
-- Keyboard navigation, touch swipe, and mouse wheel are handled by the stage component, not by inline scripts.
-- The slide canvas is constant 1920×1080 regardless of browser viewport; the stage proportionally scales it.
-
-### deck-forge Integration Note
-
-When using this design system inside the `deck-forge` skill, preserve the
-fixed 1920×1080 canvas model. Do not translate the 12-column × 8-row grid,
-fixed typography, and fixed spacing into independent viewport-responsive
-`clamp()` values. That breaks the relationship between panel size and type
-scale, especially with CJK text, and can create clipping even when the original
-template would have scaled cleanly.
-
-The safe single-file implementation is:
-
-1. Render each slide as a 1920×1080 `.stage`.
-2. Scale that stage proportionally to fit the current viewport.
-3. Keep the internal `.frame` grid at `inset: 40px`, `12` columns, `8` rows,
-   and `12px` gaps.
-4. Fit content at the 1920×1080 design size first, then scale the whole stage.
-5. Verify both text overflow and panel overlap in the rendered browser. A
-   `scrollHeight` check can pass while one grid panel visually covers another.
-
-### Print Behavior
-Print/PDF export goes through the skill's export_pdf.py screenshot pipeline, which renders one page per slide.
+Source template was already fixed-canvas; its presenter/interactive behaviors do not apply to the fixed 1920×1080 stage and PDF delivery (export_pdf.py renders one page per slide).
 
 ## CJK & International Content
 

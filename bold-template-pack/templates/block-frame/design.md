@@ -28,103 +28,103 @@ typography:
   heading-xl:
     fontFamily: "'Inter', sans-serif"
     fontWeight: 900
-    fontSize: "clamp(48px, 6vw, 96px)"
+    fontSize: 117px
     lineHeight: 0.95
     letterSpacing: -0.03em
     textTransform: uppercase
   heading-lg:
     fontFamily: "'Inter', sans-serif"
     fontWeight: 800
-    fontSize: "clamp(32px, 4vw, 64px)"
+    fontSize: 92px
     lineHeight: 1
     letterSpacing: -0.02em
     textTransform: uppercase
   heading-md:
     fontFamily: "'Inter', sans-serif"
     fontWeight: 700
-    fontSize: "clamp(24px, 2.5vw, 40px)"
+    fontSize: 49px
     lineHeight: 1.1
     letterSpacing: -0.01em
   close-title:
     fontFamily: "'Inter', sans-serif"
     fontWeight: 900
-    fontSize: "clamp(40px, 5vw, 80px)"
+    fontSize: 115px
     lineHeight: 0.95
     letterSpacing: -0.03em
     textTransform: uppercase
   quote-text:
     fontFamily: "'Inter', sans-serif"
     fontWeight: 900
-    fontSize: "clamp(28px, 3.5vw, 52px)"
+    fontSize: 64px
     lineHeight: 1.15
     letterSpacing: -0.02em
     textTransform: uppercase
   stat-number:
     fontFamily: "'Inter', sans-serif"
     fontWeight: 900
-    fontSize: "clamp(36px, 4vw, 64px)"
+    fontSize: 92px
     lineHeight: 1
   card-title:
     fontFamily: "'Inter', sans-serif"
     fontWeight: 700
-    fontSize: 22px
+    fontSize: 26px
     lineHeight: 1.2
     textTransform: uppercase
   step-num:
     fontFamily: "'Inter', sans-serif"
     fontWeight: 900
-    fontSize: 48px
+    fontSize: 58px
     lineHeight: 1
   body:
     fontFamily: "'Inter', sans-serif"
     fontWeight: 500
-    fontSize: "clamp(16px, 1.2vw, 20px)"
+    fontSize: 28px
     lineHeight: 1.6
   body-card:
     fontFamily: "'Inter', sans-serif"
     fontWeight: 500
-    fontSize: 15px
+    fontSize: 18px
     lineHeight: 1.6
   list-body:
     fontFamily: "'Inter', sans-serif"
     fontWeight: 500
-    fontSize: 16px
+    fontSize: 19px
     lineHeight: 1.5
   label:
     fontFamily: "'Space Grotesk', monospace"
     fontWeight: 600
-    fontSize: 13px
+    fontSize: 16px
     lineHeight: 1
     letterSpacing: 0.08em
     textTransform: uppercase
   mono-tag:
     fontFamily: "'Space Grotesk', monospace"
     fontWeight: 600
-    fontSize: 14px
+    fontSize: 17px
     lineHeight: 1
     letterSpacing: 0.05em
     textTransform: uppercase
   mono-meta:
     fontFamily: "'Space Grotesk', monospace"
     fontWeight: 500
-    fontSize: 15px
+    fontSize: 18px
     letterSpacing: 0.02em
   subtitle-mono:
     fontFamily: "'Space Grotesk', monospace"
     fontWeight: 500
-    fontSize: 18px
+    fontSize: 22px
     lineHeight: 1.5
   counter:
     fontFamily: "'Space Grotesk', monospace"
     fontWeight: 700
-    fontSize: 14px
+    fontSize: 17px
     lineHeight: 1
     letterSpacing: 0.1em
     textTransform: uppercase
   legend-item:
     fontFamily: "'Space Grotesk', monospace"
     fontWeight: 600
-    fontSize: 13px
+    fontSize: 16px
 
 spacing:
   slide-pad: 60px
@@ -139,8 +139,8 @@ spacing:
   pad-bottom-clearance: 110px
 
 canvas:
-  width: 100vw
-  height: 100vh
+  width: 1920px
+  height: 1080px
   default-background: "{colors.offwhite}"
 
 components:
@@ -162,7 +162,7 @@ components:
     border: "3px solid {colors.black}"
     padding: "6px 16px"
     fontFamily: "'Space Grotesk', monospace"
-    fontSize: 13px
+    fontSize: 16px
     fontWeight: 600
     letterSpacing: 0.08em
     textTransform: uppercase
@@ -176,7 +176,7 @@ components:
     padding: "14px 32px"
     fontFamily: "'Inter', sans-serif"
     fontWeight: 700
-    fontSize: 16px
+    fontSize: 19px
     boxShadow: "{shadows.small}"
     description: "Primary CTA. Yellow fill with black text, 3px black border, 4px offset shadow. Hover lifts the button -2/-2 and grows shadow to 6px."
   corner-bracket:
@@ -188,7 +188,7 @@ components:
     width: 64px
     height: 64px
     border: "3px solid {colors.black}"
-    description: "Solid pastel square (pink/blue/green) holding a single uppercase letter glyph at weight 700 / 28px. Used as feature-card icons."
+    description: "Solid pastel square (pink/blue/green) holding a single uppercase letter glyph at weight 700 / 34px. Used as feature-card icons."
   feature-deco:
     width: 48px
     height: 48px
@@ -209,7 +209,7 @@ components:
     background: "{colors.pink}"
     fontFamily: "'Inter', sans-serif"
     fontWeight: 900
-    fontSize: 28px
+    fontSize: 34px
     textTransform: uppercase
     description: "Square avatar with two-letter initials, used in team grids. Fill cycles through the pastel palette."
   list-number:
@@ -219,7 +219,7 @@ components:
     background: "{colors.yellow}"
     fontFamily: "'Space Grotesk', monospace"
     fontWeight: 700
-    fontSize: 14px
+    fontSize: 17px
     description: "Square numerical bullet pinned to the left of each list item. Black border, yellow fill, mono numeral."
   star-burst:
     clipPath: "polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%)"
@@ -270,6 +270,8 @@ This policy has higher priority than any source-template responsive behavior des
 This policy applies even if the source template was originally implemented with viewport-fluid CSS such as `100vw`, `100vh`, `vw`, `vh`, or `clamp()`. Treat those values as design proportions to translate into 1920×1080 stage coordinates, not as live responsive rules in the generated deck.
 
 Author against the skill's fixed-stage model: full viewport-base.css inline, .slide/.active slides scaled as one unit (transform: scale(), origin 0 0) per html-template.md. Do not reference deck-stage.js (not bundled). Translate any data-anim/data-delay/.is-active entrance vocabulary from the source design into the deck's .reveal + .slide.visible convention. Render each slide at 1920×1080 and verify rendered screenshots for both text overflow and panel overlap.
+
+Page numbers or footers that must appear in the exported PDF must be slide-internal elements (see lumen-2026's .foot/.pageno); never use the reserved deck-chrome classes (.progress-bar, .slide-counter) — export_pdf.py strips them.
 
 
 ## Overview
@@ -336,40 +338,40 @@ Don't introduce a third face. The Inter + Space Grotesk pairing is the entire ty
 
 ### Typography Scale
 
-| Token | Size (clamp / px) | Family | Weight | Use |
+| Token | Size | Family | Weight | Use |
 |---|---|---|---|---|
-| `{typography.heading-xl}` | 48–96px clamp | Inter | 900 | Hero or cover-scale headline |
-| `{typography.heading-lg}` | 32–64px clamp | Inter | 800 | Primary section headline |
-| `{typography.heading-md}` | 24–40px clamp | Inter | 700 | Region headline, chart title |
-| `{typography.close-title}` | 40–80px clamp | Inter | 900 | Closing-statement title (inverted surface) |
-| `{typography.quote-text}` | 28–52px clamp | Inter | 900 | Quote body — always uppercase |
-| `{typography.stat-number}` | 36–64px clamp | Inter | 900 | Stat numeral |
-| `{typography.card-title}` | 22px | Inter | 700 | Feature card title — uppercase |
-| `{typography.step-num}` | 48px | Inter | 900 | Numeral inside a timeline-step (opacity 0.6) |
-| `{typography.body}` | 16–20px clamp | Inter | 500 | Standard body paragraph |
-| `{typography.body-card}` | 15px | Inter | 500 | Body inside compact cards |
-| `{typography.list-body}` | 16px | Inter | 500 | Numbered list body |
-| `{typography.label}` | 13px | Space Grotesk | 600 | Text inside label-pill |
-| `{typography.mono-tag}` | 14px | Space Grotesk | 600 | Mono tag/badge, slide-counter |
-| `{typography.mono-meta}` | 15px | Space Grotesk | 500 | Inline mono metadata |
-| `{typography.subtitle-mono}` | 18px | Space Grotesk | 500 | Hero subtitle / close subtitle |
-| `{typography.counter}` | 14px | Space Grotesk | 700 | Persistent slide counter (NN / NN) |
-| `{typography.legend-item}` | 13px | Space Grotesk | 600 | Chart legend label |
+| `{typography.heading-xl}` | 138px | Inter | 900 | Hero or cover-scale headline |
+| `{typography.heading-lg}` | 92px | Inter | 800 | Primary section headline |
+| `{typography.heading-md}` | 58px | Inter | 700 | Region headline, chart title |
+| `{typography.close-title}` | 115px | Inter | 900 | Closing-statement title (inverted surface) |
+| `{typography.quote-text}` | 81px | Inter | 900 | Quote body — always uppercase |
+| `{typography.stat-number}` | 92px | Inter | 900 | Stat numeral |
+| `{typography.card-title}` | 26px | Inter | 700 | Feature card title — uppercase |
+| `{typography.step-num}` | 58px | Inter | 900 | Numeral inside a timeline-step (opacity 0.6) |
+| `{typography.body}` | 28px | Inter | 500 | Standard body paragraph |
+| `{typography.body-card}` | 18px | Inter | 500 | Body inside compact cards |
+| `{typography.list-body}` | 19px | Inter | 500 | Numbered list body |
+| `{typography.label}` | 16px | Space Grotesk | 600 | Text inside label-pill |
+| `{typography.mono-tag}` | 17px | Space Grotesk | 600 | Mono tag/badge, slide-counter |
+| `{typography.mono-meta}` | 18px | Space Grotesk | 500 | Inline mono metadata |
+| `{typography.subtitle-mono}` | 22px | Space Grotesk | 500 | Hero subtitle / close subtitle |
+| `{typography.counter}` | 17px | Space Grotesk | 700 | Persistent slide counter (NN / NN) |
+| `{typography.legend-item}` | 16px | Space Grotesk | 600 | Chart legend label |
 
 ### Defaults
 
-- **Default size for a hero or cover title**: `{typography.heading-xl}` (48–96px). Always uppercase, always weight 900, always with -0.03em tracking.
-- **Default size for a primary section headline**: `{typography.heading-lg}` (32–64px). Uppercase, weight 800, -0.02em.
-- **Default size for a region or chart title**: `{typography.heading-md}` (24–40px). The only Inter heading not in uppercase by default — though uppercase is permitted.
-- **Default size for a stat numeral**: `{typography.stat-number}` (36–64px). Weight 900, line-height 1.
-- **Default size for body paragraph**: `{typography.body}` (16–20px clamp). Weight 500, sentence case, line-height 1.6.
-- **Default size for an eyebrow label**: `{typography.label}` (13px) inside the `{components.label-pill}`.
+- **Default size for a hero or cover title**: `{typography.heading-xl}` (138px). Always uppercase, always weight 900, always with -0.03em tracking.
+- **Default size for a primary section headline**: `{typography.heading-lg}` (92px). Uppercase, weight 800, -0.02em.
+- **Default size for a region or chart title**: `{typography.heading-md}` (58px). The only Inter heading not in uppercase by default — though uppercase is permitted.
+- **Default size for a stat numeral**: `{typography.stat-number}` (92px). Weight 900, line-height 1.
+- **Default size for body paragraph**: `{typography.body}` (28px). Weight 500, sentence case, line-height 1.6.
+- **Default size for an eyebrow label**: `{typography.label}` (16px) inside the `{components.label-pill}`.
 - **Default weight for any Inter display**: 800 or 900. Inter display at weight 700 reads as "almost there"; only use 700 for `{typography.heading-md}` or card titles.
 - **Default weight for any Inter body**: 500. Body at 400 reads as too light, body at 700 reads as oversized.
 - **Default tracking for any Space Grotesk label/chrome**: 0.05-0.10em. Wide tracking is the face's "chrome" signal.
 - **Default tracking for any Inter display**: -0.01em (heading-md) to -0.03em (heading-xl). Display without negative tracking reads as untreated.
 
-When unsure which heading token to reach for, default to `{typography.heading-lg}` (32–64px) for the slide's primary text moment. `{typography.heading-md}` is for region or chart titles within a slide.
+When unsure which heading token to reach for, default to `{typography.heading-lg}` (92px) for the slide's primary text moment. `{typography.heading-md}` is for region or chart titles within a slide.
 
 ### Signature Treatments
 
@@ -382,7 +384,7 @@ These treatments are **non-optional whenever the corresponding element type is u
 - **Every Space Grotesk label/chrome/counter is uppercase with 0.05-0.1em tracking.** Sentence-case Space Grotesk does not exist in this system except for body-adjacent metadata (mono-meta, mono inline).
 - **Every stat numeral is Inter weight 900 with line-height 1.** Stat numerals are display moments, not data chrome.
 - **Every Inter body block is sentence case with line-height 1.6 (or 1.5 for compact card body).** Body in uppercase or with tight line-height reads as broken.
-- **Step numbers inside timeline-step cards are 48px weight 900 at opacity 0.6.** The reduced opacity is mandatory — full-opacity step numbers overwhelm the step title.
+- **Step numbers inside timeline-step cards are 58px weight 900 at opacity 0.6.** The reduced opacity is mandatory — full-opacity step numbers overwhelm the step title.
 
 ### Typography Principles
 
@@ -414,7 +416,7 @@ The default slide flex direction is column with `justify-content: center`. For t
 
 ### Persistent Chrome
 Three elements appear on every slide:
-- **Slide counter** at bottom-left — 3px black border, white fill, 4px shadow, Space Grotesk 14px weight 700 uppercase, NN / NN format.
+- **Slide counter** at bottom-left — 3px black border, white fill, 4px shadow, Space Grotesk 17px weight 700 uppercase, NN / NN format.
 - **Nav controls** at bottom-right — two 48px square nav buttons with 3px borders, white fills, 4px shadows.
 - The slide-counter and nav-controls are not part of the slide composition — they live outside `.slides-container` and overlap the bottom edge.
 
@@ -465,7 +467,7 @@ The border weight ladder (2 / 3 / 4) is fixed. No 1px borders, no 5px+ borders.
 
 ### Decorative Element Types
 
-**Label-pill** — Square bordered pill (3px black border, 4px shadow), pastel or white fill, Space Grotesk 13px weight 600 uppercase text with 0.08em tracking. The universal section eyebrow.
+**Label-pill** — Square bordered pill (3px black border, 4px shadow), pastel or white fill, Space Grotesk 16px weight 600 uppercase text with 0.08em tracking. The universal section eyebrow.
 
 **Corner-bracket** — Two L-shaped brackets (or four for full enclosure) at the corners of a card, 3px black border. Creates a frame-within-frame decorative motif.
 
@@ -477,13 +479,13 @@ The border weight ladder (2 / 3 / 4) is fixed. No 1px borders, no 5px+ borders.
 
 **Feature-deco notch** — 48×48 yellow square with 3px black border, positioned absolutely to protrude from the top edge of a feature card. The notch breaks the card's top border, suggesting it's been "stapled on".
 
-**Icon-square** — 64×64 pastel square with 3px black border holding a single uppercase letter glyph at Inter weight 700 / 28px. Used as feature-card icons.
+**Icon-square** — 64×64 pastel square with 3px black border holding a single uppercase letter glyph at Inter weight 700 / 34px. Used as feature-card icons.
 
 **Stat-deco dot** — 12×12 circle with 2px black border, pastel fill, pinned to the top-right of a stat card. The system's only round shape.
 
-**List-number** — 36×36 yellow square with 3px black border holding a Space Grotesk 14px weight 700 numeral. Used as bullets on numbered lists.
+**List-number** — 36×36 yellow square with 3px black border holding a Space Grotesk 17px weight 700 numeral. Used as bullets on numbered lists.
 
-**Avatar-square** — 72×72 pastel square with 3px black border holding two uppercase initials at Inter weight 900 / 28px. Used in team grids; fills cycle through pastels.
+**Avatar-square** — 72×72 pastel square with 3px black border holding two uppercase initials at Inter weight 900 / 34px. Used in team grids; fills cycle through pastels.
 
 **Step-connector** — A 28×4 horizontal black bar pinned to the right edge of a timeline-step card, mid-height. Visually links adjacent steps in a horizontal flow.
 
@@ -584,7 +586,7 @@ Add to the template's `<head>`:
 
 The Latin original's typographic identity rests entirely on the **heavy uppercase + negative tracking** combination on Inter display. CJK has no case, so this signal disappears. The system survives because its identity is **80% structural, 20% typographic**: the 4px black borders, 8px hard offset shadows, five-pastel palette, tilted decorations, label-pills, star bursts, stripe blocks, and dot grids do the brutalist work. Set 思源黑体 900 in sentence case at the same large sizes; the chunky black-on-pastel + hard-shadow framing reads as brutalist regardless of whether the type is in caps.
 
-The label-pill (Space Grotesk 600 uppercase, 0.08em tracking, 3px border + 4px shadow, pastel fill) loses the uppercase + tracked-mono character. Render Chinese label-pills with 思源黑体 weight 600 at 0 tracking and a slightly tighter fontSize (11–12px instead of 13px) — the bordered pill shape and shadow do the chrome-recognition work. Keep the pastel fill rotation (pink / blue / green / yellow / cream) intact; it's the system's most recognizable signal after the borders themselves.
+The label-pill (Space Grotesk 600 uppercase, 0.08em tracking, 3px border + 4px shadow, pastel fill) loses the uppercase + tracked-mono character. Render Chinese label-pills with 思源黑体 weight 600 at 0 tracking and a slightly tighter fontSize (14–15px instead of 16px) — the bordered pill shape and shadow do the chrome-recognition work. Keep the pastel fill rotation (pink / blue / green / yellow / cream) intact; it's the system's most recognizable signal after the borders themselves.
 
 ### Known CJK Gap
 
@@ -595,9 +597,9 @@ The label-pill (Space Grotesk 600 uppercase, 0.08em tracking, 3px border + 4px s
 
 1. Any new card uses a 4px or 3px solid black border + the matched-weight offset shadow (8px or 4px). Never use a card without both.
 2. Any new region begins with a `{components.label-pill}` eyebrow in pastel fill, then the headline in uppercase Inter weight 800+, then content. The label-headline-content sequence is the system's editorial rhythm.
-3. Any new headline uses uppercase Inter with negative letter-spacing and weight 800-900. Reach for `{typography.heading-lg}` (32-64px) for primary moments and `{typography.heading-xl}` (48-96px) for cover/hero scale.
+3. Any new headline uses uppercase Inter with negative letter-spacing and weight 800-900. Reach for `{typography.heading-lg}` (92px) for primary moments and `{typography.heading-xl}` (138px) for cover/hero scale.
 4. Any new accent or surface fill picks from the 5-pastel palette (pink, blue, green, yellow, cream) — never introduce a sixth pastel.
-5. Any new CTA uses the `{components.button-primary}` pattern: 3px black border, yellow fill, 4px black shadow, Inter weight 700 / 16px. Hover lifts -2/-2 with shadow growing to 6px.
+5. Any new CTA uses the `{components.button-primary}` pattern: 3px black border, yellow fill, 4px black shadow, Inter weight 700 / 19px. Hover lifts -2/-2 with shadow growing to 6px.
 6. Any new chart cycles through pink → blue → green for series order, with yellow/cream available for additional series. Legend swatches use 2px black border.
 7. Any new stat or metric uses Inter weight 900 + line-height 1 for the numeral, paired with Space Grotesk uppercase label below. Decorate the card with a `{components.stat-deco-dot}` in a pastel color.
 8. Any new slide adds at least one decorative disruption (tilted rectangle, star-burst, stripe-block, dot-grid corner, corner-bracket frame) — empty surfaces feel timid.

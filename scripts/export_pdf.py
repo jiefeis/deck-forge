@@ -177,6 +177,26 @@ def resolve_browser_executable(raw: str | None) -> Path | None:
     return path
 
 
+def launch_chromium(p, browser_executable: Path | None):
+    """Launch a browser: explicit path first, else Playwright's managed
+    Chromium, else the system Chrome/Edge via Playwright channels."""
+    if browser_executable is not None:
+        return p.chromium.launch(executable_path=str(browser_executable))
+    try:
+        return p.chromium.launch()
+    except Exception:
+        for channel in ("chrome", "msedge"):
+            try:
+                return p.chromium.launch(channel=channel)
+            except Exception:
+                pass
+        sys.exit("deck-forge: could not launch a browser (managed Chromium "
+                 "missing and no system Chrome/Edge found). Run `python -m "
+                 "playwright install chromium`, or pass --browser-executable "
+                 "/ set DECK_FORGE_BROWSER_EXECUTABLE to an existing "
+                 "Chrome/Edge/Chromium binary.")
+
+
 def _flush_resource_failures(failures: list[str], ignore: bool) -> None:
     """Fail closed on font/asset problems; --ignore-resource-errors downgrades."""
     if not failures:
@@ -202,9 +222,7 @@ def _capture(port: int, html_name: str, tmp: Path, scale: int,
     tracked = {"stylesheet", "font", "image", "media", "script"}
     failures: list[str] = []
     with sync_playwright() as p:
-        launch_args = ({} if browser_executable is None
-                       else {"executable_path": str(browser_executable)})
-        browser = p.chromium.launch(**launch_args)
+        browser = launch_chromium(p, browser_executable)
         try:
             page = browser.new_page(viewport={"width": W, "height": H},
                                     device_scale_factor=scale)

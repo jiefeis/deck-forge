@@ -19,147 +19,147 @@ typography:
   display:
     fontFamily: "'Instrument Serif', Georgia, serif"
     fontWeight: 400
-    fontSize: "clamp(120px, min(14.6vw, 22vh), 240px)"
+    fontSize: 368px
     lineHeight: 0.86
     letterSpacing: -0.018em
   display-md:
     fontFamily: "'Instrument Serif', Georgia, serif"
     fontWeight: 400
-    fontSize: "clamp(80px, min(10vw, 16vh), 200px)"
+    fontSize: 268px
     lineHeight: 0.86
     letterSpacing: -0.018em
   display-sm:
     fontFamily: "'Instrument Serif', Georgia, serif"
     fontWeight: 400
-    fontSize: "clamp(110px, min(11vw, 18vh), 200px)"
+    fontSize: 301px
     lineHeight: 0.86
     letterSpacing: -0.018em
   display-it:
     fontFamily: "'Instrument Serif', Georgia, serif"
     fontWeight: 400
     fontStyle: italic
-    fontSize: "clamp(56px, min(7vw, 11vh), 120px)"
+    fontSize: 184px
     lineHeight: 1.04
     letterSpacing: -0.005em
   numeral-jumbo:
     fontFamily: "'Instrument Serif', Georgia, serif"
     fontWeight: 400
-    fontSize: "clamp(220px, min(28vw, 64vh), 720px)"
+    fontSize: 720px
     lineHeight: 0.84
     letterSpacing: -0.04em
   numeral-lg:
     fontFamily: "'Instrument Serif', Georgia, serif"
     fontWeight: 400
-    fontSize: "clamp(120px, min(15vw, 22vh), 280px)"
+    fontSize: 368px
     lineHeight: 0.9
     letterSpacing: -0.04em
   numeral-md:
     fontFamily: "'Instrument Serif', Georgia, serif"
     fontWeight: 400
-    fontSize: "clamp(72px, min(7vw, 12vh), 144px)"
+    fontSize: 201px
     lineHeight: 0.92
     letterSpacing: -0.01em
   headline:
     fontFamily: "'Instrument Serif', Georgia, serif"
     fontWeight: 400
-    fontSize: "clamp(40px, min(4.6vw, 7vh), 88px)"
+    fontSize: 117px
     lineHeight: 1.06
     letterSpacing: -0.005em
   headline-sm:
     fontFamily: "'Instrument Serif', Georgia, serif"
     fontWeight: 400
-    fontSize: "clamp(32px, min(3.6vw, 6vh), 56px)"
+    fontSize: 100px
     lineHeight: 1
   date-rail:
     fontFamily: "'Instrument Serif', Georgia, serif"
     fontWeight: 400
-    fontSize: "clamp(48px, min(5.2vw, 9vh), 96px)"
+    fontSize: 151px
     lineHeight: 0.96
     letterSpacing: -0.005em
   ledger-title:
     fontFamily: "'Instrument Serif', Georgia, serif"
     fontWeight: 400
-    fontSize: "clamp(20px, 1.6vw, 30px)"
+    fontSize: 48px
     lineHeight: 1.15
   strand-title:
     fontFamily: "'Instrument Serif', Georgia, serif"
     fontWeight: 400
-    fontSize: "clamp(22px, 1.7vw, 32px)"
+    fontSize: 51px
     lineHeight: 1.1
   strand-num:
     fontFamily: "'Instrument Serif', Georgia, serif"
     fontWeight: 400
-    fontSize: "clamp(28px, 2vw, 38px)"
+    fontSize: 60px
     lineHeight: 1
   body-lede:
     fontFamily: "'Archivo', sans-serif"
     fontWeight: 400
-    fontSize: "clamp(15px, 1.05vw, 18px)"
+    fontSize: 31px
     lineHeight: 1.55
   body:
     fontFamily: "'Archivo', sans-serif"
     fontWeight: 400
-    fontSize: "clamp(14px, 0.95vw, 16px)"
+    fontSize: 28px
     lineHeight: 1.5
   body-sm:
     fontFamily: "'Archivo', sans-serif"
     fontWeight: 400
-    fontSize: "clamp(11px, 0.78vw, 13px)"
+    fontSize: 23px
     lineHeight: 1.5
   micro-label:
     fontFamily: "'Archivo', sans-serif"
     fontWeight: 600
-    fontSize: "clamp(11px, 0.85vw, 14px)"
+    fontSize: 25px
     lineHeight: 1.2
     letterSpacing: 0.18em
     textTransform: uppercase
   micro-label-tight:
     fontFamily: "'Archivo', sans-serif"
     fontWeight: 600
-    fontSize: "clamp(10px, 0.72vw, 12px)"
+    fontSize: 21px
     lineHeight: 1.2
     letterSpacing: 0.16em
     textTransform: uppercase
   rail-label:
     fontFamily: "'Archivo', sans-serif"
     fontWeight: 600
-    fontSize: "clamp(11px, 0.85vw, 13px)"
+    fontSize: 25px
     lineHeight: 1
     letterSpacing: 0.32em
     textTransform: uppercase
   mono-data:
     fontFamily: "'JetBrains Mono', ui-monospace, monospace"
     fontWeight: 400
-    fontSize: "clamp(12px, 0.85vw, 14px)"
+    fontSize: 25px
     lineHeight: 1.4
     letterSpacing: 0.04em
   mono-date:
     fontFamily: "'JetBrains Mono', ui-monospace, monospace"
     fontWeight: 400
-    fontSize: "clamp(13px, 0.95vw, 16px)"
+    fontSize: 28px
     lineHeight: 1.4
     letterSpacing: 0.02em
   pagenum:
     fontFamily: "'JetBrains Mono', ui-monospace, monospace"
     fontWeight: 400
-    fontSize: "clamp(11px, 0.85vw, 13px)"
+    fontSize: 25px
     lineHeight: 1
     letterSpacing: 0.08em
 
 spacing:
-  pad-edge: "clamp(40px, 4vw, 76px)"
-  pad-region: "clamp(40px, 4.2vw, 80px)"
-  pad-foot: "clamp(56px, 5vh, 88px)"
-  pad-strand-y: "clamp(12px, 1.6vh, 22px)"
-  gap-region: "clamp(20px, 2.5vw, 48px)"
-  gap-strand: "clamp(14px, 1.8vh, 22px)"
-  gap-footer-col: "clamp(20px, 2.4vw, 44px)"
-  pagenum-bottom: "clamp(22px, 2.4vh, 42px)"
-  pagenum-right: "clamp(24px, 2.4vw, 48px)"
+  pad-edge: 77px
+  pad-region: 81px
+  pad-foot: 54px
+  pad-strand-y: 17px
+  gap-region: 48px
+  gap-strand: 19px
+  gap-footer-col: 46px
+  pagenum-bottom: 26px
+  pagenum-right: 46px
 
 canvas:
-  width: 100vw
-  height: 100vh
+  width: 1920px
+  height: 1080px
   background: "{colors.paper}"
 
 components:
@@ -168,7 +168,7 @@ components:
     color: "{colors.ink}"
     opacity: 0.75
     fontFamily: "'JetBrains Mono', ui-monospace, monospace"
-    fontSize: "clamp(11px, 0.85vw, 13px)"
+    fontSize: 25px
     letterSpacing: 0.08em
     description: "Single mono pagenum NN / NN pinned to bottom-right of every slide at 75% opacity. The only persistent chrome on every surface."
   hairline-rule:
@@ -179,7 +179,7 @@ components:
     description: "1px ink at 18-20% opacity. Used for between-row separators inside dense ledger or strand lists where a full-weight rule would feel oppressive."
   sun-bloom:
     background: "radial-gradient using {colors.sun} {colors.sun-soft} {colors.haze} blending to transparent on {colors.paper}"
-    description: "Large soft radial bloom of solar yellow placed off-center or behind a focal element. The system's primary atmospheric layer. Sized 42-70% of viewport in the larger axis."
+    description: "Large soft radial bloom of solar yellow placed off-center or behind a focal element. The system's primary atmospheric layer. Sized 42-70% of the 1920x1080 stage in the larger axis."
   ember-bloom:
     background: "radial-gradient using {colors.ember} at 15-22% opacity blending to transparent"
     description: "Small warm peach bloom used as a counter-temperature accent in a corner opposite the sun bloom. Always subordinate; never dominant."
@@ -192,32 +192,32 @@ components:
     description: "Full-bleed yellow panel covering a column or third of the slide. The strongest possible color statement — used when a region needs to read as poster-fill, not paper."
   bar-ink:
     background: "{colors.ink}"
-    height: "clamp(14px, 1.6vh, 22px)"
+    height: 17px
     description: "Solid ink horizontal bar for data charts. Width carries the data value."
   bar-lit:
     background: "{colors.sun}"
     border: "1px solid {colors.ink}"
-    height: "clamp(14px, 1.6vh, 22px)"
+    height: 17px
     description: "Highlighted variant of bar-ink — yellow fill with 1px ink stroke. Used to mark the current or featured row in a series."
   strand-row:
-    layout: "grid 56px 1fr, gap clamp(14px, 1.4vw, 24px), border-bottom hairline-soft, padding-bottom clamp(12px, 1.6vh, 22px)"
+    layout: "grid 56px 1fr, gap 27px, border-bottom hairline-soft, padding-bottom 17px"
     description: "Numbered editorial list row — numeral cell + content cell separated by hairline-soft. Used for programmes, agendas, and curated lists."
   ledger-row:
-    layout: "grid 92px 1.6fr 0.9fr 80px, gap clamp(14px, 1.4vw, 28px), border-bottom hairline-soft, padding clamp(10px, 1.3vh, 18px) 0"
+    layout: "grid 92px 1.6fr 0.9fr 80px, gap 27px, border-bottom hairline-soft, padding 14px 0"
     description: "Four-column tabular row for calendars and itineraries. Date column is mono, title is serif, venue is sans, duration is mono right-aligned."
   footer-band:
-    layout: "grid 4-column with hairline-rule top border on each cell, gap clamp(20px, 2.4vw, 44px)"
+    layout: "grid 4-column with hairline-rule top border on each cell, gap 46px"
     description: "Four-column metadata strip pinned to the bottom of cover and colophon surfaces. Each cell has a tiny uppercase tag + a brief plain-English statement."
   vertical-rail:
     transform: "rotate(-90deg) translateY(-50%) at left edge"
     fontFamily: "'Archivo', sans-serif"
-    fontSize: "clamp(11px, 0.85vw, 13px)"
+    fontSize: 25px
     letterSpacing: 0.32em
     textTransform: uppercase
     description: "Rotated vertical text label running up the left edge. Used on chapter/divider surfaces as a section marker."
   date-rail-stack:
     fontFamily: "'Instrument Serif', Georgia, serif"
-    fontSize: "clamp(48px, min(5.2vw, 9vh), 96px)"
+    fontSize: 151px
     lineHeight: 0.96
     textAlign: right
     description: "Large serif date or date-range stacked at top-right of cover surfaces. Uses an en-dash to indicate spans."
@@ -242,24 +242,26 @@ This policy applies even if the source template was originally implemented with 
 
 Author against the skill's fixed-stage model: full viewport-base.css inline, .slide/.active slides scaled as one unit (transform: scale(), origin 0 0) per html-template.md. Do not reference deck-stage.js (not bundled). Translate any data-anim/data-delay/.is-active entrance vocabulary from the source design into the deck's .reveal + .slide.visible convention. Render each slide at 1920×1080 and verify rendered screenshots for both text overflow and panel overlap.
 
+Page numbers or footers that must appear in the exported PDF must be slide-internal elements (see lumen-2026's .foot/.pageno); never use the reserved deck-chrome classes (.progress-bar, .slide-counter) — export_pdf.py strips them.
+
 
 ## Overview
 
 Biennale Yellow is a **literary-editorial presentation system** modeled on the visual language of European art biennale catalogues, slow exhibition posters, and quarterly literary publications. There are no cards, no buttons, no shadows, no rounded corners. The structural vocabulary is just three things: paper, ink, and yellow.
 
-The typographic system pivots on **Instrument Serif**, a contemporary high-contrast serif with tall ascenders, elegant italics, and slightly flared terminals. It carries every display moment, every numeral, every quote — at scales ranging from headline-small (40px) to jumbo numerals over 700px. Set tight (line-height 0.86, letter-spacing −0.018em), it reads as confident editorial display; set looser in italic (line-height 1.04, letter-spacing −0.005em), it becomes a slow-reading quotation face. **Archivo** is the sans companion — used for body paragraphs and as small, wide-tracked uppercase labels (the "micro-label" treatment). **JetBrains Mono** handles all numerical and metadata callouts: dates, ledger figures, page numbers. The three-face system is rigid and disciplined; the contrast between them is the entire typographic story.
+The typographic system pivots on **Instrument Serif**, a contemporary high-contrast serif with tall ascenders, elegant italics, and slightly flared terminals. It carries every display moment, every numeral, every quote — at scales ranging from headline-small (100px) to jumbo numerals over 800px. Set tight (line-height 0.86, letter-spacing −0.018em), it reads as confident editorial display; set looser in italic (line-height 1.04, letter-spacing −0.005em), it becomes a slow-reading quotation face. **Archivo** is the sans companion — used for body paragraphs and as small, wide-tracked uppercase labels (the "micro-label" treatment). **JetBrains Mono** handles all numerical and metadata callouts: dates, ledger figures, page numbers. The three-face system is rigid and disciplined; the contrast between them is the entire typographic story.
 
 The color world is built on **warm parchment** (`{colors.paper}` — `#E9E5DB`) as the universal ground, marked by a single **ink** color (`{colors.ink}` — `#1B2566`, a deep indigo navy) used for every line of type and every rule. The system's signature color is **sun** (`{colors.sun}` — `#F1EE2E`), a highly saturated solar yellow used as a flooded panel, as a soft blooming radial gradient, or as a geometric tile underprint. A **soft ember peach** (`{colors.ember}` — `#E26B4A`) appears only as a subordinate counter-temperature accent, always at 15-22% opacity in a corner radial bloom. Inverted color treatments are not used; the system commits to navy ink on a warm ground.
 
 Depth is **atmospheric, not structural**. There are no drop shadows anywhere in the system. Depth comes from layered radial gradients of yellow (the sun-bloom and ember-bloom components) and the optional block-tile underprint on cover-class surfaces. Cards have no borders; regions are separated only by 1px hairline rules in ink. The lack of border weight is itself the aesthetic — the design feels printed, not engineered.
 
-**Density philosophy: editorial-restrained.** This system reads as elegant when sparse and broken when crowded. A typical surface holds one large display moment + a handful of supporting elements (a micro-label, a body paragraph, an ordered list, or a single radial bloom). Crowding the canvas with cards, buttons, panels, or stacked components turns the system into a different aesthetic entirely. Even dense surfaces (a calendar or programme) achieve density through tabular repetition, not visual richness — many quiet rows of hairline-separated metadata, not many bordered cells. Generous edge padding (40-76px) and wide footer/header bands let the canvas breathe.
+**Density philosophy: editorial-restrained.** This system reads as elegant when sparse and broken when crowded. A typical surface holds one large display moment + a handful of supporting elements (a micro-label, a body paragraph, an ordered list, or a single radial bloom). Crowding the canvas with cards, buttons, panels, or stacked components turns the system into a different aesthetic entirely. Even dense surfaces (a calendar or programme) achieve density through tabular repetition, not visual richness — many quiet rows of hairline-separated metadata, not many bordered cells. Generous edge padding (77px) and wide footer/header bands let the canvas breathe.
 
 **Key Characteristics:**
 - Warm parchment ground (`{colors.paper}`) on every surface; never white, never gray.
 - Single ink color (`{colors.ink}`) for all text and all rules — no secondary text colors.
 - Solar yellow (`{colors.sun}`) deployed three ways: as a flooded panel, as a soft radial bloom, as a translucent geometric tile underprint.
-- Instrument Serif handles every display moment at scales from 40px to 720px+.
+- Instrument Serif handles every display moment at scales from 100px to 720px.
 - Archivo Bold uppercase + 0.16–0.32em tracking is the universal label voice.
 - JetBrains Mono is reserved exclusively for dates, ledger numerals, and page numbers.
 - 1px hairline rules in `{colors.ink}` are the only border treatment — used for header bands, ledger rows, footer columns, and strand separators.
@@ -299,50 +301,52 @@ The system runs three faces, each with a tightly defined role.
 
 **Instrument Serif** (Google Fonts, italic + roman) is the display and editorial face. Its high contrast, tall ascenders, and slightly flared terminals give it a contemporary literary register — closer to a magazine masthead than a traditional book serif. Roman is used for headlines, numerals, ledger titles, and date rails. Italic is used for manifesto quotes and certain emphasis moments. Set tight (line-height ≤ 1.06, negative letter-spacing −0.005 to −0.04em).
 
-**Archivo** (Google Fonts) is the sans companion. Used at weight 400 for body paragraphs (line-height 1.5) and at weight 600 for the universal micro-label treatment (uppercase, 0.16-0.32em tracking, 10-14px). Never used at intermediate weights, never used for headlines.
+**Archivo** (Google Fonts) is the sans companion. Used at weight 400 for body paragraphs (line-height 1.5) and at weight 600 for the universal micro-label treatment (uppercase, 0.16-0.32em tracking, 21-25px). Never used at intermediate weights, never used for headlines.
 
 **JetBrains Mono** (Google Fonts) is the numerical/metadata face. Used exclusively for dates in ledgers, mono numerical callouts in data slides, page numbers, and the nav-hint. Its slab character gives editorial weight to numerical content without leaning on bold styling.
 
 ### Typography Scale
 
-| Token | Size (clamp) | Family | Weight | Use |
+All sizes are fixed 1920×1080 stage px.
+
+| Token | Size | Family | Weight | Use |
 |---|---|---|---|---|
-| `{typography.display}` | 120–240px | Instrument Serif | 400 | Cover-scale display title |
-| `{typography.display-sm}` | 110–200px | Instrument Serif | 400 | Editorial display in a panel context |
-| `{typography.display-md}` | 80–200px | Instrument Serif | 400 | Closing-statement display |
-| `{typography.display-it}` | 56–120px | Instrument Serif italic | 400 | Manifesto-scale italic quote body |
-| `{typography.numeral-jumbo}` | 220–720px | Instrument Serif | 400 | Chapter-divider ordinal numeral |
-| `{typography.numeral-lg}` | 120–280px | Instrument Serif | 400 | Decorative quotation mark, oversized punctuation |
-| `{typography.numeral-md}` | 72–144px | Instrument Serif | 400 | Hero stat figure |
-| `{typography.headline}` | 40–88px | Instrument Serif | 400 | Primary section headline, large quote body |
-| `{typography.headline-sm}` | 32–56px | Instrument Serif | 400 | Region headline, ledger/calendar topbar |
-| `{typography.date-rail}` | 48–96px | Instrument Serif | 400 | Date or date-range stacked at top of a surface |
-| `{typography.ledger-title}` | 20–30px | Instrument Serif | 400 | Title cell inside a calendar/ledger row |
-| `{typography.strand-title}` | 22–32px | Instrument Serif | 400 | Title inside a numbered strand/list row |
-| `{typography.strand-num}` | 28–38px | Instrument Serif | 400 | Numeral cell inside a strand row |
-| `{typography.body-lede}` | 15–18px | Archivo | 400 | Lede paragraph following a chapter headline |
-| `{typography.body}` | 14–16px | Archivo | 400 | Standard body paragraph |
-| `{typography.body-sm}` | 11–13px | Archivo | 400 | Footer-band body text, dense metadata |
-| `{typography.micro-label}` | 11–14px | Archivo | 600 | Universal uppercase eyebrow label |
-| `{typography.micro-label-tight}` | 10–12px | Archivo | 600 | Smaller uppercase label inside footer cells |
-| `{typography.rail-label}` | 11–13px | Archivo | 600 | Vertical rotated rail label |
-| `{typography.mono-data}` | 12–14px | JetBrains Mono | 400 | Chart year/value labels, mono inline data |
-| `{typography.mono-date}` | 13–16px | JetBrains Mono | 400 | Date column in calendar ledgers |
-| `{typography.pagenum}` | 11–13px | JetBrains Mono | 400 | Persistent page number |
+| `{typography.display}` | 368px | Instrument Serif | 400 | Cover-scale display title |
+| `{typography.display-sm}` | 301px | Instrument Serif | 400 | Editorial display in a panel context |
+| `{typography.display-md}` | 268px | Instrument Serif | 400 | Closing-statement display |
+| `{typography.display-it}` | 184px | Instrument Serif italic | 400 | Manifesto-scale italic quote body |
+| `{typography.numeral-jumbo}` | 720px | Instrument Serif | 400 | Chapter-divider ordinal numeral |
+| `{typography.numeral-lg}` | 368px | Instrument Serif | 400 | Decorative quotation mark, oversized punctuation |
+| `{typography.numeral-md}` | 201px | Instrument Serif | 400 | Hero stat figure |
+| `{typography.headline}` | 117px | Instrument Serif | 400 | Primary section headline, large quote body |
+| `{typography.headline-sm}` | 100px | Instrument Serif | 400 | Region headline, ledger/calendar topbar |
+| `{typography.date-rail}` | 151px | Instrument Serif | 400 | Date or date-range stacked at top of a surface |
+| `{typography.ledger-title}` | 48px | Instrument Serif | 400 | Title cell inside a calendar/ledger row |
+| `{typography.strand-title}` | 51px | Instrument Serif | 400 | Title inside a numbered strand/list row |
+| `{typography.strand-num}` | 60px | Instrument Serif | 400 | Numeral cell inside a strand row |
+| `{typography.body-lede}` | 31px | Archivo | 400 | Lede paragraph following a chapter headline |
+| `{typography.body}` | 28px | Archivo | 400 | Standard body paragraph |
+| `{typography.body-sm}` | 23px | Archivo | 400 | Footer-band body text, dense metadata |
+| `{typography.micro-label}` | 25px | Archivo | 600 | Universal uppercase eyebrow label |
+| `{typography.micro-label-tight}` | 21px | Archivo | 600 | Smaller uppercase label inside footer cells |
+| `{typography.rail-label}` | 25px | Archivo | 600 | Vertical rotated rail label |
+| `{typography.mono-data}` | 25px | JetBrains Mono | 400 | Chart year/value labels, mono inline data |
+| `{typography.mono-date}` | 28px | JetBrains Mono | 400 | Date column in calendar ledgers |
+| `{typography.pagenum}` | 25px | JetBrains Mono | 400 | Persistent page number |
 
 ### Defaults
 
-- **Default size for a cover-scale display headline**: `{typography.display}` (120–240px clamp). Anything smaller reads as section-level, not cover-level.
-- **Default size for a primary section headline**: `{typography.headline}` (40–88px clamp).
-- **Default size for a chapter-divider numeral**: `{typography.numeral-jumbo}` (220–720px clamp). Don't shrink — the jumbo numeral is the point of a divider surface.
-- **Default size for a hero statistic**: `{typography.numeral-md}` (72–144px clamp). Stat figures share the same serif as headlines — they are display moments, not data chrome.
-- **Default size for a paragraph body**: `{typography.body}` (14–16px). For a lede after a chapter headline, step up to `{typography.body-lede}` (15–18px).
-- **Default size for any eyebrow label**: `{typography.micro-label}` (11–14px) at weight 600, uppercase, 0.18em tracking.
+- **Default size for a cover-scale display headline**: `{typography.display}` (368px). Anything smaller reads as section-level, not cover-level.
+- **Default size for a primary section headline**: `{typography.headline}` (117px).
+- **Default size for a chapter-divider numeral**: `{typography.numeral-jumbo}` (720px). Don't shrink — the jumbo numeral is the point of a divider surface.
+- **Default size for a hero statistic**: `{typography.numeral-md}` (201px). Stat figures share the same serif as headlines — they are display moments, not data chrome.
+- **Default size for a paragraph body**: `{typography.body}` (28px). For a lede after a chapter headline, step up to `{typography.body-lede}` (31px).
+- **Default size for any eyebrow label**: `{typography.micro-label}` (25px) at weight 600, uppercase, 0.18em tracking.
 - **Default weight for any Archivo body**: 400. Archivo body at any other weight breaks the rhythm.
 - **Default weight for any micro-label**: 600. Labels at weight 400 or 700 read as either timid or oversized.
 - **Default tracking for any uppercase label**: 0.16em minimum, 0.32em maximum. Labels without wide tracking read as code, not editorial.
 
-When unsure which display token to reach for, default to `{typography.headline}` (40–88px) for the primary moment, and `{typography.numeral-md}` (72–144px) for a single hero statistic. The display, display-sm, and display-md tokens are reserved for cover/colophon/poster-scale moments.
+When unsure which display token to reach for, default to `{typography.headline}` (117px) for the primary moment, and `{typography.numeral-md}` (201px) for a single hero statistic. The display, display-sm, and display-md tokens are reserved for cover/colophon/poster-scale moments.
 
 ### Signature Treatments
 
@@ -353,7 +357,7 @@ These treatments are **non-optional whenever the corresponding element type is u
 - **Every Instrument Serif display element uses negative letter-spacing.** Display, headline, jumbo numerals at −0.018 to −0.04em; italic display at −0.005em. Without negative tracking, the wide-bodied glyphs read as untreated.
 - **Every micro-label is uppercase Archivo weight 600 with tracking ≥ 0.16em.** No exceptions. A label without uppercase + tracking is not a label in this system; it's a stray sans element.
 - **Every numerical metadata element (date, page number, chart value, calendar date) is JetBrains Mono.** Serif numerals are for display moments; mono numerals are for data chrome. Don't cross the line.
-- **Every italic manifesto-scale quote uses `{typography.display-it}`.** Setting an italic quote at headline scale (40–88px) reads as a smaller moment; the italic is meant to dominate.
+- **Every italic manifesto-scale quote uses `{typography.display-it}`.** Setting an italic quote at headline scale (117px) reads as a smaller moment; the italic is meant to dominate.
 - **Every body paragraph is Archivo weight 400 with line-height ≥ 1.45.** Body in Instrument Serif does not exist — Instrument is for display only.
 
 ### Typography Principles
@@ -371,22 +375,22 @@ The system targets `100vw × 100vh` per slide. Slides are absolutely positioned 
 
 ### Padding and Margin Scale
 
-| Token | Range | Use |
+| Token | Size | Use |
 |---|---|---|
-| `{spacing.pad-edge}` | 40–76px | Standard edge padding from any slide edge to content |
-| `{spacing.pad-region}` | 40–80px | Internal padding inside a flooded yellow panel or major region |
-| `{spacing.pad-foot}` | 56–88px | Bottom padding when the footer band is present |
-| `{spacing.gap-region}` | 20–48px | Gap between two major content columns/regions |
-| `{spacing.gap-strand}` | 14–22px | Gap between strand rows in a numbered list |
-| `{spacing.gap-footer-col}` | 20–44px | Gap between columns of the footer-band metadata strip |
-| `{spacing.pagenum-bottom}` | 22–42px | Bottom inset of the persistent pagenum |
-| `{spacing.pagenum-right}` | 24–48px | Right inset of the persistent pagenum |
+| `{spacing.pad-edge}` | 77px | Standard edge padding from any slide edge to content |
+| `{spacing.pad-region}` | 81px | Internal padding inside a flooded yellow panel or major region |
+| `{spacing.pad-foot}` | 54px | Bottom padding when the footer band is present |
+| `{spacing.gap-region}` | 48px | Gap between two major content columns/regions |
+| `{spacing.gap-strand}` | 19px | Gap between strand rows in a numbered list |
+| `{spacing.gap-footer-col}` | 46px | Gap between columns of the footer-band metadata strip |
+| `{spacing.pagenum-bottom}` | 26px | Bottom inset of the persistent pagenum |
+| `{spacing.pagenum-right}` | 46px | Right inset of the persistent pagenum |
 
 ### Persistent Chrome
-The **pagenum** is the only persistent on-canvas element. It appears at `bottom-right` of every slide in JetBrains Mono at 11–13px, color ink, opacity 0.75. A **nav-hint** (`← / → · space`) appears once, fixed to the bottom-left of the viewport in JetBrains Mono at 10–12px / opacity 0.4. The nav-hint is not part of the slide composition — it lives outside the `.stage`.
+The **pagenum** is the only persistent on-canvas element. It appears at `bottom-right` of every slide in JetBrains Mono at 25px, color ink, opacity 0.75 — authored as a slide-internal element so it survives PDF export. A **nav-hint** (`← / → · space`) appears once, fixed to the bottom-left of the viewport in JetBrains Mono at 21px / opacity 0.4. The nav-hint is not part of the slide composition — it lives outside the `.stage`.
 
 ### Edge Discipline
-Every meaningful element respects a minimum 40px (mobile) to 76px (desktop) edge inset. The system's elegance depends on negative space at the edges — pushing content to the bleed (other than full-bleed panels, blooms, and tile blocks) breaks the catalogue feel.
+Every meaningful element respects a 77px edge inset (`{spacing.pad-edge}`). The system's elegance depends on negative space at the edges — pushing content to the bleed (other than full-bleed panels, blooms, and tile blocks) breaks the catalogue feel.
 
 ### Atmospheric Layer
 Every slide may carry one or both atmospheric layers behind content:
@@ -454,7 +458,7 @@ The system has **no thicker borders**. There are no 2px, 3px, or 4px outlines an
 
 **Date rail** — Large serif date or date-range stacked at top-right of cover surfaces, often using an en-dash to indicate a span across years or months.
 
-**Jumbo numeral** — A single huge Instrument Serif numeral (220-720px) dominating a divider surface. Always serif, always at weight 400, always with tight line-height.
+**Jumbo numeral** — A single huge Instrument Serif numeral (720px) dominating a divider surface. Always serif, always at weight 400, always with tight line-height.
 
 **Chart bar** — A solid ink rectangle whose width carries the data value. The featured/current bar swaps to yellow fill with a 1px ink stroke (`{components.bar-lit}`). Chart layouts use grid-row patterns: mono year label + bar + mono value, separated by gap.
 
@@ -490,13 +494,16 @@ The system has **no thicker borders**. There are no 2px, 3px, or 4px outlines an
 
 This system is built as a **viewport-fluid 100vw × 100vh deck** with no responsive breakpoints. Every font size, padding value, and gap uses CSS `clamp()` with both vw and vh terms — `clamp(40px, min(4.4vw, 7vh), 88px)` is a typical pattern. Display type scales by whichever viewport axis is shorter, so portrait orientations don't blow out the headlines.
 
-### Scaling Behavior
-- Cover-scale display scales 120px → 240px.
-- Chapter-divider jumbo numeral scales 220px → 720px.
-- Headline scales 40px → 88px.
-- Body scales 14px → 16px.
-- Edge padding scales 40px → 76px.
-- Hairline rule (1px) and pagenum sizing (11-13px) are essentially fixed.
+### Scaling Behavior (source history — do not author against these numbers)
+
+The original template's clamp ranges are recorded here only to explain where the token proportions came from. The authoritative sizes are the fixed-stage px in the frontmatter and in the Typography Scale table above.
+
+- Cover-scale display scaled 120px → 240px (now `{typography.display}` 368px).
+- Chapter-divider jumbo numeral scaled 220px → 720px (now `{typography.numeral-jumbo}` 720px).
+- Headline scaled 40px → 88px (now `{typography.headline}` 117px).
+- Body scaled 14px → 16px (now `{typography.body}` 28px).
+- Edge padding scaled 40px → 76px (now `{spacing.pad-edge}` 77px).
+- Hairline rule stays 1px; pagenum is now a fixed `{typography.pagenum}` 25px.
 
 ### Presenter Behavior
 - Slides advance via `ArrowRight`, `PageDown`, or `Space`.
@@ -552,7 +559,7 @@ After loading, reference 得意黑 as `font-family: 'Smiley Sans Oblique', 'Noto
 
 ### Aesthetic Notes for This System
 
-The system's editorial identity rests on Instrument Serif's high-contrast, tall-ascender personality — a face that signals "art biennale catalogue" and "slow literary quarterly". The closest Chinese equivalent for register is **思源宋体 Noto Serif SC** for body and editorial display, with **得意黑 Smiley Sans Oblique** reserved for the poster-scale display moments where Instrument Serif at 120–240px does the heaviest identity work in the Latin original. 得意黑's slight italic tilt and slab character matches the Italian-exhibition-poster register; pure Noto Serif SC at jumbo numerals reads as restrained academic Chinese rather than biennale-loud.
+The system's editorial identity rests on Instrument Serif's high-contrast, tall-ascender personality — a face that signals "art biennale catalogue" and "slow literary quarterly". The closest Chinese equivalent for register is **思源宋体 Noto Serif SC** for body and editorial display, with **得意黑 Smiley Sans Oblique** reserved for the poster-scale display moments where Instrument Serif at 368px does the heaviest identity work in the Latin original. 得意黑's slight italic tilt and slab character matches the Italian-exhibition-poster register; pure Noto Serif SC at jumbo numerals reads as restrained academic Chinese rather than biennale-loud.
 
 The "single text color, single accent" discipline of this system transfers cleanly to CJK — ink-on-paper, sun-bloom atmosphere, hairline rules, no shadows. The micro-label treatment (Archivo weight 600, uppercase, 0.16–0.32em tracking) is the system's most fragile element when translated: CJK micro-labels lose both the uppercase signal and the wide tracking. Compensate by setting Chinese micro-labels in 思源黑体 weight 600 at 0 tracking with the **slightly heavier weight contrast** (drop body to weight 400 of 思源宋体, keep labels at 600 of 思源黑体) and by **always pairing the label with a hairline-soft rule beneath** — the rule does the chrome-recognition work the wide-tracked uppercase did in Latin.
 

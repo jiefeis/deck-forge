@@ -8,9 +8,15 @@ Use this small file for title-slide previews only. For final deck generation, re
 
 ## Visual Snapshot
 
-A quiet, editorial-serif presentation system in the register of a well-bound monograph or boutique brand book. Playfair Display at weight 400 (never bold) carries every headline, italicized in terracotta coral for accent emphasis as the signature move. Jost weight 300 carries every paragraph as the "good paper" body face. JetBrains Mono at weight 300 holds labels, kickers, and the thin chrome bars. The palette pairs a deep forest green canvas (#192b1b) with warm cream text (#d4cfbf) and a single terracotta coral accent (#c8524a). Generous negative space, hairline 1px borders, and a near-invisible serif watermark numeral give it the calm authority of a literary journal.
+Cover recipe:
 
-Grove is a quiet, editorial-serif presentation system in the register of a literary monograph or boutique brand book. The foundational premise is restraint: every slide carries one focused content moment surrounded by deep negative space, anchored by thin 1px chrome bars at top and bottom and supported by a small library of compositional beats (coral kicker, 36px coral rule, italic-coral accent, em-dash bullet, near-invisible watermark numeral).
+- Surface: full-bleed deep forest green #192B1B with warm cream #D4CFBF type; padding 70px vertical / 154px horizontal; the cover hides both the slide-chrome and slide-foot bars.
+- Kicker: JetBrains Mono 300 uppercase 19px at 0.14em tracking in terracotta coral #C8524A.
+- Rule: the signature 36px × 1px coral rule directly beneath the kicker — kicker, rule, and title are one compositional unit.
+- Title: Playfair Display 400 at 267px, line-height 1, -0.01em tracking, left-aligned, never bold; one `<em>` word switches to italic coral.
+- Support: a single Jost 300 lead line at 39px (line-height 1.65) in muted cream.
+- Decoration: the 480px Playfair watermark numeral at 6% opacity, anchored right 154px / bottom -0.15em; zero shadows, zero rounded corners.
+- Chrome: bottom nav dots only — any page number that must survive PDF export is a slide-internal element, never `.progress-bar` / `.slide-counter`.
 
 ## Preview Ingredients
 

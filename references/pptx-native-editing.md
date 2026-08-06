@@ -57,8 +57,11 @@ If the tool is useful for authoring the target pages but rewrites the package:
    ```
 
 4. Use explicit `--map source:candidate` when their physical orders differ.
-   Every mapping must be proven by stable slide ID, a unique exact title, or an
-   explicit title assertion; equal slide counts are not identity evidence.
+   Every mapping must be proven; equal slide counts are not identity evidence.
+   A matching stable slide ID alone is never accepted (normalizing tools
+   regenerate IDs positionally): corroborate it with matching titles, or —
+   when the redesign legitimately changed the title — with reviewed
+   `--expect-source-title` / `--expect-candidate-title` assertions.
 5. Render the candidate and rebased target pages with the same engine. Their
    authorized target-page pixels must match before the candidate's visual work
    is considered preserved.
@@ -75,6 +78,12 @@ style-matrix references that could change under the baseline layout/theme.
 `cSld` and full-slide replacement are intentionally unsupported. Use a broader
 copy workflow only after expanding the user's scope and proving the entire
 dependency graph.
+
+The static theme gate rejects only explicit theme markup; implicit inheritance
+(runs with no direct properties) cannot be excluded statically. The tool
+therefore reports a `required_followup` list — pixel equivalence of candidate
+vs rebased renders and the baseline-scope re-audit — and the transplant is not
+delivery-ready until both are done.
 
 ## Typography baseline when adding or merging slides
 

@@ -8,9 +8,14 @@ Use this small file for title-slide previews only. For final deck generation, re
 
 ## Visual Snapshot
 
-A populist editorial poster system that mashes vintage Italian sports-magazine display lettering with classical serif body and tight monospace metadata. The display face is Shrikhand — a heavy slab/script hybrid with playful italic personality — rendered at poster scale (often 200-320px) and routinely tilted off-axis. Body runs Libre Baskerville for a literary editorial register; Space Grotesk handles tiny uppercase labels and chrome. The palette is uncompromising: white canvas, deep brown-black ink (#1C1410), single saturated tomato red (#D8000F), and a warm off-white (#F5F2EF) for alternating panels. Borders are bold 1.5-3px ink rules; the only shadow is a single stacked offset behind red display text. The aesthetic is loud, confident, and unmistakably print-poster — closer to a 1970s European brand annual report or a wine merchant's catalogue than a contemporary slide deck.
+Cover recipe:
 
-Bold Poster is a populist editorial poster system that lifts its visual vocabulary from vintage Italian sports magazines, mid-century European brand annual reports, and wine-merchant catalogues. The premise is that every slide should feel printed — set in heavy display type, locked to one strong red accent, on a white or off-white sheet, with grids ruled in ink and decoration kept to a strict minimum.
+- Surface: flat white sheet #FFFFFF, no panel or border enclosing the composition; slide padding 48px 56px, content anchored top-left, square corners and zero shadows everywhere.
+- Meta line: Libre Baskerville 23px in ink #1C1410 sits above the title stack, optionally preceded by a Space Grotesk 21px uppercase red eyebrow at 3px tracking.
+- Title: a three-line Shrikhand stack, left-aligned — line 1 at 369px in ink (no rotation), line 2 at 415px in red #D8000F rotated -4°, line 3 at 323px in ink rotated +2°. At least one line red and at least one tilted is non-negotiable.
+- Tagline: Libre Baskerville 28px at line-height 1.6, parked bottom-right against the lower corner so it counterweights the top-left title mass.
+- Decoration: none — negative space plus the tilt does the work. No cards, no rules, no dots on the cover.
+- Chrome: 5px red trim strip along the bottom edge (implement as `.poster-trim`, never `.progress-bar`) and a Space Grotesk 23px uppercase counter at bottom-right, 50% opacity; a page number that must survive PDF export has to be a slide-internal element.
 
 ## Preview Ingredients
 

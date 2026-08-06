@@ -8,9 +8,15 @@ Use this small file for title-slide previews only. For final deck generation, re
 
 ## Visual Snapshot
 
-An essay-pinned-to-a-wall presentation system — a single monochromatic field of deep periwinkle (#2A3870) with warm chartreuse-yellow type (#E8D85C) floating centered on it, every slide. Italic Cormorant Garamond carries every headline at all sizes — the italic serif is the personality, against the bold colorfield. DM Sans handles body in a quiet supporting role. Courier Prime mono provides the typed annotation voice — appearing as a "pin-note" attribution sitting in the bottom-left corner of every slide. The mood is gallery exhibition wall meets archive folder — quiet, monochromatic, deeply still. One color, two warm typefaces, zero motion.
+Cover recipe:
 
-Vellum is a monochromatic essay-on-a-wall presentation system. The visual premise is severe and tender at once: every slide is the same deep periwinkle navy field (#2A3870), with warm chartreuse-yellow type (#E8D85C) floating centered on it. There is no alternate surface. There is no light/dark theme. There is no second background color. The field is the constant; the type and a single small annotation in the bottom-left corner are everything else.
+- Surface: full-bleed navy #2A3870 — the single field, no alternate; the cover is chromeless (no top chrome bar, no foot bar).
+- Composition: everything flex-centered and text-align center inside 115px / 65px padding, with content held to roughly 70% of canvas width.
+- Kicker: Courier Prime 19px in dusty teal #3A7878, sitting above the title, optionally over the 28×1px teal accent rule.
+- Title: Cormorant Garamond italic weight 400 at 294px, line-height 0.92, letter-spacing -0.01em, in yellow #E8D85C. An `<em>` inside flips to upright roman weight 600 in #F5E168.
+- Support: one lead sentence in DM Sans 400 at 40px, yellow at 62% opacity.
+- Signature: the pin-annotation in the bottom-left — 1–3 Courier Prime lines at 31px in teal (slide counter plus a short typed label), max-width 422px, sitting ~0.9× pad-y up from the bottom edge.
+- Chrome: the pin-annotation counter is the slide-internal page mark; do not reach for the reserved .slide-counter class.
 
 ## Preview Ingredients
 

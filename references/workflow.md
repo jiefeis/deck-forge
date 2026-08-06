@@ -258,7 +258,8 @@ checks alone.
 ## Phase 5: Deliver
 
 1. Clean up `.deck-forge/slide-previews/` if it exists.
-2. Open the PDF for the user.
+2. Open the PDF for the user (if the environment can display files; otherwise
+   report the absolute path).
 3. Tell them: PDF location + size, style name, slide count; that the HTML
    intermediate is kept alongside it for edits; that motion is captured at its
    final state.

@@ -28,80 +28,80 @@ color-aliases:
 typography:
   body:
     fontFamily: "MS Sans Serif, Segoe UI, Tahoma, Geneva, Verdana, sans-serif"
-    fontSize: 16px
+    fontSize: 28px
     fontWeight: 400
     lineHeight: 1.5
   text-xl:
     fontFamily: "MS Sans Serif, Segoe UI, Tahoma, Geneva, Verdana, sans-serif"
-    fontSize: 32px
+    fontSize: 56px
     fontWeight: 700
     lineHeight: 1.2
   text-lg:
     fontFamily: "MS Sans Serif, Segoe UI, Tahoma, Geneva, Verdana, sans-serif"
-    fontSize: 22px
+    fontSize: 39px
     fontWeight: 700
     lineHeight: 1.3
   text-md:
     fontFamily: "MS Sans Serif, Segoe UI, Tahoma, Geneva, Verdana, sans-serif"
-    fontSize: 18px
+    fontSize: 32px
     fontWeight: 400
     lineHeight: 1.6
   text-sm:
     fontFamily: "MS Sans Serif, Segoe UI, Tahoma, Geneva, Verdana, sans-serif"
-    fontSize: 14px
+    fontSize: 25px
     fontWeight: 400
     lineHeight: 1.5
   text-xs:
     fontFamily: "MS Sans Serif, Segoe UI, Tahoma, Geneva, Verdana, sans-serif"
-    fontSize: 12px
+    fontSize: 21px
     fontWeight: 400
     lineHeight: 1.4
   metric-xl:
     fontFamily: "MS Sans Serif, Segoe UI, Tahoma, Geneva, Verdana, sans-serif"
-    fontSize: 30px
+    fontSize: 53px
     fontWeight: 700
     lineHeight: 1.1
   title-bar:
     fontFamily: "MS Sans Serif, Segoe UI, Tahoma, Geneva, Verdana, sans-serif"
-    fontSize: 14px
+    fontSize: 25px
     fontWeight: 700
     lineHeight: 1.0
     letterSpacing: 0.5px
   group-box-title:
     fontFamily: "MS Sans Serif, Segoe UI, Tahoma, Geneva, Verdana, sans-serif"
-    fontSize: 13px
+    fontSize: 23px
     fontWeight: 700
     lineHeight: 1.0
   pixel-display:
     fontFamily: "'Press Start 2P', cursive"
-    fontSize: "20–24px"
+    fontSize: "42px"
     fontWeight: 400
     lineHeight: 1.8
   terminal:
     fontFamily: "'VT323', monospace"
-    fontSize: 22px
+    fontSize: 39px
     fontWeight: 400
     lineHeight: 1.2
   nav-hint:
     fontFamily: "'VT323', monospace"
-    fontSize: 16px
+    fontSize: 28px
     fontWeight: 400
     lineHeight: 1.0
 
 spacing:
-  slide-pad: "24px 32px 44px 32px"
-  win-body-pad: "20px 24px 24px 24px"
-  panel-pad: 16px
-  group-box-pad: "20px 18px 16px 18px"
-  panel-sunken-pad: 12px
-  gap-1: 6px
-  gap-2: 10px
-  gap-3: 16px
-  gap-4: 24px
+  slide-pad: "42px 56px 77px 56px"
+  win-body-pad: "35px 42px 42px 42px"
+  panel-pad: 28px
+  group-box-pad: "35px 32px 28px 32px"
+  panel-sunken-pad: 21px
+  gap-1: 11px
+  gap-2: 18px
+  gap-3: 28px
+  gap-4: 42px
 
 canvas:
-  width: 100vw
-  height: 100vh
+  width: 1920px
+  height: 1080px
 
 components:
   crt-overlay:
@@ -116,55 +116,55 @@ components:
   win-titlebar:
     background: "linear-gradient(90deg, {colors.blue-navy} 0%, {colors.blue-bright} 100%)"
     color: "{colors.white}"
-    padding: "4px 8px"
-    fontSize: 14px
+    padding: "7px 14px"
+    fontSize: 25px
     fontWeight: 700
     description: "Navy-blue gradient bar at the top of every window. Contains a left lockup (icon + filename in caps) and a right cluster of three minimize/maximize/close buttons (_, [], X)."
   win-titlebar-inactive:
     background: "linear-gradient(90deg, #808080 0%, #a0a0a0 100%)"
     description: "Grayed-out title bar variant for inactive/secondary windows (used when a slide contains multiple stacked windows representing different states)."
   win-btn:
-    width: 20px
-    height: 18px
+    width: 35px
+    height: 32px
     background: "{colors.bg-light}"
     border: "2px solid {colors.white} (top/left) + 2px solid {colors.black} (right/bottom)"
     description: "Beveled-raised mini button used inside the title bar (_, [], X) and elsewhere. Active state inverts the bevel."
   btn-retro:
     background: "{colors.bg-light}"
     border: "2px solid {colors.white} (top/left) + 2px solid {colors.black} (right/bottom)"
-    padding: "6px 24px"
-    fontSize: 14px
+    padding: "11px 42px"
+    fontSize: 25px
     description: "Standard Win9x command button. Beveled raised; active state inverts the bevel so the button appears pressed in."
   group-box:
     border: "2px solid #404040 (top/left) + 2px solid {colors.white} (right/bottom)"
-    padding: "20px 18px 16px 18px"
+    padding: "35px 32px 28px 32px"
     background: "{colors.bg-light}"
     description: "Sunken-bevel framed container with a title label that breaks the top border (the title sits in a small background-painted notch at top-left). The Win9x equivalent of a fieldset/legend."
   group-box-title:
     position: absolute
-    top: -10px
-    left: 12px
+    top: -18px
+    left: 21px
     background: "{colors.bg-light}"
-    padding: "0 8px"
-    fontSize: 13px
+    padding: "0 14px"
+    fontSize: 23px
     fontWeight: 700
     description: "The title label that sits on top of a group-box's upper border, painted with the parent background to mask the border behind it."
   panel-raised:
     background: "{colors.bg-light}"
     border: "2px solid {colors.white} (top/left) + 2px solid {colors.black} (right/bottom)"
-    padding: 16px
+    padding: 28px
     description: "Raised-bevel panel. Used for tool palettes, button strips, and elevated content regions inside a window body."
   panel-sunken:
     background: "{colors.white}"
     border: "2px solid #404040 (top/left) + 2px solid {colors.white} (right/bottom)"
-    padding: 12px
+    padding: 21px
     description: "Sunken-bevel panel with a white interior. Used for text input fields, read-only data displays, and status regions. The white interior is the system's signal for 'this is content, not chrome.'"
   progress-bar:
     width: "100%"
-    height: 24px
+    height: 42px
     background: "{colors.white}"
     border: "2px solid #404040 (top/left) + 2px solid {colors.white} (right/bottom)"
-    padding: 2px
+    padding: 4px
     description: "Sunken white well containing a solid navy fill div whose width represents the data value. The fill is `{colors.blue-navy}` solid — no gradient, no animation beyond width transition."
   retro-list:
     listStyle: none
@@ -172,13 +172,13 @@ components:
     markerColor: "{colors.blue-navy}"
     description: "Custom-bullet list where each item is prefixed with a navy '>' character. The chevron is set via ::before, never via list-style."
   retro-check:
-    checkBoxSize: "16px"
+    checkBoxSize: "28px"
     checkBoxBorder: "2px solid {colors.black} (top/left) + 2px solid {colors.white} (right/bottom)"
     checkMarker: "x"
     description: "Sunken white square checkbox with a literal lowercase 'x' character as the checked-state marker. Inset-beveled the opposite direction from buttons."
   retro-table:
     borderCollapse: collapse
-    fontSize: 14px
+    fontSize: 25px
     headerBackground: "{colors.bg-gray}"
     headerBorder: "1px solid #404040"
     cellBackground: "{colors.white}"
@@ -188,53 +188,53 @@ components:
   marquee:
     background: "{colors.white}"
     border: "1px inset {colors.bg-gray}"
-    padding: "3px 0"
+    padding: "5px 0"
     animation: "marquee 14s linear infinite"
     description: "Scrolling text inside a sunken white well. The animation translates the text from 100% right to -100% left over 14 seconds. The original Win marquee element re-implemented in CSS."
   win-icon:
-    width: 18px
-    height: 18px
+    width: 32px
+    height: 32px
     background: "{colors.white}"
     border: "1px solid {colors.black}"
-    fontSize: 11px
+    fontSize: 19px
     color: "{colors.blue-navy}"
     fontWeight: 700
-    description: "Tiny 18px square icon next to a title-bar filename — a navy-on-white letter glyph that imitates an application icon. The glyph is a 1-character mnemonic of the window's role (P for Presentation, R for README, D for Dataview, etc.)."
+    description: "Tiny 32px square icon next to a title-bar filename — a navy-on-white letter glyph that imitates an application icon. The glyph is a 1-character mnemonic of the window's role (P for Presentation, R for README, D for Dataview, etc.)."
   tree-item:
-    fontSize: 14px
-    indent: "24px per level"
+    fontSize: 25px
+    indent: "42px per level"
     folderGlyph: "📁 (U+1F4C1)"
     fileGlyph: "📄 (U+1F4C4)"
     expandedMarker: "-"
     collapsedMarker: "+"
-    description: "Explorer-style hierarchical tree view. Each row carries an expand marker (+/−), a folder or file emoji glyph, and the label text. Indentation steps by 24px per nesting level."
+    description: "Explorer-style hierarchical tree view. Each row carries an expand marker (+/−), a folder or file emoji glyph, and the label text. Indentation steps by 42px per nesting level."
   separator-vertical:
     width: 2px
     background: "#404040"
     borderLeft: "1px solid {colors.white}"
-    margin: "0 12px"
+    margin: "0 21px"
     description: "Beveled vertical separator between inline elements — the Win9x equivalent of a vertical rule."
   hr-retro:
     borderTop: "1px solid #404040"
     borderBottom: "1px solid {colors.white}"
-    margin: "14px 0"
+    margin: "25px 0"
     description: "Beveled horizontal rule. Two stacked 1px lines (dark on top, white on bottom) create the engraved-in look."
   nav-dot:
-    width: 12px
-    height: 12px
+    width: 21px
+    height: 21px
     background: "{colors.bg-gray}"
     border: "2px solid {colors.white} (top/left) + 2px solid {colors.black} (right/bottom)"
     activeBackground: "{colors.blue-navy}"
     description: "Beveled square mini-dot used as a slide-indicator chip. Active state fills navy with a 4px white center square."
   chart-canvas-host:
     background: "{colors.bg-light}"
-    description: "Chart.js canvas embedded inside a panel-raised. Chart colors use {colors.blue-navy}, {colors.blue-bright}, {colors.blue-light}, {colors.green-retro}, {colors.cyan-retro}, {colors.yellow-retro}. Axis labels use MS Sans Serif at 11–12px in {colors.text-dark}. Gridlines in {colors.bg-gray}."
+    description: "Chart.js canvas embedded inside a panel-raised. Chart colors use {colors.blue-navy}, {colors.blue-bright}, {colors.blue-light}, {colors.green-retro}, {colors.cyan-retro}, {colors.yellow-retro}. Axis labels use MS Sans Serif at 19–21px in {colors.text-dark}. Gridlines in {colors.bg-gray}."
   scrollbar:
-    width: 16px
+    width: 28px
     trackBackground: "{colors.bg-gray}"
     thumbBackground: "{colors.bg-gray}"
     thumbBorder: "2px solid {colors.white} (top/left) + 2px solid {colors.black} (right/bottom)"
-    description: "Custom webkit scrollbar styled as a beveled-raised gray thumb on a flat gray track. Width is fixed 16px to match Win9x default."
+    description: "Custom webkit scrollbar styled as a beveled-raised gray thumb on a flat gray track. Width is fixed 28px — the Win9x 16px default rebaked to stage scale."
 ---
 
 ## Contents
@@ -256,12 +256,14 @@ This policy applies even if the source template was originally implemented with 
 
 Author against the skill's fixed-stage model: full viewport-base.css inline, .slide/.active slides scaled as one unit (transform: scale(), origin 0 0) per html-template.md. Do not reference deck-stage.js (not bundled). Translate any data-anim/data-delay/.is-active entrance vocabulary from the source design into the deck's .reveal + .slide.visible convention. Render each slide at 1920×1080 and verify rendered screenshots for both text overflow and panel overlap.
 
+Page numbers or footers that must appear in the exported PDF must be slide-internal elements (see lumen-2026's .foot/.pageno); never use the reserved deck-chrome classes (.progress-bar, .slide-counter) — export_pdf.py strips them.
+
 
 ## Overview
 
 Retro Windows is a **Windows 95 / 98 desktop-OS aesthetic** rendered as a slide template. Every slide is structured as a `win-window` — a beveled rectangular chrome with a navy-gradient title bar, three button icons in the upper right (`_`, `[]`, `X`), and a body region containing application-style content. The composition is "this slide is software running on a 1995 desktop, and the content is what the software displays." The conceit is total: there are no slide titles in the modern presentation sense, only window titles styled as filenames (`README.DOC`, `DATAVIEW.CSV`, `METRICS.LOG`).
 
-The typeface stack is **MS Sans Serif** (and its modern fallbacks Segoe UI / Tahoma / Verdana) as the system font for nearly all content, with **Press Start 2P** (an 8-bit pixel display face) and **VT323** (a chunky CRT terminal monospace) reserved for nostalgic punctuation — splash-screen headings, navigation hints, marquee text. The body face is small by modern standards (16px default, with most working text at 14px) which is part of the OS-UI aesthetic: software UI of the era ran at fixed pixel sizes, and the deck inherits that constraint.
+The typeface stack is **MS Sans Serif** (and its modern fallbacks Segoe UI / Tahoma / Verdana) as the system font for nearly all content, with **Press Start 2P** (an 8-bit pixel display face) and **VT323** (a chunky CRT terminal monospace) reserved for nostalgic punctuation — splash-screen headings, navigation hints, marquee text. The body face is compact relative to the display scale (28px default, with most working text at 25px) which is part of the OS-UI aesthetic: software UI of the era ran at fixed pixel sizes, and the deck inherits that constraint.
 
 The palette is the **original Win9x system color set**: button-face gray (`{colors.bg-light}` #d4d0c8), highlight white, shadow dark-gray, and a navy/blue gradient (`{colors.blue-navy}` → `{colors.blue-bright}`) reserved for active title bars and primary data fills. A second cluster of "retro accent" hues — DOS green (#008000), brick red (#800000), mustard yellow (#808000), teal cyan (#008080) — is the system's status palette: green for OK / success / live, red for warnings, yellow for "moderate" risk, cyan for tertiary chart data. Charts pull from this status palette plus the navy ladder. There are no modern saturated hues.
 
@@ -327,26 +329,26 @@ Italic is not used. Underline is not used (interactive links can be underlined b
 
 | Token | Size | Family | Weight | Use |
 |---|---|---|---|---|
-| `{typography.text-xl}` | 32px | MS Sans Serif | 700 | Primary slide headline inside a window body |
-| `{typography.metric-xl}` | 30px | MS Sans Serif | 700 | Hero metric value in a KPI tile |
-| `{typography.text-lg}` | 22px | MS Sans Serif | 700 | Section heading / subheading inside a window body |
-| `{typography.text-md}` | 18px | MS Sans Serif | 400 | Standard body paragraph |
-| `{typography.body}` | 16px | MS Sans Serif | 400 | Default working body |
-| `{typography.text-sm}` | 14px | MS Sans Serif | 400 | Captions, list items, button labels, table cells |
-| `{typography.text-xs}` | 12px | MS Sans Serif | 400 | Fine print, status hints, slide counter |
-| `{typography.title-bar}` | 14px | MS Sans Serif | 700 | Window title bar filename — always uppercase |
-| `{typography.group-box-title}` | 13px | MS Sans Serif | 700 | Notch-mounted group-box title label |
-| `{typography.pixel-display}` | 20–24px | Press Start 2P | 400 | Nostalgic splash-screen or closing display title |
-| `{typography.terminal}` | 22px | VT323 | 400 | Terminal-style body or marquee text |
-| `{typography.nav-hint}` | 16px | VT323 | 400 | Bottom-edge keyboard hint text |
+| `{typography.text-xl}` | 56px | MS Sans Serif | 700 | Primary slide headline inside a window body |
+| `{typography.metric-xl}` | 53px | MS Sans Serif | 700 | Hero metric value in a KPI tile |
+| `{typography.text-lg}` | 39px | MS Sans Serif | 700 | Section heading / subheading inside a window body |
+| `{typography.text-md}` | 32px | MS Sans Serif | 400 | Standard body paragraph |
+| `{typography.body}` | 28px | MS Sans Serif | 400 | Default working body |
+| `{typography.text-sm}` | 25px | MS Sans Serif | 400 | Captions, list items, button labels, table cells |
+| `{typography.text-xs}` | 21px | MS Sans Serif | 400 | Fine print, status hints, slide counter |
+| `{typography.title-bar}` | 25px | MS Sans Serif | 700 | Window title bar filename — always uppercase |
+| `{typography.group-box-title}` | 23px | MS Sans Serif | 700 | Notch-mounted group-box title label |
+| `{typography.pixel-display}` | 35–42px | Press Start 2P | 400 | Nostalgic splash-screen or closing display title |
+| `{typography.terminal}` | 39px | VT323 | 400 | Terminal-style body or marquee text |
+| `{typography.nav-hint}` | 28px | VT323 | 400 | Bottom-edge keyboard hint text |
 
 ### Defaults
-- **Default size for a primary slide headline (inside window body)**: `{typography.text-lg}` (22px) in `{colors.blue-navy}` weight 700 — the application-title voice. For an oversized hero headline use `{typography.text-xl}` (32px).
-- **Default size for a body paragraph**: `{typography.text-md}` (18px) for prose paragraphs; `{typography.text-sm}` (14px) for working text and list rows.
-- **Default size for a window title bar filename**: `{typography.title-bar}` (14px weight 700), always uppercase, always in `{colors.white}`.
-- **Default size for a metric or hero number**: `{typography.metric-xl}` (30px weight 700) in `{colors.blue-navy}`.
-- **Default size for a section heading inside a window**: `{typography.text-lg}` (22px weight 700) in `{colors.blue-navy}`.
-- **Default size for any caption, fine print, or status hint**: `{typography.text-xs}` (12px) in `{colors.text-gray}`.
+- **Default size for a primary slide headline (inside window body)**: `{typography.text-lg}` (39px) in `{colors.blue-navy}` weight 700 — the application-title voice. For an oversized hero headline use `{typography.text-xl}` (56px).
+- **Default size for a body paragraph**: `{typography.text-md}` (32px) for prose paragraphs; `{typography.text-sm}` (25px) for working text and list rows.
+- **Default size for a window title bar filename**: `{typography.title-bar}` (25px weight 700), always uppercase, always in `{colors.white}`.
+- **Default size for a metric or hero number**: `{typography.metric-xl}` (53px weight 700) in `{colors.blue-navy}`.
+- **Default size for a section heading inside a window**: `{typography.text-lg}` (39px weight 700) in `{colors.blue-navy}`.
+- **Default size for any caption, fine print, or status hint**: `{typography.text-xs}` (21px) in `{colors.text-gray}`.
 - **Default weight for any headline or label that should command attention**: 700.
 - **Default weight for body text**: 400.
 
@@ -357,14 +359,14 @@ These treatments are **non-optional whenever the corresponding element type is u
 
 - **Every window title bar text is uppercase and styled as a filename** (with extension): `PRESENTATION.EXE`, `README.DOC`, `METRICS.LOG`, `AGENDA.TXT`, `DATAVIEW.CSV`, `FEATURES.INI`, `EXPLORER.EXE`, `TIMELINE.PRJ`. The filename convention is part of the aesthetic — never use modern title-case window names.
 - **Every title bar carries the three-button cluster** (`_` minimize, `[]` maximize, `X` close) in the top-right. The buttons are decorative, not interactive, but they must always be present.
-- **Every title bar carries a `{components.win-icon}` lockup** on the left — an 18px white-with-black-border square containing a single navy letter that mnemonically identifies the window (P, A, R, D, F, G, M, E, T).
+- **Every title bar carries a `{components.win-icon}` lockup** on the left — a 32px white-with-black-border square containing a single navy letter that mnemonically identifies the window (P, A, R, D, F, G, M, E, T).
 - **Every window uses the beveled-raised chrome treatment** (white top/left + black bottom/right border + double inset shadow). Removing the bevel breaks the Windows aesthetic entirely.
 - **Every body headline inside a window is `{colors.blue-navy}` weight 700.** Navy is the application-title voice; black headlines read as "wrong era."
 - **Status text uses the assigned status color** with weight 700: green for OK/success/growth, red for errors, yellow for moderate. A green status word at default weight reads as incidental rather than as a label.
-- **Group-box titles sit in a 0–8px-padded notch over the upper border.** The title's background is painted in `{colors.bg-light}` (the parent fill) to mask the border behind it — never let the border run through the title.
+- **Group-box titles sit in a 0–14px-padded notch over the upper border.** The title's background is painted in `{colors.bg-light}` (the parent fill) to mask the border behind it — never let the border run through the title.
 
 ### Typography Principles
-The aesthetic depends on **fixed pixel sizes**, not fluid type. The system was designed for the Win9x 96-DPI rendering environment, and the deck preserves that feel by using integer pixel font-sizes (12, 13, 14, 16, 18, 22, 30, 32). Avoid `rem`/`em`/`clamp` for body type — the OS-UI illusion breaks at sub-pixel rendered sizes.
+The aesthetic depends on **fixed pixel sizes**, not fluid type. The system was designed for the Win9x 96-DPI rendering environment, and the deck preserves that feel by using integer pixel font-sizes (21, 23, 25, 28, 32, 39, 53, 56). Avoid `rem`/`em`/`clamp` for body type — the OS-UI illusion breaks at sub-pixel rendered sizes.
 
 The pixel-font (Press Start 2P) and terminal-font (VT323) are nostalgic accents, not workhorses. Using Press Start 2P for body text becomes illegible quickly; using VT323 for headlines reads as overproduced. Reserve each for one or two moments per deck.
 
@@ -373,12 +375,12 @@ The pixel-font (Press Start 2P) and terminal-font (VT323) are nostalgic accents,
 ### Canvas System
 The system targets `100vw × 100vh` with each slide positioned `position: fixed; top: 0; left: 0`. Only the `.active` slide is `display: flex`; others are `display: none`. Inside each slide, a single `{components.win-window}` (or a few stacked windows) provides the framing chrome. The window is `max-width: 1200px` and `max-height: calc(100vh - 68px)` so the desktop gray border is always visible around the chrome.
 
-Slide outer padding is `24px 32px 44px 32px` — the extra bottom padding clears the persistent navigation chrome (nav-dots and slide-counter at the viewport's bottom edge).
+Slide outer padding is `42px 56px 77px 56px` — the extra bottom padding clears the persistent navigation chrome (nav-dots and slide-counter at the viewport's bottom edge).
 
 ### Window Anatomy
 Every window has three regions stacked vertically:
-1. **Title bar** (`{components.win-titlebar}`) — fixed 4px-8px padding, navy gradient, contains left icon-lockup + filename and right three-button cluster.
-2. **Body** (`{components.win-body}`) — 20px 24px 24px 24px padding, fills remaining height, contains the slide's content composition.
+1. **Title bar** (`{components.win-titlebar}`) — fixed 7px-14px padding, navy gradient, contains left icon-lockup + filename and right three-button cluster.
+2. **Body** (`{components.win-body}`) — 35px 42px 42px 42px padding, fills remaining height, contains the slide's content composition.
 3. **Optional status panel** at the body's bottom — a `{components.panel-raised}` or `{components.panel-sunken}` strip carrying meta info (data source, last updated, count, status badge).
 
 A slide may contain multiple windows side-by-side (typically for timeline quarters or multi-screen comparisons). When multiple windows appear, only one carries the active navy title bar; the others carry the inactive gray gradient.
@@ -386,17 +388,17 @@ A slide may contain multiple windows side-by-side (typically for timeline quarte
 ### Padding Scale
 | Token | Value | Use |
 |---|---|---|
-| `{spacing.slide-pad}` | 24px 32px 44px 32px | Outer slide padding |
-| `{spacing.win-body-pad}` | 20px 24px 24px 24px | Inside a window body |
-| `{spacing.group-box-pad}` | 20px 18px 16px 18px | Inside a group-box (extra top to clear notched title) |
-| `{spacing.panel-pad}` | 16px | Inside a raised panel |
-| `{spacing.panel-sunken-pad}` | 12px | Inside a sunken white panel |
+| `{spacing.slide-pad}` | 42px 56px 77px 56px | Outer slide padding |
+| `{spacing.win-body-pad}` | 35px 42px 42px 42px | Inside a window body |
+| `{spacing.group-box-pad}` | 35px 32px 28px 32px | Inside a group-box (extra top to clear notched title) |
+| `{spacing.panel-pad}` | 28px | Inside a raised panel |
+| `{spacing.panel-sunken-pad}` | 21px | Inside a sunken white panel |
 
 ### Persistent Chrome
 Three persistent elements live outside the slide composition:
 - **Nav dots** at bottom-center — beveled square indicators, one per slide, with the active one filled navy and carrying a 4px white center square.
-- **Slide counter** at bottom-right — sunken-bevel chip with `N / TOTAL` text in 12px.
-- **Nav hint** at bottom-left — VT323 16px text reading `<-- ARROW KEYS to navigate -->`.
+- **Slide counter** at bottom-right — sunken-bevel chip with `N / TOTAL` text in 21px.
+- **Nav hint** at bottom-left — VT323 28px text reading `<-- ARROW KEYS to navigate -->`.
 
 The CRT scanline overlay sits above everything at z-index 9999 — every slide, every chrome element, every chart canvas is rendered beneath it.
 
@@ -441,27 +443,27 @@ Borders are never colored (no navy borders, no green borders); the bevel two-ton
 
 **Sunken panel** (`{components.panel-sunken}`) — Beveled-sunken white panel. Used for text inputs, KPI displays, status readouts, and read-only data. White interior is the cue.
 
-**Retro button** (`{components.btn-retro}`) — Beveled-raised gray button with 6px × 24px padding. Always carries text-md (14px) MS Sans Serif weight 400. Active state inverts the bevel.
+**Retro button** (`{components.btn-retro}`) — Beveled-raised gray button with 11px × 42px padding. Always carries text-sm (25px) MS Sans Serif weight 400. Active state inverts the bevel.
 
-**Progress bar** (`{components.progress-bar}`) — Sunken white well containing a solid navy fill div. The fill width represents the value; no animation beyond width transition. Always 24px tall (or 16px when embedded inside a feature card). Implement with a non-reserved class name such as `.retro-progress` — `.progress-bar`/`.progress` are reserved chrome class names hidden by `export_pdf.py` at export (see html-template.md "Reserved chrome class names"), and this component is slide content that must survive into the PDF.
+**Progress bar** (`{components.progress-bar}`) — Sunken white well containing a solid navy fill div. The fill width represents the value; no animation beyond width transition. Always 42px tall (or 28px when embedded inside a feature card). Implement with a non-reserved class name such as `.retro-progress` — `.progress-bar`/`.progress` are reserved chrome class names hidden by `export_pdf.py` at export (see html-template.md "Reserved chrome class names"), and this component is slide content that must survive into the PDF.
 
-**Retro table** (`{components.retro-table}`) — Pixel-flat data table with gray headers, white cells, light-gray border lines, and a barely-different zebra fill on alternate rows. Cell padding is 6px × 10px.
+**Retro table** (`{components.retro-table}`) — Pixel-flat data table with gray headers, white cells, light-gray border lines, and a barely-different zebra fill on alternate rows. Cell padding is 11px × 18px.
 
 **Retro list** (`{components.retro-list}`) — Unstyled list with a navy `>` chevron prefix on each row. The chevron is set via `::before`, never via list-style.
 
-**Retro check** (`{components.retro-check}`) — A 16px sunken-bevel white square containing a literal lowercase `x` character when checked. The bevel is inverted relative to buttons (black on top/left, white on bottom/right).
+**Retro check** (`{components.retro-check}`) — A 28px sunken-bevel white square containing a literal lowercase `x` character when checked. The bevel is inverted relative to buttons (black on top/left, white on bottom/right).
 
-**Tree view** (`{components.tree-item}`) — Explorer-style hierarchical list. Each row carries an expand marker (+/−), a folder (`📁`) or file (`📄`) emoji glyph, and the label. 24px indentation per nesting level.
+**Tree view** (`{components.tree-item}`) — Explorer-style hierarchical list. Each row carries an expand marker (+/−), a folder (`📁`) or file (`📄`) emoji glyph, and the label. 42px indentation per nesting level.
 
-**KPI tile (group-box variant)** — A square group-box with a title label (`Revenue`, `Customers`, `Retention`, `NPS Score`), a large 30px navy metric, a green delta line (`▲ +18.3%`), and a 12px gray context line (`vs previous quarter`). Used in 4-up rows for dashboards.
+**KPI tile (group-box variant)** — A square group-box with a title label (`Revenue`, `Customers`, `Retention`, `NPS Score`), a large 53px navy metric, a green delta line (`▲ +18.3%`), and a 21px gray context line (`vs previous quarter`). Used in 4-up rows for dashboards.
 
 **Marquee** (`{components.marquee}`) — Sunken white well containing horizontally scrolling text. The animation runs 14s linear infinite; pause-on-hover is not implemented. Used on splash and closing slides.
 
-**Win icon** (`{components.win-icon}`) — 18px square white-on-black-bordered miniature with a single navy letter glyph. Used in the title bar as a lockup mark.
+**Win icon** (`{components.win-icon}`) — 32px square white-on-black-bordered miniature with a single navy letter glyph. Used in the title bar as a lockup mark.
 
-**Separator** (vertical or hr-retro) — A beveled rule. Vertical: 2px dark-gray + 1px white-left border, 12px horizontal margin. Horizontal: stacked 1px dark-gray-on-top + 1px white-on-bottom lines, 14px vertical margin.
+**Separator** (vertical or hr-retro) — A beveled rule. Vertical: 2px dark-gray + 1px white-left border, 21px horizontal margin. Horizontal: stacked 1px dark-gray-on-top + 1px white-on-bottom lines, 25px vertical margin.
 
-**Hourglass / sleep glyph** (`⌛` or `💤`) — Used as a single oversized character (40–52px) on splash / closing slides as a nostalgic OS-feel cue.
+**Hourglass / sleep glyph** (`⌛` or `💤`) — Used as a single oversized character (70–91px) on splash / closing slides as a nostalgic OS-feel cue.
 
 ## Do's and Don'ts
 
@@ -473,7 +475,7 @@ Borders are never colored (no navy borders, no green borders); the bevel two-ton
 - Use the status colors semantically: green for OK / live / growth, red for warnings / errors, yellow for moderate concerns, cyan for tertiary data. Each color carries a meaning — do not redecorate with them.
 - Render charts with the navy ladder first (`{colors.blue-navy}`, `{colors.blue-bright}`, `{colors.blue-light}`), then pull from the status palette for categorical-segment differentiation.
 - Use the `>` chevron retro-list pattern for bullet lists and the literal-`x` retro-check for checkboxes. Native browser bullets and form controls break the aesthetic.
-- Apply integer pixel font sizes (12, 13, 14, 16, 18, 22, 30, 32). The fixed-pixel sizing is part of the OS-UI illusion.
+- Apply integer pixel font sizes (21, 23, 25, 28, 32, 39, 53, 56). The fixed-pixel sizing is part of the OS-UI illusion.
 - Keep the CRT scanline overlay (`{components.crt-overlay}`) on every slide. It is the texture that ties the deck to its CRT-monitor metaphor.
 - Style window titles as uppercase filenames with extensions (`PRESENTATION.EXE`, `AGENDA.TXT`). Title-case window names break the conceit.
 
@@ -495,7 +497,7 @@ The system is **viewport-fluid** but **fixed-pixel**: the window chrome and body
 
 ### Scaling Behavior
 - The window grows to fill the viewport up to 1200×(100vh-68px), then stops scaling.
-- All font-sizes stay fixed: a 14px label is 14px on any screen size.
+- All font-sizes stay fixed: a 25px label is 25px on any screen size.
 - The CRT scanline overlay's 3px period is constant regardless of viewport.
 
 ### Presenter Behavior
@@ -509,7 +511,7 @@ The system is **viewport-fluid** but **fixed-pixel**: the window chrome and body
 No `@media print` rule is defined. Printing will render the active slide only.
 
 ### Chart Rendering
-Charts use Chart.js loaded from a CDN. Chart colors map directly to system tokens (`{colors.blue-navy}`, `{colors.blue-bright}`, `{colors.blue-light}`, `{colors.green-retro}`, `{colors.cyan-retro}`, `{colors.yellow-retro}`). Axis labels use MS Sans Serif at 11–12px in `{colors.text-dark}`. Gridlines are 1px `{colors.bg-gray}`. Charts are rendered lazily when their slide becomes active.
+Charts use Chart.js loaded from a CDN. Chart colors map directly to system tokens (`{colors.blue-navy}`, `{colors.blue-bright}`, `{colors.blue-light}`, `{colors.green-retro}`, `{colors.cyan-retro}`, `{colors.yellow-retro}`). Axis labels use MS Sans Serif at 19–21px in `{colors.text-dark}`. Gridlines are 1px `{colors.bg-gray}`. Charts are rendered lazily when their slide becomes active.
 
 ## CJK & International Content
 
@@ -556,7 +558,7 @@ font-family: 'MS Sans Serif', 'Segoe UI', Tahoma, Geneva, Verdana, 'Noto Sans SC
 - **Status badges (READY, LIVE, OK, WARNING)** translate cleanly to short CJK words (就绪, 在线, 通过, 警告) at weight 700 in the assigned status color — the semantic green/red/yellow/cyan signal carries through.
 - **Group-box notched titles work identically in Chinese** — `客户数据`, `销售指标`. The notch masking depends on background painting, not on glyph metrics.
 - **The CRT scanline overlay is glyph-agnostic** and adds the same nostalgic texture to Chinese type as to Latin.
-- **Charts axis labels and chip text** should drop to Noto Sans SC 400 at 11–12px; the fixed-pixel sizing convention applies equally to CJK.
+- **Charts axis labels and chip text** should drop to Noto Sans SC 400 at 19–21px; the fixed-pixel sizing convention applies equally to CJK.
 
 ### Known CJK Gap
 
@@ -566,11 +568,11 @@ The two nostalgic accent fonts (Press Start 2P, VT323) are fundamentally Latin-o
 
 1. Any new slide is wrapped in a `{components.win-window}` with a navy title bar containing a `{components.win-icon}` (single-letter glyph), an uppercase filename-style title (with extension like `.EXE`, `.DOC`, `.LOG`, `.TXT`, `.CSV`, `.INI`, `.PRJ`, `.BMP`), and the three-button cluster (`_`, `[]`, `X`).
 2. Any new content region inside a window uses a `{components.group-box}` (sunken with notched title) for clustered related items, a `{components.panel-raised}` for tool strips and dashboards, or a `{components.panel-sunken}` for white-well content displays.
-3. Any new primary headline uses `{typography.text-lg}` (22px) in `{colors.blue-navy}` weight 700. Hero / splash headlines use `{typography.text-xl}` (32px) or Press Start 2P (20–24px).
-4. Any new metric tile uses the `{components.group-box}` + `{typography.metric-xl}` navy-700 + green delta + 12px gray context pattern.
+3. Any new primary headline uses `{typography.text-lg}` (39px) in `{colors.blue-navy}` weight 700. Hero / splash headlines use `{typography.text-xl}` (56px) or Press Start 2P (35–42px).
+4. Any new metric tile uses the `{components.group-box}` + `{typography.metric-xl}` navy-700 + green delta + 21px gray context pattern.
 5. Any new chart uses Chart.js with the navy ladder for primary data and the retro status colors for categorical segments. Always wrap the canvas in a `{components.panel-raised}`.
 6. Any new bullet list uses the `{components.retro-list}` chevron pattern; any checkbox uses the `{components.retro-check}` pattern; any hierarchical tree uses the `{components.tree-item}` folder/file emoji pattern.
-7. Any new button is a `{components.btn-retro}` — beveled gray, 6px × 24px padding, 14px MS Sans Serif. Buttons appear in clusters (OK / Cancel / Help, or Export / Print).
+7. Any new button is a `{components.btn-retro}` — beveled gray, 11px × 42px padding, 25px MS Sans Serif. Buttons appear in clusters (OK / Cancel / Help, or Export / Print).
 8. Any new status badge uses `{colors.green-retro}` weight 700 for OK, `{colors.red-retro}` for error, `{colors.yellow-retro}` for moderate. Always weight 700; never decorative.
 9. Status footers (panel-raised strips at the bottom of a window body) carry three or four data points separated by `•` bullets — data source, last updated, count, classification.
 10. Every slide must be visually dense — multiple panels stacked, a status footer at the bottom, button strips or nav-cluster decoration where space allows. Spareness breaks the aesthetic.

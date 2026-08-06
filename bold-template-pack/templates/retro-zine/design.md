@@ -17,115 +17,115 @@ color-aliases:
 typography:
   display-hero:
     fontFamily: "'Bebas Neue', sans-serif"
-    fontSize: "clamp(56px, 10vw, 160px)"
+    fontSize: 233px
     fontWeight: 400
     lineHeight: 0.85
     letterSpacing: 0.04em
     textTransform: uppercase
   display-cover:
     fontFamily: "'Bebas Neue', sans-serif"
-    fontSize: "clamp(48px, 10vw, 140px)"
+    fontSize: 233px
     fontWeight: 400
     lineHeight: 0.88
     letterSpacing: 0.04em
     textTransform: uppercase
   display:
     fontFamily: "'Bebas Neue', sans-serif"
-    fontSize: "clamp(48px, 8vw, 120px)"
+    fontSize: 187px
     fontWeight: 400
     lineHeight: 0.9
     letterSpacing: 0.04em
     textTransform: uppercase
   headline:
     fontFamily: "'Bebas Neue', sans-serif"
-    fontSize: "clamp(42px, 6vw, 90px)"
+    fontSize: 140px
     fontWeight: 400
     lineHeight: 0.95
     letterSpacing: 0.03em
     textTransform: uppercase
   headline-md:
     fontFamily: "'Bebas Neue', sans-serif"
-    fontSize: "clamp(36px, 5vw, 72px)"
+    fontSize: 117px
     fontWeight: 400
     lineHeight: 0.95
     letterSpacing: 0.03em
     textTransform: uppercase
   statement:
     fontFamily: "'Bebas Neue', sans-serif"
-    fontSize: "clamp(36px, 6vw, 90px)"
+    fontSize: 140px
     fontWeight: 400
     lineHeight: 1.1
     letterSpacing: 0.02em
     textTransform: uppercase
   title:
     fontFamily: "'Bebas Neue', sans-serif"
-    fontSize: "clamp(24px, 3vw, 42px)"
+    fontSize: 70px
     fontWeight: 400
     lineHeight: 1.1
     letterSpacing: 0.04em
     textTransform: uppercase
   number-hero:
     fontFamily: "'Bebas Neue', sans-serif"
-    fontSize: "clamp(80px, 12vw, 160px)"
+    fontSize: 280px
     fontWeight: 400
     lineHeight: 1.0
     letterSpacing: 0.02em
   number-md:
     fontFamily: "'Bebas Neue', sans-serif"
-    fontSize: "clamp(44px, 6vw, 80px)"
+    fontSize: 140px
     fontWeight: 400
     lineHeight: 1.0
     letterSpacing: 0.02em
   drop-cap:
     fontFamily: "'Bebas Neue', sans-serif"
-    fontSize: "clamp(48px, 6vw, 80px)"
+    fontSize: 140px
     fontWeight: 400
     lineHeight: 0.8
     letterSpacing: 0.02em
   body:
     fontFamily: "'Space Grotesk', sans-serif"
-    fontSize: "clamp(13px, 1.2vw, 16px)"
+    fontSize: 28px
     fontWeight: 400
     lineHeight: 1.7
   body-md:
     fontFamily: "'Space Grotesk', sans-serif"
-    fontSize: "clamp(14px, 1.3vw, 18px)"
+    fontSize: 30px
     fontWeight: 400
     lineHeight: 1.6
   label-eyebrow:
     fontFamily: "'Bebas Neue', sans-serif"
-    fontSize: "14–18px"
+    fontSize: "22px"
     fontWeight: 400
     lineHeight: 1.2
     letterSpacing: 0.2em
     textTransform: uppercase
   label-spaced:
     fontFamily: "'Space Grotesk', sans-serif"
-    fontSize: "12–14px"
+    fontSize: "17px"
     fontWeight: 600
     lineHeight: 1.2
     letterSpacing: 0.25em
     textTransform: uppercase
   caption-feature:
     fontFamily: "'Bebas Neue', sans-serif"
-    fontSize: "13–15px"
+    fontSize: "18px"
     fontWeight: 400
     lineHeight: 1.2
     letterSpacing: 0.2em
     textTransform: uppercase
   hand-script:
     fontFamily: "'Caveat', cursive"
-    fontSize: "clamp(22px, 3vw, 36px)"
+    fontSize: 70px
     fontWeight: 600
     lineHeight: 1.3
   hand-script-sm:
     fontFamily: "'Caveat', cursive"
-    fontSize: "clamp(16px, 2vw, 22px)"
+    fontSize: 37px
     fontWeight: 400
     lineHeight: 1.3
   hand-script-lg:
     fontFamily: "'Caveat', cursive"
-    fontSize: "clamp(24px, 3vw, 36px)"
+    fontSize: 70px
     fontWeight: 600
     lineHeight: 1.3
 
@@ -140,8 +140,8 @@ spacing:
   gap-sm: 24px
 
 canvas:
-  width: 100vw
-  height: 100vh
+  width: 1920px
+  height: 1080px
 
 components:
   grain-overlay:
@@ -172,7 +172,7 @@ components:
     padding: "10px 24px"
     border: "2px solid {colors.green}"
     transform: "rotate(-8deg)"
-    fontSize: 18px
+    fontSize: 30px
     letterSpacing: 0.1em
     description: "Approval / status stamp — black background, green text, green 2px border, rotated -8deg. Used as a 'stamp of authenticity' callout."
   ribbon-bar:
@@ -188,7 +188,7 @@ components:
     description: "Black-on-khaki marker highlight applied inline inside body paragraphs to lift a phrase. The print equivalent of a marker pen swipe."
   drop-cap:
     float: left
-    fontSize: "clamp(48px, 6vw, 80px)"
+    fontSize: 140px
     fontFamily: "'Bebas Neue', sans-serif"
     color: "{colors.green}"
     lineHeight: 0.8
@@ -231,7 +231,7 @@ components:
   chip:
     padding: "4px 10px"
     fontFamily: "'JetBrains Mono', ui-monospace, monospace"
-    fontSize: "11–12px"
+    fontSize: "15px"
     color: "{colors.white}"
     textTransform: uppercase
     letterSpacing: 0.06em
@@ -257,12 +257,14 @@ This policy applies even if the source template was originally implemented with 
 
 Author against the skill's fixed-stage model: full viewport-base.css inline, .slide/.active slides scaled as one unit (transform: scale(), origin 0 0) per html-template.md. Do not reference deck-stage.js (not bundled). Translate any data-anim/data-delay/.is-active entrance vocabulary from the source design into the deck's .reveal + .slide.visible convention. Render each slide at 1920×1080 and verify rendered screenshots for both text overflow and panel overlap.
 
+Page numbers or footers that must appear in the exported PDF must be slide-internal elements (see lumen-2026's .foot/.pageno); never use the reserved deck-chrome classes (.progress-bar, .slide-counter) — export_pdf.py strips them.
+
 
 ## Overview
 
 Retro Zine is a **risograph-zine editorial system** on a warm khaki canvas (`{colors.bg}` — #C8B99A) with deep forest-green (`{colors.green}` — #008F4D) as the meaningful accent and ink-black (`{colors.black}` — #1A1A1A) as the structural color. The aesthetic borrows from independent press culture, mid-century activist posters, and DIY zine layouts: condensed industrial display type, hand-script emphasis, slightly rotated stamps, masking-tape collage marks, drop caps, and a print-grain overlay that ties every surface to a printed-paper register.
 
-The typeface stack pairs three faces with distinct emotional roles. **Bebas Neue** is the display voice — a condensed, all-caps industrial sans with generous tracking (0.02–0.04em) used for every headline, statement, statistic, numeral, and label. Its compressed verticality is the system's visual identity; substituting any other display sans loses the zine voice. **Space Grotesk** is the body voice — a clean humanist geometric sans at weight 300–500 for paragraphs, used at small sizes (13–18px) which preserves the magazine column-text density. **Caveat** is the hand-script voice — a casual ballpoint cursive used for author attributions, side notes, captions on display elements, and the form-field "writing" in RSVP-style layouts. The three faces together read as "an editorial spread typeset by a small press."
+The typeface stack pairs three faces with distinct emotional roles. **Bebas Neue** is the display voice — a condensed, all-caps industrial sans with generous tracking (0.02–0.04em) used for every headline, statement, statistic, numeral, and label. Its compressed verticality is the system's visual identity; substituting any other display sans loses the zine voice. **Space Grotesk** is the body voice — a clean humanist geometric sans at weight 300–500 for paragraphs, used at the small end of the stage scale (28–30px) which preserves the magazine column-text density. **Caveat** is the hand-script voice — a casual ballpoint cursive used for author attributions, side notes, captions on display elements, and the form-field "writing" in RSVP-style layouts. The three faces together read as "an editorial spread typeset by a small press."
 
 The color philosophy is **earth + forest**: a warm khaki paper canvas, a deeper khaki tonal sibling for layered surfaces, deep forest-green for accents and accent surfaces, ink-black for structure and body, and an off-white cream (`{colors.white}` — #F4EFE6) for cards and inverted text fills. The white is deliberately not pure — it's a soft cream that sits as paper inside paper rather than as a hard rectangle. Green carries the system's emotional voice: it is what activates a section, what stamps approval, what marks the brand. The same hex (#008F4D) appears as drop caps, ribbon bars, inline labels, statement backgrounds, and the progress bar.
 
@@ -311,42 +313,42 @@ The green and black accents are not interchangeable: **green = emphasis** (this 
 The system pairs three Google Fonts:
 
 - **Bebas Neue** (display): A condensed all-caps industrial sans-serif. Single weight (400) but reads bold by virtue of its dense vertical strokes. Used uppercase with 0.02–0.04em letter-spacing for every display moment — headlines, statements, statistics, ordinals, eyebrow labels. The narrow tracked Bebas voice is what makes the system unmistakably "zine."
-- **Space Grotesk** (body): A clean humanist geometric sans-serif with subtle quirky proportions. Used at weights 300–500 for body paragraphs at small sizes (13–18px), and at weight 600 for letter-spaced Space Grotesk caps labels. Provides the readable counterpoint to Bebas's expressive density.
+- **Space Grotesk** (body): A clean humanist geometric sans-serif with subtle quirky proportions. Used at weights 300–500 for body paragraphs at the small end of the stage scale (28–30px), and at weight 600 for letter-spaced Space Grotesk caps labels. Provides the readable counterpoint to Bebas's expressive density.
 - **Caveat** (hand-script): A casual handwritten cursive. Used at weights 400–700 for author attributions ("— Our founding principle since day one"), side notes, decorative captions on display elements, value-fills in RSVP-style form layouts. Provides warmth and a human-hand voice against the otherwise typeset system.
 
 There is no fourth face. Italic does not exist (Caveat is a script face, not an italic). Underline does not exist. Emphasis is achieved by switching face (Space Grotesk body → Caveat hand-script for a personal note, Bebas Neue display for a callout) or by color (`{colors.black}` → `{colors.green}`).
 
 ### Type Scale
 
-| Token | Size (clamp) | Family | Weight | Use |
+| Token | Size | Family | Weight | Use |
 |---|---|---|---|---|
-| `{typography.display-hero}` | 56–160px | Bebas Neue | 400 | Closing or oversized cover headline |
-| `{typography.display-cover}` | 48–140px | Bebas Neue | 400 | Cover / opening display headline |
-| `{typography.display}` | 48–120px | Bebas Neue | 400 | Major declarative or callout display |
-| `{typography.headline}` | 42–90px | Bebas Neue | 400 | Primary section headline |
-| `{typography.statement}` | 36–90px | Bebas Neue | 400 | Long-form quoted statement |
-| `{typography.headline-md}` | 36–72px | Bebas Neue | 400 | Editorial section header |
-| `{typography.title}` | 24–42px | Bebas Neue | 400 | Region or collage-piece title |
-| `{typography.number-hero}` | 80–160px | Bebas Neue | 400 | Hero statistic numeral |
-| `{typography.number-md}` | 44–80px | Bebas Neue | 400 | Tile or sub-stat numeral |
-| `{typography.drop-cap}` | 48–80px | Bebas Neue | 400 | Initial cap leading an editorial paragraph |
-| `{typography.body-md}` | 14–18px | Space Grotesk | 400 | Lead paragraph or emphasized body |
-| `{typography.body}` | 13–16px | Space Grotesk | 400 | Standard paragraph body |
-| `{typography.label-eyebrow}` | 14–18px | Bebas Neue | 400 | Eyebrow label above a headline, tracked 0.2em |
-| `{typography.label-spaced}` | 12–14px | Space Grotesk | 600 | Tracked all-caps small label |
-| `{typography.caption-feature}` | 13–15px | Bebas Neue | 400 | Tracked all-caps caption or feature-callout label |
-| `{typography.hand-script}` | 22–36px | Caveat | 600 | Author attribution, decorative note, statement byline |
-| `{typography.hand-script-sm}` | 16–22px | Caveat | 400 | Small handwritten label or descriptor |
-| `{typography.hand-script-lg}` | 24–36px | Caveat | 600 | Larger handwritten subtitle |
+| `{typography.display-hero}` | 233px | Bebas Neue | 400 | Closing or oversized cover headline |
+| `{typography.display-cover}` | 233px | Bebas Neue | 400 | Cover / opening display headline |
+| `{typography.display}` | 187px | Bebas Neue | 400 | Major declarative or callout display |
+| `{typography.headline}` | 140px | Bebas Neue | 400 | Primary section headline |
+| `{typography.statement}` | 140px | Bebas Neue | 400 | Long-form quoted statement |
+| `{typography.headline-md}` | 117px | Bebas Neue | 400 | Editorial section header |
+| `{typography.title}` | 70px | Bebas Neue | 400 | Region or collage-piece title |
+| `{typography.number-hero}` | 280px | Bebas Neue | 400 | Hero statistic numeral |
+| `{typography.number-md}` | 140px | Bebas Neue | 400 | Tile or sub-stat numeral |
+| `{typography.drop-cap}` | 140px | Bebas Neue | 400 | Initial cap leading an editorial paragraph |
+| `{typography.body-md}` | 30px | Space Grotesk | 400 | Lead paragraph or emphasized body |
+| `{typography.body}` | 28px | Space Grotesk | 400 | Standard paragraph body |
+| `{typography.label-eyebrow}` | 17–22px | Bebas Neue | 400 | Eyebrow label above a headline, tracked 0.2em |
+| `{typography.label-spaced}` | 15–17px | Space Grotesk | 600 | Tracked all-caps small label |
+| `{typography.caption-feature}` | 16–18px | Bebas Neue | 400 | Tracked all-caps caption or feature-callout label |
+| `{typography.hand-script}` | 70px | Caveat | 600 | Author attribution, decorative note, statement byline |
+| `{typography.hand-script-sm}` | 47px | Caveat | 400 | Small handwritten label or descriptor |
+| `{typography.hand-script-lg}` | 70px | Caveat | 600 | Larger handwritten subtitle |
 
 ### Defaults
-- **Default size for a primary section headline**: `{typography.headline}` (42–90px clamp) in `{colors.green}`.
-- **Default size for a cover or oversized opening headline**: `{typography.display-cover}` (48–140px clamp) in `{colors.green}`.
-- **Default size for paragraph body**: `{typography.body}` (13–16px clamp) — the zine register expects small body type, not modern 18px+ paragraphs.
-- **Default size for a lead paragraph or emphasized body**: `{typography.body-md}` (14–18px).
-- **Default size for an eyebrow label above a headline**: `{typography.label-eyebrow}` (14–18px) in `{colors.green}`, tracked 0.2em uppercase.
-- **Default size for a hero numerical figure**: `{typography.number-hero}` (80–160px clamp) in `{colors.green}`.
-- **Default size for any hand-script attribution / side note**: `{typography.hand-script}` (22–36px clamp).
+- **Default size for a primary section headline**: `{typography.headline}` (140px) in `{colors.green}`.
+- **Default size for a cover or oversized opening headline**: `{typography.display-cover}` (233px) in `{colors.green}`.
+- **Default size for paragraph body**: `{typography.body}` (28px) — the zine register still expects the *smallest* body on the stage, not a 34px+ paragraph.
+- **Default size for a lead paragraph or emphasized body**: `{typography.body-md}` (30px).
+- **Default size for an eyebrow label above a headline**: `{typography.label-eyebrow}` (17–22px) in `{colors.green}`, tracked 0.2em uppercase.
+- **Default size for a hero numerical figure**: `{typography.number-hero}` (280px) in `{colors.green}`.
+- **Default size for any hand-script attribution / side note**: `{typography.hand-script}` (70px).
 - **Default weight for any Bebas display element**: 400 (Bebas Neue ships at 400; weight changes are not part of the system).
 - **Default weight for body**: 400; for tracked-caps small labels: 600.
 
@@ -477,7 +479,7 @@ Borders are always black. Colored borders do not exist except the green border o
 - Don't introduce a third brand color. Khaki + green + black + cream is the system. Adding blue or red breaks the earth-and-forest palette. The chip palette extension (orange / pink / blue / red) is reserved for categorical chip tags inside tabular ledgers — not for general accents.
 - Don't use green-on-khaki for inline highlights. Inline marker swipes are black-on-khaki; green inline reads as a typo.
 - Don't tilt elements more than ±8°. Beyond that, hand-placed becomes broken.
-- Don't put body text larger than 18px. The zine column-density register depends on small body type (13–16px). Modern 20px+ body reads as overscaled.
+- Don't put body text larger than 34px. The zine column-density register depends on the body sitting at the bottom of the stage scale (28–30px). A 40px+ body reads as overscaled.
 - Don't use pure white (#FFFFFF) for cards. The cream (`{colors.white}` #F4EFE6) maintains the paper-on-paper register; pure white reads as digital.
 
 ## Responsive Behavior
@@ -544,10 +546,10 @@ font-family: 'Space Grotesk', 'Noto Serif SC', sans-serif;
 
 - **The 0.02–0.04em positive tracking that defines Bebas display must drop to 0** on CJK. Tracked Chinese characters look broken — the spacing visually divides each character into a separate word. The compression-and-tracking signature of Bebas does not transfer; lean on weight 900 alone to carry the display voice.
 - **Display line-height must open from 0.85–0.95 to 1.15–1.25.** Bebas's tight line-height is a Latin-display convention; CJK characters fully occupy their em-box and need vertical breathing room.
-- **Drop caps need re-thinking.** A Bebas drop cap floats left of body text; a Noto Serif SC drop cap at the same size (`clamp(48px, 6vw, 80px)`) in `{colors.green}` works visually but lacks the editorial-tradition resonance — Chinese typography has historically not used drop caps. Either retain the treatment as a Western-editorial nod, or replace with a green vertical sidebar (3px wide, green fill) running alongside the opening paragraph.
+- **Drop caps need re-thinking.** A Bebas drop cap floats left of body text; a Noto Serif SC drop cap at the same size (`{typography.drop-cap}`, 140px) in `{colors.green}` works visually but lacks the editorial-tradition resonance — Chinese typography has historically not used drop caps. Either retain the treatment as a Western-editorial nod, or replace with a green vertical sidebar (3px wide, green fill) running alongside the opening paragraph.
 - **Inline highlights, ribbon bars, and stamp marks all translate cleanly** — they are color-block treatments, not glyph-dependent.
 - **Hand-script Caveat is the system's "human voice" — and has no Chinese equivalent that preserves the ballpoint-cursive personality.** Treat Caveat moments as Latin-only: attributions in Latin, side notes in Latin even on otherwise-Chinese slides, RSVP form fills in Latin. The contrast between Chinese typeset body and Latin handwritten margin notes can actually deepen the zine voice (it reads as "translator's annotation," which fits the small-press register).
-- **Editorial body sizes (13–16px) still apply** — Noto Serif SC at this size reads as dense magazine column text, which is correct for the zine register.
+- **Editorial body sizes (28px) still apply** — Noto Serif SC at this size reads as dense magazine column text, which is correct for the zine register.
 
 ### Known CJK Gap
 
@@ -557,8 +559,8 @@ The system's three-face contrast (Bebas display + Space Grotesk body + Caveat ha
 
 1. Every new slide carries the SVG grain overlay at 0.07 opacity. Removing the grain breaks the zine voice immediately.
 2. Any new headline uses Bebas Neue uppercase, weight 400, tracking 0.02–0.04em. For the primary slide moment reach for `{typography.headline}` in `{colors.green}`; for splits or columns where the headline pairs with body, use `{colors.black}`.
-3. Any new body uses Space Grotesk at 13–16px (or 14–18px for lead body). Line-height 1.6–1.7. Don't enlarge body beyond 18px.
-4. Any new eyebrow label uses `{typography.label-eyebrow}` (Bebas Neue, 14–18px, 0.2em tracking) in `{colors.green}` for the most-emphasized eyebrow; switch to `{typography.label-spaced}` (Space Grotesk weight 600, 0.25em tracking) for secondary labels.
+3. Any new body uses Space Grotesk at 28px (or 30px for lead body). Line-height 1.6–1.7. Don't enlarge body beyond 34px.
+4. Any new eyebrow label uses `{typography.label-eyebrow}` (Bebas Neue, 17–22px, 0.2em tracking) in `{colors.green}` for the most-emphasized eyebrow; switch to `{typography.label-spaced}` (Space Grotesk weight 600, 0.25em tracking) for secondary labels.
 5. Any new card uses a 3px solid black border on white-cream or khaki background. For hero callouts, add the 12px-offset green slab via `::before` (`{components.card-offset}`).
 6. Any new editorial column may carry a drop cap — green Bebas Neue, floated left, line-height 0.8. Drop caps are the editorial fingerprint.
 7. Any new statement / quote slide pairs a Bebas Neue uppercase quote with a Caveat hand-script byline. The byline is not optional.

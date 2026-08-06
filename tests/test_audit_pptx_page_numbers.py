@@ -295,5 +295,30 @@ class AuditPptxPageNumbersTests(unittest.TestCase):
         self.assertIn("expected page-number size 1200", wrong_size.stdout)
 
 
+    def test_relationship_target_fragment_is_stripped(self) -> None:
+        """A '#fragment' on an internal Target must resolve, not crash the audit.
+
+        resolve_target strips the fragment so this script agrees with the other
+        audit scripts; without it the lookup raised a raw zip KeyError and the
+        whole deck reported 'cannot audit PPTX'.
+        """
+        path = _make_deck(self.temp / "fragment.pptx", [1, 2, 3])
+        rels = "ppt/_rels/presentation.xml.rels"
+        with zipfile.ZipFile(path) as archive:
+            members = {n: archive.read(n) for n in archive.namelist()}
+        patched = members[rels].decode("utf-8").replace(
+            'Target="slides/slide1.xml"', 'Target="slides/slide1.xml#anchor"', 1
+        )
+        self.assertIn("#anchor", patched, "fixture did not contain the expected Target")
+        members[rels] = patched.encode("utf-8")
+        with zipfile.ZipFile(path, "w", zipfile.ZIP_DEFLATED) as archive:
+            for name, data in members.items():
+                archive.writestr(name, data)
+
+        result = self.run_audit(path)
+        self.assertNotIn("cannot audit PPTX", result.stdout)
+        self.assert_ok(result)
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

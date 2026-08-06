@@ -8,9 +8,15 @@ Use this small file for title-slide previews only. For final deck generation, re
 
 ## Visual Snapshot
 
-A warm, single-ink editorial system in the register of a supper-club poster, a small-batch zine, or a Risograph-printed program. The entire system runs in one ink color — a warm rust terracotta (#B53D2A) — on a buttery cream paper ground (#FAF1E2), with a subtle 4px radial-dot texture overlay giving the surface its "printed paper" quality. Display type runs in Bricolage Grotesque at weight 700–800 in uppercase; body and metadata run in Fraunces serif at weight 400–600 with optical-size axis engaged. Pill buttons, outlined edition badges, italic-edition numerals, and dashed/solid 1.5px borders complete the printed-program vocabulary.
+Cover recipe:
 
-Long Table is a single-ink editorial system in the register of a supper-club poster, a Risograph zine, or a small-press dinner program. The foundational premise is monochromatic: every visible mark in the system — every headline, every paragraph, every border, every rule, every pill, every page number — is rendered in a single warm rust terracotta ink (#B53D2A) on a buttery cream paper ground (#FAF1E2). The only chromatic variation is opacity: the same ink at 100% for primary marks, at 78% for de-emphasized metadata, at 32% for dashed internal dividers, at 10% for the paper-texture dots.
+- Surface: full-bleed cream paper #FAF1E2 under the 4px radial-dot ink texture at 10% opacity; padding 65px top, 96px sides. Every mark on the slide is the one rust ink #B53D2A.
+- Split: the title block occupies the left, the jumbo edition numeral fills the right half in place of an illustration.
+- Title: Bricolage Grotesque weight 800 uppercase at 194px, line-height 0.92, letter-spacing -0.012em, left-aligned.
+- Beneath it: italic Fraunces tagline at 32px, then a stats line ("N seats · M cities · L hours") in italic Fraunces 28px.
+- Action row: 2–3 outlined pills (radius 999px, 1.5px ink border, 11px/38px padding, italic Fraunces 25px), joined by a `·` divider at 70% opacity. No fills — outline only.
+- Hero anchor: italic Fraunces numeral at 492px on the right, with a tracked Bricolage 700 uppercase label (25px, 0.18em) directly beneath.
+- Chrome: page number bottom-right (italic Fraunces 22px, right 69px / bottom 43px) and a 45%-opacity nav-hint bottom-left — both as slide-internal elements, never `.progress-bar` / `.slide-counter`.
 
 ## Preview Ingredients
 

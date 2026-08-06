@@ -8,9 +8,15 @@ Use this small file for title-slide previews only. For final deck generation, re
 
 ## Visual Snapshot
 
-A warm, hand-crafted editorial system built on a peach-clay canvas with charcoal ink as the only "color." Display type runs in Syne (weight 700–800, tight negative tracking); body type runs in Space Grotesk at weight 400–500. The aesthetic borrows from independent studio decks, risograph zines, and sketchbook spreads: organic blob frames, scribbled SVG doodles, slightly rotated cards, and double-stroke offset borders give every slide a hand-touched, unpolished warmth. The effect is creative-studio editorial, not corporate pitch — confident but human, structured but loose.
+Cover recipe:
 
-Playful is a hand-crafted editorial system anchored by a single warm canvas — a peach-clay #F0C8A0 (#F0C8A0) — with charcoal #1A1A1A (#1A1A1A) as the only meaningful "color." Everything reads as ink-on-clay-paper. There are no secondary brand colors, no gradients, no chromatic accents. The system commits fully to a one-color discipline and finds its expressiveness in shape, weight, rotation, and hand-drawn marks rather than in palette variety.
+- Surface: flat full-bleed peach-clay #F0C8A0 — no gradient, no texture, no second color. Cover padding is the generous `85px 107px`.
+- Density: one dominant moment plus deliberate breathing room. A cover built from a card grid is the wrong signal for this system.
+- Eyebrow: Space Grotesk weight 600 at 18px, uppercase, 0.15em tracking, charcoal #1A1A1A, above the title.
+- Title: Syne weight 800 at 192px, line-height 0.9, letter-spacing -0.03em, charcoal, left-aligned; an optional ±0.5–1° rotation on the title block or a large date numeral gives the hand-placed feel.
+- Support: a single Space Grotesk weight-500 line at 26px beneath the title — the subtitle, not a paragraph.
+- Decoration: at least one 2px-stroke charcoal scribble SVG (squiggle, star, arrow; rounded caps) in a corner the title does not occupy, and optionally one ghost-blob at 0.08 opacity as wallpaper in the opposing corner.
+- Chrome: the slide canvas carries no header, footer, or page number by convention. Any page number that must reach the PDF has to be authored as a slide-internal element.
 
 ## Preview Ingredients
 

@@ -8,9 +8,15 @@ Use this small file for title-slide previews only. For final deck generation, re
 
 ## Visual Snapshot
 
-A maximalist neobrutalist presentation system built on 4px solid black borders, 8px hard offset shadows, and a high-key candy palette of five saturated pastels plus cream and off-white. Display type runs Inter at weight 800-900 in tight uppercase; secondary chrome uses Space Grotesk as a quasi-monospace label face. Tilted decorative shapes (rotated stars, rectangles, badges) puncture the borders and break the grid intentionally. Pastels are paired loudly: pink + blue + green + yellow + cream cycle through every region with deliberate juxtaposition. The aesthetic borrows from zine layout, 1990s-revival sticker books, and contemporary toy packaging — bold, joyful, slightly chaotic, never timid.
+Cover recipe:
 
-BlockFrame is a maximalist neobrutalist presentation system built on five structural laws: every region has a 4px black border, every elevated element has an 8px hard offset shadow, every corner is square, every accent color is a saturated pastel, and every layout is allowed to be a little bit crooked. The system's joy comes from the deliberate collision of these laws — bordered cards meet bordered cards, shadows stack against shadows, tilted decorations puncture the grid intentionally.
+- Surface: off-white #FFFDF5 or cream #FFDC8B ground, 60px slide padding, square corners throughout.
+- Hero frame: one card with a 4px solid black border and an 8px hard black offset shadow (zero blur, bottom-right), 60px interior padding.
+- Eyebrow: a label-pill above the title — 3px black border, 4px black shadow, pastel fill, Space Grotesk 600 uppercase 16px at 0.08em tracking.
+- Title: Inter weight 900 uppercase at 138px, line-height 0.95, letter-spacing -0.03em, solid black.
+- Support: one Space Grotesk 500 subtitle line at 22px beneath the title.
+- Decoration: at least one disruption — a yellow button tab tilted -3deg, a star-burst pinned to a corner, or a tilted pastel rectangle (±2deg to ±12deg).
+- Chrome: the slide counter (bottom-left) and nav buttons (bottom-right) are deck chrome; a page number that must appear in the PDF has to be a slide-internal element.
 
 ## Preview Ingredients
 

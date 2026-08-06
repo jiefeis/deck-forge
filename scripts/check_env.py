@@ -8,8 +8,9 @@ because deps live per-interpreter and multi-Python setups are a common footgun:
     python check_env.py
 
 Reports playwright / img2pdf / lxml + the Chromium browser binary, with the
-exact install command for anything missing. Exit code 0 = all good. ASCII-only
-output so it is safe on a non-UTF-8 Windows console.
+exact install command for anything missing. Exit code 0 = all good. Labels are
+ASCII, but paths and error details may not be, so stdout/stderr are
+reconfigured with errors="replace" to stay safe on a non-UTF-8 Windows console.
 """
 from __future__ import annotations
 
@@ -35,6 +36,14 @@ def _check_module(mod: str, pip_name: str) -> bool:
 
 
 def main() -> None:
+    if sys.version_info < (3, 9):
+        sys.exit("check_env: deck-forge scripts require Python 3.9+ "
+                 f"(this is {sys.version.split()[0]}: {sys.executable}).")
+    # sys.executable and error details may contain non-ASCII paths; never let
+    # a cp1252/cp936 console pipe kill the check with UnicodeEncodeError.
+    for stream in (sys.stdout, sys.stderr):
+        if hasattr(stream, "reconfigure"):
+            stream.reconfigure(errors="replace")
     import argparse
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--browser-executable", metavar="PATH",
@@ -77,15 +86,31 @@ def main() -> None:
         try:
             from playwright.sync_api import sync_playwright
             with sync_playwright() as p:
-                launch_args = ({} if browser_executable is None
-                               else {"executable_path": str(browser_executable)})
-                b = p.chromium.launch(**launch_args)
+                if browser_executable is not None:
+                    b = p.chromium.launch(
+                        executable_path=str(browser_executable))
+                else:
+                    # Same fallback order as export_pdf.launch_chromium:
+                    # managed Chromium, then system Chrome/Edge channels.
+                    try:
+                        b = p.chromium.launch()
+                    except Exception:
+                        for channel in ("chrome", "msedge"):
+                            try:
+                                b = p.chromium.launch(channel=channel)
+                                break
+                            except Exception:
+                                continue
+                        else:
+                            raise
                 b.close()
             print("  OK    chromium browser")
         except Exception as e:
             ok = False
             print("  MISS  chromium browser "
-                  "-> python -m playwright install chromium")
+                  "-> python -m playwright install chromium, or pass "
+                  "--browser-executable / set DECK_FORGE_BROWSER_EXECUTABLE "
+                  "to an existing Chrome/Edge/Chromium binary")
             print(f"        ({str(e)[:110]})")
 
     print()

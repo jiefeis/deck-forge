@@ -8,9 +8,14 @@ Use this small file for title-slide previews only. For final deck generation, re
 
 ## Visual Snapshot
 
-A bold display-serif editorial system in the register of a fashion masthead or vintage magazine cover. Bodoni Moda runs at weight 900 across a wide scale (44–460px), set against a saturated emerald-green canvas with deep navy ink and oat-paper accents. The signature treatment is a stacked double-rule ornament that brackets centered display words like a 19th-century theatrical playbill. The aesthetic borrows from Harper's Bazaar / Vogue / Wallpaper covers: confident, theatrical, paper-and-ink committed, with a tight three-color palette and zero gradients or shadows.
+Cover recipe:
 
-Emerald Editorial is a bold display-serif editorial system rooted in the visual language of fashion magazines and 19th-century theatrical playbills. The foundational premise is a single typographic face — Bodoni Moda at weight 900 — used at unapologetic scale: 92px for routine headlines, 130–200px for statements and section openers, and 460px for hero numerals. The serif is loud, theatrical, and confident. Every slide leads with type, not with image.
+- Saturated emerald canvas (#3CD896) with 56px/110px padding; all type in deep navy ink (#0F1A5C); strict rectangles, zero radius, zero shadows.
+- Masthead at top 56px between 80px side insets: two Manrope 26px uppercase strings (0.05em tracking) at opposite ends.
+- Centered cover title in Bodoni Moda weight 900 at 184px, line-height 0.92, letter-spacing -0.01em.
+- Double-rule ornament centerpiece: a 76px Bodoni 800 word (68px preposition) bracketed on each side by two stacked 5px navy rules 3px apart — the "The [word] of [word]" playbill device.
+- Footline mirrors the masthead at bottom 56px: two Manrope uppercase strings on opposite sides.
+- Optional 4px navy rules as horizontal separators; no other decoration.
 
 ## Preview Ingredients
 

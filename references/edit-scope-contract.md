@@ -27,8 +27,9 @@ Record these facts before writing the output file:
   themes, and global presentation settings unless explicitly authorized
 - page-count/order policy, hidden-backup policy, and whether visible or physical
   numbering is intended
-- baseline SHA-256 and the rule that any live-source hash drift invalidates the
-  current candidate until it is rebased
+- baseline SHA-256; hash gating and rebaseline follow
+  `references/source-contract.md` → "Rebaseline when the user changes the
+  source"
 - final-delivery rule, including "only one file" when requested
 
 Translate user wording into the narrowest contract. For example, "only change
@@ -48,17 +49,10 @@ Record target slide IDs from the manifest. Use physical page numbers only as a
 human-facing label; true slide order and stable IDs guard against reordered or
 hidden pages.
 
-When a mother draft or visible-only reference is involved, add a page-address
-ledger:
-
-| physical page | stable ID | hidden | visible ordinal | displayed marker | current title | reference page/title |
-| --- | --- | --- | --- | --- | --- | --- |
-
-Record how the user's wording maps to this table. If the user says “page 31
-after adding the hidden pages,” the authorized target is current physical page
-31 even when its visible or mother-draft page is 30. Hidden pages excluded from
-reference mapping remain protected package content and must still be unchanged
-and verified.
+When a mother draft, visible-only reference, or hidden/inserted pages are
+involved, build the page-address ledger per
+`references/native-redesign-fidelity.md` → "Keep four page identities
+separate" and record how the user's wording maps to it.
 
 If the task adds newly authored slides, merges slides from another deck, or
 fills template pages, also baseline typography with
@@ -138,12 +132,12 @@ explicitly allows them. Then:
    ```
 
    Repeat each mapping option for every backup.
-5. Confirm the target app opens the file and the delivery folder contains only
-   the requested artifact(s).
-6. Recheck the live source hash before overwriting. If it changed, stop and
-   rebase instead of erasing the user's new work.
-7. After the final copy, verify the delivered file hash equals the exact
-   candidate that passed all audits. Any later save requires rerunning them.
+5. Run a zip integrity check (no corrupt members, no duplicate entries),
+   confirm the target app opens the file (skip when no GUI app is available;
+   rendered-page verification stands in), and confirm the delivery folder
+   contains only the requested artifact(s).
+6. Hash gating and rebaseline follow `references/source-contract.md` →
+   "Rebaseline when the user changes the source".
 
 ## Failure rule
 

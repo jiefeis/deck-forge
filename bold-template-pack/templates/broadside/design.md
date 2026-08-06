@@ -1,7 +1,7 @@
 ---
 version: alpha
 name: Broadside
-description: A protest-poster editorial system built on massive Barlow type and a single fire-orange environment color. The aesthetic is "ink on fire" — dark slides for documentation, orange slides for declaration. Display type is enormous (13vw, roughly 187px at 1440 width) in weight 900 lowercase, treating words as graphic elements rather than reading copy. The cultural reference is broadside printing, SPACE10 reports, and Wim Crouwel grids reinterpreted with one loud color and zero decoration.
+description: A protest-poster editorial system built on massive Barlow type and a single fire-orange environment color. The aesthetic is "ink on fire" — dark slides for documentation, orange slides for declaration. Display type is enormous (250px on the fixed 1920×1080 stage) in weight 900 lowercase, treating words as graphic elements rather than reading copy. The cultural reference is broadside printing, SPACE10 reports, and Wim Crouwel grids reinterpreted with one loud color and zero decoration.
 
 colors:
   ink-black: "#111111"
@@ -30,89 +30,89 @@ color-aliases:
 typography:
   display:
     fontFamily: "Barlow, Noto Sans SC, sans-serif"
-    fontSize: "13vw"
+    fontSize: 250px
     fontWeight: 900
     lineHeight: 0.88
     letterSpacing: -0.04em
   h1:
     fontFamily: "Barlow, Noto Sans SC, sans-serif"
-    fontSize: "7.5vw"
+    fontSize: 144px
     fontWeight: 800
     lineHeight: 0.9
     letterSpacing: -0.03em
   h2:
     fontFamily: "Barlow, Noto Sans SC, sans-serif"
-    fontSize: "4.5vw"
+    fontSize: 86px
     fontWeight: 700
     lineHeight: 1.1
     letterSpacing: -0.02em
   h3:
     fontFamily: "Barlow, Noto Sans SC, sans-serif"
-    fontSize: "2.8vw"
+    fontSize: 54px
     fontWeight: 600
     lineHeight: 1.2
   lead:
     fontFamily: "Barlow, Noto Sans SC, sans-serif"
-    fontSize: "1.6vw"
+    fontSize: 31px
     fontWeight: 400
     lineHeight: 1.5
   body:
     fontFamily: "Barlow, Noto Sans SC, sans-serif"
-    fontSize: "1.2vw"
+    fontSize: 26px
     fontWeight: 400
     lineHeight: 1.6
   caption:
     fontFamily: "Barlow, Noto Sans SC, sans-serif"
-    fontSize: "0.9vw"
+    fontSize: 17px
     fontWeight: 400
     lineHeight: 1.5
   label:
     fontFamily: "IBM Plex Mono, monospace"
-    fontSize: "0.72vw"
+    fontSize: 14px
     fontWeight: 500
     lineHeight: 1
     letterSpacing: 0.14em
     textTransform: uppercase
   stat-value:
     fontFamily: "Barlow, Noto Sans SC, sans-serif"
-    fontSize: "5.5vw"
+    fontSize: 106px
     fontWeight: 900
     lineHeight: 1
     letterSpacing: -0.04em
   quote-mark:
     fontFamily: "Barlow, Noto Sans SC, sans-serif"
-    fontSize: "10vw"
+    fontSize: 192px
     fontWeight: 900
     lineHeight: 0.6
   quote-text:
     fontFamily: "Barlow, Noto Sans SC, sans-serif"
-    fontSize: "3.8vw"
+    fontSize: 73px
     fontWeight: 700
     lineHeight: 1.15
     letterSpacing: -0.02em
   fadelist-item:
     fontFamily: "Barlow, Noto Sans SC, sans-serif"
-    fontSize: "7.5vw"
+    fontSize: 144px
     fontWeight: 900
     lineHeight: 1
     letterSpacing: -0.03em
   fadelist-title:
     fontFamily: "Barlow, Noto Sans SC, sans-serif"
-    fontSize: "10.5vw"
+    fontSize: 202px
     fontWeight: 900
     lineHeight: 0.9
     letterSpacing: -0.04em
 
 spacing:
-  pad-x: "5.5vw"
-  pad-y: "5.5vh"
-  gap-lg: "3.5vh"
-  gap-md: "2vh"
-  gap-sm: "1vh"
+  pad-x: 106px
+  pad-y: 59px
+  gap-lg: 38px
+  gap-md: 22px
+  gap-sm: 11px
 
 canvas:
-  width: 100vw
-  height: 100vh
+  width: 1920px
+  height: 1080px
 
 motion:
   ease-slide: "cubic-bezier(0.77, 0, 0.175, 1)"
@@ -160,7 +160,7 @@ components:
     description: "Bordered mono tag. On orange slides flips to dark ink with 40%-opacity dark border."
   broadside-num:
     fontFamily: "IBM Plex Mono, monospace"
-    fontSize: "1.1vw"
+    fontSize: 21px
     fontWeight: 500
     letterSpacing: 0.1em
     color: "rgba(17, 17, 17, 0.45)"
@@ -184,7 +184,7 @@ components:
     background: "{colors.fire-orange}"
     description: "Right-half panel filled with fire orange — the 'after' or payoff side in compare layouts."
   bar-track:
-    height: "30vh"
+    height: 324px
     borderLeft: "1px solid {colors.border-dark}"
     description: "Vertical bar chart container. Bars are cream-hint by default; one bar per chart gets the .accent class for fire orange."
   bar-fill:
@@ -192,12 +192,12 @@ components:
   bar-fill-accent:
     background: "{colors.fire-orange}"
   img-placeholder:
-    height: "55vh"
+    height: 594px
     background: "rgba(255, 255, 255, 0.04)"
     border: "1px dashed {colors.border-dark}"
     textTransform: uppercase
     letterSpacing: 0.12em
-    description: "Dashed-border placeholder shown when no image is wired. Same 55vh footprint as a real img."
+    description: "Dashed-border placeholder shown when no image is wired. Same 594px footprint as a real img."
   fadelist-stack:
     description: "Vertical stack of three display-weight words, opacities 1.0 / 0.5 / 0.22 top-to-bottom. The SPACE10 'before/during/after' treatment."
 ---
@@ -220,6 +220,8 @@ This policy has higher priority than any source-template responsive behavior des
 This policy applies even if the source template was originally implemented with viewport-fluid CSS such as `100vw`, `100vh`, `vw`, `vh`, or `clamp()`. Treat those values as design proportions to translate into 1920×1080 stage coordinates, not as live responsive rules in the generated deck.
 
 Author against the skill's fixed-stage model: full viewport-base.css inline, .slide/.active slides scaled as one unit (transform: scale(), origin 0 0) per html-template.md. Do not reference deck-stage.js (not bundled). Translate any data-anim/data-delay/.is-active entrance vocabulary from the source design into the deck's .reveal + .slide.visible convention. Render each slide at 1920×1080 and verify rendered screenshots for both text overflow and panel overlap.
+
+Page numbers or footers that must appear in the exported PDF must be slide-internal elements (see lumen-2026's .foot/.pageno); never use the reserved deck-chrome classes (.progress-bar, .slide-counter) — export_pdf.py strips them.
 
 
 ## Overview

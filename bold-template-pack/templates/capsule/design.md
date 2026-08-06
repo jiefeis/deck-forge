@@ -26,113 +26,113 @@ color-aliases:
 typography:
   display:
     fontFamily: "Bodoni Moda, serif"
-    fontSize: "clamp(3rem, 8vw, 7rem)"
+    fontSize: 154px
     fontWeight: 800
     lineHeight: 0.9
     letterSpacing: -0.02em
   closing-display:
     fontFamily: "Bodoni Moda, serif"
-    fontSize: "clamp(2.5rem, 6vw, 5rem)"
+    fontSize: 115px
     fontWeight: 800
     lineHeight: 0.95
     letterSpacing: -0.03em
   headline:
     fontFamily: "Bodoni Moda, serif"
-    fontSize: "clamp(2rem, 4vw, 3.5rem)"
+    fontSize: 77px
     fontWeight: 700
     lineHeight: 1.05
     letterSpacing: -0.02em
   section-headline:
     fontFamily: "Bodoni Moda, serif"
-    fontSize: "clamp(1.8rem, 3.5vw, 3rem)"
+    fontSize: 67px
     fontWeight: 700
     lineHeight: 1.05
     letterSpacing: -0.01em
   quote-display:
     fontFamily: "Bodoni Moda, serif"
-    fontSize: "clamp(1.6rem, 3.5vw, 3rem)"
+    fontSize: 67px
     fontWeight: 600
     lineHeight: 1.35
     letterSpacing: -0.01em
   card-headline:
     fontFamily: "Bodoni Moda, serif"
-    fontSize: "1.5rem"
+    fontSize: 28px
     fontWeight: 700
     lineHeight: 1.1
   stat-number:
     fontFamily: "Bodoni Moda, serif"
-    fontSize: "clamp(2rem, 3.5vw, 3rem)"
+    fontSize: 67px
     fontWeight: 800
     lineHeight: 1
     letterSpacing: -0.03em
   orbit-numeral:
     fontFamily: "Bodoni Moda, serif"
-    fontSize: "2.5rem"
+    fontSize: 40px
     fontWeight: 700
     lineHeight: 1
   body:
     fontFamily: "Space Grotesk, sans-serif"
-    fontSize: "clamp(0.95rem, 1.2vw, 1.15rem)"
+    fontSize: 24px
     fontWeight: 400
     lineHeight: 1.6
   body-sm:
     fontFamily: "Space Grotesk, sans-serif"
-    fontSize: "0.9rem"
+    fontSize: 20px
     fontWeight: 400
     lineHeight: 1.55
   subtitle:
     fontFamily: "Space Grotesk, sans-serif"
-    fontSize: "clamp(0.8rem, 1.5vw, 1.1rem)"
+    fontSize: 24px
     fontWeight: 400
     lineHeight: 1.4
     letterSpacing: 0.15em
     textTransform: uppercase
   pill-text-md:
     fontFamily: "Space Grotesk, sans-serif"
-    fontSize: "0.85rem"
+    fontSize: 14px
     fontWeight: 600
     lineHeight: 1
     letterSpacing: 0.12em
     textTransform: uppercase
   pill-text-sm:
     fontFamily: "Space Grotesk, sans-serif"
-    fontSize: "0.7rem"
+    fontSize: 15px
     fontWeight: 600
     lineHeight: 1
     letterSpacing: 0.1em
     textTransform: uppercase
   label:
     fontFamily: "Space Grotesk, sans-serif"
-    fontSize: "0.75rem"
+    fontSize: 12px
     fontWeight: 500
     lineHeight: 1
     letterSpacing: 0.1em
     textTransform: uppercase
   mini-label:
     fontFamily: "Space Grotesk, sans-serif"
-    fontSize: "0.65rem"
+    fontSize: 14px
     fontWeight: 500
     lineHeight: 1
     letterSpacing: 0.08em
     textTransform: uppercase
 
 spacing:
-  pad-lg: "3rem 4rem"
-  pad-md: "2rem"
-  gap-xl: "4rem"
-  gap-lg: "3rem"
-  gap-md: "2rem"
-  gap-sm: "1.5rem"
-  gap-xs: "0.75rem"
-  card-pad: "2.5rem 2rem"
-  pill-pad-lg: "1.5rem 3.5rem"
-  pill-pad-md: "1rem 2.5rem"
-  pill-pad-sm: "0.4rem 1.2rem"
-  pill-pad-xs: "0.35rem 1rem"
+  pad-lg: "48px 64px"
+  pad-md: "32px"
+  gap-xl: "64px"
+  gap-lg: "48px"
+  gap-md: "32px"
+  gap-sm: "24px"
+  gap-xs: "12px"
+  card-pad: "40px 32px"
+  pill-pad-lg: "24px 56px"
+  pill-pad-md: "16px 40px"
+  pill-pad-sm: "6px 19px"
+  pill-pad-xs: "6px 16px"
 
 canvas:
-  width: 100vw
-  height: 100vh
+  width: 1920px
+  height: 1080px
 
 components:
   pill:
@@ -146,15 +146,15 @@ components:
   pill-card:
     background: "{colors.white}"
     border: "2px solid {colors.outline}"
-    borderRadius: "2rem"
+    borderRadius: 32px
     padding: "{spacing.card-pad}"
     boxShadow: "8px 8px 0 {colors.shadow}"
-    description: "Larger pill-shaped card (slightly squared corners at 2rem rather than full pill) for content blocks. Always white background, always shadowed."
+    description: "Larger pill-shaped card (slightly squared corners at 32px rather than full pill) for content blocks. Always white background, always shadowed."
   stat-pill:
     background: "{colors.white}"
     border: "2px solid {colors.outline}"
-    borderRadius: "2rem"
-    padding: "2rem 1.5rem"
+    borderRadius: 32px
+    padding: "32px 24px"
     boxShadow: "6px 6px 0 {colors.shadow}"
     description: "Stat tile — pill-shaped white card containing a colored stat number, label, and a tiny accent bar."
   bar-track:
@@ -181,7 +181,7 @@ components:
     borderRadius: "50%"
     border: "2px solid {colors.outline}"
     fontFamily: "Bodoni Moda, serif"
-    fontSize: "1.5rem"
+    fontSize: 33px
     fontWeight: 700
     description: "Circular pill icon (60px) used as a card mark. Background is an accent color; contains a 1–3 character Roman numeral or letter."
   step-node:
@@ -191,7 +191,7 @@ components:
     border: "2px solid {colors.outline}"
     background: "{colors.white}"
     fontFamily: "Bodoni Moda, serif"
-    fontSize: "1.3rem"
+    fontSize: 21px
     fontWeight: 700
     boxShadow: "4px 4px 0 {colors.shadow}"
     description: "Circular pill node (56px) used as a timeline step or sequence marker. Step accent color appears as filled-pill class on the node."
@@ -202,13 +202,13 @@ components:
     background: "{colors.lime}"
     border: "2px solid {colors.outline}"
     fontFamily: "Bodoni Moda, serif"
-    fontSize: "2.5rem"
+    fontSize: 55px
     fontWeight: 700
     description: "Large circular pill (160px) used as the gravitational anchor of an orbit composition. Default fill lime; small satellite pills orbit around it."
   diagram-node:
     borderRadius: 9999px
     border: "2px solid {colors.outline}"
-    padding: "1rem 2rem"
+    padding: "16px 32px"
     boxShadow: "6px 6px 0 {colors.shadow}"
     background: "{colors.white}"
     description: "Flow-diagram node — pill-shaped container with shadow. Connected by 50×4 ink connectors with triangular arrowheads."
@@ -218,10 +218,10 @@ components:
     background: "{colors.outline}"
     description: "Solid 50×4 ink bar with a triangular arrowhead at the right end, connecting two diagram nodes inline."
   visual-frame:
-    borderRadius: "2rem"
+    borderRadius: 32px
     border: "2px solid {colors.outline}"
     boxShadow: "12px 12px 0 {colors.shadow}"
-    description: "Large image/illustration frame — slightly squared pill (2rem radius) with thicker 12px offset shadow. Often filled with a tri-stop linear gradient and a dot-pattern overlay."
+    description: "Large image/illustration frame — slightly squared pill (32px radius) with thicker 12px offset shadow. Often filled with a tri-stop linear gradient and a dot-pattern overlay."
   grain-overlay:
     position: fixed
     inset: 0
@@ -230,7 +230,7 @@ components:
     opacity: 0.04
     mixBlendMode: multiply
     backgroundImage: "fractalNoise SVG"
-    description: "Subtle film-grain noise overlay applied to the entire viewport at 4% opacity in multiply blend mode. Always present, never absent."
+    description: "Subtle film-grain noise overlay applied to the entire stage at 4% opacity in multiply blend mode. Always present, never absent."
   radial-glow:
     description: "Soft radial gradient wash anchored to a corner or center of a slide background. Uses one of the candy palette colors at 6–15% opacity, blended into the cream canvas. Provides atmospheric warmth without changing the surface color."
 ---
@@ -254,10 +254,12 @@ This policy applies even if the source template was originally implemented with 
 
 Author against the skill's fixed-stage model: full viewport-base.css inline, .slide/.active slides scaled as one unit (transform: scale(), origin 0 0) per html-template.md. Do not reference deck-stage.js (not bundled). Translate any data-anim/data-delay/.is-active entrance vocabulary from the source design into the deck's .reveal + .slide.visible convention. Render each slide at 1920×1080 and verify rendered screenshots for both text overflow and panel overlap.
 
+Page numbers or footers that must appear in the exported PDF must be slide-internal elements (see lumen-2026's .foot/.pageno); never use the reserved deck-chrome classes (.progress-bar, .slide-counter) — export_pdf.py strips them.
+
 
 ## Overview
 
-Capsule is a **playful editorial system** whose defining structural premise is the **pill**: every text container is a pill, every icon is a pill, every bar is a pill, every node in a diagram is a pill. The `border-radius: 9999px` rule applies to virtually all UI elements, with larger panels softening to a 2rem radius. Combined with the 2px ink outline that wraps every shape, the result is a system where containers feel inflated, friendly, and graphically distinct — a nod to Memphis design and late-70s ice-cream-parlor signage without abandoning editorial discipline.
+Capsule is a **playful editorial system** whose defining structural premise is the **pill**: every text container is a pill, every icon is a pill, every bar is a pill, every node in a diagram is a pill. The `border-radius: 9999px` rule applies to virtually all UI elements, with larger panels softening to a 32px radius. Combined with the 2px ink outline that wraps every shape, the result is a system where containers feel inflated, friendly, and graphically distinct — a nod to Memphis design and late-70s ice-cream-parlor signage without abandoning editorial discipline.
 
 The typeface stack is a deliberate two-face conversation. **Bodoni Moda** — a high-contrast didone serif — carries every display moment, every section headline, every stat numeral, every card title, every quote. Bodoni's tall capitals and thin-thick stroke contrast give the headlines their editorial weight and a touch of fashion-magazine glamour. **Space Grotesk** — a contemporary geometric sans — carries every body paragraph, every label, every pill text, every subtitle. The serif/grotesk pairing creates the system's primary typographic rhythm: glamorous serif statements + clean grotesk supporting structure.
 
@@ -268,14 +270,14 @@ Depth comes from **soft hard-offset shadows** at 4px, 6px, 8px, and 12px in a lo
 **Density philosophy: medium-high atmospheric.** Capsule slides feel populated. The system is built around the idea that decorative floating pills should orbit the actual content as wallpaper — small colored pills tilted at 5–25° rotations across the slide background, each containing a single uppercase word. These atmospheric pills are non-functional; they are typographic confetti. A correctly composed slide pairs one or two substantive content blocks (a pill-card, a stat grid, a diagram) with 5–8 floating decorative pills around the edges. A slide that feels broken in Capsule is one with empty corners or unrelieved cream space — the candy palette wants to participate even where the content doesn't strictly require it.
 
 **Key Characteristics:**
-- Universal pill geometry — `border-radius: 9999px` for small containers, 2rem for larger cards/frames.
+- Universal pill geometry — `border-radius: 9999px` for small containers, 32px for larger cards/frames.
 - 2px solid `{colors.outline}` stroke wraps every pill, icon, and card.
 - Bodoni Moda serif for every display/headline/stat; Space Grotesk sans for every body/label/pill text.
 - Sun-bleached cream canvas `{colors.cream}` with soft radial glows in candy accent colors at 6–15% opacity for background atmosphere.
 - Hard-offset shadows in low-opacity ink (`{colors.shadow}`) at 4/6/8/12px offsets, always solid, always bottom-right.
 - Nine-color candy accent palette used interchangeably — no semantic mapping.
 - Decorative floating pills tilted at 5–25° rotations populate slide backgrounds as atmospheric wallpaper.
-- A persistent fractal-noise grain overlay (4% opacity, multiply blend) sits over the entire viewport at all times.
+- A persistent fractal-noise grain overlay (4% opacity, multiply blend) sits over the entire stage at all times.
 - Full-screen vertical nav-dot column at right, mono slide counter at bottom-right.
 
 ## Colors
@@ -325,30 +327,30 @@ An inline `<em>` inside a Bodoni headline keeps Bodoni and shifts to italic. A `
 
 | Token | Size | Family | Weight | Use |
 |---|---|---|---|---|
-| `{typography.display}` | clamp(3rem, 8vw, 7rem) | Bodoni Moda | 800 | Largest cover/title display |
-| `{typography.closing-display}` | clamp(2.5rem, 6vw, 5rem) | Bodoni Moda | 800 | Conclusive declarative headline |
-| `{typography.headline}` | clamp(2rem, 4vw, 3.5rem) | Bodoni Moda | 700 | Primary slide headline on split or two-column layouts |
-| `{typography.section-headline}` | clamp(1.8rem, 3.5vw, 3rem) | Bodoni Moda | 700 | Section-opening or centered headline above cards/charts |
-| `{typography.quote-display}` | clamp(1.6rem, 3.5vw, 3rem) | Bodoni Moda | 600 | Pull-quote body |
-| `{typography.card-headline}` | 1.5rem | Bodoni Moda | 700 | Card or pillar-block title |
-| `{typography.stat-number}` | clamp(2rem, 3.5vw, 3rem) | Bodoni Moda | 800 | Large numerical stat figure |
-| `{typography.orbit-numeral}` | 2.5rem | Bodoni Moda | 700 | Centered ordinal inside the orbit-center circle |
-| `{typography.body}` | clamp(0.95rem, 1.2vw, 1.15rem) | Space Grotesk | 400 | Paragraph body |
-| `{typography.body-sm}` | 0.9rem | Space Grotesk | 400 | Compact body inside a card |
-| `{typography.subtitle}` | clamp(0.8rem, 1.5vw, 1.1rem) | Space Grotesk | 400 | Uppercase tracked subtitle below a display headline |
-| `{typography.pill-text-md}` | 0.85rem | Space Grotesk | 600 | Text inside title/closing pills |
-| `{typography.pill-text-sm}` | 0.7rem | Space Grotesk | 600 | Text inside small floating decorative pills |
-| `{typography.label}` | 0.75rem | Space Grotesk | 500 | Header tag pills, attribution lines |
-| `{typography.mini-label}` | 0.65rem | Space Grotesk | 500 | Mini-pill chips in a tag cluster |
+| `{typography.display}` | 154px | Bodoni Moda | 800 | Largest cover/title display |
+| `{typography.closing-display}` | 115px | Bodoni Moda | 800 | Conclusive declarative headline |
+| `{typography.headline}` | 77px | Bodoni Moda | 700 | Primary slide headline on split or two-column layouts |
+| `{typography.section-headline}` | 67px | Bodoni Moda | 700 | Section-opening or centered headline above cards/charts |
+| `{typography.quote-display}` | 67px | Bodoni Moda | 600 | Pull-quote body |
+| `{typography.card-headline}` | 28px | Bodoni Moda | 700 | Card or pillar-block title |
+| `{typography.stat-number}` | 67px | Bodoni Moda | 800 | Large numerical stat figure |
+| `{typography.orbit-numeral}` | 40px | Bodoni Moda | 700 | Centered ordinal inside the orbit-center circle |
+| `{typography.body}` | 24px | Space Grotesk | 400 | Paragraph body |
+| `{typography.body-sm}` | 20px | Space Grotesk | 400 | Compact body inside a card |
+| `{typography.subtitle}` | 29px | Space Grotesk | 400 | Uppercase tracked subtitle below a display headline |
+| `{typography.pill-text-md}` | 14px | Space Grotesk | 600 | Text inside title/closing pills |
+| `{typography.pill-text-sm}` | 11px | Space Grotesk | 600 | Text inside small floating decorative pills |
+| `{typography.label}` | 12px | Space Grotesk | 500 | Header tag pills, attribution lines |
+| `{typography.mini-label}` | 10px | Space Grotesk | 500 | Mini-pill chips in a tag cluster |
 
 ### Defaults
-- **Default size for the primary section headline**: `{typography.section-headline}` (clamp 1.8–3rem). For two-column or split layouts, `{typography.headline}` (clamp 2–3.5rem).
-- **Default size for a cover or opening display moment**: `{typography.display}` (clamp 3–7rem).
-- **Default size for paragraph body**: `{typography.body}` (clamp 0.95–1.15rem).
-- **Default size for any inline label or chip**: `{typography.label}` (0.75rem).
+- **Default size for the primary section headline**: `{typography.section-headline}` (67px). For two-column or split layouts, `{typography.headline}` (77px).
+- **Default size for a cover or opening display moment**: `{typography.display}` (154px).
+- **Default size for paragraph body**: `{typography.body}` (24px).
+- **Default size for any inline label or chip**: `{typography.label}` (12px).
 - **Default weight for any Bodoni display element**: 700 minimum; 800 for the largest display.
 - **Default weight for any Space Grotesk body element**: 400.
-- **Default size for a hero stat figure**: `{typography.stat-number}` (clamp 2–3rem).
+- **Default size for a hero stat figure**: `{typography.stat-number}` (67px).
 
 When unsure, reach for `{typography.section-headline}` for the slide's primary text moment, not `{typography.card-headline}` (which is for block-level titles within a card).
 
@@ -361,7 +363,7 @@ These treatments are **non-optional whenever the corresponding element type is u
 - **Every Space Grotesk subtitle, label, pill-text, and chip element is uppercase with 0.08em+ tracking.** The uppercase + tracking is the small-text identity signal.
 - **Bodoni headlines are always rendered in `{colors.ink}`, never in a candy color.** Color appears on stat numerals (e.g., `color: {colors.coral}`) but not on serif headlines. The exception is the orbit-center numeral, which sits inside a colored circular pill but the numeral itself remains ink.
 - **Every pill element carries the 2px solid outline.** A pill without its 2px ink stroke breaks the system.
-- **Every container with `border-radius: 9999px` or `2rem` carries either the 2px outline or sits inside an already-outlined parent.** Unoutlined rounded containers do not exist.
+- **Every container with `border-radius: 9999px` or `32px` carries either the 2px outline or sits inside an already-outlined parent.** Unoutlined rounded containers do not exist.
 - **Every card or elevated pill carries a hard-offset shadow** at 4/6/8/12px in `{colors.shadow}`. Smaller pills get 4–6px; cards get 8px; visual frames get 12px.
 
 ### Typography Principles
@@ -372,22 +374,22 @@ Line-height tightens at scale: `{typography.display}` at 0.9, `{typography.headl
 ## Layout
 
 ### Canvas System
-The canvas is `100vw × 100vh` — full viewport with hidden overflow. Each `.slide` is absolutely positioned to fill the viewport, with one slide carrying `.active` (opacity 1) at a time. Transitions are 0.6s opacity fades via `cubic-bezier(0.4, 0, 0.2, 1)`. All sizes use rem units inside CSS `clamp()` so the layout scales fluidly.
+Every slide is exactly 1920×1080px. The skill's fixed-stage scaler (viewport-base.css) handles centering and scaling; all sizes are baked to stage pixels. Each `.slide` is absolutely positioned to fill the stage, with one slide carrying `.active` at a time.
 
 ### Padding and Gap Scale
 | Token | Value | Use |
 |---|---|---|
-| `{spacing.pad-lg}` | 3rem 4rem | Default slide outer padding |
-| `{spacing.gap-xl}` | 4rem | Major two-column gutter |
-| `{spacing.gap-lg}` | 3rem | Section-block spacing |
-| `{spacing.gap-md}` | 2rem | Standard inter-element spacing |
-| `{spacing.gap-sm}` | 1.5rem | Tight card-internal spacing |
-| `{spacing.gap-xs}` | 0.75rem | Inline gap between mini-pills |
-| `{spacing.card-pad}` | 2.5rem 2rem | Default pillar-card padding |
-| `{spacing.pill-pad-lg}` | 1.5rem 3.5rem | Title-pill / closing-pill padding |
-| `{spacing.pill-pad-md}` | 1rem 2.5rem | Featured pill padding |
-| `{spacing.pill-pad-sm}` | 0.4rem 1.2rem | Header-tag pill padding |
-| `{spacing.pill-pad-xs}` | 0.35rem 1rem | Mini-pill chip padding |
+| `{spacing.pad-lg}` | 48px 64px | Default slide outer padding |
+| `{spacing.gap-xl}` | 64px | Major two-column gutter |
+| `{spacing.gap-lg}` | 48px | Section-block spacing |
+| `{spacing.gap-md}` | 32px | Standard inter-element spacing |
+| `{spacing.gap-sm}` | 24px | Tight card-internal spacing |
+| `{spacing.gap-xs}` | 12px | Inline gap between mini-pills |
+| `{spacing.card-pad}` | 40px 32px | Default pillar-card padding |
+| `{spacing.pill-pad-lg}` | 24px 56px | Title-pill / closing-pill padding |
+| `{spacing.pill-pad-md}` | 16px 40px | Featured pill padding |
+| `{spacing.pill-pad-sm}` | 6px 19px | Header-tag pill padding |
+| `{spacing.pill-pad-xs}` | 6px 16px | Mini-pill chip padding |
 
 ### Atmospheric Background Layer
 Every slide layers two atmospheric treatments on top of the cream canvas:
@@ -422,8 +424,8 @@ Decorative floating pills and radial glows are flat — they cast no shadow. The
 | Value | Use |
 |---|---|
 | 9999px (full pill) | All small pills: title pill, closing pill, decorative pills, header tags, mini chips, bar tracks, bar fills, accent lines, orbit pills, floating pills, quote highlights, diagram nodes |
-| 2rem (32px) | Larger cards: pillar-cards, stat-pills, chart container, visual frame |
-| 1.5rem (24px) | Inner dashed frame inside the visual frame |
+| 32px | Larger cards: pillar-cards, stat-pills, chart container, visual frame |
+| 24px | Inner dashed frame inside the visual frame |
 | 50% (circle) | Circular pills: card-icon (60px), step-node (56px), orbit-center (160px), nav dots (10px) |
 | 0 | The grain overlay; the slide itself; the candy-color gradient regions inside a visual frame |
 
@@ -438,15 +440,15 @@ All borders are `{colors.outline}`. Colored borders do not exist in the system.
 
 ### Decorative Element Types
 
-**Decorative floating pill** — A small (60–160px wide × 35–90px tall) pill or circle in a candy fill, tilted at -20° to +25° rotation, positioned absolutely on the slide background. Contains a single uppercase Space-Grotesk word at 0.55–0.85rem. Functions as typographic confetti / atmospheric wallpaper. Five to eight per declarative slide.
+**Decorative floating pill** — A small (60–160px wide × 35–90px tall) pill or circle in a candy fill, tilted at -20° to +25° rotation, positioned absolutely on the slide background. Contains a single uppercase Space-Grotesk word at 9–14px. Functions as typographic confetti / atmospheric wallpaper. Five to eight per declarative slide.
 
-**Header tag pill** — A small (≈0.7rem text) pill in a candy fill (typically lavender) with `pill-pad-sm` padding, centered above a section headline. The system's section-tag chip.
+**Header tag pill** — A small (≈11px text) pill in a candy fill (typically lavender) with `pill-pad-sm` padding, centered above a section headline. The system's section-tag chip.
 
 **Title pill / closing pill** — A medium pill (`pill-pad-lg`) in `{colors.yellow}` carrying uppercase Space-Grotesk text. Placed above the largest display headline on cover and closing slides.
 
-**Pillar-card** — A 2rem-radius white card with 2px outline and 8px offset shadow, containing a circular `card-icon` at the top, a Bodoni `card-headline`, and a Space-Grotesk body paragraph. Used in 3-card and 4-card grids.
+**Pillar-card** — A 32px-radius white card with 2px outline and 8px offset shadow, containing a circular `card-icon` at the top, a Bodoni `card-headline`, and a Space-Grotesk body paragraph. Used in 3-card and 4-card grids.
 
-**Stat-pill** — A 2rem-radius white card containing a colored Bodoni stat number, a small uppercase label, and a tiny 40×4 accent bar at the bottom. Sits in 3- or 4-column stat grids.
+**Stat-pill** — A 32px-radius white card containing a colored Bodoni stat number, a small uppercase label, and a tiny 40×4 accent bar at the bottom. Sits in 3- or 4-column stat grids.
 
 **Bar-track** — A 36px-tall horizontal pill (9999px radius) with 2px outline and cream interior. The fill is a child pill in a candy color with the value label printed at the right edge inside the fill.
 
@@ -454,7 +456,7 @@ All borders are `{colors.outline}`. Colored borders do not exist in the system.
 
 **Diagram-node + connector** — Pill-shaped flow node (`diagram-node`) with 6px shadow, connected to the next node by a 50×4 ink bar with a triangular arrowhead. Nodes may carry candy fills; arrows are always ink.
 
-**Visual-frame** — A 2rem-radius large frame with 12px offset shadow, filled with a tri-stop linear gradient (typically lavender → sky → mint), overlaid with a dot-grid pattern at 0.15 opacity, with an inner dashed border indicating "image placeholder." Used for hero visual moments.
+**Visual-frame** — A 32px-radius large frame with 12px offset shadow, filled with a tri-stop linear gradient (typically lavender → sky → mint), overlaid with a dot-grid pattern at 0.15 opacity, with an inner dashed border indicating "image placeholder." Used for hero visual moments.
 
 **Quote-highlight** — An inline pill in lime or sky with 2px outline, wrapped around a single phrase inside a Bodoni quote body. The system's primary inline emphasis mechanism.
 
@@ -463,7 +465,7 @@ All borders are `{colors.outline}`. Colored borders do not exist in the system.
 ## Do's and Don'ts
 
 ### Do
-- Make every text container a pill — 9999px radius for small pills, 2rem radius for larger cards. The pill geometry is the system's most distinctive single trait.
+- Make every text container a pill — 9999px radius for small pills, 32px radius for larger cards. The pill geometry is the system's most distinctive single trait.
 - Apply the 2px `{colors.outline}` stroke to every pill, card, icon, and frame. The outline is what makes the candy palette read as graphic rather than candy.
 - Set every Bodoni display element in `{colors.ink}`, never in a candy color. Color belongs on stat numerals and pill fills, not on serif headlines.
 - Use Bodoni Moda for every headline/stat/card title; use Space Grotesk for every body/label/pill. The two-face split is non-negotiable.
@@ -488,24 +490,7 @@ All borders are `{colors.outline}`. Colored borders do not exist in the system.
 
 ## Responsive Behavior
 
-Capsule is a viewport-fluid 1920×1080 presentation system using `clamp()` and viewport-relative units throughout. There is a single `@media (max-width: 900px)` breakpoint that collapses grid columns to single-column stacks and hides the nav-dot column; below 600px the stats grid further collapses from 2-col to 1-col. The system is otherwise responsive without breakpoints.
-
-### Scaling Behavior
-- Display headline scales from 3rem at minimum viewport to 7rem at maximum.
-- Body text scales from 0.95rem to 1.15rem.
-- Padding scales via `clamp` inside individual layout selectors.
-- Borders, pill outlines, shadow offsets, and grain overlay are fixed and do not scale.
-
-### Presenter Behavior
-- Slides advance via `ArrowRight`, `ArrowDown`, or `Space`.
-- Slides reverse via `ArrowLeft` or `ArrowUp`.
-- `Home` jumps to the first slide; `End` to the last.
-- Touch swipe (horizontal): swipe distance >50px advances or reverses.
-- The active slide carries `.active` (opacity 1); non-active slides are opacity 0 + pointer-events none.
-- Nav dots are a vertical column at the right edge; the slide counter is at bottom-right; a keyboard hint is at bottom-left.
-
-### Print / Export
-Not explicitly handled; opacity-toggling means a naïve print captures only the active slide. Export workflows should snapshot each slide individually at 1920×1080.
+Source template was viewport-fluid/interactive; those behaviors do not apply to the fixed 1920×1080 stage and PDF delivery.
 
 ## CJK & International Content
 
@@ -556,7 +541,7 @@ ZCOOL XiaoWei is a display face with limited weight axis (single weight) and a s
 
 ## Iteration Guide
 
-1. Any new container that holds text uses the pill geometry — 9999px radius for small, 2rem radius for cards. Don't introduce a sharp-cornered text container.
+1. Any new container that holds text uses the pill geometry — 9999px radius for small, 32px radius for cards. Don't introduce a sharp-cornered text container.
 2. Any new pill carries the 2px solid `{colors.outline}` stroke. Don't render an unstroked pill.
 3. Any new headline uses Bodoni Moda in `{colors.ink}`. Don't color a serif headline; don't switch to Space Grotesk for display.
 4. Any new card carries a `8px 8px 0 {colors.shadow}` offset shadow (4px for small nodes, 12px for the visual frame). Don't blur; don't re-color.

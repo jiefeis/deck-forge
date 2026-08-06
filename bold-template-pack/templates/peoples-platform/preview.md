@@ -8,9 +8,15 @@ Use this small file for title-slide previews only. For final deck generation, re
 
 ## Visual Snapshot
 
-A WPA-poster-meets-political-campaign presentation system built on three typefaces and a five-color palette that reduces to three functional roles. Alfa Slab One — a compressed slab serif — does all the heavy lifting at extreme sizes in pure uppercase. Caveat Brush drops in as a handwritten human interrupt: lowercase, slightly rotated, emotionally warm. DM Mono carries all metadata at tight uppercase tracking. The palette is electric cobalt blue, amber orange, and hot red — with red functioning exclusively as a shadow/depth color, never as a surface fill. Every slide gets a paper grain overlay that makes the whole deck feel screen-printed. The aesthetic is loud, confident, and populist — the kind of visual language that belongs on a protest placard, a union newsletter, or a campaign bus.
+Cover recipe:
 
-People's Platform is a WPA-poster-meets-political-campaign slide system — the visual language of conviction, the graphic register of public address. The canvas is warm paper (#F5F2EA), a hair warmer than white, and every slide gets a grain texture applied via a CSS pseudo-element that makes the whole deck feel screen-printed rather than rendered.
+- Surface: warm paper #F5F2EA (or full blue #2C2CDC with a 6px cream inset frame at 48px) plus the mandatory `.grain` halftone overlay on the whole slide.
+- Topbar: 90px blue band across the top with DM Mono uppercase 24px at 0.18em tracking and a 6px cream bottom border.
+- Kicker: DM Mono uppercase 26px in red-accent #E83A2A, 0.22em tracking, above the title.
+- Title: Alfa Slab One uppercase at 240px (display-title), line-height 0.86, in orange #F2A03A with the stacked letterpress shadow `10px 10px 0 #E83A2A, 20px 20px 0 #B7281C`.
+- Interrupt: one Caveat Brush lowercase annotation at 96px, rotated -2 to -5deg, beside the title.
+- Stamp: a 200px circular cream stamp rotated -9deg with 6px orange border and `8px 8px 0` red box-shadow, placed off-axis near a corner.
+- Footer: 60px orange ribbon anchored to the bottom with 6px ink top border and repeating DM Mono text (slide-internal, so it survives PDF export).
 
 ## Preview Ingredients
 

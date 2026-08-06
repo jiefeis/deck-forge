@@ -2,6 +2,7 @@ name: CI
 
 on:
   push:
+    branches: [main]
   pull_request:
 
 permissions:
@@ -9,12 +10,39 @@ permissions:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      - name: Cache pip
+        uses: actions/cache@v4
+        with:
+          path: ${{ matrix.os == 'windows-latest' && '~/AppData/Local/pip/Cache' || '~/.cache/pip' }}
+          key: pip-${{ runner.os }}-py312-${{ hashFiles('.github/workflows/ci.yml') }}
+          restore-keys: pip-${{ runner.os }}-py312-
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        with:
+          path: ${{ matrix.os == 'windows-latest' && '~/AppData/Local/ms-playwright' || '~/.cache/ms-playwright' }}
+          key: playwright-${{ runner.os }}-chromium-${{ hashFiles('.github/workflows/ci.yml') }}
+          restore-keys: playwright-${{ runner.os }}-chromium-
+      - name: PowerShell syntax check
+        shell: pwsh
+        run: |
+          $tokens = $null
+          $errors = $null
+          $path = Join-Path $PWD 'scripts/render_pptx.ps1'
+          [void][System.Management.Automation.Language.Parser]::ParseFile($path, [ref]$tokens, [ref]$errors)
+          if ($errors -and $errors.Count) {
+            $errors | ForEach-Object { Write-Host $_.ToString() }
+            exit 1
+          }
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
@@ -24,4 +52,5 @@ jobs:
         env:
           PYTHONUTF8: "1"
           PYTHONDONTWRITEBYTECODE: "1"
+          DECK_FORGE_REQUIRE_CDN: "1"
         run: python -B scripts/run_self_checks.py

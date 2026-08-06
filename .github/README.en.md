@@ -78,8 +78,10 @@ flowchart LR
 ### Codex
 
 ```powershell
-git clone https://github.com/jiefeis/deck-forge.git "$env:USERPROFILE\.codex\skills\deck-forge"
+git clone https://github.com/jiefeis/deck-forge.git "$env:USERPROFILE\.agents\skills\deck-forge"
 ```
+
+Older Codex releases scan `~/.codex/skills` instead; clone there if you are on one.
 
 ### Claude Code
 
@@ -88,6 +90,8 @@ git clone https://github.com/jiefeis/deck-forge.git ~/.claude/skills/deck-forge
 ```
 
 Agents with GitHub skill installation can install the repository root directly. The standard entry point is [`SKILL.md`](../SKILL.md).
+
+If you download the GitHub ZIP instead, the extracted folder is named `deck-forge-main`; rename it to `deck-forge` — the skill name must match the directory name.
 
 ## Dependencies
 

@@ -8,9 +8,15 @@ Use this small file for title-slide previews only. For final deck generation, re
 
 ## Visual Snapshot
 
-A nocturnal couture editorial system rendered in hot fuchsia ink on dim warm-black paper, with a soft film-grain overlay and a hairline interior frame. DM Serif Display carries every script and editorial moment at sizes up to 600px; Inter at weight 300 carries the body voice; JetBrains Mono carries the boutique-catalog metadata. The aesthetic borrows from glossy fashion magazine spreads, late-night perfume advertising, and the editorial pages of high-end zines — closer to a Maison's seasonal lookbook than a startup deck.
+Cover recipe:
 
-Pink Script is a nocturnal couture editorial system built on a single atmospheric premise: a deep warm-black surface lit from the upper-left by a slightly warmer #1A1218 ellipse that fades to near-black across the lower-right. The off-center light source reads as a studio softbox catching one corner of a magazine spread. Over this, a subtle film-grain overlay at 8% opacity with screen blend adds the photographic graininess of late-night editorial photography. Inside this surface sits a 1px hairline interior frame (paper-blush at 14% opacity, inset 36px from each edge) — the editorial border of every page. Without the lit gradient, the film grain, and the interior frame, the system collapses into flat dark UI.
+- Surface: the three mandatory layers — warm-black radial ellipse (#1A1218 at 30%/30% fading to #050306), film grain at opacity 0.08 with screen blend, and the 1px paper-blush-at-14% hairline frame at inset 36px.
+- Composition: one hero script lockup and a preamble line, nothing else. Content sits inside 60px side margins with 140px top and bottom reserves; the script should own 60–70% of the canvas.
+- Preamble: JetBrains Mono uppercase 28px at 0.42em tracking — the widest tracking in the system — in muted paper-blush, placed above the title.
+- Title: DM Serif Display weight 400 at 280px in pink #ED3D8C, carrying the pink halo (text-shadow `0 0 80px rgba(237,61,140,0.18)`) and `padding-bottom: .1em` to compensate for descenders.
+- Two-line lockup: the second line is indented for a hanging effect (the source hardcodes `padding-left: 180px`); re-tune the indent to the actual word length rather than copying the value.
+- Top runner: 60px top / 60px sides, JetBrains Mono uppercase 24px at 0.14em — brand name in pink on the left, section tag in muted paper-blush on the right.
+- Footer: 60px bottom / 60px sides, same mono — source or confidentiality string left, page position (`01 / 09`) right with the current number wrapped in `<em>` to render pink, as a slide-internal element.
 
 ## Preview Ingredients
 

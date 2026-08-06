@@ -15,107 +15,107 @@ color-aliases:
 typography:
   display-hero:
     fontFamily: "Syne, sans-serif"
-    fontSize: "clamp(4rem, 10vw, 9rem)"
+    fontSize: 192px
     fontWeight: 800
     lineHeight: 0.9
     letterSpacing: -0.03em
   display:
     fontFamily: "Syne, sans-serif"
-    fontSize: "clamp(3rem, 8vw, 7rem)"
+    fontSize: 154px
     fontWeight: 800
     lineHeight: 0.9
     letterSpacing: -0.02em
   headline:
     fontFamily: "Syne, sans-serif"
-    fontSize: "clamp(2.5rem, 6vw, 5rem)"
+    fontSize: 115px
     fontWeight: 700
     lineHeight: 1.0
     letterSpacing: -0.01em
   statement:
     fontFamily: "Syne, sans-serif"
-    fontSize: "clamp(2.5rem, 5vw, 4.5rem)"
+    fontSize: 96px
     fontWeight: 700
     lineHeight: 1.1
     letterSpacing: -0.01em
   title:
     fontFamily: "Syne, sans-serif"
-    fontSize: "clamp(2rem, 4vw, 3.5rem)"
+    fontSize: 77px
     fontWeight: 700
     lineHeight: 1.1
     letterSpacing: -0.01em
   title-sm:
     fontFamily: "Syne, sans-serif"
-    fontSize: "1.3rem"
+    fontSize: 28px
     fontWeight: 700
     lineHeight: 1.2
   number-hero:
     fontFamily: "Syne, sans-serif"
-    fontSize: "clamp(4rem, 8vw, 7rem)"
+    fontSize: 154px
     fontWeight: 800
     lineHeight: 1.0
   number-md:
     fontFamily: "Syne, sans-serif"
-    fontSize: "2.5rem"
+    fontSize: 53px
     fontWeight: 800
     lineHeight: 1.0
   number-sm:
     fontFamily: "Syne, sans-serif"
-    fontSize: "2rem"
+    fontSize: 43px
     fontWeight: 800
     lineHeight: 1.0
   body:
     fontFamily: "Space Grotesk, sans-serif"
-    fontSize: "clamp(1rem, 1.2vw, 1.1rem)"
+    fontSize: 24px
     fontWeight: 400
     lineHeight: 1.7
   body-md:
     fontFamily: "Space Grotesk, sans-serif"
-    fontSize: "1.2rem"
+    fontSize: 26px
     fontWeight: 500
     lineHeight: 1.6
   label-eyebrow:
     fontFamily: "Space Grotesk, sans-serif"
-    fontSize: "0.85rem"
+    fontSize: 18px
     fontWeight: 600
     lineHeight: 1.2
     letterSpacing: 0.15em
     textTransform: uppercase
   caption:
     fontFamily: "Space Grotesk, sans-serif"
-    fontSize: "0.85rem"
+    fontSize: 18px
     fontWeight: 500
     lineHeight: 1.4
   tag:
     fontFamily: "Space Grotesk, sans-serif"
-    fontSize: "0.75rem"
+    fontSize: 16px
     fontWeight: 600
     lineHeight: 1.2
 
 spacing:
-  pad-slide-lg: "4rem 5rem"
-  pad-slide-md: "3rem 4rem"
-  pad-card-lg: "2rem 3rem"
-  pad-card-md: "1.5rem"
-  gap-lg: "3rem"
-  gap-md: "2rem"
-  gap-sm: "1.5rem"
+  pad-slide-lg: "85px 107px"
+  pad-slide-md: "64px 85px"
+  pad-card-lg: "43px 64px"
+  pad-card-md: "32px"
+  gap-lg: "64px"
+  gap-md: "43px"
+  gap-sm: "32px"
 
 canvas:
-  width: 100vw
-  height: 100vh
+  width: 1920px
+  height: 1080px
 
 components:
   rough-box:
     border: "3px solid {colors.text}"
     background: "{colors.bg}"
-    padding: "1.5rem"
+    padding: "32px"
     offsetShadowOffset: "6px 6px"
     offsetShadowBorder: "2–3px solid {colors.text}"
     description: "Generic content card with a double-stroke effect — the inner box has a 3px solid border, and an absolutely-positioned ::before pseudo-element offsets a second 2–3px border down-and-right by 6–8px to simulate a hand-drawn double outline. No fill on the offset; the canvas shows through."
   filled-block:
     background: "{colors.text}"
     color: "{colors.bg}"
-    padding: "1.5rem"
+    padding: "32px"
     description: "Inverted card: dark charcoal background with peach text. Used as the visual counterpoint to outlined cards in a collage of mixed treatments."
   blob-frame-organic:
     border: "3px solid {colors.text}"
@@ -153,7 +153,7 @@ components:
     borderRadius: "50%"
     background: "{colors.bg}"
     fontFamily: "Syne, sans-serif"
-    fontSize: 1.5rem
+    fontSize: 32px
     fontWeight: 800
     description: "Round outlined node containing a single numeric digit at display weight. Used as a timeline or process marker; alternates between outlined (bg fill) and filled (charcoal fill, bg text)."
   avatar-placeholder:
@@ -165,9 +165,9 @@ components:
   tag-pill:
     background: "{colors.text}"
     color: "{colors.bg}"
-    padding: "0.4rem 0.8rem"
+    padding: "9px 17px"
     fontFamily: "Space Grotesk, sans-serif"
-    fontSize: "0.75rem"
+    fontSize: "16px"
     fontWeight: 600
     description: "Small charcoal pill with peach text, anchored to the bottom-left of an image frame as a category label."
   bar-chart:
@@ -206,6 +206,8 @@ This policy has higher priority than any source-template responsive behavior des
 This policy applies even if the source template was originally implemented with viewport-fluid CSS such as `100vw`, `100vh`, `vw`, `vh`, or `clamp()`. Treat those values as design proportions to translate into 1920×1080 stage coordinates, not as live responsive rules in the generated deck.
 
 Author against the skill's fixed-stage model: full viewport-base.css inline, .slide/.active slides scaled as one unit (transform: scale(), origin 0 0) per html-template.md. Do not reference deck-stage.js (not bundled). Translate any data-anim/data-delay/.is-active entrance vocabulary from the source design into the deck's .reveal + .slide.visible convention. Render each slide at 1920×1080 and verify rendered screenshots for both text overflow and panel overlap.
+
+Page numbers or footers that must appear in the exported PDF must be slide-internal elements (see lumen-2026's .foot/.pageno); never use the reserved deck-chrome classes (.progress-bar, .slide-counter) — export_pdf.py strips them.
 
 
 ## Overview
@@ -263,31 +265,31 @@ There is no third face. Italic and underline are not used. Emphasis comes from w
 
 ### Type Scale
 
-| Token | Size (clamp) | Family | Weight | Use |
+| Token | Size | Family | Weight | Use |
 |---|---|---|---|---|
-| `{typography.display-hero}` | 4–9rem | Syne | 800 | Oversized cover or opening date/title |
-| `{typography.display}` | 3–7rem | Syne | 800 | Closing or major declarative headline |
-| `{typography.headline}` | 2.5–5rem | Syne | 700 | Primary section headline |
-| `{typography.statement}` | 2.5–4.5rem | Syne | 700 | Long-form quoted statement or manifesto line |
-| `{typography.title}` | 2–3.5rem | Syne | 700 | Region or section title |
-| `{typography.number-hero}` | 4–7rem | Syne | 800 | Hero statistic numeral |
-| `{typography.number-md}` | 2.5rem | Syne | 800 | Mid-scale ordinal or stat numeral |
-| `{typography.number-sm}` | 2rem | Syne | 800 | Inline ordinal or step numeral |
-| `{typography.title-sm}` | 1.3rem | Syne | 700 | Card title within a small block |
-| `{typography.body-md}` | 1.2rem | Space Grotesk | 500 | Subtitle or emphasized body |
-| `{typography.body}` | 1–1.1rem | Space Grotesk | 400 | Paragraph body |
-| `{typography.label-eyebrow}` | 0.85rem | Space Grotesk | 600 | Section eyebrow above a headline, uppercase tracked |
-| `{typography.caption}` | 0.85rem | Space Grotesk | 500 | Subtitle, fine print, footnote |
-| `{typography.tag}` | 0.75rem | Space Grotesk | 600 | Pill tag text inside a charcoal label |
+| `{typography.display-hero}` | 192px | Syne | 800 | Oversized cover or opening date/title |
+| `{typography.display}` | 154px | Syne | 800 | Closing or major declarative headline |
+| `{typography.headline}` | 115px | Syne | 700 | Primary section headline |
+| `{typography.statement}` | 96px | Syne | 700 | Long-form quoted statement or manifesto line |
+| `{typography.title}` | 77px | Syne | 700 | Region or section title |
+| `{typography.number-hero}` | 154px | Syne | 800 | Hero statistic numeral |
+| `{typography.number-md}` | 53px | Syne | 800 | Mid-scale ordinal or stat numeral |
+| `{typography.number-sm}` | 43px | Syne | 800 | Inline ordinal or step numeral |
+| `{typography.title-sm}` | 28px | Syne | 700 | Card title within a small block |
+| `{typography.body-md}` | 26px | Space Grotesk | 500 | Subtitle or emphasized body |
+| `{typography.body}` | 24px | Space Grotesk | 400 | Paragraph body |
+| `{typography.label-eyebrow}` | 18px | Space Grotesk | 600 | Section eyebrow above a headline, uppercase tracked |
+| `{typography.caption}` | 18px | Space Grotesk | 500 | Subtitle, fine print, footnote |
+| `{typography.tag}` | 16px | Space Grotesk | 600 | Pill tag text inside a charcoal label |
 
 ### Defaults
-- **Default size for a primary section headline**: `{typography.headline}` (2.5–5rem clamp).
-- **Default size for a cover or major opening moment**: `{typography.display-hero}` (4–9rem clamp).
-- **Default size for paragraph body**: `{typography.body}` (1–1.1rem clamp).
-- **Default size for a subtitle or emphasized lead body**: `{typography.body-md}` (1.2rem).
-- **Default size for any inline caption, footnote, or fine print**: `{typography.caption}` (0.85rem).
-- **Default size for a hero numerical figure**: `{typography.number-hero}` (4–7rem clamp).
-- **Default size for a stat tile or ordinal numeral**: `{typography.number-md}` (2.5rem).
+- **Default size for a primary section headline**: `{typography.headline}` (115px).
+- **Default size for a cover or major opening moment**: `{typography.display-hero}` (192px).
+- **Default size for paragraph body**: `{typography.body}` (24px).
+- **Default size for a subtitle or emphasized lead body**: `{typography.body-md}` (26px).
+- **Default size for any inline caption, footnote, or fine print**: `{typography.caption}` (18px).
+- **Default size for a hero numerical figure**: `{typography.number-hero}` (154px).
+- **Default size for a stat tile or ordinal numeral**: `{typography.number-md}` (53px).
 - **Default weight for any display element (headline, statement, title, numeral)**: 700 or 800 — never lower.
 - **Default weight for any body element**: 400 or 500.
 
@@ -300,7 +302,7 @@ These treatments are **non-optional whenever the corresponding element type is u
 - **Every Syne element uses negative letter-spacing**: -0.01em to -0.03em depending on size. Syne at default tracking reads as untreated; the negative tracking is what gives display type its tight, compressed personality.
 - **Every body and label element is set in Space Grotesk.** Syne for body paragraphs reads as overwrought.
 - **Eyebrow labels are uppercase with 0.15em letter-spacing.** A label without uppercase + tracked spacing reads as a body fragment, not a label.
-- **Statistics and numerals are always weight 800.** Even mid-scale numerals (2rem) follow the display-weight convention. A weight-500 numeral reads as inventory, not a brag.
+- **Statistics and numerals are always weight 800.** Even mid-scale numerals (43px) follow the display-weight convention. A weight-500 numeral reads as inventory, not a brag.
 - **Numerals and statistics may carry a small rotation (±0.5deg to ±1deg)** when they sit as standalone stat-items rather than inside a chart or table. The rotation reinforces the hand-placed feeling.
 
 ### Typography Principles

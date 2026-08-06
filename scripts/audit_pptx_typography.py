@@ -10,7 +10,6 @@ from __future__ import annotations
 
 import argparse
 import json
-import posixpath
 import re
 import sys
 import zipfile
@@ -22,14 +21,21 @@ from pathlib import Path
 from typing import Iterable, Sequence
 
 
-NS = {
-    "a": "http://schemas.openxmlformats.org/drawingml/2006/main",
-    "p": "http://schemas.openxmlformats.org/presentationml/2006/main",
-    "r": "http://schemas.openxmlformats.org/officeDocument/2006/relationships",
-    "rel": "http://schemas.openxmlformats.org/package/2006/relationships",
-}
+SCRIPT_DIR = Path(__file__).resolve().parent
+if str(SCRIPT_DIR) not in sys.path:
+    sys.path.insert(0, str(SCRIPT_DIR))
 
-FALSE_VALUES = {"0", "false", "off", "no"}
+from _pptx_common import (  # noqa: E402
+    FALSE_VALUES,
+    NS,
+    AuditError,
+    _parse_xml,
+    _rels_part,
+    _resolve_target,
+    _shown,
+    q,
+)
+
 TRUE_VALUES = {"1", "true", "on", "yes"}
 ROLE_ORDER = (
     "title",
@@ -65,14 +71,6 @@ LIMITATIONS = (
     "OOXML text properties do not prove visual overflow, clipping, wrapping, "
     "or copy fit; render every relevant slide in the target application.",
 )
-
-
-class AuditError(RuntimeError):
-    """Raised when a PPTX package cannot be audited reliably."""
-
-
-def q(prefix: str, tag: str) -> str:
-    return f"{{{NS[prefix]}}}{tag}"
 
 
 TEXT_BODY_TAGS.update({q("p", "txBody"), q("a", "txBody")})
@@ -172,29 +170,6 @@ class ThemeInfo:
             f"{reference} has an empty eastAsia typeface and the script is ambiguous",
             None,
         )
-
-
-def _parse_xml(data: bytes, part: str) -> ET.Element:
-    try:
-        return ET.fromstring(data)
-    except ET.ParseError as exc:
-        raise AuditError(f"invalid XML in {part}: {exc}") from exc
-
-
-def _shown(value: str | None) -> bool:
-    return value is None or value.strip().lower() not in FALSE_VALUES
-
-
-def _rels_part(part: str) -> str:
-    folder = posixpath.dirname(part)
-    return posixpath.join(folder, "_rels", posixpath.basename(part) + ".rels")
-
-
-def _resolve_target(source_part: str, target: str) -> str:
-    target = target.split("#", 1)[0]
-    if target.startswith("/"):
-        return posixpath.normpath(target.lstrip("/"))
-    return posixpath.normpath(posixpath.join(posixpath.dirname(source_part), target))
 
 
 def _relationships(
@@ -1252,6 +1227,8 @@ def parse_slide_ranges(specs: Sequence[str] | str) -> set[int]:
                 raise ValueError("--slides page numbers must be greater than zero")
             if end < start:
                 raise ValueError(f"invalid descending --slides range {token!r}")
+            if end - start > 100000:
+                raise ValueError(f"--slides range is too large: {token!r}")
             pages.update(range(start, end + 1))
     return pages
 

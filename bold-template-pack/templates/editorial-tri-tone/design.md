@@ -304,6 +304,8 @@ This policy applies even if the source template was originally implemented with 
 
 Author against the skill's fixed-stage model: full viewport-base.css inline, .slide/.active slides scaled as one unit (transform: scale(), origin 0 0) per html-template.md. Do not reference deck-stage.js (not bundled). Translate any data-anim/data-delay/.is-active entrance vocabulary from the source design into the deck's .reveal + .slide.visible convention. Render each slide at 1920×1080 and verify rendered screenshots for both text overflow and panel overlap.
 
+Page numbers or footers that must appear in the exported PDF must be slide-internal elements (see lumen-2026's .foot/.pageno); never use the reserved deck-chrome classes (.progress-bar, .slide-counter) — export_pdf.py strips them.
+
 
 ## Overview
 
@@ -503,12 +505,7 @@ Y-axis labels are JetBrains Mono 24px at 60% opacity, left-aligned to x=0.
 
 ## Responsive Behavior
 
-This template is designed **exclusively for 1920x1080 presentation display**. The skill's fixed-stage scaler handles viewport scaling via CSS transforms; the 1920x1080 canvas scales proportionally to any screen without layout changes.
-
-### Presenter Behavior
-- Slide advancement via keyboard or presentation clicker (handled by the deck's inline controller).
-- No hover states are defined.
-- No interactive elements.
+Source template was viewport-fluid/interactive; those behaviors do not apply to the fixed 1920×1080 stage and PDF delivery.
 
 ### Print / Export
 - At 96dpi, 1920x1080 maps to a 20x11.25 inch frame.
@@ -601,8 +598,6 @@ ZCOOL XiaoWei is the right aesthetic match for the em-switch role, but it ships 
 
 ## Known Gaps
 
-- Slide advancement and keyboard navigation come from the deck's inline controller (see html-template.md), not an external script.
-- The footer dot-row progress indicator (`.footer .dotrow`) is rendered in the HTML but the dots are all styled with class "on" or left as inactive — a presenter would need to update slide state dynamically.
 - The SVG chart uses hardcoded paths, coordinates, and placeholder values — no data-binding layer exists.
 - The breakdown bars in slide 4 use inline `width: XX%` as a style — percentages must be set manually.
 - The timeline stop dots (`.stop .dot`) have `display: none` — they are styled but not visible. A presenter populating this slide would enable them via CSS.

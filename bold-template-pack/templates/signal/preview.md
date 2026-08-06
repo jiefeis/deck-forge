@@ -8,9 +8,15 @@ Use this small file for title-slide previews only. For final deck generation, re
 
 ## Visual Snapshot
 
-A literary editorial presentation system in the spirit of a long-form magazine — The Economist's restraint crossed with a private intelligence briefing. Source Serif 4 carries every headline with roman/italic mixing mid-sentence in antique gold, DM Sans steps back for body, and IBM Plex Mono runs all the timestamps, kickers, and chrome. The dual surface system is warm cream paper (#F0ECE3) and deep editorial navy (#1C2644), connected by a single hot accent — antique gold (#C8A870) — used only on rules, italic emphasis, and numerical figures. A near-invisible 80px grid texture overlays every dark slide as a fingerprint. The effect is sober, considered, and a little bit aristocratic.
+Cover recipe:
 
-Signal is a literary editorial presentation system — what a long-form intelligence briefing or a quarterly review from a serious magazine would look like if it ran as a deck. The visual premise is the marriage of two faces: a Scottish-roast editorial serif (Source Serif 4) carrying the voice, and a precision grotesque (DM Sans) carrying the substance, with a condensed monospace (IBM Plex Mono) for every timestamp, kicker, and piece of chrome metadata. The result reads like a quiet authority — the deck does not need to shout because the typography already telegraphs seriousness.
+- Surface: pick one — navy #1C2644 or cream #F0ECE3; both are first-class. A navy cover carries the 80px × 80px grid texture at 3% white opacity; a cream cover does not.
+- Frame: chromeless (no chrome bar, no foot bar), padding 144px horizontal / 59px vertical, with content filling well under half the canvas.
+- Kicker: IBM Plex Mono 19px uppercase in antique gold #C8A870 at 0.14em tracking, with the 36×1px gold rule directly beneath it.
+- Title: Source Serif 4 weight 700 at 254px, line-height 0.96, letter-spacing -0.02em, in the surface's primary text color (#E2DCD0 on navy, #1A2030 on cream) — never gold.
+- The Signal moment: one `<em>` phrase mid-headline switches to italic Source Serif 4 in gold. A cover without it reads as a different system.
+- Support: a single lead line in DM Sans 400 at 37px in the muted tone (#8A96A8 on navy, #5A6270 on cream).
+- Chrome: any page number that must appear in the PDF is a slide-internal element, never the reserved .slide-counter class.
 
 ## Preview Ingredients
 
