@@ -180,7 +180,7 @@ for the full instructions before doing it.
 | `references/pptx-native-editing.md` | Native PPTX package, slide order, layout/master, relationship, and hidden-slide guardrails | editing/copying/translating native PPTX |
 | `references/image-and-ocr-input.md` | Image, screenshot, chart-image, and OCR input handling | image-to-slide or screenshot source material |
 | `references/translation-copyfit.md` | Natural translation and copy fitting in existing layouts | translation/localization tasks |
-| `references/deck-copy-and-ai-slop.md` | Make slide copy sound like a real presenter while preserving layout and fit | "AI 味" / "太像 AI 写的" deck copy, presenter-language polish |
+| `references/deck-copy-and-ai-slop.md` | Make slide copy sound like a real presenter while preserving layout and fit | "AI 味" / "太像 AI 写的" deck copy, presenter-language polish, pre-send pass on client-facing BD/diagnosis decks |
 | `references/visual-qa.md` | Rendered-page contact sheets and final QA checklist | native PPTX edits, reformat / translation / cross-format comparison |
 | `references/good-bad-examples.md` | Examples of good and bad handling patterns | ambiguous cross-format/reformat decisions |
 | **Generation assets** | | |

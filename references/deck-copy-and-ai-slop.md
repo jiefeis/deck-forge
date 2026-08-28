@@ -1,7 +1,9 @@
 # Deck copy and AI-slop cleanup
 
 Read this when slide language sounds AI-generated, too slogan-like, or too
-mechanical, especially in Chinese consulting/report decks. If the
+mechanical, especially in Chinese consulting/report decks — and before any
+client-facing diagnosis or BD deck goes out (the last two sections are
+pre-send editor passes). If the
 `humanizer-zh` skill is available and the user mentions "AI 味道太重",
 "太像 AI 写的", "语言太 AI 化", or "去 AI 味", use it together with this reference.
 
@@ -18,6 +20,7 @@ factual, and impersonal.
 - Copyfit after language edits
 - Good pattern / Bad pattern
 - Client-facing diagnosis copy (distilled from real editor passes)
+- Client-facing BD copy (distilled from a real client-side edit)
 
 ## Goal
 
@@ -75,8 +78,10 @@ Better deck copy:
 ## Client-facing diagnosis copy (distilled from real editor passes)
 
 Apply when the deck evaluates the CLIENT's own plan/work (诊断、审视、评估页) and
-the client will read it. Every rule below comes from a real editor rewriting
-AI-drafted diagnosis pages before sending to the client.
+the client will read it. Rules 1–4 and 7 apply to ANY page the client will
+read — BD included (next section); rules 5, 6, 8, 9 are diagnosis-page
+mechanics. Every rule below comes from a real editor rewriting AI-drafted
+diagnosis pages before sending to the client.
 
 1. **对事不对人 — soften attack verbs, drop attribution.**
    - 人为割裂 → 有割裂；与业务价值脱钩 → 与业务价值没有联系；方案没回答 →
@@ -111,4 +116,49 @@ AI-drafted diagnosis pages before sending to the client.
 
 9. **参考架构页发给客户前先本地化。** 行业示例（业务条线、示例智能体）替换为客户自己的
    业务域；标题从叙事式（"××时代催生了……"）改标签式（"××架构：……"）。
+
+## Client-facing BD copy (distilled from a real client-side edit)
+
+Apply when the deck asks the client to agree to a next step（BD/credentials/
+提案页）and the client will read it. Distilled from a client-side
+ex-consultant's own pass over an AI-drafted BD deck — 90% of his edits were
+deletions. Rules 1–2 are BD-specific; 3–6 apply to any client-facing formal
+deck.
+
+1. **承诺性数字：只写敢兜底的数。** 未来动作的量化表述，给不出出处、不敢写进
+   合同的，降级或删除：「8–15 名骨干」→「若干名」；「15–25 人访谈」删数字。
+   降级不等于禁数字：「3–6 个 Demo」改「3–5 个」——写自己真敢承诺的窄区间。
+   已交付项目的数字全部保留（「40 人 6 组」「60+ 候选场景」）。删改后重写
+   整句，不留删除的空洞。「Do not change quantities」(Deck-specific rules)
+   保护的是已交付的事实；没人兜底的未来数字不是事实，本条优先。
+
+2. **合同边界：不预支合同语言。** 「写进合同」「固定周期 · 固定交付物 · 明确
+   价格」不出现在合同签订前的材料里。机制可以讲：「以 OCI 指标达标为退出
+   条件」保留——讲退出与验收的机制，不用契约化措辞。
+
+3. **客户在场：被评价的人会读到这页。** 排除式表述、且被排除方是读者（「不选
+   IT」而读者就是 IT 部门）：先改正写「以业务骨干为主」，正写仍刺痛读者才删。
+   淘汰、砍、考核的对象只能是事不是人：「不行就砍」砍的是场景，可留；「做错
+   了淘汰」淘汰的是客户骨干，删。删预设客户失信的句子（「没人回去以后再翻
+   案」）和贬低读者的断言（「管理层不是来听课的」）。描述客户内部的会议用
+   「沟通／对齐」，不用「吵」。
+
+4. **稻草人对比句：不贬低虚构的差版本抬自己。** 「不是领导指定的」「而不是停
+   在『我们要加强 XX』」「只做两个角色」的「只」——删。否定句的唯一合法用途
+   是消除读者真实存在的顾虑：「陪跑不是长期驻场」「而不是再交一份报告」保留。
+   测试：这句否定回应的是谁提出过的哪条顾虑？答不上来就删；顾虑清单以
+   storyline 的 objection beats 与客户说过的话为准（`references/storyline.md`
+   → "Deck archetypes"），不自行虚构顾虑。
+
+5. **可推敲性：每个结论能答「这是谁、在哪次交付里说的」。** AI 归纳的因果
+   （「……因此同时承接双重职能」的「因此」）冒充调研发现，被追问即穿帮——宁
+   可破坏排比也删。实名客户背书与同页匿名案例并存时统一匿名；实名条目须有
+   细节撑得住追问，撑不住即匿名或删。
+
+6. **正式度与指代。** 第二人称收敛：「你的组织」→「客户的组织」或删「你的」。
+   戏剧化字眼降温，限描述客户世界的：「死」→「静止」（外包交付的下场）；自
+   身机制的果断动词「不行就砍」不降（见第 3 条）。指代与命名就地可解析：跨
+   过几页后省略的宾语补回（目录「我们已经一起做过什么」→「我们已经和SGM一
+   起做过什么」——读者翻过中间几页后指代已丢）；未在本 deck 定义过的命名
+   （「四大机制」）就地定义或删。
 

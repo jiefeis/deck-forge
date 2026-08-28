@@ -23,7 +23,10 @@ information:
 - gaps that require a user decision or an explicit placeholder
 
 Do not manufacture metrics, customers, dates, quotes, owners, or conclusions to
-make a template look complete. When the evidence supports six pages, make six
+make a template look complete. In client-facing proposals, forward-looking
+numbers are commitments, not texture: write only figures the user will stand
+behind; degrade the rest（「8–15 名」→「若干名」）or cut them. Numbers
+describing delivered work stay. When the evidence supports six pages, make six
 pages. A shorter accurate deck is better than a longer synthetic one.
 
 ## Plan the page sequence

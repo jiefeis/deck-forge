@@ -163,7 +163,7 @@ check 6):
 | `[证据]` row | one evidence page | 1 each; 1–4 per point |
 | `[陈述]` row | rider line on a sibling evidence page | 0 |
 | — | cover | 1 |
-| — | synthesis closing a 2+-case BD section ("Deck archetypes") | 1 |
+| — | synthesis closing a 2+-case BD section — only if its bridge tests true ("Deck archetypes") | 0–1 |
 | — | closing: next step / the ask | 1 |
 
 Write the sum as one line, derived from the sketch above —
@@ -288,9 +288,18 @@ Credentials / BD, expanded:
   catalog line; 「你们的Y问题，头部同行已用这套机制解决」 is evidence.
   Rewrite until the sentence's subject is the reader's situation.
 - Close the case section with a real synthesis — one visible mapping from
-  every case to the proposal element it supports — then write the bridge
-  before drafting the proposal: "the cases established X, therefore the
-  next step is Y". If it does not hold, re-pick or re-order the cases.
+  every case to the proposal element it supports — then write the bridge:
+  "the cases established X, therefore the next step is Y". Test Y before
+  authoring the page: write Y beside the proposal section's titles as
+  already written in the chain (rewrite neither side to force a match) —
+  a different object, direction, or deliverable means the bridge is fake,
+  and a visible mapping does not save it. First re-pick or re-order the
+  cases. If Y still fails, do not build the bridge: drop the synthesis
+  page — the cases stand on their question beats — and let the proposal
+  open on its own complication, cases as ground, not premise. Cut the
+  echoes too: every downstream line referring back to the dropped 「所以」.
+  The thread may stay at TOC level（「三个项目串成一条线」）; banned is
+  the page whose 「所以」 the next section never delivers.
 - Sell the closing of the gap, not the answer. A BD governing thought is a
   next step; a key line that already IS the full solution hands the study
   away and removes the reason to buy it.
@@ -366,7 +375,9 @@ established and what question is still open.
 
 - At storyline time, write one bridge sentence per boundary: 「上一段证明了
   X，所以现在的问题是 Y」. If it cannot be written, the sections are
-  misordered or a page is missing.
+  misordered or a page is missing — or the 「所以」 does not exist: hand
+  off without it（「上面是已一起做过的；下面是建议接着做的」）, never write
+  a 「所以」 the next section does not deliver ("Deck archetypes").
 - Carry the bridge into the deck: put it in the section marker's framing
   line (`LAYOUTS.md` → Section marker), or let the previous section's
   closing page raise the question the next section answers.
@@ -390,7 +401,7 @@ attack.
 | Topic titles（「案例一｜XX工作坊」） | the title cannot answer "so the point is?" | rewrite the title as the page's conclusion |
 | Case pages told as project retrospectives（背景/方法/交付物） | the sentence subjects are "we", not the reader | retell each case as claim → what it proves for THIS pitch; delivery detail to appendix |
 | Flat catalog: parallel pages in arbitrary order | shuffle test — reorder the pages and nothing breaks | give each page a distinct question beat; order so each raises the next |
-| Fake synthesis: a page labeled 收口/总结 that only extends the last item | it does not visibly collect every branch it claims to close | build the mapping: each branch → what it contributes to the conclusion |
+| Fake synthesis: a 收口/总结 page that only extends the last item, or whose 「所以」 the next section never delivers | write its conclusion beside the next section's titles — different object/direction/deliverable; or it does not visibly collect every branch | drop the 「所以」 and let cases stand parallel ("Deck archetypes"); or re-scope the next section until it actually delivers the conclusion (citing it is not delivering it); or build the missing mapping |
 | Answer buried on the last page | a reader of pages 1–2 only cannot state the recommendation | SCQA opening; answer within the first two pages |
 | Source-order storyline: sections mirror the source documents | section names match file names | re-pyramid per "Harvest arguments, not pages" |
 | Unearned jump between sections | the bridge sentence cannot be written | reorder, add the missing page, or write the bridge into the section marker |
