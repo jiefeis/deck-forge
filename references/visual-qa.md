@@ -156,7 +156,7 @@ covered by the authorized scope or ask before expanding it.
 - text clipping, wrapping, overlap, or line collisions
 - orphan characters, awkward word breaks, and labels merged into body copy after
   font-size changes
-- inconsistent sizes/alignment in repeated components such as Harvey balls,
+- inconsistent sizes/alignment/colors in repeated components such as Harvey balls,
   arrows, badges, numbered boxes, and icon rows
 - chart and image visibility
 - color shifts or theme-fill regressions
