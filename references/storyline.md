@@ -15,6 +15,7 @@ page that makes a claim.
 - The storyline gate
 - The pyramid
 - Open with SCQA
+- From material to title chain
 - Action titles
 - The title–exhibit contract
 - Two tests every page must pass
@@ -84,6 +85,9 @@ Structure the opening as Situation → Complication → Question → Answer:
 - **Question** — the question the complication forces. Often left implicit.
 - **Answer** — the governing thought.
 
+At outline time SCQA is the sketch's four header lines, filled before the
+tree below them ("From material to title chain").
+
 The Answer lands within the first two pages — a full executive summary, or
 one destination line on the cover (a BD cover subtitled 「关于下一步共建 Z
 试点的建议」 is enough; the deck travels without you). One exception: a
@@ -108,6 +112,81 @@ What the reader already knows is handled, not re-proven:
   known merges into the reminder beat or goes.
 - If the client stated the Complication themselves, compress S+C to half a
   page and spend the pages on the answer.
+
+## From material to title chain
+
+The gate's "cut the paragraph into a title chain", as a build order: three
+products. 1–2 are working paper, shown on request; the user confirms 3.
+When the material is existing decks, draft the header and points before
+opening any source, then fill support rows from the harvest inventory
+("Harvest arguments, not pages").
+
+**1 — Pyramid sketch.** One indented list, no prose: SCQA as the header,
+key line as the tree. Saying A plus the points aloud is the gate's
+spoken-story test.
+
+```
+S   ｜渠道X是三年来的增长主力               ← 读者已接受，只提醒
+C   ｜但其毛利连续两年下滑，Q2要定明年价格
+Q   ｜为什么该现在动渠道X？
+A=GT｜明年增长的唯一杠杆是渠道X的毛利修复
+├─ 1. 渠道X在失血                         ← 每点直答Q，句式一致
+│   ├─ [证据] 毛利率两年掉4pt，全在渠道X    ｜来源：FY24管理报表
+│   └─ [陈述] 渠道X占收入35%               ｜来源：同上
+├─ 2. 失血在返利结构，可修                 ｜[证据]×2 返利拆解、同行对照
+└─ 3. 修复窗口在Q2定价季之前               ｜[证据]×2 定价日历、竞品动作
+```
+
+A blank A — and the ask it implies — belongs to the user: ask, never infer
+it from the sources; an invented pitch is a fabricated conclusion
+(`AUTHORING.md` → "Establish the source boundary"). S and C may wait for
+harvest: mark 「待收」 and continue.
+
+Tag every support row, and name its source or mark the gap (this feeds gate
+check 6):
+
+- `[证据]` — believing it requires seeing something: a chart, a table, a
+  before/after. One page each; the row's message becomes that page's title.
+- `[陈述]` — one written line suffices. Zero pages: it rides on a sibling's
+  evidence page, at most three riders per page — the Evidence stack's
+  capacity (`LAYOUTS.md`). A point with only `[陈述]` rows: accepted by
+  the reader → Situation currency ("Open with SCQA"), not a section;
+  contested → one statement page only if reasoning alone convinces, else
+  fetch evidence or mark the gap.
+
+**2 — Page arithmetic.** Map sketch rows to pages:
+
+| Sketch element | Deck element | Pages |
+| --- | --- | --- |
+| A=GT | cover subtitle; a summary page too when read alone or 10+ pages ("Open with SCQA") | 0–1 |
+| Key-line point | the section; its marker page only at ~15+ pages or presented live | 0–1 each |
+| `[证据]` row | one evidence page | 1 each; 1–4 per point |
+| `[陈述]` row | rider line on a sibling evidence page | 0 |
+| — | cover | 1 |
+| — | synthesis closing a 2+-case BD section ("Deck archetypes") | 1 |
+| — | closing: next step / the ask | 1 |
+
+Write the sum as one line, derived from the sketch above —
+`1封面+1摘要(read alone)+(1+2+2)证据+1收尾 = 8页；<15页，无节标记` — and
+run gate check 7 on it. Five or more `[证据]` rows under one point is two
+points: recut ("MECE on the key line"). Objection beats ("Deck archetypes")
+enter as `[证据]` rows under the point each retires, or as appendix pages —
+counted where placed, never extra.
+
+A user-fixed length runs the table backwards: subtract the fixed rows —
+cover, summary, closing, markers if the deck takes them — then split the
+rest across points by **resistance, not material volume**. The point the
+reader will fight gets the pages; an undisputed point gets one page however
+thick its folder — the folder goes to appendix. A skew past gate check 7's
+ratio means the contested point is really two points: recut, never waive
+the check.
+
+**3 — Title chain.** Rewrite the sketch as the chain: a `[证据]` row is a
+page, its evidence note the row's message, already written; a `[陈述]` row
+is a line in its host page's note. Reorder within each point until each
+page raises the next one's question (Anti-patterns → shuffle test). Add
+cover, summary, markers, bridges, and closing per the arithmetic. This is
+the gate's product: its seven checks and user confirmation run now.
 
 ## Action titles
 
@@ -162,7 +241,23 @@ authoring.
 
 Key-line reasons must be MECE — no two argue the same ground, together they
 suffice for the governing thought. Aim for 2–4; five or more means a
-grouping level is missing. Three misuses:
+grouping level is missing.
+
+The cut, as an action on the sketch's Q:
+
+1. Answer Q, every answer in the same grammatical form — these are the
+   points. A point that dodges Q imports a second cut dimension: recut on
+   one. Typical dimensions: argument chain（值得做／做得成／为什么是我们）,
+   structure（按业务／环节／地域）, time（现状／原因／路径）; default to
+   the archetype's spine ("Deck archetypes"): decide → argument chain,
+   accept findings → cause, keep course → time.
+2. Overlap: assign every planned exhibit to exactly one point. An exhibit
+   two points both claim means the points share ground — merge or recut.
+3. Sufficiency: grant every point true, then deny the GT aloud. A
+   surviving objection is a missing point — or, in BD, a planned
+   objection beat ("Deck archetypes").
+
+Three misuses:
 
 - **Grouped by source.** One section per source document is inventory
   order, not argument order. MECE applies to reasons, not provenance.
