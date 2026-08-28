@@ -106,8 +106,9 @@ blank one. After adding pages run `audit_pptx_page_numbers.py` — usually
 ## Storyline, fit, and QA routes
 
 - Sequence and density: `AUTHORING.md` → "Plan the page sequence" and "Fit
-  content without fabrication" apply to native authoring unchanged. A deck of
-  accurate pages with no spine still fails.
+  content without fabrication" apply to native authoring unchanged. An
+  argumentative deck also builds its title chain per `storyline.md` before any
+  page. A deck of accurate pages with no spine still fails.
 - Visual grammar: the system is the template's. Extract its archetypes,
   density, and whitespace ratios per `native-redesign-fidelity.md` → "Learn the
   template's composition, not only its colors"; do not invent a parallel system.

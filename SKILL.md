@@ -91,10 +91,13 @@ the Scripts table below is the script→purpose→when index.
 2. **Scope before mutation.** For native edits, record target slides, allowed
    properties, forbidden changes, output path, and hidden-backup policy using
    `references/edit-scope-contract.md`; verify untouched scope afterwards.
-3. **Materials drive generated structure.** Map the source's own storyline, then pick
-   layouts to fit it; slide count follows the evidence and the narrative — never
-   pad pages to fill a template (`AUTHORING.md` → "Establish the source
-   boundary"). Never fabricate content to fill a layout.
+3. **Materials drive authored structure.** Map the storyline the materials
+   support, then pick layouts to fit it; slide count follows the evidence and
+   the narrative — never pad pages to fill a template (`AUTHORING.md` →
+   "Establish the source boundary"). Never fabricate content to fill a layout.
+   A deck that argues a case — generated or template-native — builds a title
+   chain per `references/storyline.md`; no page before the user confirms the
+   chain.
 4. **Fixed 16:9 generation stage.** Every HTML slide is authored at 1920×1080
    and scaled as a whole.
    No reflow / scroll / overflow / overlap — anything that doesn't fit screenshots
@@ -134,7 +137,8 @@ target deck and report same-role font/size inconsistencies to the user before mu
 (`references/pptx-native-editing.md` → Typography baseline). For
 template-native authoring (a mostly-new deck on the source's own
 masters/layouts/theme), also read `references/native-template-authoring.md` plus
-`AUTHORING.md` → "Plan the page sequence" and "Fit content without fabrication".
+`AUTHORING.md` → "Plan the page sequence" and "Fit content without
+fabrication", and, for a deck that argues a case, `references/storyline.md`.
 For **Audit/compare**, remain read-only and use the manifests/audit scripts
 before rendering.
 
@@ -146,8 +150,10 @@ for the full instructions before doing it.
 0. **Intake** — pull *materials* + *theme* from the request; confirm only purpose
    / length / density. A source `.pptx` being repurposed into a new deck may be
    extracted with `--visible-only`; a native-edit PPTX must not be extracted.
-1. **Map the storyline** — name each page's information shape, pick a matching
-   layout from `LAYOUTS.md`, decide deck rhythm; confirm the outline.
+1. **Map the storyline** — for a deck that argues a case, build and confirm the
+   title chain first (`references/storyline.md`); then name each page's
+   information shape, pick a matching layout from `LAYOUTS.md`, decide deck
+   rhythm; confirm the outline.
 2. **Style discovery** — honor a given theme, else generate 3 genuinely different
    preview slides (`STYLE_PRESETS.md`, `bold-template-pack/selection-index.json`);
    user picks. Read a template's full `design.md` only after it's chosen.
@@ -178,6 +184,7 @@ for the full instructions before doing it.
 | `references/visual-qa.md` | Rendered-page contact sheets and final QA checklist | native PPTX edits, reformat / translation / cross-format comparison |
 | `references/good-bad-examples.md` | Examples of good and bad handling patterns | ambiguous cross-format/reformat decisions |
 | **Generation assets** | | |
+| `references/storyline.md` | Argument storyline: title chain, pyramid/SCQA, action titles, archetypes, harvesting source decks | Phase 1 for any deck that argues a case; template-native authoring page planning |
 | `AUTHORING.md` | Source fidelity, deck coherence, fit, and final verification | Phase 1, 3, 4; template-native authoring (storyline and fit sections) |
 | `LAYOUTS.md` | Information-shape → composition selection guide | Phase 1, 3 |
 | `STYLE_PRESETS.md` | 12 curated visual presets (frontend-slides) | Phase 2 |

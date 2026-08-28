@@ -28,6 +28,10 @@ pages. A shorter accurate deck is better than a longer synthetic one.
 
 ## Plan the page sequence
 
+For a deck that argues a case, the page list itself comes from a confirmed
+title chain (`references/storyline.md`); this section governs each page inside
+that chain.
+
 Give every page one job. Before authoring it, write down:
 
 1. the point the audience should retain
