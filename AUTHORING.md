@@ -1,7 +1,8 @@
 # Deck authoring discipline
 
-Use this guide when turning source material into a new HTML/PDF deck. It is a
-quality contract for the generated story, not a license to invent missing
+Use this guide when authoring new deck pages — a new HTML/PDF deck, or new
+native slides on an existing template (template-native authoring). It is a
+quality contract for the authored story, not a license to invent missing
 content.
 
 ## Contents
@@ -27,6 +28,10 @@ pages. A shorter accurate deck is better than a longer synthetic one.
 
 ## Plan the page sequence
 
+For a deck that argues a case, the page list itself comes from a confirmed
+title chain (`references/storyline.md`); this section governs each page inside
+that chain.
+
 Give every page one job. Before authoring it, write down:
 
 1. the point the audience should retain
@@ -49,6 +54,10 @@ a system before polishing individual pages. Repeated roles must remain stable:
 - lead, body, caption, and source
 - page number and footer
 - cards, badges, chart labels, and callouts
+
+When authoring on an existing template, the system is the template's: inventory
+its roles and follow them (`references/native-redesign-fidelity.md` → "Learn
+the template's composition"); do not invent a parallel one.
 
 Variation should come from composition and emphasis, not accidental font or
 color drift. Use one dominant visual idea per page and keep decorative elements

@@ -4,14 +4,16 @@ description: >-
   Build, minimally edit, compare, and verify presentations, slide decks, and
   PowerPoint files from notes, images, screenshots, HTML, PDF, or PPTX. Use for
   three modes: new HTML/PDF deck generation; source-preserving native PPTX
-  reformat, translation, or copy polish; and read-only deck/version comparison
-  plus visual QA. Also use when slide language sounds AI-generated, or for
-  prompts like "turn this into slides", "make a pitch deck",
+  editing — reformat, translation, copy polish, or a new deck authored on an
+  existing deck's own template (masters/layouts/theme, delivered as PPTX); and
+  read-only deck/version comparison plus visual QA. Also use when slide language
+  sounds AI-generated, or for prompts like "turn this into slides", "make a pitch deck",
   "做成PDF演示/幻灯片/deck", "改 PPT", "美化 PPT", or "把 PPT 翻译成英文".
   Do NOT use for plain reports, contracts, forms, resumes, spreadsheets,
   or flowing-prose PDFs.
   Native PPTX mode preserves the source package/layout and delivers the edited
-  .pptx; never rebuild a native-edit request through HTML.
+  .pptx; never rebuild a native-edit request through HTML; a new deck on the
+  source's own template is native mode too.
 ---
 
 <!-- Maintainers: when editing the frontmatter description above, check that
@@ -22,17 +24,23 @@ description: >-
 Choose the artifact mode before touching a file:
 
 - **Generate** — turn materials into a new 1920×1080 HTML deck and lossless PDF.
-- **Native edit** — minimally edit an existing PPTX while preserving its package,
-  page order, hidden slides, geometry, and requested output format.
+- **Native edit** — change an existing PPTX inside its own package and deliver
+  PPTX: minimal in-place edits (package, page order, hidden slides, geometry,
+  and requested output format preserved), or template-native authoring — a
+  mostly-new deck built on the source's own masters, layouts, and theme.
 - **Audit/compare** — inspect versions, translations, or rendered pages without
   modifying the source.
 
 Pick the mode from the request: existing PPTX + "keep the original / minimal
 change / deliver PPTX" → Native edit; PPTX used only as material for a new
 deck, PDF delivery accepted → Generate; report differences, change nothing →
-Audit/compare. If an existing PPTX is input and the delivery format (PDF vs
-editable PPTX) is not explicit, confirm with the user before choosing a mode
-(`references/source-contract.md` → "Decide the artifact contract").
+Audit/compare. A new deck that must be built on an existing deck's or
+template's own masters, layouts, and theme with PPTX delivery is **Native edit
+(template-native authoring)**, not Generate, however many pages are new — see
+`references/native-template-authoring.md`. If an existing PPTX is input and the
+delivery format (PDF vs editable PPTX) is not explicit, confirm with the user
+before choosing a mode (`references/source-contract.md` → "Decide the artifact
+contract").
 
 Only **Generate** follows the HTML Phase 0–6 workflow. Native edit and
 Audit/compare use the cross-format references and audit scripts below.
@@ -83,10 +91,13 @@ the Scripts table below is the script→purpose→when index.
 2. **Scope before mutation.** For native edits, record target slides, allowed
    properties, forbidden changes, output path, and hidden-backup policy using
    `references/edit-scope-contract.md`; verify untouched scope afterwards.
-3. **Materials drive generated structure.** Map the source's own storyline, then pick
-   layouts to fit it; slide count follows the evidence and the narrative — never
-   pad pages to fill a template (`AUTHORING.md` → "Establish the source
-   boundary"). Never fabricate content to fill a layout.
+3. **Materials drive authored structure.** Map the storyline the materials
+   support, then pick layouts to fit it; slide count follows the evidence and
+   the narrative — never pad pages to fill a template (`AUTHORING.md` →
+   "Establish the source boundary"). Never fabricate content to fill a layout.
+   A deck that argues a case — generated or template-native — builds a title
+   chain per `references/storyline.md`; no page before the user confirms the
+   chain.
 4. **Fixed 16:9 generation stage.** Every HTML slide is authored at 1920×1080
    and scaled as a whole.
    No reflow / scroll / overflow / overlap — anything that doesn't fit screenshots
@@ -124,8 +135,12 @@ contracts. If the edit adds newly authored slides, merges slides from another
 deck, or fills template pages, first run `audit_pptx_typography.py` on the
 target deck and report same-role font/size inconsistencies to the user before mutating
 (`references/pptx-native-editing.md` → Typography baseline). For
-**Audit/compare**, remain read-only and use the manifests/audit scripts before
-rendering.
+template-native authoring (a mostly-new deck on the source's own
+masters/layouts/theme), also read `references/native-template-authoring.md` plus
+`AUTHORING.md` → "Plan the page sequence" and "Fit content without
+fabrication", and, for a deck that argues a case, `references/storyline.md`.
+For **Audit/compare**, remain read-only and use the manifests/audit scripts
+before rendering.
 
 The following Phase 0–6 sequence is **Generate mode only**.
 
@@ -135,8 +150,10 @@ for the full instructions before doing it.
 0. **Intake** — pull *materials* + *theme* from the request; confirm only purpose
    / length / density. A source `.pptx` being repurposed into a new deck may be
    extracted with `--visible-only`; a native-edit PPTX must not be extracted.
-1. **Map the storyline** — name each page's information shape, pick a matching
-   layout from `LAYOUTS.md`, decide deck rhythm; confirm the outline.
+1. **Map the storyline** — for a deck that argues a case, build and confirm the
+   title chain first (`references/storyline.md`); then name each page's
+   information shape, pick a matching layout from `LAYOUTS.md`, decide deck
+   rhythm; confirm the outline.
 2. **Style discovery** — honor a given theme, else generate 3 genuinely different
    preview slides (`STYLE_PRESETS.md`, `bold-template-pack/selection-index.json`);
    user picks. Read a template's full `design.md` only after it's chosen.
@@ -158,6 +175,7 @@ for the full instructions before doing it.
 | `references/source-contract.md` | Source-of-truth, file/version, path, encoding, and open-file rules | first read for any native edit; also multiple source files, version comparison, "only one file", Windows paths, source file open in Office/WPS |
 | `references/edit-scope-contract.md` | Target-slide/allowed-change contract and before/after verification | native PPTX edits, "minimal change", selected pages/elements, untouched-slide guarantees |
 | `references/native-redesign-fidelity.md` | Physical / visible ordinal / displayed marker / source page mapping, mother-draft fidelity, relationship topology, template composition, and safe candidate rebasing | selected-page native redesign, hidden-page offsets, mother drafts, teaching plans, complex loops/flows |
+| `references/native-template-authoring.md` | Layout inventory, template-page reuse, shape copying, text-frame mechanics, and page numbers when authoring a new deck on an existing template | template-native authoring: mostly-new pages on an existing PPTX's masters/layouts, PPTX delivery |
 | `references/reformat-and-style.md` | Preserve-layout reformat rules and style extraction | reformat/restyle/font/color/background tasks |
 | `references/pptx-native-editing.md` | Native PPTX package, slide order, layout/master, relationship, and hidden-slide guardrails | editing/copying/translating native PPTX |
 | `references/image-and-ocr-input.md` | Image, screenshot, chart-image, and OCR input handling | image-to-slide or screenshot source material |
@@ -166,7 +184,8 @@ for the full instructions before doing it.
 | `references/visual-qa.md` | Rendered-page contact sheets and final QA checklist | native PPTX edits, reformat / translation / cross-format comparison |
 | `references/good-bad-examples.md` | Examples of good and bad handling patterns | ambiguous cross-format/reformat decisions |
 | **Generation assets** | | |
-| `AUTHORING.md` | Source fidelity, deck coherence, fit, and final verification | Phase 1, 3, 4 |
+| `references/storyline.md` | Argument storyline: title chain, pyramid/SCQA, action titles, archetypes, harvesting source decks | Phase 1 for any deck that argues a case; template-native authoring page planning |
+| `AUTHORING.md` | Source fidelity, deck coherence, fit, and final verification | Phase 1, 3, 4; template-native authoring (storyline and fit sections) |
 | `LAYOUTS.md` | Information-shape → composition selection guide | Phase 1, 3 |
 | `STYLE_PRESETS.md` | 12 curated visual presets (frontend-slides) | Phase 2 |
 | `bold-template-pack/selection-index.json` | Bold-template index | Phase 2 |

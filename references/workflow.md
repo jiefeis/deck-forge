@@ -99,7 +99,10 @@ cross-format references instead of Phase 1–6.
 
 Before any design, read ALL the materials and lay out the deck structure
 (`AUTHORING.md` → "Establish the source boundary" and "Plan the page
-sequence"):
+sequence"). If the deck argues a case, build and confirm the title chain
+first per `references/storyline.md`; materials that are themselves consulting
+decks are harvested per its "Harvest arguments, not pages" — never inherit
+their page order. Then:
 
 - How many sections? How many points per section?
 - For each page, name its **information shape** (parallel items / contrast / data
@@ -109,7 +112,9 @@ sequence"):
   shape → closing (`AUTHORING.md` → "Plan the page sequence").
 
 Confirm the outline with the user (one structured question: looks good / adjust
-outline / adjust scope). If images were provided, co-design the outline around
+outline / adjust scope). For a deck that argues a case, the outline presented
+IS the title chain with a one-line evidence note per page; a topic list is not
+an outline. If images were provided, co-design the outline around
 them — design with both text and images from the start, don't bolt images on
 later.
 
