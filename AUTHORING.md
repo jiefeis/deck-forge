@@ -61,7 +61,8 @@ the template's composition"); do not invent a parallel one.
 
 Variation should come from composition and emphasis, not accidental font or
 color drift. Use one dominant visual idea per page and keep decorative elements
-subordinate to the information.
+subordinate to the information. On a dense page, lead and body sit about two
+points apart; a third body size is drift, not emphasis.
 
 ## Fit content without fabrication
 
@@ -96,7 +97,9 @@ or animation that is required to understand a static PDF export.
 After the final write:
 
 1. render every page at its actual 16:9 output size
-2. inspect the full contact sheet for rhythm and large regressions
+2. inspect the full contact sheet for rhythm and large regressions;
+   squint-test each page — at thumbnail size the eye must still land on its
+   one message
 3. inspect every dense or changed page at full size
 4. check clipping, overlap, weak contrast, image quality, page count, and order
 5. rerender after any correction; an earlier preview is not final evidence

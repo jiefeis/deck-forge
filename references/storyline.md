@@ -51,9 +51,11 @@ nothing. After confirmation, structural changes go back to the user.
 
 ## The pyramid
 
-The method is Barbara Minto's pyramid (*The Pyramid Principle*; SCQA and the
-key line are her terms, "governing thought" is the trade's word for her main
-point). Working form:
+The method is Barbara Minto's pyramid (*The Pyramid Principle*; SCQA, MECE,
+and the key line are hers, "governing thought" is the trade's word for her
+main point). A "McKinsey-style" or "BCG-style" storytelling request means
+this file — do not invent a separate house framework; none is published.
+Working form:
 
 - **Governing thought** — the one sentence the reader must retain.
 - **Key line** — the 2–4 reasons that make it true; these become sections.
@@ -136,6 +138,9 @@ picks the chart, never the reverse).
 - Mark the message on the exhibit — highlight the one bar, the gap, the
   inflection. If the claim needs a paragraph of explanation to see, change
   the exhibit or weaken the title; never bridge the gap with prose.
+- Strip what does not carry the message: gridlines, borders, 3D, a legend
+  the labels already replace, precision beyond what the decision needs. A
+  highlight only reads against a quiet chart.
 - In the title chain, an evidence note names the exhibit's message
   (「毛利率两年掉4pt，全在渠道X」), not its data source (「财务数据」).
   Composition selection stays in `LAYOUTS.md`.
