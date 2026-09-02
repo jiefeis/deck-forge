@@ -177,24 +177,49 @@ def resolve_browser_executable(raw: str | None) -> Path | None:
     return path
 
 
+def _proxy_launch_args() -> dict:
+    """Chromium does not honour HTTPS_PROXY/HTTP_PROXY the way urllib does. On a
+    proxied machine Python reaches a webfont CDN and the browser does not, so the
+    export fails on resource errors that read like a dead network.
+
+    `bypass` is not optional. Playwright adds Chromium's `<-loopback>` rule --
+    which forces loopback THROUGH the proxy -- unless the bypass list names a
+    loopback host, and this deck is served from a local 127.0.0.1 server."""
+    for name in ("HTTPS_PROXY", "https_proxy", "HTTP_PROXY", "http_proxy"):
+        server = os.environ.get(name)
+        if server:
+            raw = os.environ.get("NO_PROXY") or os.environ.get("no_proxy") or ""
+            hosts = [h.strip() for h in raw.split(",") if h.strip()]
+            hosts += [h for h in ("localhost", "127.0.0.1", "::1")
+                      if h not in hosts]
+            return {"proxy": {"server": server, "bypass": ",".join(hosts)}}
+    return {}
+
+
 def launch_chromium(p, browser_executable: Path | None):
     """Launch a browser: explicit path first, else Playwright's managed
     Chromium, else the system Chrome/Edge via Playwright channels."""
+    proxy = _proxy_launch_args()
     if browser_executable is not None:
-        return p.chromium.launch(executable_path=str(browser_executable))
+        return p.chromium.launch(executable_path=str(browser_executable), **proxy)
     try:
-        return p.chromium.launch()
-    except Exception:
+        return p.chromium.launch(**proxy)
+    except Exception as first:
         for channel in ("chrome", "msedge"):
             try:
-                return p.chromium.launch(channel=channel)
+                return p.chromium.launch(channel=channel, **proxy)
             except Exception:
                 pass
+        # A malformed proxy value fails every launch too, so do not let the
+        # message blame a browser that is present and healthy.
+        hint = (f" A proxy is in use ({proxy['proxy']['server']!r} from "
+                "HTTPS_PROXY/HTTP_PROXY); unset it to rule it out."
+                if proxy else "")
         sys.exit("deck-forge: could not launch a browser (managed Chromium "
                  "missing and no system Chrome/Edge found). Run `python -m "
                  "playwright install chromium`, or pass --browser-executable "
                  "/ set DECK_FORGE_BROWSER_EXECUTABLE to an existing "
-                 "Chrome/Edge/Chromium binary.")
+                 f"Chrome/Edge/Chromium binary.{hint} Last error: {first}")
 
 
 def _flush_resource_failures(failures: list[str], ignore: bool) -> None:

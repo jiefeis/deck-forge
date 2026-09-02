@@ -59,7 +59,7 @@ Deck Forge 不只是“让 AI 做一份好看的 PPT”。它把演示文稿任�
 | 模式 | 适用任务 | 交付物 |
 | --- | --- | --- |
 | Generate | 从大纲、文档、图片或主题生成新演示 | HTML 中间稿 + 无损 PDF |
-| Native edit | 对已有 PPTX 做精修、翻译、reformat、页码或字体修复 | 保持原生结构的 PPTX |
+| Native edit | 对已有 PPTX 做 reformat、翻译、copy 打磨或修复；也包括在源 deck 自己的母版、版式和主题上新作一份基本全新的 deck | 保持原生结构的 PPTX |
 | Audit / compare | 对比版本、顺序、翻译、字体、页码或渲染结果 | 只读报告，不修改源文件 |
 
 ```mermaid

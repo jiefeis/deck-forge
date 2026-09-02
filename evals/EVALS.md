@@ -81,6 +81,7 @@ its temptation — requires a real deck with slide numbers enabled instead.
 | 11 | [scenarios/11-final-whitelist-and-hash.md](scenarios/11-final-whitelist-and-hash.md) | unauthorized page/note/hidden drift plus wrong delivered file | Scope gates and delivered hash |
 | 12 | [scenarios/12-multi-source-authority.md](scenarios/12-multi-source-authority.md) | mother draft, case, template, and current PPTX disagree | Dimension-specific source authority |
 | 13 | [scenarios/13-sample-defect-propagation.md](scenarios/13-sample-defect-propagation.md) | defects found in a ten-page sample recur later | Full-deck pattern scan within scope |
+| 14 | [scenarios/14-translation-completeness.md](scenarios/14-translation-completeness.md) | "正文差不多就行" — translate the titles, skip the rest | Source/target box mapping, scoped exceptions, strict translation audit |
 
 ## Recording results
 

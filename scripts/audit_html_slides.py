@@ -40,6 +40,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import sys
 from pathlib import Path
 from urllib.parse import quote
@@ -52,6 +53,10 @@ import export_pdf as _exporter
 from playwright.sync_api import sync_playwright
 
 TOL = 2  # px tolerance for rounding in geometry checks
+
+# The " [+Npx]" overflow magnitude is report text appended to a finding label.
+# It must never be part of the surface --allow-*-text snippets match against.
+_MAGNITUDE_RE = re.compile(r" \[\+\d+px\]$")
 
 # All geometry checks for one activated slide, in one page round-trip.
 _SLIDE_CHECKS_JS = r"""
@@ -79,6 +84,16 @@ _SLIDE_CHECKS_JS = r"""
     return el.tagName.toLowerCase() + cls + (t ? ` "${t.slice(0, 60)}"` : '');
   };
 
+  // How far past `box` the text actually reaches, on the axes being checked.
+  // A verdict without a magnitude cannot pick a repair: 3px of bleed and 300px
+  // of spill read identically otherwise. Measured from the REAL edge — TOL
+  // belongs in the gate, not in the number a human sizes the repair from.
+  // Un-ceiled so the caller can gate on the raw value; reduce rather than
+  // spread so a text-dense slide cannot exceed the argument limit.
+  const overflowPx = (rects, box, cx, cy) => rects.reduce((m, g) => Math.max(m,
+    cx ? box.left - g.left : 0, cx ? g.right - box.right : 0,
+    cy ? box.top - g.top : 0, cy ? g.bottom - box.bottom : 0), 0);
+
   const r = slide.getBoundingClientRect();
   out.slideRect = {x: r.x, y: r.y, w: r.width, h: r.height};
 
@@ -93,7 +108,7 @@ _SLIDE_CHECKS_JS = r"""
   // positions even where an ancestor clips, so the same rects drive the
   // offstage, clipped, overlap, and bottom-coverage checks — and non-text
   // decoration never counts.
-  const stage = {left: -TOL, top: -TOL, right: W + TOL, bottom: H + TOL};
+  const stage = {left: 0, top: 0, right: W, bottom: H};
   const nodes = [];
   const walker = document.createTreeWalker(slide, NodeFilter.SHOW_TEXT);
   for (let n; (n = walker.nextNode()); ) {
@@ -103,9 +118,10 @@ _SLIDE_CHECKS_JS = r"""
     const rects = [...range.getClientRects()].filter(g => g.width >= 1 && g.height >= 1);
     if (!rects.length) continue;
     nodes.push({el: n.parentElement, rects, text: n.textContent});
-    if (rects.some(g => g.left < stage.left || g.top < stage.top ||
-                        g.right > stage.right || g.bottom > stage.bottom))
-      out.offstage.push(label(n.parentElement, n.textContent));
+    const off = overflowPx(rects, stage, true, true);
+    if (off > TOL)
+      out.offstage.push(label(n.parentElement, n.textContent) +
+                        ` [+${Math.ceil(off)}px]`);
   }
 
   // Clipped text: glyphs extending past a clipping ancestor's border box on
@@ -119,10 +135,9 @@ _SLIDE_CHECKS_JS = r"""
       const cx = CLIPS.includes(s.overflowX), cy = CLIPS.includes(s.overflowY);
       if (!cx && !cy) continue;
       const b = anc.getBoundingClientRect();
-      if (node.rects.some(g =>
-          (cx && (g.left < b.left - TOL || g.right > b.right + TOL)) ||
-          (cy && (g.top < b.top - TOL || g.bottom > b.bottom + TOL)))) {
-        out.clipped.push(label(node.el, node.text));
+      const over = overflowPx(node.rects, b, cx, cy);
+      if (over > TOL) {
+        out.clipped.push(label(node.el, node.text) + ` [+${Math.ceil(over)}px]`);
         break;
       }
     }
@@ -260,7 +275,11 @@ def audit(input_html: Path, expect_slides: int | None,
 
                 def excused(item: str, kind: str,
                             excuses: tuple[str, ...]) -> bool:
-                    matched = [a for a in excuses if a in item]
+                    # Strip the magnitude first: an excuse of "3px" — or a bare
+                    # "px" — would otherwise be a substring of every finding of
+                    # this kind and silently open the gate on real defects.
+                    stripped = _MAGNITUDE_RE.sub("", item)
+                    matched = [a for a in excuses if a in stripped]
                     used_excuses[kind].update(matched)   # credit EVERY match
                     return bool(matched)
 

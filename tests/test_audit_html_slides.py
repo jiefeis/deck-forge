@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import subprocess
 import sys
 import tempfile
@@ -89,6 +90,15 @@ class AuditHtmlSlidesTests(unittest.TestCase):
                       "request failed"):
             self.assertIn(check, out, f"expected {check} in:\n{out}")
 
+        # Both overflow verdicts must say how far the text actually reaches:
+        # 3px of bleed and 300px of spill call for different repairs and read
+        # identically without a magnitude.
+        for check in ("clipped-text", "offstage-text"):
+            line = next(l for l in out.splitlines() if check in l)
+            magnitude = re.search(r"\[\+(\d+)px\]", line)
+            self.assertIsNotNone(magnitude, f"no pixel magnitude: {line}")
+            self.assertGreater(int(magnitude.group(1)), 0, line)
+
     def test_decorative_bleed_inside_clipping_card_passes(self) -> None:
         # A rounded overflow:hidden card whose decorative glow bleeds past its
         # edge is a standard template pattern; only TEXT leaving the clip box
@@ -137,6 +147,33 @@ class AuditHtmlSlidesTests(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
         self.assertNotIn("UnicodeEncodeError", result.stdout + result.stderr)
         self.assertIn("text-overlap", result.stdout)
+
+    def test_magnitude_is_not_part_of_the_excuse_match_surface(self) -> None:
+        # The " [+Npx]" magnitude is report text, not match surface. If excuses
+        # matched against it, "px" — or whatever pixel count a finding happens
+        # to carry — would excuse every finding of that kind and turn this
+        # fail-closed gate into a pass on real defects.
+        clipped = deck(
+            '<section class="slide active"><div style="width:600px;height:40px;'
+            'overflow:hidden">Line one<br>Line two<br>Line three</div></section>')
+        for snippet in ("px", "[+", "21px"):
+            result = self.run_audit(clipped, "--allow-clipped-text", snippet)
+            self.assertEqual(result.returncode, 1,
+                             f"{snippet!r} must excuse nothing:\n{result.stdout}")
+            self.assertIn("clipped-text", result.stdout,
+                          f"{snippet!r} swallowed a real finding:\n{result.stdout}")
+
+    def test_magnitude_is_measured_from_the_real_stage_edge(self) -> None:
+        # Regression: measuring from the TOL-expanded box understated every
+        # magnitude by exactly TOL, so a 3px bleed reported as +1px — wrong at
+        # the small end, which is where the repair decision is close.
+        result = self.run_audit(deck(
+            '<section class="slide active"><div style="position:absolute;'
+            'left:-3px;top:100px;font:20px/1 monospace;white-space:nowrap">'
+            'SPILL</div></section>'))
+        self.assertEqual(result.returncode, 1, result.stdout + result.stderr)
+        line = next(l for l in result.stdout.splitlines() if "offstage-text" in l)
+        self.assertIn("[+3px]", line, line)
 
     def test_offstage_excuse_and_unused_excuse(self) -> None:
         offstage = deck(
