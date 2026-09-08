@@ -103,10 +103,13 @@ the Scripts table below is the script→purpose→when index.
    No reflow / scroll / overflow / overlap — anything that doesn't fit screenshots
    into the PDF as a bug (`viewport-base.css`; `AUTHORING.md` → "Fit content
    without fabrication").
-5. **Generated design is distinctive, not generic.** In Generate mode, use
-   deliberate fonts, a committed palette, atmosphere, and one orchestrated load
-   animation (full guidance in
-   [references/workflow.md](references/workflow.md) → "Design Aesthetics").
+5. **Design serves the argument.** In Generate mode, choose a visual language
+   for the audience, with deliberate typography, palette, and image treatment.
+   Consulting / board decks prioritize legible exhibits and restrained styling;
+   atmosphere and motion depend on purpose, not a universal requirement. Plan
+   and produce meaningful visuals even when the user supplies only text:
+   [references/visual-evidence.md](references/visual-evidence.md). A planned
+   photo or illustration must become a real asset, not an icon or card grid.
 6. **Verify the final artifact after the final write.** Inspect every page, not a
    sample. For native PPTX, also verify package integrity, page order, hidden
    state, and unauthorized changes. For generated PDF, require no `DCTDecode`.
@@ -152,13 +155,15 @@ for the full instructions before doing it.
    extracted with `--visible-only`; a native-edit PPTX must not be extracted.
 1. **Map the storyline** — for a deck that argues a case, build and confirm the
    title chain first (`references/storyline.md`); then name each page's
-   information shape, pick a matching layout from `LAYOUTS.md`, decide deck
-   rhythm; confirm the outline.
+   information shape and primary visual, pick a matching layout from
+   `LAYOUTS.md`, and plan asset acquisition (`references/visual-evidence.md`);
+   decide deck rhythm and confirm the outline.
 2. **Style discovery** — honor a given theme, else generate 3 genuinely different
    preview slides (`STYLE_PRESETS.md`, `bold-template-pack/selection-index.json`);
    user picks. Read a template's full `design.md` only after it's chosen.
 3. **Generate the HTML deck** — full `viewport-base.css` inline, `.slide`/
-   `.active`, `.reveal`; apply `AUTHORING.md`; one coherent design system.
+   `.active`, `.reveal`; acquire/generate and inspect assets, apply
+   `AUTHORING.md`; one coherent design system.
 4. **Render the PDF** — `audit_html_slides.py` gate, then `export_pdf.py`
    (lossless 2×; `--compact` for size); then verify every page.
 5. **Deliver** — open the PDF; report path / size / style / slide count; offer
@@ -185,6 +190,7 @@ for the full instructions before doing it.
 | `references/good-bad-examples.md` | Examples of good and bad handling patterns | ambiguous cross-format/reformat decisions |
 | **Generation assets** | | |
 | `references/storyline.md` | Argument storyline: title chain, pyramid/SCQA, action titles, archetypes, harvesting source decks | Phase 1 for any deck that argues a case; template-native authoring page planning |
+| `references/visual-evidence.md` | Visual briefs, actual image acquisition/generation, consulting exhibits, diagram semantics, and asset QA | Phase 1–4 for new decks; authorized new/redesigned native pages only |
 | `AUTHORING.md` | Source fidelity, deck coherence, fit, and final verification | Phase 1, 3, 4; template-native authoring (storyline and fit sections) |
 | `LAYOUTS.md` | Information-shape → composition selection guide | Phase 1, 3 |
 | `STYLE_PRESETS.md` | 12 curated visual presets (frontend-slides) | Phase 2 |
@@ -194,7 +200,7 @@ for the full instructions before doing it.
 | `viewport-base.css` | Mandatory fixed-stage CSS | Phase 3 |
 | `html-template.md` | HTML/JS architecture | Phase 3 |
 | `animation-patterns.md` | Animation reference | Phase 3 |
-| `examples/*/index.html` | Reference implementations: lumen-2026 = canonical deck with full `data-text-id` coverage; aurora-metrics = exporter-compatibility stress sample (deliberately deviates from `viewport-base.css`) | Phase 3, when an end-to-end example helps |
+| `examples/*/index.html` | Reference implementations: consulting-visuals = concept image, cost bridge, and feedback diagram (local Noto Sans SC; see its assets/sources.md); lumen-2026 = canonical text-editing example; aurora-metrics = exporter-compatibility stress sample | Phase 3; use consulting-visuals when building evidence-rich pages |
 | **Scripts** | | |
 | `scripts/check_env.py` | verify deps (playwright/img2pdf/lxml + Chromium); accepts `--browser-executable` for an existing local browser | preflight |
 | `scripts/audit_html_slides.py` | deterministic HTML-deck audit: clipped/offstage text, broken assets, fonts, geometry, blank pages; supports `--browser-executable` | Phase 3→4 gate, before every export |

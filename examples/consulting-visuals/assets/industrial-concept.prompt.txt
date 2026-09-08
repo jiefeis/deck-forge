@@ -1,0 +1,11 @@
+Use case: photorealistic-natural
+Asset type: editorial concept photograph for a Chinese consulting presentation about industrial improvement; no words are baked into the image.
+Primary request: one sophisticated, realistic manufacturing / robotics concept visual, a close observational view inside a precision assembly cell. A pale matte industrial robotic arm with physically plausible joints and a compact machine-vision camera is inspecting a single machined metal component resting on a dark precision fixture. Visible details should suggest inspection and handling, not a futuristic spectacle.
+Scene/backdrop: an orderly contemporary factory, restrained industrial architecture and softly defocused machinery behind the work cell. No people are required.
+Style/medium: high-end documentary industrial editorial photography, tactile and credible, subtle film grain, natural surface wear, very high detail.
+Composition/framing: landscape 4:3 photograph, camera at workbench level with a three-quarter perspective. The robot and inspection fixture form a clear, sculptural composition suitable for a large right-side half-slide image; keep the important subjects inside the central 75 percent so a square crop remains legible. Layered foreground, working plane, and softly receding background.
+Lighting/mood: broad natural window light with gentle cool industrial fill, calm and deliberate, nuanced deep shadows without crushing detail.
+Color palette: warm off-white equipment, charcoal metal, muted teal details, natural silver aluminum; restrained and low saturation.
+Materials/textures: brushed and machined metal, matte painted housing, subtle cable textures, realistic glass lens.
+Text: no text of any kind.
+Constraints: this is an AI concept illustration, not a real facility or a real client case. No brands, no logos, no watermark, no UI overlays, no charts, no decorative glow, no holograms, no humans, no dramatic sparks, no disconnected mechanical parts. Generate exactly one image.

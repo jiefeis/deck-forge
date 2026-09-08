@@ -1,6 +1,6 @@
 # Style Presets Reference
 
-Curated visual styles for deck-forge. Each preset is inspired by real design references — no generic "AI slop" aesthetics. **Abstract shapes only — no illustrations.**
+Curated visual styles for deck-forge. Each preset is inspired by real design references — no generic "AI slop" aesthetics. Abstract shapes describe the preset's background decoration; they do not restrict content imagery. Use relevant photos, screenshots, charts, diagrams, and illustrations per [references/visual-evidence.md](references/visual-evidence.md).
 
 **Viewport CSS:** For mandatory base styles, see [viewport-base.css](viewport-base.css). Include in every presentation.
 
@@ -130,7 +130,7 @@ Curated visual styles for deck-forge. Each preset is inspired by real design ref
 - Warm color accents (pink, gold, terracotta)
 - Thin vertical accent lines
 - Italic signature typography
-- **No illustrations—only abstract CSS shapes**
+- Background decoration uses abstract CSS shapes; meaningful content images remain welcome.
 
 ---
 
