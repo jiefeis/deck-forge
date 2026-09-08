@@ -23,7 +23,8 @@ description: >-
 
 Choose the artifact mode before touching a file:
 
-- **Generate** — turn materials into a new 1920×1080 HTML deck and lossless PDF.
+- **Generate** — turn materials into a new 1920×1080 HTML deck; deliver HTML,
+  lossless PDF, or both as requested. An HTML-only request skips PDF export.
 - **Native edit** — change an existing PPTX inside its own package and deliver
   PPTX: minimal in-place edits (package, page order, hidden slides, geometry,
   and requested output format preserved), or template-native authoring — a
@@ -33,12 +34,12 @@ Choose the artifact mode before touching a file:
 
 Pick the mode from the request: existing PPTX + "keep the original / minimal
 change / deliver PPTX" → Native edit; PPTX used only as material for a new
-deck, PDF delivery accepted → Generate; report differences, change nothing →
+deck, HTML/PDF delivery accepted → Generate; report differences, change nothing →
 Audit/compare. A new deck that must be built on an existing deck's or
 template's own masters, layouts, and theme with PPTX delivery is **Native edit
 (template-native authoring)**, not Generate, however many pages are new — see
 `references/native-template-authoring.md`. If an existing PPTX is input and the
-delivery format (PDF vs editable PPTX) is not explicit, confirm with the user
+delivery format (HTML/PDF vs editable PPTX) is not explicit, confirm with the user
 before choosing a mode (`references/source-contract.md` → "Decide the artifact
 contract").
 
@@ -66,7 +67,7 @@ python <skill-root>/scripts/check_env.py
 # Deterministic pre-export audit of the generated HTML deck (Phase 3→4 gate):
 python <skill-root>/scripts/audit_html_slides.py <deck>/index.html
 
-# Export the deck to PDF (the deliverable; fails closed on font/asset errors):
+# Export PDF when requested (fails closed on font/asset errors):
 python <skill-root>/scripts/export_pdf.py <deck>/index.html [out.pdf] [--compact | --scale N] [--browser-executable PATH]
 
 # On Windows, when Playwright's managed Chromium cache is missing or mismatched,
@@ -86,8 +87,9 @@ the Scripts table below is the script→purpose→when index.
 
 ## Non-negotiables
 
-1. **Mode is the artifact contract.** Generate delivers PDF; Native edit delivers
-   the edited PPTX; Audit/compare is read-only. Never silently change modes.
+1. **Mode and requested format are the artifact contract.** Generate delivers
+   the requested HTML/PDF formats; Native edit delivers the edited PPTX;
+   Audit/compare is read-only. Never substitute PDF for an HTML-only request.
 2. **Scope before mutation.** For native edits, record target slides, allowed
    properties, forbidden changes, output path, and hidden-backup policy using
    `references/edit-scope-contract.md`; verify untouched scope afterwards.
@@ -164,10 +166,10 @@ for the full instructions before doing it.
 3. **Generate the HTML deck** — full `viewport-base.css` inline, `.slide`/
    `.active`, `.reveal`; acquire/generate and inspect assets, apply
    `AUTHORING.md`; one coherent design system.
-4. **Render the PDF** — `audit_html_slides.py` gate, then `export_pdf.py`
-   (lossless 2×; `--compact` for size); then verify every page.
-5. **Deliver** — open the PDF; report path / size / style / slide count; offer
-   revisions.
+4. **Verify the chosen format** — audit HTML and inspect every live page and
+   navigation; run `export_pdf.py` and PDF checks only when PDF was requested.
+5. **Deliver** — open/link the requested HTML/PDF; include HTML assets and font
+   requirements, and report path / size / style / slide count.
 6. **Edit the words** — `edit_texts.py` extract → user edits one file → apply →
    re-export (writes `.bak` by default; in-browser inline edit is NOT bundled).
 
@@ -201,11 +203,11 @@ for the full instructions before doing it.
 | `viewport-base.css` | Mandatory fixed-stage CSS | Phase 3 |
 | `html-template.md` | HTML/JS architecture | Phase 3 |
 | `animation-patterns.md` | Animation reference | Phase 3 |
-| `examples/*/index.html` | consulting-visuals = concept image, cost bridge, feedback; consulting-diagrams = swimlanes, proportional value chain, driver tree (both use local Noto Sans SC; read their source/diagram notes); lumen-2026 = text-editing example; aurora-metrics = exporter stress sample | Phase 3; use the consulting examples for actual imagery and analytical drawing |
+| `examples/*/index.html` | consulting-visuals = concept image, cost bridge, feedback; consulting-diagrams = swimlanes, proportional value chain, driver tree (both bundle licensed sample font subsets; read their source/diagram notes); lumen-2026 = text-editing example; aurora-metrics = exporter stress sample | Phase 3; use the consulting examples for actual imagery and analytical drawing |
 | **Scripts** | | |
 | `scripts/check_env.py` | verify deps (playwright/img2pdf/lxml + Chromium); accepts `--browser-executable` for an existing local browser | preflight |
 | `scripts/audit_html_slides.py` | deterministic HTML-deck audit: clipped/offstage text, broken assets, fonts, geometry, blank pages; supports `--browser-executable` | Phase 3→4 gate, before every export |
-| `scripts/export_pdf.py` | HTML → crisp lossless screenshot PDF (deliverable); fails closed on font/asset errors; supports `--browser-executable` and `--keep-pngs` | Phase 4 |
+| `scripts/export_pdf.py` | HTML → crisp lossless screenshot PDF when requested; fails closed on font/asset errors; supports `--browser-executable` and `--keep-pngs` | Phase 4 |
 | `scripts/edit_texts.py` | extract/apply all deck text through one Markdown companion | Phase 6 |
 | `scripts/extract_pptx.py` | visible PPTX pages → content JSON (generation input only) | Generate mode Phase 0; never native edit |
 | `scripts/audit_pptx_page_numbers.py` | audit page-number sources across slides, layouts, and masters | native PPTX page-number/footer edits |

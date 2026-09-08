@@ -123,9 +123,12 @@ Reference architecture for generating slide presentations. Every presentation fo
 
             setupStageScale() {
                 const scale = () => {
-                    const factor = Math.min(window.innerWidth / 1920, window.innerHeight / 1080);
+                    const chrome = document.querySelector('.deck-controls');
+                    const reserve = chrome && getComputedStyle(chrome).display !== 'none' ? Math.ceil(chrome.getBoundingClientRect().height) + 28 : 0;
+                    const availableHeight = Math.max(1, window.innerHeight - reserve);
+                    const factor = Math.min(window.innerWidth / 1920, availableHeight / 1080);
                     const x = (window.innerWidth - 1920 * factor) / 2;
-                    const y = (window.innerHeight - 1080 * factor) / 2;
+                    const y = (availableHeight - 1080 * factor) / 2;
                     this.stage.style.transform = `translate(${x}px, ${y}px) scale(${factor})`;
                 };
                 scale();
@@ -133,7 +136,14 @@ Reference architecture for generating slide presentations. Every presentation fo
             }
 
             setupKeyboardNav() {
-                // Arrow keys, Space, Page Up/Down
+                // Preserve native control/editing input; then implement deck shortcuts.
+                window.addEventListener('keydown', (e) => {
+                    if (e.defaultPrevented || e.isComposing || e.altKey || e.ctrlKey || e.metaKey) return;
+                    if (e.target.closest?.('button,a,input,textarea,select,[contenteditable],[role="button"],[role="textbox"],[role="slider"]')) return;
+                    const actions = {ArrowRight: 1, ArrowDown: 1, PageDown: 1, " ": 1, ArrowLeft: -1, ArrowUp: -1, PageUp: -1};
+                    if (e.key in actions) { e.preventDefault(); this.showSlide(this.currentSlide + actions[e.key]); }
+                    else if (e.key === "Home" || e.key === "End") { e.preventDefault(); this.showSlide(e.key === "Home" ? 0 : this.slides.length - 1); }
+                });
             }
 
             setupTouchNav() {
@@ -169,8 +179,14 @@ Every presentation must include:
    - Keep all slides at 1920×1080 inside `.deck-stage`
    - Scale the whole stage with one transform
    - Letterbox/pillarbox as needed; never reflow slide content per device
+   - Reserve space for visible viewer controls before computing the scale;
+     chrome must sit outside the authored slide, including at smaller windows.
+   - Preserve native Enter/Space on controls and editing keys in text inputs.
+     Global slide shortcuts ignore interactive/editable targets, IME composition
+     and modifier shortcuts. Expose the page count as a polite live status and
+     mark unavailable previous/next actions at deck boundaries.
 
-3. **Optional Enhancements** (match to chosen style; the deliverable is a static PDF, so hover/cursor effects — cursor trails, 3D tilt, magnetic buttons — are invisible in it and should only be added when the user explicitly asks for an in-browser presentation experience):
+3. **Optional Enhancements** (match the requested output: HTML preserves interaction; PDF is static. Add hover/cursor effects only when they help the requested browser experience):
    - Particle system background (canvas)
    - Counter animations
 
@@ -275,9 +291,11 @@ Rules:
 - For compositional elements that look like progress bars (e.g. a persistent bottom strip that is part of the poster design), use a non-reserved name such as `.poster-trim`.
 - Conversely, `[data-export-hide]` / `.no-export` are the sanctioned way to mark anything else that must not appear in the PDF.
 
-## Image Pipeline (Skip If No Images)
+## Image Pipeline (For Planned Visuals)
 
-If no images were provided, skip this section. If images were provided, process them before generating HTML.
+Process supplied, sourced, or generated images when the visual brief calls for
+them. Text-only input is not a reason to skip planned images; follow
+`references/visual-evidence.md` before final HTML composition.
 
 **Dependency:** `pip install Pillow`
 
@@ -328,7 +346,8 @@ Save processed images with `_processed` suffix. Never overwrite originals.
 
 ### Image Placement
 
-**Use direct file paths** (not base64) — presentations are viewed locally:
+Use relative local assets for a folder delivery; embed assets for a requested
+single HTML file. Keep source/license notices available in either form:
 
 ```html
 <img src="assets/logo_round.png" alt="Logo" class="slide-image logo">

@@ -123,6 +123,10 @@ unresolved rather than assigning them. A line ending in blank space is not an
 escalation route. Duplicate a shared actor only as an explicit
 visual alias, not as a new participant.
 
+Each decision's outgoing conditions must cover the question it asks. A broad
+"conditions satisfied?" decision cannot use "low confidence" as its only
+negative exit unless other failures are explicitly out of scope or unresolved.
+
 ### Driver tree and causal map
 
 A driver tree may express additive parts, multiplicative factors, or a supported

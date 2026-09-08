@@ -1,6 +1,6 @@
 # Consulting diagram atlas
 
-Three internal, illustrative 1920 × 1080 diagrams. `index.html` is the editable artifact: all drawing objects are inline SVG, all labels remain native HTML/SVG text with stable `data-text-id`. No rasterized diagram, generated image, remote asset, client data, or deployed-system claim is used. HTML requires locally installed Noto Sans SC; PDF pages are static image exports.
+Three internal, illustrative 1920 × 1080 diagrams. `index.html` is the editable artifact: all drawing objects are inline SVG, all labels remain native HTML/SVG text with stable `data-text-id`. No rasterized diagram, generated image, remote asset, client data, or deployed-system claim is used. HTML uses the bundled licensed Noto Sans SC sample subsets described below; PDF is optional and produces static image pages.
 
 ## 1. Responsibility swimlane
 
@@ -12,7 +12,7 @@ Claim: make detection, treatment and review ownership explicit.
 | 系统 | 系统识别；自动处置条件判断；系统记录 |
 | 工程师 | 工程师复核 |
 
-The six directed handoffs are: observation → recognition (现场数据); recognition → decision (判定); satisfied condition → field treatment (条件满足); low confidence → engineer review (低置信度); confirmed review → field treatment (复核确认); treatment → system record (处置结果). The review branch has an owner and an explicit exit. Normal and reviewed instructions enter distinct ports on field treatment, and the result leaves its lower boundary for the system-record node. All connectors end on intended node boundaries.
+The six directed handoffs are: observation → recognition (现场数据); recognition → decision (判定); satisfied condition → field treatment (条件满足); unmet conditions (including low confidence) → engineer review (条件不满足（含低置信度）); confirmed review → field treatment (复核确认); treatment → system record (处置结果). The review branch has an owner and an explicit exit. Normal and reviewed instructions enter distinct ports on field treatment, and the result leaves its lower boundary for the system-record node. All connectors end on intended node boundaries.
 
 Lane containment encodes responsibility. Green solid arrows encode work/data flow; ochre solid arrows encode the engineer-review route. Labels preserve meaning without color. Horizontal distance and lane dimensions do not encode time. The page visibly identifies its mechanism as illustrative and leaves automation conditions/thresholds undefined pending field work.
 
@@ -40,6 +40,15 @@ The separate “排程频繁变更” object connects to “等待损失” thro
 
 ## Visual acceptance
 
-The primary exhibits are respectively responsibility transfer, exact proportional time, and category/hypothesis distinction. Every drawn relation maps to one of the stated semantics. No connector passes through an unrelated node. Native labels, distinct line styles, explanatory legends and visible evidence boundaries preserve the meaning without relying on color alone. Final HTML/PDF audit and per-page visual inspection were completed after the final HTML write.
+The primary exhibits are respectively responsibility transfer, exact proportional time, and category/hypothesis distinction. Every drawn relation maps to one of the stated semantics. No connector passes through an unrelated node. Native labels, distinct line styles, explanatory legends and visible evidence boundaries preserve the meaning without relying on color alone. Revalidate the actual HTML and interactions after each change; an earlier PDF render does not cover visible navigation.
 
 One focused repair cycle moved the normal-route condition label clear of the review route and added visible internal time-stage separators. No required edge or content was removed. The source has no personal paths or generated login artifacts and is suitable for inclusion as a public-safe internal example.
+
+## HTML delivery
+
+The example loads licensed Noto Sans SC 400/700 sample subsets from the sibling
+consulting-visuals/assets/fonts folder. Keep that folder when copying the HTML,
+or embed the fonts for a single-file delivery. Source/license notes are in that
+folder; refresh subsets after introducing new glyphs. Viewer controls occupy a
+reserved band outside the scaled stage. Keyboard input respects native controls
+and editing focus.

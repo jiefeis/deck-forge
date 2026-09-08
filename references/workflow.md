@@ -22,7 +22,7 @@ request. Keep missing evidence explicit; do not invent it to complete a visual.
 - Phase 1: map the storyline
 - Phase 2: style discovery
 - Phase 3: generate the HTML deck
-- Phase 4: render and verify the PDF
+- Phase 4: verify the requested output
 - Phase 5: deliver
 - Phase 6: edit the words
 
@@ -230,9 +230,17 @@ Save the deck to a working folder, e.g. `<deck-name>/index.html`.
 
 ---
 
-## Phase 4: Render the PDF (the deliverable)
+## Phase 4: Verify the requested output
 
-This is the point of the skill. Render the HTML deck to a screenshot PDF:
+First honor the requested delivery format. For **HTML-only**, run the HTML
+audit, open the final HTML in a real browser, inspect every page and exercise
+its controls. Check a typical desktop window and a smaller window, with the
+navigation visible: controls must not cover captions, sources, or slide content.
+Verify keyboard focus, native Enter/Space activation on buttons, background
+slide shortcuts, boundaries, assets and fonts. Do not generate a PDF for this
+route. Screenshot evidence is useful but does not replace interaction checks.
+
+For **PDF** or **HTML + PDF**, render the HTML deck to a screenshot PDF:
 
 ```bash
 python <skill-root>/scripts/export_pdf.py <deck-name>/index.html [<deck-name>/<deck-name>.pdf]
@@ -287,19 +295,23 @@ checks alone.
 ## Phase 5: Deliver
 
 1. Clean up `.deck-forge/slide-previews/` if it exists.
-2. Open the PDF for the user (if the environment can display files; otherwise
-   report the absolute path).
-3. Tell them: PDF location + size, style name, slide count; that the HTML
-   intermediate is kept alongside it for edits; that motion is captured at its
-   final state.
+2. Open/link the requested format. HTML-only delivery is the HTML and required
+   assets, not a PDF link. Embed assets for a single-file request, or bundle
+   relative assets beside it. For portable HTML, include licensed fonts and
+   notices where permitted; otherwise disclose and verify the intended fallback.
+   Do not call a local-font-dependent page fully self-contained.
+3. Tell them: location + size, style and page count. For HTML, state how to
+   navigate and any actual dependency. For PDF, explain static motion and keep
+   the editable HTML alongside it.
 4. Offer the natural next steps: edit the words (Phase 6), revise
    content/structure, retheme (re-run Phase 2 + 3), or re-export `--compact` for a
    smaller file. Any HTML edit goes back through the audit gate
    (`audit_html_slides.py`, Phase 3) and then Phase 4 — an edit can introduce
    exactly the clipped/offstage overflow the gate detects.
 
-For a revision round, produce page-level evidence of what changed instead of
-asking the user to eyeball two PDFs: export each version with
+For an HTML-only revision, capture before/after browser pages and retest the
+affected interactions; keep PDF export out of that route. For a PDF revision,
+produce page-level evidence: export each version with
 `--keep-pngs <scratch>/v1` / `--keep-pngs <scratch>/v2`, then
 
 ```bash
@@ -343,3 +355,8 @@ python <skill-root>/scripts/export_pdf.py <deck>/index.html
   **not bundled** in this skill — `edit_texts.py` is the supported text-editing
   path here. If a user specifically wants click-to-edit in the browser, add the
   edit-mode JS to the generated HTML on request; don't assume it's already there.
+
+For HTML-only text revisions, run the audit and browser checks after applying
+words, then deliver the HTML. Run `export_pdf.py` in Phase 6 only when PDF is
+part of the selected output. Font subsets must be refreshed if edited text
+introduces unsupported glyphs, or use a complete licensed font.
