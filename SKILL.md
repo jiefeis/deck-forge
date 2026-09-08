@@ -191,6 +191,7 @@ for the full instructions before doing it.
 | **Generation assets** | | |
 | `references/storyline.md` | Argument storyline: title chain, pyramid/SCQA, action titles, archetypes, harvesting source decks | Phase 1 for any deck that argues a case; template-native authoring page planning |
 | `references/visual-evidence.md` | Visual briefs, actual image acquisition/generation, consulting exhibits, diagram semantics, and asset QA | Phase 1–4 for new decks; authorized new/redesigned native pages only |
+| `references/consulting-diagrams.md` | Relationship-to-diagram selection, evidence/edge briefs, swimlanes, drivers, value chains, matrix logic, routing and editable-output QA | when authoring or redesigning a relationship diagram; never unsolicited native relayout |
 | `AUTHORING.md` | Source fidelity, deck coherence, fit, and final verification | Phase 1, 3, 4; template-native authoring (storyline and fit sections) |
 | `LAYOUTS.md` | Information-shape → composition selection guide | Phase 1, 3 |
 | `STYLE_PRESETS.md` | 12 curated visual presets (frontend-slides) | Phase 2 |
@@ -200,7 +201,7 @@ for the full instructions before doing it.
 | `viewport-base.css` | Mandatory fixed-stage CSS | Phase 3 |
 | `html-template.md` | HTML/JS architecture | Phase 3 |
 | `animation-patterns.md` | Animation reference | Phase 3 |
-| `examples/*/index.html` | Reference implementations: consulting-visuals = concept image, cost bridge, and feedback diagram (local Noto Sans SC; see its assets/sources.md); lumen-2026 = canonical text-editing example; aurora-metrics = exporter-compatibility stress sample | Phase 3; use consulting-visuals when building evidence-rich pages |
+| `examples/*/index.html` | consulting-visuals = concept image, cost bridge, feedback; consulting-diagrams = swimlanes, proportional value chain, driver tree (both use local Noto Sans SC; read their source/diagram notes); lumen-2026 = text-editing example; aurora-metrics = exporter stress sample | Phase 3; use the consulting examples for actual imagery and analytical drawing |
 | **Scripts** | | |
 | `scripts/check_env.py` | verify deps (playwright/img2pdf/lxml + Chromium); accepts `--browser-executable` for an existing local browser | preflight |
 | `scripts/audit_html_slides.py` | deterministic HTML-deck audit: clipped/offstage text, broken assets, fonts, geometry, blank pages; supports `--browser-executable` | Phase 3→4 gate, before every export |

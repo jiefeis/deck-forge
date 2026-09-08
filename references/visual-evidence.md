@@ -10,6 +10,7 @@ template, scope, and final-output contracts remain authoritative.
 - Plan a visual, not a decoration
 - Choose the production route
 - Produce and art-direct assets
+- Compose images with analytical overlays
 - Build consulting exhibits
 - Visual acceptance
 
@@ -46,7 +47,7 @@ legal, text-only, or template-preserving decks.
 | Real product, client, site, person, case evidence | supplied originals; then official/appropriately licensed sources | generation cannot establish what actually exists or happened |
 | Software behavior or document evidence | authentic screenshot or supplied artifact | keep labels legible and sensitive details within authorized scope |
 | Concept, future scene, editorial cover, explanatory illustration | available image-generation tool, or suitable licensed artwork | label as concept/illustration when realism could imply factual evidence |
-| Quantitative claim | chart from source values using code/native chart objects | never generate numbers, axes, bars, or legends as a bitmap |
+| Quantitative claim | chart from source values using code/native chart objects | do not ask an image model to synthesize chart numbers or geometry; deterministic raster export from preserved data is allowed by the output contract |
 | Sequence, system, causal structure, hierarchy | editable SVG or native diagram objects | geometry must encode the actual relationship |
 | Simple icon | existing coherent icon set or vector | an icon is a label aid, not a primary evidence image |
 
@@ -78,6 +79,12 @@ Keep titles, data, labels, callouts, and sources in editable HTML/SVG/PPTX
 objects above or beside the image. Generate the visual substrate, not the
 entire slide. This preserves factual control, typography, and future editing.
 
+Before producing a group of images, establish a shared visual treatment:
+medium, palette/light, camera or illustration perspective, and level of detail.
+Then specify each image's semantic job, destination aspect ratio, focal point,
+crop-safe region, and the space needed for native annotations. Related images
+should form a coherent set without repeating the same composition on every page.
+
 Inspect the result before using it: correct subject, plausible details,
 consistent art direction, useful focal point, no stray marks or misleading
 real-world identity. Frame the image deliberately; use `object-fit` and
@@ -97,6 +104,20 @@ quietly turn the deck back into text cards or generate fake evidence. If the
 asset is essential, report the exact missing input/capability and keep that
 page in draft; if optional, omit it with an explicit reason in the visual brief.
 
+## Compose images with analytical overlays
+
+Combine a concrete scene with an explanatory layer when both help the argument:
+a product detail plus callouts, a facility view plus a process boundary, or a
+concept illustration plus an editable mechanism. Give the image a clear job
+(context or inspectable evidence), then put all interpretive labels, arrows,
+numbers and qualifications in native objects. Annotate visible features; do not
+imply that an unseen capability is proven by a decorative image.
+
+For screenshots, preserve text with a readable `contain` view or an explicitly
+identified detail crop. For photography, use deliberate `cover` framing when
+the crop keeps the essential subject. A decorative full-slide scene is not an
+appropriate substitute for a chart on a page whose claim depends on numbers.
+
 ## Build consulting exhibits
 
 - **Action title + exhibit + implication:** let one chart, annotated image,
@@ -105,14 +126,11 @@ page in draft; if optional, omit it with an explicit reason in the visual brief.
 - **Charts:** use honest scales, units, periods, baselines, and direct labels.
   Check plotted geometry and totals against values. Separate observations from
   estimates; synthetic demonstration data must be labeled on the page.
-- **Mechanisms:** choose flow, swimlanes, hierarchy, cycle, matrix, or system
-  map from the relationship. Give edges a direction and meaning; distinguish
-  sequence from ownership, feedback, and exception paths. A row of boxes is
-  not a mechanism if the relationships are missing.
-- **Diagrams:** use a stable grid, consistent node roles, enough edge clearance,
-  and unambiguous arrowheads. Keep labels out of connectors. For complex
-  topology, use an available diagram/layout tool with editable output and then
-  inspect the rendered result; do not add a tool dependency for a simple flow.
+- **Mechanisms and diagrams:** read
+  [consulting-diagrams.md](consulting-diagrams.md). Derive objects and typed
+  relationships from evidence, choose the matching diagram, then construct
+  and check its semantic skeleton, grouping, routes, ports and native labels.
+  Choose a layout tool only when topology warrants it.
 - **Image exhibits:** connect short, evidence-based annotations to visible
   details. Preserve useful context and comparable before/after viewpoints.
   A photo of a factory does not substantiate its claimed productivity gain.

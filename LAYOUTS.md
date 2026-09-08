@@ -64,6 +64,12 @@ stays obvious.
    of results. See `references/visual-evidence.md` for sourcing and production.
 7. Vary the deck rhythm while keeping typography and navigation stable.
 
+For a relationship page, continue with
+[references/consulting-diagrams.md](references/consulting-diagrams.md): identify
+what each connection or grouping means before choosing positions and shapes.
+It includes construction recipes for drivers, value chains, swimlanes, matrices,
+systems and feedback; a tidy layout alone does not prove the relationships.
+
 ## Fill check
 
 At 1920×1080, inspect the lower third of each page. Large unused space is valid
