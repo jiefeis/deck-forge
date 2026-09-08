@@ -10,6 +10,11 @@ Script commands below use `<skill-root>/` — the absolute path of the folder
 containing `SKILL.md`, as defined in its Preflight section (do not use `~` on
 Windows). Write generated deck HTML/PDF into the **user's** working directory.
 
+Reuse the task's existing decisions: an explicitly confirmed title chain or
+style already satisfies its confirmation step, including when the user refers
+to it in shorthand. Previews then serve production/QA, not another approval
+request. Keep missing evidence explicit; do not invent it to complete a visual.
+
 ## Contents
 
 - Design Aesthetics
@@ -17,7 +22,7 @@ Windows). Write generated deck HTML/PDF into the **user's** working directory.
 - Phase 1: map the storyline
 - Phase 2: style discovery
 - Phase 3: generate the HTML deck
-- Phase 4: render and verify the PDF
+- Phase 4: verify the requested output
 - Phase 5: deliver
 - Phase 6: edit the words
 
@@ -28,13 +33,13 @@ look. Resist it. Choose beautiful, deliberate typography — webfonts from
 Fontshare / Google Fonts by default; a brand or locally installed font is right
 when the user's brand, offline delivery, or CJK glyph coverage requires it, and
 a default-look font picked out of convenience is never right. Commit to a
-cohesive palette with dominant colors and sharp
-accents over timid even distributions; draw from IDE themes and cultural
-aesthetics. Use motion for high-impact moments (one staggered page-load reveal
-beats scattered micro-interactions). Build atmosphere with layered gradients,
-patterns, and contextual effects rather than flat fills. Avoid overused fonts,
+cohesive palette with a clear hierarchy. For consulting / board decks, default
+to an editorial visual system: quiet backgrounds, high contrast, readable
+exhibits, direct labels, and purposeful subject imagery. Flat fills and familiar
+brand fonts can be the right choice. For expressive talks, cultural references,
+layered backgrounds, and one orchestrated reveal can support the brief. Avoid
 purple-gradient-on-white clichés, predictable card/dashboard layouts, and
-cookie-cutter design. Vary between light and dark, and across decks.
+cookie-cutter design. Follow the requested audience and brand before a preset.
 
 ---
 
@@ -108,32 +113,39 @@ their page order. Then:
 - For each page, name its **information shape** (parallel items / contrast / data
   / timeline / hierarchy / single stat / quote / explanation+visual / chapter
   break), then pick a matching layout from `LAYOUTS.md`.
+- Read `visual-evidence.md` and record each page's primary visual, its job,
+  source/production route, and status in the outline. Actively source or create
+  needed visuals even if the input is text only; record why a text-only page
+  is appropriate instead of defaulting to cards.
 - Decide deck rhythm: cover → (agenda if long) → sections → content sized to
   shape → closing (`AUTHORING.md` → "Plan the page sequence").
 
 Confirm the outline with the user (one structured question: looks good / adjust
 outline / adjust scope). For a deck that argues a case, the outline presented
 IS the title chain with a one-line evidence note per page; a topic list is not
-an outline. If images were provided, co-design the outline around
-them — design with both text and images from the start, don't bolt images on
-later.
+an outline. Co-design text and visuals from the start. Inventory supplied
+images, identify gaps, and select reuse/search/generation/drawing routes before
+choosing compositions. Resolve the assets in Phase 3, not after the deck is laid out.
 
 ---
 
 ## Phase 2: Style discovery
 
 If the user already gave a clear theme/look, honor it — generate ONE preview to
-confirm direction, then proceed. Otherwise do visual discovery:
+confirm direction, then proceed. For consulting / board decks, use a representative
+content page with its actual primary visual, rather than judging the direction
+only from a cover. Otherwise do visual discovery:
 
 1. Read `STYLE_PRESETS.md` (12 safe presets) and, if present,
    `bold-template-pack/selection-index.json` (compact bold-template index). Do
    **not** read any `design.md` yet.
-2. Generate **3 distinct single-slide HTML previews** of a real first slide:
+2. Generate **3 distinct single-slide HTML previews** of the same real page
+   (a representative content page for consulting / board decks; otherwise the first slide):
    1 safe preset, ≥1 bold template, 1 wildcard (a second template or a free
    custom design). Make them genuinely different. Match purpose / audience / mood
    / density.
 3. **Preview authenticity (non-negotiable):** a preview must look like a real
-   first slide of THIS deck. Never render workflow/meta text on a slide — no
+   page of THIS deck. Never render workflow/meta text on a slide — no
    "preview", "Option A/B/C", "wildcard", preset/template/slug names, file paths,
    or requirement notes. Style names go only in your message to the user.
 4. Save previews to `.deck-forge/slide-previews/` (`style-a.html`, …), open them,
@@ -146,7 +158,7 @@ its full `design.md` only after the user picks it (Phase 3).
 
 Applies to every preview slide, template-based or not:
 
-- Build exactly one title slide at 1920×1080 inside the fixed-stage model,
+- Build exactly one selected preview page at 1920×1080 inside the fixed-stage model,
   preserving the template's palette, type roles, and decorative vocabulary as
   described in its `preview.md`.
 - Previews render only real deck content (see preview authenticity above). All
@@ -175,6 +187,12 @@ Build the full deck using the Phase 1 outline + Phase 2 style.
 - `animation-patterns.md` — animation snippets for the chosen feeling.
 - `AUTHORING.md` — the discipline rules. Apply them per slide.
 - The selected bold template's `design.md` (if one was chosen).
+
+**Produce the visuals before final composition:** follow `visual-evidence.md`.
+Reuse or source authentic evidence assets; use an available image-generation
+tool for conceptual raster artwork, and editable SVG/native objects for charts
+and diagrams. Inspect real outputs, store final assets locally or embed them,
+and record provenance. No planned image remains a placeholder in a final deck.
 
 **Requirements:**
 - One HTML entrypoint with all CSS/JS inline; assets may be embedded or stored in
@@ -205,15 +223,24 @@ the HTML before exporting (deliberate bleed past the stage edge or a
 deliberate text mask can be excused with `--allow-offstage-text` /
 `--allow-clipped-text` after you have looked at it). Treat its warnings
 (text overlap, empty bottom) as a checklist for the visual pass. It cannot
-judge design intent: the Phase 4 page-by-page inspection still happens.
+judge design intent or whether needed visuals are absent: the Phase 4
+page-by-page inspection and visual-evidence review still happen.
 
 Save the deck to a working folder, e.g. `<deck-name>/index.html`.
 
 ---
 
-## Phase 4: Render the PDF (the deliverable)
+## Phase 4: Verify the requested output
 
-This is the point of the skill. Render the HTML deck to a screenshot PDF:
+First honor the requested delivery format. For **HTML-only**, run the HTML
+audit, open the final HTML in a real browser, inspect every page and exercise
+its controls. Check a typical desktop window and a smaller window, with the
+navigation visible: controls must not cover captions, sources, or slide content.
+Verify keyboard focus, native Enter/Space activation on buttons, background
+slide shortcuts, boundaries, assets and fonts. Do not generate a PDF for this
+route. Screenshot evidence is useful but does not replace interaction checks.
+
+For **PDF** or **HTML + PDF**, render the HTML deck to a screenshot PDF:
 
 ```bash
 python <skill-root>/scripts/export_pdf.py <deck-name>/index.html [<deck-name>/<deck-name>.pdf]
@@ -253,6 +280,11 @@ slide is wrong, fix the HTML and re-run Phase 4. The PDF is what the user
 receives, so it must be clean. This Phase is the single authority for PDF
 output rules.
 
+Apply `visual-evidence.md` → "Visual acceptance" to the final renders: reconcile
+the outline's visual briefs with actual assets/exhibits, inspect crop and data
+accuracy, and review deck rhythm. Report any unresolved asset limitation;
+passing the geometry audit alone does not satisfy this review.
+
 For reformat, translation, or mixed PPTX/PDF/image tasks, also follow
 `references/visual-qa.md`: render source/reference and target pages, compare
 visually, and verify the full affected page set rather than relying on text/XML
@@ -263,19 +295,23 @@ checks alone.
 ## Phase 5: Deliver
 
 1. Clean up `.deck-forge/slide-previews/` if it exists.
-2. Open the PDF for the user (if the environment can display files; otherwise
-   report the absolute path).
-3. Tell them: PDF location + size, style name, slide count; that the HTML
-   intermediate is kept alongside it for edits; that motion is captured at its
-   final state.
+2. Open/link the requested format. HTML-only delivery is the HTML and required
+   assets, not a PDF link. Embed assets for a single-file request, or bundle
+   relative assets beside it. For portable HTML, include licensed fonts and
+   notices where permitted; otherwise disclose and verify the intended fallback.
+   Do not call a local-font-dependent page fully self-contained.
+3. Tell them: location + size, style and page count. For HTML, state how to
+   navigate and any actual dependency. For PDF, explain static motion and keep
+   the editable HTML alongside it.
 4. Offer the natural next steps: edit the words (Phase 6), revise
    content/structure, retheme (re-run Phase 2 + 3), or re-export `--compact` for a
    smaller file. Any HTML edit goes back through the audit gate
    (`audit_html_slides.py`, Phase 3) and then Phase 4 — an edit can introduce
    exactly the clipped/offstage overflow the gate detects.
 
-For a revision round, produce page-level evidence of what changed instead of
-asking the user to eyeball two PDFs: export each version with
+For an HTML-only revision, capture before/after browser pages and retest the
+affected interactions; keep PDF export out of that route. For a PDF revision,
+produce page-level evidence: export each version with
 `--keep-pngs <scratch>/v1` / `--keep-pngs <scratch>/v2`, then
 
 ```bash
@@ -319,3 +355,8 @@ python <skill-root>/scripts/export_pdf.py <deck>/index.html
   **not bundled** in this skill — `edit_texts.py` is the supported text-editing
   path here. If a user specifically wants click-to-edit in the browser, add the
   edit-mode JS to the generated HTML on request; don't assume it's already there.
+
+For HTML-only text revisions, run the audit and browser checks after applying
+words, then deliver the HTML. Run `export_pdf.py` in Phase 6 only when PDF is
+part of the selected output. Font subsets must be refreshed if edited text
+introduces unsupported glyphs, or use a complete licensed font.

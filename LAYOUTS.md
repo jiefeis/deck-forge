@@ -29,6 +29,8 @@ stays obvious.
 | Chart focus | Explain a quantitative pattern | chart-ready data and one interpretation |
 | Table | Support precise lookup or comparison | real rows, columns, units, notes |
 | Image with annotation | Inspect a product, place, screenshot, or artifact | legible image plus concise labels |
+| Scene + implication | Establish a physical/customer context and explain its significance | relevant photo or labeled concept illustration, one takeaway |
+| Visual case study | Connect an observed detail to a conclusion | authentic screenshot/photo, detail crop, evidence-based annotations |
 | Evidence stack | Combine a claim with two or three supporting facts | claim, evidence, provenance |
 
 ## Relationship pages
@@ -56,9 +58,17 @@ stays obvious.
    should not replace data.
 5. Give dense pages more space, not smaller type. Split only when the audience
    benefits from a second decision or explanatory beat.
-6. Use full-bleed imagery only when the audience needs to inspect the actual
-   subject. Atmospheric stock imagery is not evidence.
+6. Use full-bleed imagery for an appropriate cover/section context, or a subject
+   the audience needs to inspect. On analytical pages give charts and diagrams
+   the space they need. Context imagery establishes setting; it is not evidence
+   of results. See `references/visual-evidence.md` for sourcing and production.
 7. Vary the deck rhythm while keeping typography and navigation stable.
+
+For a relationship page, continue with
+[references/consulting-diagrams.md](references/consulting-diagrams.md): identify
+what each connection or grouping means before choosing positions and shapes.
+It includes construction recipes for drivers, value chains, swimlanes, matrices,
+systems and feedback; a tidy layout alone does not prove the relationships.
 
 ## Fill check
 

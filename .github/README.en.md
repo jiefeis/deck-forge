@@ -58,7 +58,7 @@ Generation mode uses a fixed 1920×1080 HTML stage, visual style previews, 34 de
 
 | Mode | Use it for | Deliverable |
 | --- | --- | --- |
-| Generate | Create a new presentation from notes, documents, images, or a topic | HTML intermediate + lossless PDF |
+| Generate | Create a new presentation from notes, documents, images, or a topic | HTML, lossless PDF, or both as requested |
 | Native edit | Reformat, translate, copy-polish, or repair an existing PPTX; also author a mostly-new deck on the source's own masters, layouts, and theme | Native PPTX with preserved structure |
 | Audit / compare | Compare versions, order, translation, typography, numbering, or renders | Read-only report; source files remain unchanged |
 
@@ -66,7 +66,7 @@ Generation mode uses a fixed 1920×1080 HTML stage, visual style previews, 34 de
 flowchart LR
     A[Materials or PPTX] --> B{Choose a mode}
     B -->|Generate| C[Fixed-stage HTML]
-    C --> D[Full-page render and lossless PDF]
+    C --> D[Verify and deliver requested HTML or PDF]
     B -->|Native edit| E[Freeze slide and property scope]
     E --> F[Native PPTX change]
     F --> G[Structure + property + pixel gates]

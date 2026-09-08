@@ -41,6 +41,12 @@ Give every page one job. Before authoring it, write down:
 2. the evidence or visual object that supports that point
 3. the page structure that makes the relationship easy to scan
 
+Turn item 2 into a concrete visual brief using
+[references/visual-evidence.md](references/visual-evidence.md): what the viewer
+must see, the source or production method, and the treatment. This applies to
+text-only briefs too. Resolve planned images before final layout; a placeholder,
+decorative icon, or text box does not fulfill a photo/illustration brief.
+
 A useful sequence usually alternates density: orient, explain, prove, pause,
 then conclude. Avoid ten consecutive pages with the same card grid or identical
 text-to-image split.
@@ -106,6 +112,12 @@ After the final write:
 3. inspect every dense or changed page at full size
 4. check clipping, overlap, weak contrast, image quality, page count, and order
 5. rerender after any correction; an earlier preview is not final evidence
+
+Also run the visual-evidence review: inspect whether exhibits actually support
+the title, image crops retain the subject, charts encode the supplied values,
+and diagram arrows express the intended relationships. Review the contact
+sheet for unintentional runs of text/card pages. The HTML audit detects broken
+assets; it cannot judge visual sufficiency or consulting quality.
 
 For PDF generation, confirm the exported file rather than trusting the browser
 preview. For native PPTX work, follow the separate source-preserving audit

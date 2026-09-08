@@ -58,7 +58,7 @@ Deck Forge 不只是“让 AI 做一份好看的 PPT”。它把演示文稿任�
 
 | 模式 | 适用任务 | 交付物 |
 | --- | --- | --- |
-| Generate | 从大纲、文档、图片或主题生成新演示 | HTML 中间稿 + 无损 PDF |
+| Generate | 从大纲、文档、图片或主题生成新演示 | 按要求交付 HTML、无损 PDF 或两者 |
 | Native edit | 对已有 PPTX 做 reformat、翻译、copy 打磨或修复；也包括在源 deck 自己的母版、版式和主题上新作一份基本全新的 deck | 保持原生结构的 PPTX |
 | Audit / compare | 对比版本、顺序、翻译、字体、页码或渲染结果 | 只读报告，不修改源文件 |
 
@@ -66,7 +66,7 @@ Deck Forge 不只是“让 AI 做一份好看的 PPT”。它把演示文稿任�
 flowchart LR
     A[输入材料或 PPTX] --> B{选择模式}
     B -->|Generate| C[固定舞台 HTML]
-    C --> D[逐页渲染与无损 PDF]
+    C --> D[逐页验证并按请求交付 HTML 或 PDF]
     B -->|Native edit| E[冻结页面和属性范围]
     E --> F[原生 PPTX 修改]
     F --> G[结构 + 属性 + 像素验证]
