@@ -112,6 +112,8 @@ blank one. After adding pages run `audit_pptx_page_numbers.py` — usually
 - Visual grammar: the system is the template's. Extract its archetypes,
   density, and whitespace ratios per `native-redesign-fidelity.md` → "Learn the
   template's composition, not only its colors"; do not invent a parallel system.
-- QA: finish on `visual-qa.md` and check every new page against its list.
-  Correction passes introduce their own defects, so re-sweep all pages after
-  fixing, not only the pages you touched.
+- QA: finish on `visual-qa.md` and check every new page against its list; also
+  run the source-trace pass from `AUTHORING.md` → "Verify the delivered
+  artifact" over every stated fact, number, quote, and attribution on the new
+  pages. Correction passes introduce their own defects, so re-sweep all pages
+  after fixing, not only the pages you touched.

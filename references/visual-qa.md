@@ -160,6 +160,9 @@ covered by the authorized scope or ask before expanding it.
   arrows, badges, numbered boxes, and icon rows
 - chart and image visibility
 - color shifts or theme-fill regressions
+- meaning that rides on color alone: where color encodes a category,
+  attribution, or grouping, confirm it survives a grayscale render — a second
+  cue (label, position, weight, or pattern) must distinguish them, not hue alone
 - hidden backup slides still hidden
 - proofing marks or app UI artifacts in exports (handling: see
   `references/pptx-native-editing.md`)

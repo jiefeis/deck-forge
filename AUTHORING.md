@@ -15,12 +15,15 @@ content.
 
 ## Establish the source boundary
 
-Read all supplied material before choosing layouts. Separate three kinds of
+Read all supplied material before choosing layouts. Separate four kinds of
 information:
 
 - facts and claims that must remain unchanged
 - optional supporting material that may be condensed
 - gaps that require a user decision or an explicit placeholder
+- proposals — comments, tracked changes, suggested rewrites（批注里的「拟改为…」）:
+  author from the body text; use their wording only after the user confirms it
+  was adopted
 
 Do not manufacture metrics, customers, dates, quotes, owners, or conclusions to
 make a template look complete. In client-facing proposals, forward-looking
@@ -82,7 +85,8 @@ content to satisfy a layout's slot count.
 - A comparison needs comparable dimensions, not decorative symmetry.
 - A process needs an actual sequence and direction.
 - A chart needs a quantitative relationship worth plotting.
-- A quote needs a real source.
+- A quote needs a real source, and names its speaker beside it — inline quotes
+  included; unnamed, it reads as the words of whoever the page last named.
 
 When copy does not fit, use this order:
 
@@ -111,6 +115,9 @@ After the final write:
    one message
 3. inspect every dense or changed page at full size
 4. check clipping, overlap, weak contrast, image quality, page count, and order
+   — where color carries a category, attribution, or grouping, confirm the
+   meaning survives a grayscale render; a second cue (label, position, weight,
+   or pattern) must distinguish them, not hue alone
 5. rerender after any correction; an earlier preview is not final evidence
 
 Also run the visual-evidence review: inspect whether exhibits actually support
@@ -118,6 +125,15 @@ the title, image crops retain the subject, charts encode the supplied values,
 and diagram arrows express the intended relationships. Review the contact
 sheet for unintentional runs of text/card pages. The HTML audit detects broken
 assets; it cannot judge visual sufficiency or consulting quality.
+
+When the deck states facts, numbers, quotes, or attributions taken from the
+supplied material, trace each back to a source span before delivery, matching
+subject, unit, time range, and status: a target, a proposal, and an achieved
+result are different claims even when the number is identical (a target margin
+of 50% is not an achieved 50%). Cut or mark as an explicit placeholder anything
+with no source. Run this pass even when the draft reads clean — inserted detail
+is invisible to the author who wrote it, so believing the draft is faithful is
+not evidence that it is.
 
 For PDF generation, confirm the exported file rather than trusting the browser
 preview. For native PPTX work, follow the separate source-preserving audit
