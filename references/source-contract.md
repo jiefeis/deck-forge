@@ -9,6 +9,9 @@ user-provided references, or "only one final file" requirements.
   native-edit request must never be converted into the HTML generation workflow.
 - Record the exact source path, final output path, final format, page count, and
   page order before editing.
+- If the user says the delivered file looks unchanged, ask which exact path they
+  opened before searching; report any search by the roots it covered and never
+  state "not found" as "does not exist".
 - Treat similarly named files as untrusted until compared. Names like `v2`,
   `v3`, `copy`, `(1)`, and `(2)` often do not encode the user's intended source.
 - Compare candidate sources by structure and visible content, not by timestamp or

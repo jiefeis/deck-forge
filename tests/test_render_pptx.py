@@ -39,6 +39,31 @@ class RenderPptxTests(unittest.TestCase):
             prs.save(pptx)
             before = sha256(pptx)
 
+            # Regression guard for the PSModulePath inheritance bug: a child
+            # powershell.exe launched under PowerShell 7's PSModulePath loads the
+            # Core Microsoft.PowerShell.Utility, where Get-FileHash is not
+            # available, and the render aborts. render_pptx.ps1 must hash via
+            # .NET, not Get-FileHash. Simulate it with a higher-version Core
+            # Utility manifest ahead of the real one on PSModulePath.
+            fake_util = temp / "ps7" / "Modules" / "Microsoft.PowerShell.Utility"
+            fake_util.mkdir(parents=True)
+            (fake_util / "Microsoft.PowerShell.Utility.psd1").write_text(
+                "@{\n"
+                "GUID = '1DA87E53-152B-403E-98DC-74D7B4D63D59'\n"
+                "ModuleVersion = '7.0.0.0'\n"
+                "CompatiblePSEditions = @('Core')\n"
+                "NestedModules = 'Microsoft.PowerShell.Commands.Utility.dll'\n"
+                "CmdletsToExport = @('Get-FileHash')\n"
+                "FunctionsToExport = @()\n"
+                "AliasesToExport = @()\n"
+                "}\n",
+                encoding="ascii",
+            )
+            env = os.environ.copy()
+            env["PSModulePath"] = (
+                str(fake_util.parent) + os.pathsep + env.get("PSModulePath", "")
+            )
+
             visible_dir = temp / "visible"
             all_dir = temp / "all"
             base = [
@@ -47,7 +72,7 @@ class RenderPptxTests(unittest.TestCase):
             ]
             first = subprocess.run(
                 base + ["-OutputDir", str(visible_dir), "-Engine", "auto"],
-                capture_output=True, text=True, timeout=90,
+                capture_output=True, text=True, timeout=90, env=env,
             )
             if first.returncode and "No supported presentation engine" in (
                 first.stdout + first.stderr
@@ -57,7 +82,7 @@ class RenderPptxTests(unittest.TestCase):
             second = subprocess.run(
                 base + ["-OutputDir", str(all_dir), "-Engine", "auto",
                         "-IncludeHidden"],
-                capture_output=True, text=True, timeout=90,
+                capture_output=True, text=True, timeout=90, env=env,
             )
             self.assertEqual(second.returncode, 0, second.stdout + second.stderr)
 
@@ -70,6 +95,8 @@ class RenderPptxTests(unittest.TestCase):
             self.assertEqual(manifest["slide_count"], 2)
             self.assertEqual(manifest["hidden_physical_indices"], [2])
             self.assertFalse(manifest["include_hidden"])
+            # The .NET SHA-256 helper must agree with an independent hash.
+            self.assertEqual(manifest["source_sha256"].lower(), before.lower())
         finally:
             shutil.rmtree(temp, ignore_errors=True)
 

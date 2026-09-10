@@ -305,7 +305,9 @@ checks alone.
    the editable HTML alongside it.
 4. Offer the natural next steps: edit the words (Phase 6), revise
    content/structure, retheme (re-run Phase 2 + 3), or re-export `--compact` for a
-   smaller file. Any HTML edit goes back through the audit gate
+   smaller file. Copy the delivered HTML to `<scratch>/r<N>-before.html` before
+   any revision round; screenshots cannot tell you later which lines are yours.
+   Any HTML edit goes back through the audit gate
    (`audit_html_slides.py`, Phase 3) and then Phase 4 — an edit can introduce
    exactly the clipped/offstage overflow the gate detects.
 
