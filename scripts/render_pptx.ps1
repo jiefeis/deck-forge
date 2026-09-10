@@ -21,6 +21,23 @@ param(
 Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 
+# Compute SHA-256 without Get-FileHash. When this script is launched from a
+# child powershell.exe under PowerShell 7's PSModulePath, Windows PowerShell
+# 5.1 loads the Core Microsoft.PowerShell.Utility and Get-FileHash disappears
+# (PowerShell/PowerShell discussion #24630). .NET has no such dependency.
+function Get-Sha256Hex {
+    param([string]$Path)
+    $stream = [IO.File]::OpenRead($Path)
+    try {
+        $sha = [Security.Cryptography.SHA256]::Create()
+        try {
+            return ([BitConverter]::ToString($sha.ComputeHash($stream))).Replace("-", "")
+        }
+        finally { $sha.Dispose() }
+    }
+    finally { $stream.Dispose() }
+}
+
 function Release-ComObject {
     param([object]$Object)
     if ($null -ne $Object -and [Runtime.InteropServices.Marshal]::IsComObject($Object)) {
@@ -67,7 +84,7 @@ if ($existing.Count -gt 0) {
     throw "Output directory already contains slide-*.png files; use an empty directory: $output"
 }
 
-$sourceHashBefore = (Get-FileHash -LiteralPath $source -Algorithm SHA256).Hash
+$sourceHashBefore = Get-Sha256Hex $source
 $scratch = Join-Path $env:TEMP ("deckforge-render-" + [guid]::NewGuid().ToString("N"))
 [void](New-Item -ItemType Directory -Path $scratch)
 $scratchPptx = Join-Path $scratch ([IO.Path]::GetFileName($source))
@@ -173,7 +190,7 @@ finally {
     Remove-Item -LiteralPath $scratch -Recurse -Force -ErrorAction SilentlyContinue
 }
 
-$sourceHashAfter = (Get-FileHash -LiteralPath $source -Algorithm SHA256).Hash
+$sourceHashAfter = Get-Sha256Hex $source
 if ($sourceHashBefore -ne $sourceHashAfter) {
     throw "Source file changed during render: $source"
 }
