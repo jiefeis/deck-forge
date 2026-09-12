@@ -74,6 +74,9 @@ python <skill-root>/scripts/export_pdf.py <deck>/index.html [out.pdf] [--compact
 # reuse an existing local chrome.exe with this flag (or set DECK_FORGE_BROWSER_EXECUTABLE
 # once for both audit and export); only download when none launches.
 
+# Build an editable PowerPoint companion from the same HTML (Phase 5 next step):
+python <skill-root>/scripts/export_pptx.py build <deck>/index.html <out.pptx> [--font NAME] [--image-only]
+
 # Edit all deck text in one file, then re-export:
 python <skill-root>/scripts/edit_texts.py extract <deck>/index.html
 python <skill-root>/scripts/edit_texts.py apply   <deck>/index.html <deck>/index.texts.md
@@ -186,6 +189,7 @@ for the full instructions before doing it.
 | `references/native-redesign-fidelity.md` | Physical / visible ordinal / displayed marker / source page mapping, mother-draft fidelity, relationship topology, template composition, and safe candidate rebasing | selected-page native redesign, hidden-page offsets, mother drafts, teaching plans, complex loops/flows |
 | `references/native-template-authoring.md` | Layout inventory, template-page reuse, shape copying, text-frame mechanics, and page numbers when authoring a new deck on an existing template | template-native authoring: mostly-new pages on an existing PPTX's masters/layouts, PPTX delivery |
 | `references/reformat-and-style.md` | Preserve-layout reformat rules and style extraction | reformat/restyle/font/color/background tasks |
+| `references/html-to-pptx.md` | Generated HTML deck → native editable PPTX: confirm native vs image-only, build, render-and-diff, hand over | "变成 PPT" / "能改字的版本" on a deck you generated |
 | `references/pptx-native-editing.md` | Native PPTX package, slide order, layout/master, relationship, and hidden-slide guardrails | editing/copying/translating native PPTX |
 | `references/image-and-ocr-input.md` | Image, screenshot, chart-image, and OCR input handling | image-to-slide or screenshot source material |
 | `references/translation-copyfit.md` | Natural translation and copy fitting in existing layouts | translation/localization tasks |
@@ -210,6 +214,7 @@ for the full instructions before doing it.
 | `scripts/check_env.py` | verify deps (playwright/img2pdf/lxml + Chromium); accepts `--browser-executable` for an existing local browser | preflight |
 | `scripts/audit_html_slides.py` | deterministic HTML-deck audit: clipped/offstage text, broken assets, fonts, geometry, blank pages; supports `--browser-executable` | Phase 3→4 gate, before every export |
 | `scripts/export_pdf.py` | HTML → crisp lossless screenshot PDF when requested; fails closed on font/asset errors; supports `--browser-executable` and `--keep-pngs` | Phase 4 |
+| `scripts/export_pptx.py` | `build`: HTML deck → editable .pptx at browser-measured boxes (`--image-only` for screenshots); `diff`: erosion-filtered page diff vs PPTX renders | Phase 5, "make it a PPT" |
 | `scripts/edit_texts.py` | extract/apply all deck text through one Markdown companion | Phase 6 |
 | `scripts/extract_pptx.py` | visible PPTX pages → content JSON (generation input only) | Generate mode Phase 0; never native edit |
 | `scripts/audit_pptx_page_numbers.py` | audit page-number sources across slides, layouts, and masters | native PPTX page-number/footer edits |
