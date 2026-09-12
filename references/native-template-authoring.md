@@ -42,8 +42,11 @@ Count which layouts the source actually uses before choosing any:
     print("unused:", [l.name for m in p.slide_masters
                       for l in m.slide_layouts if l.name not in used])
 
-Map every planned page to a native layout, and confirm the page → layout
-mapping together with the outline before building anything. Follow the source's
+Map every planned page to a native layout and a visual brief
+(`visual-evidence.md` → "Plan a visual, not a decoration": primary visual and
+its job, source or production route, status — or why exact text or a table is
+the page's job), and confirm the page → layout → visual plan together with the
+outline before building anything. Follow the source's
 own distribution: a deck authored entirely on one layout when the source
 alternates several reads as monotony, not restraint. Inspect each candidate
 layout's placeholders and non-placeholder furniture (rules, side text, footers)
@@ -112,6 +115,11 @@ blank one. After adding pages run `audit_pptx_page_numbers.py` — usually
 - Visual grammar: the system is the template's. Extract its archetypes,
   density, and whitespace ratios per `native-redesign-fidelity.md` → "Learn the
   template's composition, not only its colors"; do not invent a parallel system.
+- Visual assets: when pages are authored by helpers or sub-agents, each hand-off
+  carries that page's visual brief, route, and asset path/status. An
+  image-insertion helper is not a visual plan. An unresolved required asset
+  keeps its page in draft; an optional omission records its reason. A failed
+  route must not quietly become generic boxes and count as a completed visual.
 - QA: finish on `visual-qa.md` and check every new page against its list; also
   run the source-trace pass from `AUTHORING.md` → "Verify the delivered
   artifact" over every stated fact, number, quote, and attribution on the new

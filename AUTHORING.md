@@ -25,6 +25,23 @@ information:
   author from the body text; use their wording only after the user confirms it
   was adopted
 
+For a delivery version, distinguish the purpose of each gap:
+
+- **Live-fill fields:** answers or scores produced during use need an editable
+  blank with a meaningful field label. Follow the template's label styling.
+  In PPTX prefer a line shape to repeated underscore glyphs, and check the
+  filled layout in the target renderer.
+- **Missing facts:** request information necessary for delivery when it is
+  unavailable and no treatment has been agreed. State what is missing and keep
+  the affected content provisional; a tidy empty table must not imply that an
+  analysis is complete. Never invent values or commitments.
+- **Approved placeholders:** retain user-specified placeholders, agreed blanks,
+  and wording protected by a verbatim or translation contract. Do not ask again
+  for information the user has already agreed to supply later.
+
+Replace production prompts such as TBD or 待填 with designed fields only when
+that serves the requested delivery and does not override these contracts.
+
 Do not manufacture metrics, customers, dates, quotes, owners, or conclusions to
 make a template look complete. In client-facing proposals, forward-looking
 numbers are commitments, not texture: write only figures the user will stand
@@ -75,6 +92,26 @@ Variation should come from composition and emphasis, not accidental font or
 color drift. Use one dominant visual idea per page and keep decorative elements
 subordinate to the information. On a dense page, lead and body sit about two
 points apart; a third body size is drift, not emphasis.
+
+Preserve the template's title, label, weight, and semantic-color roles. Within
+authored body copy, use emphasis to make the key comparison, decision, or
+evidence easy to find:
+
+- Separate scan labels from their explanations when the content uses that
+  structure. Do not treat a title prefix as another body label.
+- Bold the meaningful phrase or paired terms, not every sentence or list item.
+  In tables, distinguish the important result from reference values; a short
+  evidence-only numeric cell may be bold in full, including its unit.
+- Focus added body accents on the page's point. One or two is a useful starting
+  point, not a quota; existing brand colors, chart series, and role labels are
+  not extra body emphasis to remove.
+- Keep qualifiers attached to their claims and sufficiently prominent. If
+  “estimated” or “not yet deployed” is the important distinction, it may deserve
+  emphasis. Do not make a number conspicuous while weakening its limitation.
+
+Avoid uniform emphasis across whole body columns or unrelated parallel terms.
+There is no per-sentence minimum or character-percentage target; check the
+reading hierarchy at presentation size and keep same-role treatment consistent.
 
 ## Fit content without fabrication
 
