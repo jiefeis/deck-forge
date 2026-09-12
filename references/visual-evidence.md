@@ -33,7 +33,9 @@ page is valid when reading exact language or values is its job; note that reason
 When the brief involves a physical setting, product, people, or a real case,
 actively identify and obtain useful subject imagery. Text-only input is not a
 reason to omit images. Do not substitute icons, gradients, generic cards, or
-CSS-drawn scenery for a planned photo or illustration.
+decorative scenery for the planned subject. An authored vector illustration
+may fulfill a concept brief through the fallback below; an icon arrangement
+renamed “illustration” does not.
 
 Review the whole deck for rhythm: scenario, analysis, mechanism, decision.
 Repeated card/text compositions are a prompt to reconsider the visual briefs,
@@ -46,7 +48,7 @@ legal, text-only, or template-preserving decks.
 | --- | --- | --- |
 | Real product, client, site, person, case evidence | supplied originals; then official/appropriately licensed sources | generation cannot establish what actually exists or happened |
 | Software behavior or document evidence | authentic screenshot or supplied artifact | keep labels legible and sensitive details within authorized scope |
-| Concept, future scene, editorial cover, explanatory illustration | available image-generation tool, or suitable licensed artwork | label as concept/illustration when realism could imply factual evidence |
+| Concept, future scene, editorial cover, explanatory illustration | available image-generation tool, or suitable licensed artwork; when the session has neither, an authored vector illustration (SVG source kept, raster exported for the displayed size) in one shared style with no text inside | label as concept/illustration when realism could imply factual evidence; an authored illustration is accepted on the brief's subject, action, and scene at final size, not on file format — a relabeled icon set does not pass |
 | Quantitative claim | chart from source values using code/native chart objects | do not ask an image model to synthesize chart numbers or geometry; deterministic raster export from preserved data is allowed by the output contract |
 | Sequence, system, causal structure, hierarchy | editable SVG or native diagram objects | geometry must encode the actual relationship |
 | Simple icon | existing coherent icon set or vector | an icon is a label aid, not a primary evidence image |

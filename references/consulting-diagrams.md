@@ -195,6 +195,33 @@ Check three layers independently; passing one does not prove the other two:
 3. **Argument:** at thumbnail size the primary relationship and emphasis are
    clear; at full size the audience can inspect the evidence behind the title.
 
+These relations are often stated in the text but left undrawn. For each one
+the page claims, check that the drawing carries it; the carrier can be a
+connector, a container, position, or a clear label:
+
+- **Attribution:** results that belong to one group read as that group's set
+  (shared container, distribution tree, or grouped labels), not as one member
+  card's.
+- **One-to-many:** an action the source ties to two outcomes reaches both —
+  two edges, or one edge into a container that holds both.
+- **Handoff ports:** an artifact transfer leaves its producing step and enters
+  its receiving step. Use a container-level connection only when the relation
+  actually applies to that whole system, not merely to align the arrows.
+- **Parallel vs sequence:** independent mechanisms sit side by side with no
+  arrows between them; arrows only inside a mechanism's own order.
+- **Condition:** the condition and its source-supported exits are
+  recognizable; exits the source does not give stay undrawn.
+- **Plan vs actual:** connect an event's planned and actual times only when
+  the source confirms they describe the same event; label a reschedule or
+  observed delay accordingly. Show cancellation, replacement, an event not
+  subsequently held, or an unknown outcome as its stated status. Draw a
+  replacement link only when sourced and label it as replacement, not delay.
+
+Every drawn relation needs a supported meaning; do not add edges for symmetry
+or completeness. Neighboring boxes and ordered arrows can fully express a
+linear process. For other relationships, use the grouping or topology that
+makes the specific claim inspectable before polishing.
+
 Trace both directions: every required relationship appears, and every drawn
 connector has a justified meaning. Strip color mentally; if the relation becomes
 unreadable, labels/grouping must improve. Color cannot carry the entire logic.

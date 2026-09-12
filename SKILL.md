@@ -142,8 +142,10 @@ target deck and report same-role font/size inconsistencies to the user before mu
 (`references/pptx-native-editing.md` → Typography baseline). For
 template-native authoring (a mostly-new deck on the source's own
 masters/layouts/theme), also read `references/native-template-authoring.md` plus
-`AUTHORING.md` → "Plan the page sequence" and "Fit content without
-fabrication", and, for a deck that argues a case, `references/storyline.md`.
+`AUTHORING.md` → "Establish the source boundary", "Plan the page sequence",
+"Build one visual system", and "Fit content without fabrication", plus
+`references/visual-evidence.md` for each added page's visual brief, and
+`references/storyline.md` for a deck that argues a case.
 For **Audit/compare**, remain read-only and use the manifests/audit scripts
 before rendering.
 
@@ -194,7 +196,7 @@ for the full instructions before doing it.
 | `references/storyline.md` | Argument storyline: title chain, pyramid/SCQA, action titles, archetypes, harvesting source decks | Phase 1 for any deck that argues a case; template-native authoring page planning |
 | `references/visual-evidence.md` | Visual briefs, actual image acquisition/generation, consulting exhibits, diagram semantics, and asset QA | Phase 1–4 for new decks; authorized new/redesigned native pages only |
 | `references/consulting-diagrams.md` | Relationship-to-diagram selection, evidence/edge briefs, swimlanes, drivers, value chains, matrix logic, routing and editable-output QA | when authoring or redesigning a relationship diagram; never unsolicited native relayout |
-| `AUTHORING.md` | Source fidelity, deck coherence, fit, and final verification | Phase 1, 3, 4; template-native authoring (storyline and fit sections) |
+| `AUTHORING.md` | Source fidelity, deck coherence, fit, and final verification | Phase 1, 3, 4; template-native authoring (source boundary, sequence, visual system, fit, and final source trace) |
 | `LAYOUTS.md` | Information-shape → composition selection guide | Phase 1, 3 |
 | `STYLE_PRESETS.md` | 12 curated visual presets (frontend-slides) | Phase 2 |
 | `bold-template-pack/selection-index.json` | Bold-template index | Phase 2 |
