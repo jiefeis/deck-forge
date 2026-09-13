@@ -5,9 +5,20 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import re
 import sys
 from pathlib import Path
+
+
+def _longpath(p: Path) -> Path:
+    """Windows MAX_PATH guard. An installed skill copy can sit 190+ characters
+    deep, so template files exceed 260 and open() reports them missing; the
+    extended-length prefix lifts the limit without needing LongPathsEnabled."""
+    s = str(p.resolve())
+    if os.name == "nt" and not s.startswith("\\\\?\\"):
+        return Path("\\\\?\\" + s)
+    return Path(s)
 
 
 REQUIRED_DESIGN_MARKERS = (
@@ -99,7 +110,7 @@ def main() -> int:
     )
     parser.add_argument("--json", action="store_true")
     args = parser.parse_args()
-    errors = validate(args.skill_root.resolve())
+    errors = validate(_longpath(args.skill_root))
     if args.json:
         print(json.dumps({"status": "FAIL" if errors else "OK", "errors": errors},
                          ensure_ascii=False, indent=2))

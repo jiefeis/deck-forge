@@ -69,6 +69,8 @@ def main() -> int:
         return 1
 
     root = Path(__file__).resolve().parent.parent
+    # Run from the repository checkout: the installed plugin copy sits so deep
+    # that the test suite's own paths exceed Windows MAX_PATH (see validate_*).
     env = os.environ.copy()
     env["PYTHONUTF8"] = "1"
     env["PYTHONIOENCODING"] = "utf-8"
