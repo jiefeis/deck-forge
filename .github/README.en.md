@@ -2,76 +2,68 @@
 
 English | [中文](README.md)
 
-**A delivery-oriented presentation skill that creates new decks and also edits, translates, compares, and verifies native PPTX files without rebuilding them.**
+[![CI](https://github.com/jiefeis/deck-forge/actions/workflows/ci.yml/badge.svg)](https://github.com/jiefeis/deck-forge/actions/workflows/ci.yml)
 
-Deck Forge is more than a prompt for making attractive slides. It separates deck work into generation, native editing, and read-only audit modes, then applies executable quality gates to slide order, hidden backups, typography, translation, page numbers, object properties, and final renders.
+**Make coding agents produce decks you can actually deliver: a storyline that holds, pages a reader understands without reasoning, and files that survive page-by-page verification.**
+
+With this skill installed, an agent such as Claude Code or Codex changes how it builds a deck: it derives a title chain from the material before authoring any page, turns stacked text into visuals the reader does not have to decode, and removes the copy patterns that read as machine-written. On an existing PPTX it edits inside the native package, never rebuilds, and can prove afterwards that only the authorized properties changed. Before delivery every page is rendered, audited, and looked at.
 
 ## Contents
 
-- What makes it different
+- Where deliveries actually fail, and what the skill does about it
 - Three operating modes
+- What a generation run looks like
 - Installation
 - Dependencies
 - Example prompts
-- Audit tools
+- Audit and export tools
 - Repository layout
 - Limitations and license
 
-## What makes it different
+## Where deliveries actually fail, and what the skill does about it
 
-### 1. Native PPTX preservation instead of screenshot rebuilding
+| Failure | What Deck Forge does | Where the rule lives |
+| --- | --- | --- |
+| **Invented content**: numbers, customers, and conclusions made up to fill a template | Gaps stay empty or marked; page count follows the evidence; a deck that argues a case builds a title chain (pyramid / SCQA) that the user confirms before any page exists | [`AUTHORING.md`](../AUTHORING.md), [`references/storyline.md`](../references/storyline.md) |
+| **Stacked text**: one explanation split into four equal cards, everything bold so nothing stands out | Recognize belonging, sequence, comparison, and handoff in prepared text and carry them with containers, conditioned arrows, dialogue mocks, ✓✗ ledgers, or proportional bars; falling back to text needs a reason too | [`references/text-to-visual.md`](../references/text-to-visual.md), [`LAYOUTS.md`](../LAYOUTS.md), [`references/consulting-diagrams.md`](../references/consulting-diagrams.md) |
+| **Fake visuals**: icon grids and gradients posing as imagery | Each page gets a visual brief; real subjects get real photos or labeled concept illustrations; charts are drawn from data with geometry computed from values | [`references/visual-evidence.md`](../references/visual-evidence.md) |
+| **AI-sounding copy**: flywheels, levers, closed loops, mechanical "not X but Y" | Rules distilled from real editor passes: shorter, concrete, about the work rather than the people; separate passes for client-facing diagnosis and BD pages | [`references/deck-copy-and-ai-slop.md`](../references/deck-copy-and-ai-slop.md) |
+| **Damaged originals**: a "small edit" that silently rebuilds the deck and loses order, hidden slides, and master relationships | Native PPTX is edited inside its own package: slide and property scope is frozen first; property allowlists, hidden-backup comparison, and structural manifests prove only the authorized changes happened | [`references/edit-scope-contract.md`](../references/edit-scope-contract.md), [`references/pptx-native-editing.md`](../references/pptx-native-editing.md) |
+| **Nobody looked at every page**: "tests pass" treated as delivery | Generated HTML passes a deterministic audit (clipping, offstage text, missing fonts, blank pages) and is then rendered and inspected page by page; PDF export is lossless and fails closed on font or asset errors; native PPTX is rendered through PowerPoint / WPS | [`scripts/audit_html_slides.py`](../scripts/audit_html_slides.py), [`references/visual-qa.md`](../references/visual-qa.md) |
 
-For existing-PPTX tasks, Deck Forge preserves the native package, true slide order, hidden slides, layout/master relationships, and object geometry. A minimal-edit request is never silently rebuilt as HTML, PDF, or full-slide images.
-
-### 2. Minimal change becomes enforceable
-
-Many workflows can only say that “slide 7 changed.” Deck Forge can identify which property families changed:
-
-- text and typography
-- color and background
-- geometry, grouping, and z-order
-- media, charts, embedded data, and relationships
-- notes, timing, hidden state, and order
-
-[`audit_pptx_properties.py`](../scripts/audit_pptx_properties.py) applies a per-slide allowlist. Unauthorized, ambiguous, broad, or unused rules fail closed.
-
-### 3. Hidden backups are verified, not merely present
-
-[`audit_pptx_backups.py`](../scripts/audit_pptx_backups.py) compares a source slide with its hidden backup across text, style, geometry, shape order, and dependent images, charts, and notes. Rendered pages can also be mapped across different physical indices, such as source slide 3 versus hidden backup slide 50.
-
-### 4. Translation includes structural completeness and copyfit
-
-Translation mode builds a source-to-target mapping, checks title logic and text-box completeness, and treats automatic order fallback across different stable slide IDs as provisional. Exceptions must identify specific slides and boxes; broad wildcards cannot hide missing translations.
-
-### 5. Page numbers, typography, and visual QA are full-deck checks
-
-- Page-number auditing inspects slides, layouts, masters, placeholders, and native fields.
-- Typography auditing resolves Latin/East Asian fonts, size, bold, inheritance, and suspicious names such as `????`.
-- The PowerPoint/WPS renderer works from a scratch copy and verifies the source hash.
-- Final QA covers every page rather than a sample.
-
-### 6. Generation mode still has a real design system
-
-Generation mode uses a fixed 1920×1080 HTML stage, visual style previews, 34 design templates, and lossless screenshot PDF export. The storyline comes from the supplied material; the skill does not fabricate facts to fill a layout.
+Translation, page numbers, and typography — small things that break often — each get a full-deck audit: translation builds a source-to-target mapping and checks text-box completeness, page numbers are inspected down to layouts and masters, and typography resolves Latin / East Asian fonts, size, bold, and inheritance.
 
 ## Three operating modes
 
 | Mode | Use it for | Deliverable |
 | --- | --- | --- |
-| Generate | Create a new presentation from notes, documents, images, or a topic | HTML, lossless PDF, or both as requested |
+| Generate | Create a new presentation from notes, documents, images, or a topic | A single-file 1920×1080 HTML deck; on request a lossless PDF, or an editable PPTX via `export_pptx.py` |
 | Native edit | Reformat, translate, copy-polish, or repair an existing PPTX; also author a mostly-new deck on the source's own masters, layouts, and theme | Native PPTX with preserved structure |
 | Audit / compare | Compare versions, order, translation, typography, numbering, or renders | Read-only report; source files remain unchanged |
 
 ```mermaid
 flowchart LR
     A[Materials or PPTX] --> B{Choose a mode}
-    B -->|Generate| C[Fixed-stage HTML]
-    C --> D[Verify and deliver requested HTML or PDF]
+    B -->|Generate| C[Title chain → per-page shape and visual → fixed-stage HTML]
+    C --> D[Audit + inspect every page → deliver HTML / PDF / editable PPTX]
     B -->|Native edit| E[Freeze slide and property scope]
     E --> F[Native PPTX change]
     F --> G[Structure + property + pixel gates]
     B -->|Audit| H[Read-only manifests and differences]
 ```
+
+The request picks the mode: an existing PPTX with "keep the original / minimal change / deliver PPTX" is Native edit; a PPTX used only as material for a new deck with HTML / PDF delivery accepted is Generate; report differences and change nothing is Audit. When the delivery format is unclear the skill asks instead of guessing.
+
+## What a generation run looks like
+
+1. **Intake**: pull materials and theme from the request; confirm only purpose, length, and density.
+2. **Storyline**: for a deck that argues a case, produce the title chain first (one titled claim plus a one-line evidence note per page) and get it confirmed before any page; name each page's information shape and primary visual; text-heavy material goes through the text-to-visual pass.
+3. **Style**: honor a given theme, otherwise generate three genuinely different preview slides (12 style presets plus 34 design templates) and let the user pick.
+4. **Generate the HTML**: fixed 16:9 stage, one design system, real assets instead of placeholders.
+5. **Verify**: deterministic audit, then render and inspect every page; export PDF only when requested and check it.
+6. **Deliver and edit the words**: `edit_texts.py` extracts all deck text into one Markdown file; edit, apply, re-export.
+
+The full procedure is in [`references/workflow.md`](../references/workflow.md); [`SKILL.md`](../SKILL.md) is the entry point and holds only triggers, non-negotiables, commands, and routing.
 
 ## Installation
 
@@ -101,9 +93,21 @@ python -m playwright install chromium
 python scripts/check_env.py
 ```
 
-Native PPTX rendering uses PowerPoint or WPS COM on Windows. Most OOXML auditors use only the Python standard library; Pillow powers pixel audits and contact sheets.
+`export_pptx.py diff` additionally needs `numpy`. Native PPTX rendering uses PowerPoint or WPS COM on Windows. Most OOXML auditors use only the Python standard library; Pillow powers pixel audits and contact sheets.
 
 ## Example prompts
+
+```text
+Use deck-forge to turn these meeting notes into a 16:9 consulting deck. Show me the title chain for confirmation first, then build the pages, and export a lossless PDF.
+```
+
+```text
+Use deck-forge on this page: the text is stacked. Identify the belonging and sequence relationships first, then decide how to draw them — do not split it into more cards.
+```
+
+```text
+Use deck-forge to remove the AI-sounding copy from this deck using the client-facing rules. Keep layout and facts unchanged.
+```
 
 ```text
 Use deck-forge to restyle slides 5 and 8 using the reference slides' palette and typography.
@@ -116,51 +120,55 @@ Check translation completeness, box fit, and overflow. Treat the Chinese deck as
 ```
 
 ```text
-Use deck-forge to turn this Markdown brief into a 16:9 consulting deck and export a lossless PDF.
+Use deck-forge to turn the HTML deck it just generated into a PPTX I can edit.
 ```
 
-## Audit tools
+## Audit and export tools
 
 ```bash
-# True order, hidden slides, shared parts, and translation structure
+# Generated HTML deck: pre-export audit, lossless PDF, editable PPTX, text round-trip
+python scripts/audit_html_slides.py deck/index.html
+python scripts/export_pdf.py deck/index.html deck/deck.pdf
+python scripts/export_pptx.py build deck/index.html deck/deck.pptx
+python scripts/edit_texts.py extract deck/index.html   # edit deck/index.texts.md, then apply
+
+# Native PPTX: true order, hidden slides, shared parts, translation structure
 python scripts/audit_pptx_structure.py manifest deck.pptx
 python scripts/audit_pptx_structure.py compare before.pptx after.pptx
 
-# Property-level minimal change
+# Property-level minimal change, hidden-backup identity, page numbers, typography
 python scripts/audit_pptx_properties.py before.pptx after.pptx --scope scope.json
-
-# Hidden-backup identity
 python scripts/audit_pptx_backups.py source.pptx final.pptx --map 3:50
-
-# Page numbers and typography
 python scripts/audit_pptx_page_numbers.py deck.pptx
 python scripts/audit_pptx_typography.py deck.pptx
 
-# Deterministic audit of a generated HTML deck before export
-python scripts/audit_html_slides.py deck/index.html
-
-# Complete repository checks
+# Complete self-check (skill structure validation + every regression test)
 python scripts/run_self_checks.py
 ```
-
-See [`references/`](../references/) and [`SKILL.md`](../SKILL.md) for the complete workflows.
 
 ## Repository layout
 
 ```text
-SKILL.md                 Skill entry point and routing
-references/              Native-edit, translation, reformat, and visual-QA rules
-scripts/                 Generation, rendering, and read-only audit tools
-tests/                   Synthetic PPTX, PDF, HTML, and render regressions
-evals/                   Behavioral pressure scenarios for the mode/scope contracts
+SKILL.md                 Entry point: triggers, non-negotiables, commands, routing
+AUTHORING.md             Source boundary, page sequence, visual system, fit, final trace
+LAYOUTS.md               Information shape → composition
+references/              17 rule files: storyline, text-to-visual, visual evidence, consulting
+                         diagrams, AI-slop cleanup, source and scope contracts, native editing,
+                         translation, reformat, visual QA, worked good/bad examples
+scripts/                 Generation, export, rendering, and read-only audit tools (20)
+tests/                   Synthetic PPTX / PDF / HTML and render regressions (19 suites)
+evals/                   14 behavioral pressure scenarios: mode, scope, fabrication, hidden pages,
+                         multi-source authority
 bold-template-pack/      34 progressively loaded design templates
-examples/                Reference HTML deck implementations
+examples/                4 reference implementations: consulting diagrams, consulting visuals,
+                         text editing, exporter stress sample
 ```
 
 ## Limitations and license
 
 - PowerPoint, WPS, and LibreOffice may substitute fonts differently, so final rendering in the target application is still required.
-- Screenshot PDFs are crisp but their body text is generally not selectable.
+- Screenshot PDFs are crisp but their body text is generally not selectable; to change words, go back to the HTML or export a PPTX with `export_pptx.py`.
+- `evals/` are maintainer-run behavioral probes, not CI; the skill's actual effect on agent behavior has not been independently measured, and single-case rules in the reference files are marked as awaiting validation.
 - Deck Forge does not grant redistribution rights for user-provided images, fonts, or client materials.
 
 Deck Forge is released under the [MIT License](../LICENSE). See [`THIRD_PARTY_NOTICES.md`](../THIRD_PARTY_NOTICES.md) for bundled MIT components and attribution.
