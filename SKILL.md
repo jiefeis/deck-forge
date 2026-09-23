@@ -62,6 +62,7 @@ Requires Python 3.9+ (driven by Playwright).
 # Verify deps once per Python environment (then install anything it flags):
 python <skill-root>/scripts/check_env.py
 #   pip install playwright img2pdf lxml Pillow   (+ python-pptx for .pptx input)
+#   pip install numpy   (only for export_pptx.py diff)
 #   python -m playwright install chromium
 
 # Deterministic pre-export audit of the generated HTML deck (Phase 3→4 gate):
