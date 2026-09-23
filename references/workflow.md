@@ -109,6 +109,9 @@ first per `references/storyline.md`; materials that are themselves consulting
 decks are harvested per its "Harvest arguments, not pages" — never inherit
 their page order. Then:
 
+Before choosing layouts, read `text-to-visual.md` for text-heavy material and
+spot possible relationships that the source actually supports.
+
 - How many sections? How many points per section?
 - For each page, name its **information shape** (parallel items / contrast / data
   / timeline / hierarchy / single stat / quote / explanation+visual / chapter
@@ -193,6 +196,8 @@ Reuse or source authentic evidence assets; use an available image-generation
 tool for conceptual raster artwork, and editable SVG/native objects for charts
 and diagrams. Inspect real outputs, store final assets locally or embed them,
 and record provenance. No planned image remains a placeholder in a final deck.
+If a drafted page is still stacked cards or indiscriminately bold, recheck
+`text-to-visual.md` for a supported relationship and a simpler way to show it.
 
 **Requirements:**
 - One HTML entrypoint with all CSS/JS inline; assets may be embedded or stored in

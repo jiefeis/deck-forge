@@ -5,6 +5,10 @@ existing deck's or template's own masters, layouts, and theme. This is Native
 edit with an authoring-sized scope: `source-contract.md` and
 `edit-scope-contract.md` still govern, and the scope contract records kept
 pages, deleted pages, added pages, and each added page's layout.
+For new or explicitly authorized redesigned pages within that scope, use
+`text-to-visual.md` to identify supported relationships before choosing a
+composition; it does not grant relayout permission for minimal edits,
+translation, or layout-preserving reformatting.
 
 ## Contents
 

@@ -112,6 +112,8 @@ evidence easy to find:
 Avoid uniform emphasis across whole body columns or unrelated parallel terms.
 There is no per-sentence minimum or character-percentage target; check the
 reading hierarchy at presentation size and keep same-role treatment consistent.
+For text-heavy pages, recheck `references/text-to-visual.md` when relationships
+or repeated bolding make the reading hierarchy hard to see.
 
 ## Fit content without fabrication
 
