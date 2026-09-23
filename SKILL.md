@@ -199,6 +199,7 @@ for the full instructions before doing it.
 | **Generation assets** | | |
 | `references/storyline.md` | Argument storyline: title chain, pyramid/SCQA, action titles, archetypes, harvesting source decks | Phase 1 for any deck that argues a case; template-native authoring page planning |
 | `references/visual-evidence.md` | Visual briefs, actual image acquisition/generation, consulting exhibits, diagram semantics, and asset QA | Phase 1–4 for new decks; authorized new/redesigned native pages only |
+| `references/text-to-visual.md` | Text signals that may reveal a visual relationship, with prerequisites and fallbacks | Phase 1 for text-heavy material before choosing layouts; Phase 3 when a drafted page is stacked cards or indiscriminately bold; authorized new/redesigned native pages only |
 | `references/consulting-diagrams.md` | Relationship-to-diagram selection, evidence/edge briefs, swimlanes, drivers, value chains, matrix logic, routing and editable-output QA | when authoring or redesigning a relationship diagram; never unsolicited native relayout |
 | `AUTHORING.md` | Source fidelity, deck coherence, fit, and final verification | Phase 1, 3, 4; template-native authoring (source boundary, sequence, visual system, fit, and final source trace) |
 | `LAYOUTS.md` | Information-shape → composition selection guide | Phase 1, 3 |
