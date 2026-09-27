@@ -6,7 +6,7 @@ English | [中文](README.md)
 
 **Make coding agents produce decks you can actually deliver: a storyline that holds, pages a reader understands without reasoning, and files that survive page-by-page verification.**
 
-With this skill installed, an agent such as Claude Code or Codex changes how it builds a deck: it derives a title chain from the material before authoring any page, turns stacked text into visuals the reader does not have to decode, and removes the copy patterns that read as machine-written. On an existing PPTX it edits inside the native package, never rebuilds, and can prove afterwards that only the authorized properties changed. Before delivery every page is rendered, audited, and looked at.
+With this skill installed, an agent such as Claude Code or Codex chooses a path for the task: a deck that argues a case gets a title chain confirmed before pages are authored; text-heavy pages are checked for relationships that could be shown visually; copy is revised for its audience when requested. For an existing PPTX, the agent preserves its native structure and checks the authorized scope. Before delivery, it renders, audits, and inspects every page.
 
 ## Contents
 
@@ -24,7 +24,7 @@ With this skill installed, an agent such as Claude Code or Codex changes how it 
 
 | Failure | What Deck Forge does | Where the rule lives |
 | --- | --- | --- |
-| **Invented content**: numbers, customers, and conclusions made up to fill a template | Gaps stay empty or marked; page count follows the evidence; a deck that argues a case builds a title chain (pyramid / SCQA) that the user confirms before any page exists | [`AUTHORING.md`](../AUTHORING.md), [`references/storyline.md`](../references/storyline.md) |
+| **Invented content**: numbers, customers, and conclusions made up to fill a template | Missing facts needed for delivery are requested from the user and the affected content stays provisional; agreed blanks remain explicit, and page count follows the evidence. A deck that argues a case builds a title chain (pyramid / SCQA) that the user confirms before pages are authored | [`AUTHORING.md`](../AUTHORING.md), [`references/storyline.md`](../references/storyline.md) |
 | **Stacked text**: one explanation split into four equal cards, everything bold so nothing stands out | Recognize belonging, sequence, comparison, and handoff in prepared text and carry them with containers, conditioned arrows, dialogue mocks, ✓✗ ledgers, or proportional bars; falling back to text needs a reason too | [`references/text-to-visual.md`](../references/text-to-visual.md), [`LAYOUTS.md`](../LAYOUTS.md), [`references/consulting-diagrams.md`](../references/consulting-diagrams.md) |
 | **Fake visuals**: icon grids and gradients posing as imagery | Each page gets a visual brief; real subjects get real photos or labeled concept illustrations; charts are drawn from data with geometry computed from values | [`references/visual-evidence.md`](../references/visual-evidence.md) |
 | **AI-sounding copy**: flywheels, levers, closed loops, mechanical "not X but Y" | Rules distilled from real editor passes: shorter, concrete, about the work rather than the people; separate passes for client-facing diagnosis and BD pages | [`references/deck-copy-and-ai-slop.md`](../references/deck-copy-and-ai-slop.md) |
@@ -37,15 +37,15 @@ Translation, page numbers, and typography — small things that break often — 
 
 | Mode | Use it for | Deliverable |
 | --- | --- | --- |
-| Generate | Create a new presentation from notes, documents, images, or a topic | A single-file 1920×1080 HTML deck; on request a lossless PDF, or an editable PPTX via `export_pptx.py` |
+| Generate | Create a new presentation from notes, documents, images, or a topic | 1920×1080 HTML (single-file when requested, otherwise with local assets); on request a lossless PDF, or an editable PPTX companion built from the HTML |
 | Native edit | Reformat, translate, copy-polish, or repair an existing PPTX; also author a mostly-new deck on the source's own masters, layouts, and theme | Native PPTX with preserved structure |
 | Audit / compare | Compare versions, order, translation, typography, numbering, or renders | Read-only report; source files remain unchanged |
 
 ```mermaid
 flowchart LR
     A[Materials or PPTX] --> B{Choose a mode}
-    B -->|Generate| C[Title chain → per-page shape and visual → fixed-stage HTML]
-    C --> D[Audit + inspect every page → deliver HTML / PDF / editable PPTX]
+    B -->|Generate| C[Title chain for argumentative decks → per-page shape and visual → fixed-stage HTML]
+    C --> D[Audit + inspect every page → deliver HTML / PDF, optionally build an editable PPTX companion]
     B -->|Native edit| E[Freeze slide and property scope]
     E --> F[Native PPTX change]
     F --> G[Structure + property + pixel gates]
@@ -72,8 +72,6 @@ The full procedure is in [`references/workflow.md`](../references/workflow.md); 
 ```powershell
 git clone https://github.com/jiefeis/deck-forge.git "$env:USERPROFILE\.agents\skills\deck-forge"
 ```
-
-Older Codex releases scan `~/.codex/skills` instead; clone there if you are on one.
 
 ### Claude Code
 
@@ -168,7 +166,7 @@ examples/                4 reference implementations: consulting diagrams, consu
 
 - PowerPoint, WPS, and LibreOffice may substitute fonts differently, so final rendering in the target application is still required.
 - Screenshot PDFs are crisp but their body text is generally not selectable; to change words, go back to the HTML or export a PPTX with `export_pptx.py`.
-- `evals/` are maintainer-run behavioral probes, not CI; the skill's actual effect on agent behavior has not been independently measured, and single-case rules in the reference files are marked as awaiting validation.
+- `evals/` are maintainer-run behavioral probes, not CI; the skill's actual effect on agent behavior has not been independently measured, and one case does not establish a general effect.
 - Deck Forge does not grant redistribution rights for user-provided images, fonts, or client materials.
 
 Deck Forge is released under the [MIT License](../LICENSE). See [`THIRD_PARTY_NOTICES.md`](../THIRD_PARTY_NOTICES.md) for bundled MIT components and attribution.

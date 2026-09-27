@@ -6,7 +6,7 @@
 
 **让编码代理做出能交付的演示：故事线讲得通、画面看得懂、文件经得起逐页核对。**
 
-给 Claude Code、Codex 这类代理装上这个技能之后，它做 deck 的方式会变：先从材料里立起标题链再做页，把堆叠的文字转成读者不用自己推理的画面，去掉一眼就能认出的 AI 味；改已有 PPTX 时不重建、不越界，改完能证明只改了授权的地方；交付前每一页都渲染、审计、看过。
+给 Claude Code、Codex 这类代理装上这个技能之后，它会按任务选路径：论证型 deck 先从材料里立起标题链、确认后再做页；文字重的页面先识别关系再组织画面；需要打磨文案时按受众调整措辞。改已有 PPTX 时保留原生结构并核对授权范围；交付前逐页渲染、审计和查看。
 
 ## 目录
 
@@ -24,7 +24,7 @@
 
 | 会翻车的地方 | Deck Forge 怎么做 | 规则在哪 |
 | --- | --- | --- |
-| **编故事**：为了填满模板，凑出数字、客户、结论 | 材料撑不起的就留空或标待补，页数跟着证据走；论证型 deck 先建标题链（金字塔 / SCQA），用户确认后才做页 | [`AUTHORING.md`](../AUTHORING.md)、[`references/storyline.md`](../references/storyline.md) |
+| **编故事**：为了填满模板，凑出数字、客户、结论 | 交付必需事实缺失时先向用户确认，受影响内容保持草稿；已批准留待填写的内容明确占位，页数跟着证据走。论证型 deck 先建标题链（金字塔 / SCQA），用户确认后才做页 | [`AUTHORING.md`](../AUTHORING.md)、[`references/storyline.md`](../references/storyline.md) |
 | **文字堆叠**：一段说明拆成四张等宽卡片，重点全加粗等于没加粗 | 从整理好的文字里认出归属、先后、比较、交接，转成容器、带条件的箭头、对话示意、勾叉表、比例条；退回文字也要有根据 | [`references/text-to-visual.md`](../references/text-to-visual.md)、[`LAYOUTS.md`](../LAYOUTS.md)、[`references/consulting-diagrams.md`](../references/consulting-diagrams.md) |
 | **假视觉**：用图标阵列、渐变色块冒充"有图" | 每页先写视觉简报；实物、场景、案例去拿真图或生成并标注的概念图；图表从数据画，几何按数值算 | [`references/visual-evidence.md`](../references/visual-evidence.md) |
 | **AI 味**：飞轮、抓手、闭环，排比句和"不是……而是……" | 按真实编辑稿蒸馏出的规则改文案：短、具体、对事不对人；客户面的诊断页和 BD 页各有一套 | [`references/deck-copy-and-ai-slop.md`](../references/deck-copy-and-ai-slop.md) |
@@ -37,15 +37,15 @@
 
 | 模式 | 适用任务 | 交付物 |
 | --- | --- | --- |
-| Generate | 从大纲、文档、图片或主题生成新演示 | 1920×1080 的单文件 HTML；按要求再出无损 PDF，或用 `export_pptx.py` 出可编辑 PPTX |
+| Generate | 从大纲、文档、图片或主题生成新演示 | 1920×1080 HTML（按要求单文件，或连同本地资源目录）；按要求再出无损 PDF，或从 HTML 制作可编辑 PPTX 伴生版 |
 | Native edit | 对已有 PPTX 做 reformat、翻译、文案打磨或修复；也包括在源 deck 自己的母版、版式和主题上新作一份 deck | 保持原生结构的 PPTX |
 | Audit / compare | 对比版本、顺序、翻译、字体、页码或渲染结果 | 只读报告，不修改源文件 |
 
 ```mermaid
 flowchart LR
     A[输入材料或 PPTX] --> B{选择模式}
-    B -->|Generate| C[标题链 → 每页形状与主视觉 → 固定舞台 HTML]
-    C --> D[审计 + 逐页看 → 交付 HTML / PDF / 可编辑 PPTX]
+    B -->|Generate| C[论证型先建标题链 → 每页形状与主视觉 → 固定舞台 HTML]
+    C --> D[审计 + 逐页看 → 交付 HTML / PDF，按需制作可编辑 PPTX 伴生版]
     B -->|Native edit| E[冻结页面和属性范围]
     E --> F[原生 PPTX 修改]
     F --> G[结构 + 属性 + 像素验证]
@@ -72,8 +72,6 @@ flowchart LR
 ```powershell
 git clone https://github.com/jiefeis/deck-forge.git "$env:USERPROFILE\.agents\skills\deck-forge"
 ```
-
-旧版 Codex 扫描的是 `~/.codex/skills`，老版本请克隆到该目录。
 
 ### Claude Code
 
@@ -167,7 +165,7 @@ examples/                4 个参考实现：咨询图表、咨询视觉、文�
 
 - PowerPoint、WPS 和 LibreOffice 的字体替换可能不同，最终仍需用目标应用渲染。
 - 截图 PDF 清晰但正文通常不可选择；要改字请回到 HTML 或用 `export_pptx.py` 出 PPTX。
-- `evals/` 是维护者手动跑的行为探针，不在 CI 里；技能对代理行为的实际改善幅度尚未做独立评测，规则文件里凡是单次案例都标了"待验证"。
+- `evals/` 是维护者手动跑的行为探针，不在 CI 里；技能对代理行为的实际改善幅度尚未做独立评测，单次案例不能证明普遍效果。
 - Deck Forge 不会自动赋予输入素材的再发布权；用户仍需确认图片、字体和客户材料的许可。
 
 Deck Forge 采用 [MIT License](../LICENSE)。第三方 MIT 组件及署名见 [`THIRD_PARTY_NOTICES.md`](../THIRD_PARTY_NOTICES.md)。
