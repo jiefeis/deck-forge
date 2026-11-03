@@ -22,11 +22,13 @@ Both commands are standalone: paths are arguments, cwd does not matter.
 from __future__ import annotations
 
 import argparse
+from contextlib import ExitStack
 import json
 import os
 import sys
 import tempfile
 from pathlib import Path
+from urllib.parse import quote
 
 # ---------------------------------------------------------------------------
 # Units. The deck stage is 1920x1080 px and PowerPoint's 16:9 canvas is
@@ -189,12 +191,18 @@ def _show_only(page, i):
 
 def extract(html: Path, exe: str | None, image_only: bool, scratch: Path):
     from playwright.sync_api import sync_playwright
+    from export_pdf import _start_server
+    html = html.resolve()
     slides = []
-    with sync_playwright() as pw:
+    with sync_playwright() as pw, ExitStack() as cleanup:
+        server, port = _start_server(html.parent)
+        cleanup.callback(server.server_close)
+        cleanup.callback(server.shutdown)
         browser = _launch(pw, exe)
+        cleanup.callback(browser.close)
         page = browser.new_page(viewport={"width": int(STAGE_W), "height": int(STAGE_H)},
                                 device_scale_factor=2)
-        page.goto(html.resolve().as_uri())
+        page.goto(f"http://127.0.0.1:{port}/{quote(html.name)}")
         page.wait_for_timeout(800)
         page.add_style_tag(content=FREEZE_CSS)
         n = page.evaluate("document.querySelectorAll('section.slide, .slide').length")
@@ -216,7 +224,6 @@ def extract(html: Path, exe: str | None, image_only: bool, scratch: Path):
                     it["png"] = str(png)
             page.evaluate("document.querySelectorAll('[data-x2p]').forEach(e=>e.removeAttribute('data-x2p'))")
             slides.append({"items": items})
-        browser.close()
     return slides
 
 
