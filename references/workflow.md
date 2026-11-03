@@ -318,8 +318,10 @@ checks alone.
    (`audit_html_slides.py`, Phase 3) and then Phase 4 — an edit can introduce
    exactly the clipped/offstage overflow the gate detects.
 
-For an HTML-only revision, capture before/after browser pages and retest the
-affected interactions; keep PDF export out of that route. For a PDF revision,
+For an HTML-only revision, first apply `source-contract.md` → "Scoped HTML
+revisions" when slides or properties are restricted. Capture before/after
+browser pages and retest affected interactions under the existing Phase 4
+final-artifact checks; keep PDF export out of that route. For a PDF revision,
 produce page-level evidence: export each version with
 `--keep-pngs <scratch>/v1` / `--keep-pngs <scratch>/v2`, then
 
@@ -358,12 +360,15 @@ python <skill-root>/scripts/export_pdf.py <deck>/index.html
   `<span>`) so highlights survive an edit.
 - `extract`/`apply` write a one-shot `<file>.bak` backup before modifying the
   HTML in place (pass `--no-backup` to skip).
-- Use this when the user wants wording/copy changes without touching layout. For
-  structural or visual changes, edit the HTML directly (or re-run Phase 3).
+- Use this for wording/copy changes when whole-document serialization is
+  acceptable. For strict selected-slide/property edits, including local text
+  changes, follow `source-contract.md` → "Scoped HTML revisions" instead.
+  For structural or visual changes, edit the HTML within the authorized scope;
+  re-run Phase 3 only when regeneration is authorized.
 - NOTE: frontend-slides' in-browser inline editing (press `E`, click text) is
-  **not bundled** in this skill — `edit_texts.py` is the supported text-editing
-  path here. If a user specifically wants click-to-edit in the browser, add the
-  edit-mode JS to the generated HTML on request; don't assume it's already there.
+  **not bundled** in this skill — `edit_texts.py` provides the whole-document
+  text round-trip described above. If a user specifically wants click-to-edit in
+  the browser, add the edit-mode JS to the generated HTML on request; don't assume it's already there.
 
 For HTML-only text revisions, run the audit and browser checks after applying
 words, then deliver the HTML. Run `export_pdf.py` in Phase 6 only when PDF is

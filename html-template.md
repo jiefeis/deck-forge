@@ -139,7 +139,9 @@ Reference architecture for generating slide presentations. Every presentation fo
                 // Preserve native control/editing input; then implement deck shortcuts.
                 window.addEventListener('keydown', (e) => {
                     if (e.defaultPrevented || e.isComposing || e.altKey || e.ctrlKey || e.metaKey) return;
-                    if (e.target.closest?.('button,a,input,textarea,select,[contenteditable],[role="button"],[role="textbox"],[role="slider"]')) return;
+                    const navShortcut = ['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End'].includes(e.key)
+                        && e.target.closest?.('.deck-controls button#prev,.deck-controls button#next');
+                    if (e.target.closest?.('button,a,input,textarea,select,[contenteditable],[role="button"],[role="textbox"],[role="slider"]') && !navShortcut) return;
                     const actions = {ArrowRight: 1, ArrowDown: 1, PageDown: 1, " ": 1, ArrowLeft: -1, ArrowUp: -1, PageUp: -1};
                     if (e.key in actions) { e.preventDefault(); this.showSlide(this.currentSlide + actions[e.key]); }
                     else if (e.key === "Home" || e.key === "End") { e.preventDefault(); this.showSlide(e.key === "Home" ? 0 : this.slides.length - 1); }
@@ -183,8 +185,11 @@ Every presentation must include:
      chrome must sit outside the authored slide, including at smaller windows.
    - Preserve native Enter/Space on controls and editing keys in text inputs.
      Global slide shortcuts ignore interactive/editable targets, IME composition
-     and modifier shortcuts. Expose the page count as a polite live status and
-     mark unavailable previous/next actions at deck boundaries.
+     and modifier shortcuts. Optional `.deck-controls button#prev` and
+     `.deck-controls button#next` retain arrow, PageUp/PageDown, and Home/End
+     navigation after a click; Enter/Space still activate the button natively.
+     Expose the page count as a polite live status and mark unavailable
+     previous/next actions at deck boundaries.
 
 3. **Optional Enhancements** (match the requested output: HTML preserves interaction; PDF is static. Add hover/cursor effects only when they help the requested browser experience):
    - Particle system background (canvas)
