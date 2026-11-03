@@ -3,6 +3,16 @@
 Read this before editing when there are multiple source files, versioned files,
 user-provided references, or "only one final file" requirements.
 
+## Contents
+
+- Establish the source of truth
+- Scoped HTML revisions
+- Rebaseline when the user changes the source
+- Decide the artifact contract
+- Handle open files safely
+- Fast path for one HTML file to PDF
+- Windows path and encoding hygiene
+
 ## Establish the source of truth
 
 - Choose the artifact mode first: Generate, Native edit, or Audit/compare. A
@@ -39,6 +49,36 @@ matrix instead of choosing one "master file":
 
 The template must not replace mother-draft content, and case material must not
 silently expand the conclusion beyond the teaching plan.
+
+Assistant-written briefs, summaries, and review verdicts are derived
+interpretations, not new user requirements. Keep user-confirmed purpose,
+scope, and case boundaries separate from source facts and author assumptions;
+when the user explicitly adopts a proposal, retain that confirmation as its
+authority. Recheck interpretations against the user's wording and relevant
+raw sources. A user correction requires reassessing affected outline and
+review conclusions, not repeating unaffected decisions or approvals.
+
+## Scoped HTML revisions
+
+An existing HTML request limited to selected slides or properties is a
+scoped revision, not fresh generation. Freeze the source hash, target slides,
+and allowed properties before editing; preserve untouched source bytes,
+encoding, and newline convention unless a broader rewrite is authorized.
+CSS/JS scope follows its actual effect, not the slide containing the code:
+shared selectors, tokens, or behavior must not change other pages without
+authorization. Extra testing does not authorize broader changes.
+
+Use a targeted patch for strict scope. The `edit_texts.py` extract/apply
+round-trip adds IDs and reserializes the document; it is unsuitable when
+untouched HTML bytes must remain identical. Before/after screenshots alone
+cannot detect this source churn.
+
+Compare the actually written file with the frozen baseline, not only an
+in-memory candidate. For a color-only edit, the diff must contain only the
+allowed color attributes/tokens, preserving text, geometry, paths, and motion.
+Use the rebaseline checks below before delivery, then follow the existing
+Phase 4 final-artifact audit, page inspection, and interaction checks in
+`references/workflow.md`.
 
 ## Rebaseline when the user changes the source
 
