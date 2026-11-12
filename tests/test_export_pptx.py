@@ -8,6 +8,7 @@ import sys
 import tempfile
 import unittest
 from pathlib import Path
+from urllib.parse import quote
 
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -121,6 +122,29 @@ class ExportPptxTests(unittest.TestCase):
         self.assertEqual(len(shapes), 1)
         self.assertEqual(shapes[0].shape_type, MSO_SHAPE_TYPE.PICTURE)
         self.assertEqual((shapes[0].width, shapes[0].height), (prs.slide_width, prs.slide_height))
+
+    def test_build_uses_http_for_special_filename_and_relative_image(self) -> None:
+        from PIL import Image
+        from pptx import Presentation
+        from pptx.enum.shapes import MSO_SHAPE_TYPE
+
+        image = self.temp / "相对图片 #1%.png"
+        Image.new("RGB", (32, 32), "red").save(image)
+        html = self.temp / "课件 #1%.html"
+        html.write_text(DECK.replace('</section>',
+            f'<p id="protocol">pending</p><img src="{quote(image.name)}" width="32" height="32">'
+            '<script>document.getElementById("protocol").textContent=location.protocol</script>'
+            '</section>'), encoding="utf-8")
+        out = self.temp / "http.pptx"
+        result = run("build", str(html), str(out))
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        shapes = list(Presentation(str(out)).slides[0].shapes)
+        self.assertIn("http:", [sh.text for sh in shapes if sh.has_text_frame])
+        pictures = [sh for sh in shapes if sh.shape_type == MSO_SHAPE_TYPE.PICTURE]
+        self.assertEqual(len(pictures), 2, "SVG and relative PNG should both load")
+        from io import BytesIO
+        self.assertEqual(Image.open(BytesIO(pictures[1].image.blob)).convert("RGB").getpixel((16, 16)),
+                         (255, 0, 0), "relative image must render its red pixels, not a broken-image icon")
 
     def test_diff_separates_rasterisation_from_layout(self) -> None:
         from PIL import Image, ImageDraw

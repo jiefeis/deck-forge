@@ -55,6 +55,12 @@ For a deck that argues a case, the page list itself comes from a confirmed
 title chain (`references/storyline.md`); this section governs each page inside
 that chain.
 
+For teaching decks, retain the user's learning objective. When the lesson
+teaches a general method, check what the learner should be able to do in
+another relevant case; the worked example must support that ability rather
+than replace it. Do not expand a requested single-operation demonstration
+into a general course.
+
 Give every page one job. Before authoring it, write down:
 
 1. the point the audience should retain

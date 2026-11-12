@@ -45,6 +45,9 @@ contract").
 
 Only **Generate** follows the HTML Phase 0–6 workflow. Native edit and
 Audit/compare use the cross-format references and audit scripts below.
+For an existing HTML deck limited to selected slides or properties, use
+`references/source-contract.md` → "Scoped HTML revisions" and the revision
+route in `references/workflow.md`; do not restart generation phases 0–3.
 
 > **Full step-by-step detail lives in [references/workflow.md](references/workflow.md).**
 > This file is the entry point: trigger, non-negotiables, commands, and routing.
@@ -185,7 +188,7 @@ for the full instructions before doing it.
 | --- | --- | --- |
 | `references/workflow.md` | Full Phase 0–6 instructions + Design Aesthetics | any generation run (Phase 0–6) |
 | **Cross-format references** (non-negotiable 7) | | |
-| `references/source-contract.md` | Source-of-truth, file/version, path, encoding, and open-file rules | first read for any native edit; also multiple source files, version comparison, "only one file", Windows paths, source file open in Office/WPS |
+| `references/source-contract.md` | Source-of-truth, file/version, scoped HTML revision, path, encoding, and open-file rules | first read for native or scoped HTML edits; also multiple source files, version comparison, "only one file", Windows paths, source file open in Office/WPS |
 | `references/edit-scope-contract.md` | Target-slide/allowed-change contract and before/after verification | native PPTX edits, "minimal change", selected pages/elements, untouched-slide guarantees |
 | `references/native-redesign-fidelity.md` | Physical / visible ordinal / displayed marker / source page mapping, mother-draft fidelity, relationship topology, template composition, and safe candidate rebasing | selected-page native redesign, hidden-page offsets, mother drafts, teaching plans, complex loops/flows |
 | `references/native-template-authoring.md` | Layout inventory, template-page reuse, shape copying, text-frame mechanics, and page numbers when authoring a new deck on an existing template | template-native authoring: mostly-new pages on an existing PPTX's masters/layouts, PPTX delivery |
