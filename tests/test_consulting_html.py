@@ -23,7 +23,7 @@ class ConsultingHtmlTests(unittest.TestCase):
         cls.template_dir = tempfile.TemporaryDirectory()
         # Run the template's actual controller; expose only its instance to wire
         # optional previous/next buttons in this representative four-slide page.
-        template = (ROOT / 'html-template.md').read_text(encoding='utf-8')
+        template = (ROOT / 'assets' / 'html' / 'html-template.md').read_text(encoding='utf-8')
         script = re.search(r'<script>(.*?)</script>', template, re.S).group(1)
         script = script.replace('new SlidePresentation();', 'window.testDeck = new SlidePresentation();')
         fixture = '<!doctype html><html><body><main id="deckStage">'

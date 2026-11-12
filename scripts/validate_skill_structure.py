@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate deck-forge's progressive-disclosure and UI metadata contracts."""
+"""Validate the deck-forge entry point, tracks, resource links and UI metadata."""
 
 from __future__ import annotations
 
@@ -8,20 +8,25 @@ import json
 import os
 import re
 from pathlib import Path
+from urllib.parse import unquote, urlsplit
 
 
-def _longpath(p: Path) -> Path:
-    """Windows MAX_PATH guard. An installed skill copy can sit 190+ characters
-    deep, so template files exceed 260 and open() reports them missing; the
-    extended-length prefix lifts the limit without needing LongPathsEnabled."""
-    s = str(p.resolve())
-    if os.name == "nt" and not s.startswith("\\\\?\\"):
-        return Path("\\\\?\\" + s)
-    return Path(s)
-
-
-LINK_RE = re.compile(r"\[[^\]]+\]\(([^)#]+)(?:#[^)]+)?\)")
+TRACKS = {"html-build.md", "pptx-native.md", "translate-and-qa.md"}
+ROOT_DOCS = {"SKILL.md", "THIRD_PARTY_NOTICES.md"}
+RUNTIME_DIRS = {"assets", "tracks", "agents", "scripts"}
+LINK_RE = re.compile(r"\[[^\]\n]+\]\((<[^>\n]+>|[^\s)]+)\)")
+SCRIPT_RE = re.compile(r"\bscripts/([a-zA-Z_][\w.-]*\.(?:py|ps1))\b")
 YAML_STRING_RE = re.compile(r'^\s*([a-z_]+):\s*"([^"]*)"\s*$', re.MULTILINE)
+
+
+def _longpath(path: Path) -> Path:
+    """Support deeply nested installed skills on Windows."""
+    value = str(path.resolve())
+    if os.name == "nt" and not value.startswith("\\\\?\\"):
+        if value.startswith("\\\\"):
+            return Path("\\\\?\\UNC\\" + value[2:])
+        return Path("\\\\?\\" + value)
+    return Path(value)
 
 
 def frontmatter_keys(text: str) -> set[str]:
@@ -30,58 +35,78 @@ def frontmatter_keys(text: str) -> set[str]:
     parts = text.split("---", 2)
     if len(parts) < 3:
         return set()
-    return {
-        match.group(1)
-        for match in re.finditer(r"^([A-Za-z0-9_-]+):", parts[1], re.MULTILINE)
-    }
+    return set(re.findall(r"^([A-Za-z0-9_-]+):", parts[1], re.MULTILINE))
+
+
+def in_runtime(relative: Path) -> bool:
+    """Runtime docs must resolve even after checkout-only material is excluded."""
+    if relative.as_posix() == "scripts/run_self_checks.py":
+        return False
+    return relative.parts[0] in ROOT_DOCS | RUNTIME_DIRS | {"LICENSE"}
 
 
 def validate(root: Path) -> list[str]:
+    root = _longpath(root)
     errors: list[str] = []
     skill = root / "SKILL.md"
     if not skill.is_file():
-        return [f"missing SKILL.md: {skill}"]
+        return ["missing SKILL.md"]
     skill_text = skill.read_text(encoding="utf-8")
     keys = frontmatter_keys(skill_text)
     if keys != {"name", "description"}:
         errors.append(f"SKILL.md frontmatter keys must be name/description only: {sorted(keys)}")
-    if len(skill_text.splitlines()) >= 500:
-        errors.append("SKILL.md must stay under 500 lines")
+    if len(skill_text.splitlines()) > 80:
+        errors.append("SKILL.md must stay within 80 lines")
 
-    readmes = [
-        path
-        for path in root.rglob("README.md")
-        if ".github" not in path.relative_to(root).parts
-    ]
-    if readmes:
-        errors.append("runtime skill contains README files: "
-                      + ", ".join(str(path.relative_to(root)) for path in readmes))
+    tracks = {path.name for path in (root / "tracks").glob("*.md")}
+    for name in sorted(TRACKS - tracks):
+        errors.append(f"missing track: tracks/{name}")
+    for name in sorted(tracks - TRACKS):
+        errors.append(f"unexpected track: tracks/{name}")
+    for path in sorted(root.glob("*.md")):
+        if path.name not in ROOT_DOCS:
+            errors.append(f"unexpected root guide: {path.name}")
+    if any((root / "references").rglob("*.md")):
+        errors.append("legacy references/ guides remain alongside the tracks")
 
-    markdown_files = list(root.rglob("*.md"))
-    for path in markdown_files:
-        text = path.read_text(encoding="utf-8")
-        if path.name != "SKILL.md" and len(text.splitlines()) > 100:
-            if not re.search(r"(?m)^## (Contents|目录)\s*$", text):
-                errors.append(f"long Markdown file lacks Contents/目录: {path.relative_to(root)}")
-        for raw_target in LINK_RE.findall(text):
-            if re.match(r"^(?:https?://|mailto:|#)", raw_target):
+    routed = set()
+    documents = list(root.glob("*.md"))
+    for folder in ("tracks", "assets", ".github", "evals", "examples"):
+        documents.extend((root / folder).rglob("*.md"))
+    for doc in sorted(documents):
+        relative = doc.relative_to(root)
+        runtime = in_runtime(relative)
+        content = doc.read_text(encoding="utf-8")
+        if not content.strip():
+            errors.append(f"empty guide: {relative}")
+        if doc != skill and len(content.splitlines()) > 100:
+            if not re.search(r"(?m)^## (Contents|目录)\s*$", content):
+                errors.append(f"long Markdown file lacks Contents/目录: {relative}")
+
+        for link in LINK_RE.findall(content):
+            url = urlsplit(link.strip("<>"))
+            if url.scheme or url.netloc or not url.path:
                 continue
-            target = (path.parent / raw_target.replace("/", str(Path('/')))).resolve()
-            if not target.exists():
-                errors.append(
-                    f"broken relative link: {path.relative_to(root)} -> {raw_target}"
-                )
+            destination = (doc.parent / unquote(url.path)).resolve()
+            if not destination.is_relative_to(root) or destination == root:
+                errors.append(f"local link outside skill tree: {relative} -> {link}")
+                continue
+            target = destination.relative_to(root)
+            if runtime and not in_runtime(target):
+                errors.append(f"runtime link to checkout-only content: {relative} -> {link}")
+            elif not destination.exists():
+                errors.append(f"broken relative link: {relative} -> {link}")
+            if doc == skill and target.parent == Path("tracks"):
+                routed.add(target.name)
 
-    for reference in sorted((root / "references").glob("*")):
-        if reference.is_file() and reference.name not in skill_text:
-            errors.append(f"reference is not routed from SKILL.md: {reference.name}")
-    for script in sorted((root / "scripts").glob("*")):
-        # Leading underscore marks a shared helper module that scripts import
-        # but no one invokes; only entry points need a SKILL.md route.
-        if script.name.startswith("_"):
-            continue
-        if script.is_file() and script.name not in skill_text:
-            errors.append(f"script is not routed from SKILL.md: {script.name}")
+        if runtime:
+            for name in sorted(set(SCRIPT_RE.findall(content))):
+                command = Path("scripts") / name
+                if not in_runtime(command) or not (root / command).is_file():
+                    errors.append(f"missing runtime command: {relative} -> {command}")
+
+    for name in sorted(TRACKS - routed):
+        errors.append(f"track is not linked from SKILL.md: tracks/{name}")
 
     openai_yaml = root / "agents" / "openai.yaml"
     if not openai_yaml.is_file():
@@ -89,23 +114,20 @@ def validate(root: Path) -> list[str]:
     else:
         values = dict(YAML_STRING_RE.findall(openai_yaml.read_text(encoding="utf-8")))
         short = values.get("short_description", "")
-        prompt = values.get("default_prompt", "")
         if not 25 <= len(short) <= 64:
             errors.append(f"short_description length must be 25-64, found {len(short)}")
-        if "$deck-forge" not in prompt:
+        if "$deck-forge" not in values.get("default_prompt", ""):
             errors.append("default_prompt must mention $deck-forge")
     return errors
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument(
-        "skill_root", nargs="?", type=Path,
-        default=Path(__file__).resolve().parent.parent,
-    )
+    parser.add_argument("skill_root", nargs="?", type=Path,
+                        default=Path(__file__).resolve().parent.parent)
     parser.add_argument("--json", action="store_true")
     args = parser.parse_args()
-    errors = validate(_longpath(args.skill_root))
+    errors = validate(args.skill_root)
     if args.json:
         print(json.dumps({"status": "FAIL" if errors else "OK", "errors": errors},
                          ensure_ascii=False, indent=2))

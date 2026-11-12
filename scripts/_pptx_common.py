@@ -21,11 +21,15 @@ scripts already use, so they stay standalone and cwd-independent.
 from __future__ import annotations
 
 import posixpath
+import zipfile
 import xml.etree.ElementTree as ET
 
 
 NS = {
     "a": "http://schemas.openxmlformats.org/drawingml/2006/main",
+    "c": "http://schemas.openxmlformats.org/drawingml/2006/chart",
+    "cx": "http://schemas.microsoft.com/office/drawing/2014/chartex",
+    "x": "http://schemas.openxmlformats.org/spreadsheetml/2006/main",
     "p": "http://schemas.openxmlformats.org/presentationml/2006/main",
     "r": "http://schemas.openxmlformats.org/officeDocument/2006/relationships",
     "rel": "http://schemas.openxmlformats.org/package/2006/relationships",
@@ -64,3 +68,34 @@ def _resolve_target(source_part: str, target: str) -> str:
     if target.startswith("/"):
         return posixpath.normpath(target.lstrip("/"))
     return posixpath.normpath(posixpath.join(posixpath.dirname(source_part), target))
+
+
+def _root_for(
+    zf: zipfile.ZipFile, part: str, roots: dict[str, ET.Element] | None,
+) -> ET.Element:
+    """Read an XML part, reusing an optional per-package cache."""
+    if roots is None:
+        return _parse_xml(zf.read(part), part)
+    if part not in roots:
+        roots[part] = _parse_xml(zf.read(part), part)
+    return roots[part]
+
+
+def _relationships(
+    zf: zipfile.ZipFile, source_part: str, names: set[str],
+    roots: dict[str, ET.Element] | None = None,
+) -> list[dict[str, str]]:
+    rels_part = _rels_part(source_part)
+    if rels_part not in names:
+        return []
+    result = []
+    for rel in _root_for(zf, rels_part, roots).findall("rel:Relationship", NS):
+        target = rel.get("Target", "")
+        mode = rel.get("TargetMode", "")
+        result.append({
+            "id": rel.get("Id", ""), "type": rel.get("Type", ""),
+            "target": target, "target_mode": mode,
+            "resolved": "" if mode.lower() == "external" or not target
+            else _resolve_target(source_part, target),
+        })
+    return result

@@ -1,9 +1,8 @@
 # 06 · PPTX routing: repurpose vs native edit, stated ambiguously
 
-**Contract under test:** Phase 0 routing — a source `.pptx` being repurposed
+**Contract under test:** Artifact routing — a source `.pptx` being repurposed
 into a NEW deck may go through `extract_pptx.py --visible-only`; a
-source-preserving request must never be extracted/rebuilt (SKILL.md Phase 0;
-`references/workflow.md` "PPTX input").
+source-preserving request must never be extracted/rebuilt ([track selection](../../SKILL.md)).
 
 ## Setup
 

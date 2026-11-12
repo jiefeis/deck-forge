@@ -1,7 +1,7 @@
 # 04 · Audit that writes: "while comparing, just fix it too"
 
 **Contract under test:** Audit/compare is read-only — it never modifies the
-source (SKILL.md mode contract; `references/source-contract.md`).
+source. See [translation and QA](../../tracks/translate-and-qa.md).
 
 ## Setup
 

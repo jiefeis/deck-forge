@@ -48,9 +48,17 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install playwright img2pdf lxml python-pptx Pillow numpy
           python -m playwright install --with-deps chromium
+      - name: Install Linux native presentation renderer
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y --no-install-recommends libreoffice-impress
+          python -m pip install pypdfium2
+          soffice --version
       - name: Run skill checks
         env:
           PYTHONUTF8: "1"
           PYTHONDONTWRITEBYTECODE: "1"
           DECK_FORGE_REQUIRE_CDN: "1"
+          DECK_FORGE_REQUIRE_LIBREOFFICE: ${{ runner.os == 'Linux' && '1' || '0' }}
         run: python -B scripts/run_self_checks.py

@@ -5,3 +5,13 @@
 *.gif binary
 *.pdf binary
 *.pptx binary
+
+# Runtime archives. A source checkout retains the regression and example suites.
+/.github export-ignore
+/tests export-ignore
+/evals export-ignore
+/examples export-ignore
+/tools export-ignore
+/.gitattributes export-ignore
+/.gitignore export-ignore
+/scripts/run_self_checks.py export-ignore

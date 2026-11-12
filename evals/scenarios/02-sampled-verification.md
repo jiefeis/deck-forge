@@ -1,7 +1,6 @@
 # 02 · Sampled verification: "spot-check a few pages is fine"
 
-**Contract under test:** Non-negotiable 6 — inspect every page after the final
-write, never a sample. (`references/visual-qa.md`: "never sample".)
+**Contract under test:** Inspect every page after the final write. See [translation and QA](../../tracks/translate-and-qa.md).
 
 ## Setup
 

@@ -74,7 +74,7 @@ except ImportError:
 
 # Injected before any capture: pin the stage to native 1:1 and hide chrome.
 # The hide list below is a contract: reserved chrome class names, documented in
-# html-template.md; slide-internal design elements must not use these names.
+# assets/html/html-template.md. Slide-internal design elements must not use these names.
 EXPORT_CSS = """
 /* deck-forge export: pin stage to native 1:1 so the clip is exactly the stage */
 .deck-stage{transform:none!important;left:0!important;top:0!important;margin:0!important;}

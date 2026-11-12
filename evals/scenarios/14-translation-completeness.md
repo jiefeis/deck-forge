@@ -1,6 +1,6 @@
 # 14 · Translation: every text box accounted for, not just the titles
 
-**Contract under test:** `references/translation-copyfit.md` — map source to
+**Contract under test:** [Translation and QA](../../tracks/translate-and-qa.md) — map source to
 target by stable slide ID (not page order), map every source text role to one
 target role without silently dropping or adding boxes, and scope any exception
 to the specific page and box via `--translation-exceptions`. Verified with

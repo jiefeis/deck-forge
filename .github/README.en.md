@@ -24,12 +24,12 @@ With this skill installed, an agent such as Claude Code or Codex chooses a path 
 
 | Failure | What Deck Forge does | Where the rule lives |
 | --- | --- | --- |
-| **Invented content**: numbers, customers, and conclusions made up to fill a template | Missing facts needed for delivery are requested from the user and the affected content stays provisional; agreed blanks remain explicit, and page count follows the evidence. A deck that argues a case builds a title chain (pyramid / SCQA) that the user confirms before pages are authored | [`AUTHORING.md`](../AUTHORING.md), [`references/storyline.md`](../references/storyline.md) |
-| **Stacked text**: one explanation split into four equal cards, everything bold so nothing stands out | Recognize belonging, sequence, comparison, and handoff in prepared text and carry them with containers, conditioned arrows, dialogue mocks, ✓✗ ledgers, or proportional bars; falling back to text needs a reason too | [`references/text-to-visual.md`](../references/text-to-visual.md), [`LAYOUTS.md`](../LAYOUTS.md), [`references/consulting-diagrams.md`](../references/consulting-diagrams.md) |
-| **Fake visuals**: icon grids and gradients posing as imagery | Each page gets a visual brief; real subjects get real photos or labeled concept illustrations; charts are drawn from data with geometry computed from values | [`references/visual-evidence.md`](../references/visual-evidence.md) |
-| **AI-sounding copy**: flywheels, levers, closed loops, mechanical "not X but Y" | Rules distilled from real editor passes: shorter, concrete, about the work rather than the people; separate passes for client-facing diagnosis and BD pages | [`references/deck-copy-and-ai-slop.md`](../references/deck-copy-and-ai-slop.md) |
-| **Damaged originals**: a "small edit" that silently rebuilds the deck and loses order, hidden slides, and master relationships | Native PPTX is edited inside its own package: slide and property scope is frozen first; property allowlists, hidden-backup comparison, and structural manifests prove only the authorized changes happened | [`references/edit-scope-contract.md`](../references/edit-scope-contract.md), [`references/pptx-native-editing.md`](../references/pptx-native-editing.md) |
-| **Nobody looked at every page**: "tests pass" treated as delivery | Generated HTML passes a deterministic audit (clipping, offstage text, missing fonts, blank pages) and is then rendered and inspected page by page; PDF export is lossless and fails closed on font or asset errors; native PPTX is rendered through PowerPoint / WPS | [`scripts/audit_html_slides.py`](../scripts/audit_html_slides.py), [`references/visual-qa.md`](../references/visual-qa.md) |
+| **Invented content**: numbers, customers, and conclusions made up to fill a template | Missing facts needed for delivery are requested from the user and the affected content stays provisional; agreed blanks remain explicit, and page count follows the evidence. A deck that argues a case builds a title chain (pyramid / SCQA) that the user confirms before pages are authored | [`tracks/html-build.md`](../tracks/html-build.md) |
+| **Stacked text**: one explanation split into four equal cards, everything bold so nothing stands out | Recognize belonging, sequence, comparison, and handoff in prepared text and carry them with containers, conditioned arrows, dialogue mocks, ✓✗ ledgers, or proportional bars; falling back to text needs a reason too | [`tracks/html-build.md`](../tracks/html-build.md) |
+| **Fake visuals**: icon grids and gradients posing as imagery | Each page gets a visual brief; real subjects get real photos or labeled concept illustrations; charts are drawn from data with geometry computed from values | [`tracks/html-build.md`](../tracks/html-build.md) |
+| **AI-sounding copy**: flywheels, levers, closed loops, mechanical "not X but Y" | Rules distilled from real editor passes: shorter, concrete, about the work rather than the people; separate passes for client-facing diagnosis and BD pages | [`tracks/translate-and-qa.md`](../tracks/translate-and-qa.md) |
+| **Damaged originals**: a "small edit" that silently rebuilds the deck and loses order, hidden slides, and master relationships | Native PPTX is edited inside its own package: slide and property scope is frozen first; property allowlists, hidden-backup comparison, and structural manifests prove only the authorized changes happened | [`tracks/pptx-native.md`](../tracks/pptx-native.md) |
+| **Nobody looked at every page**: "tests pass" treated as delivery | Generated HTML passes a deterministic audit (clipping, offstage text, missing fonts, blank pages) and is then rendered and inspected page by page; PDF export is lossless and fails closed on font or asset errors; native PPTX is rendered through PowerPoint / WPS | [`scripts/audit_html_slides.py`](../scripts/audit_html_slides.py), [`tracks/translate-and-qa.md`](../tracks/translate-and-qa.md) |
 
 Translation, page numbers, and typography — small things that break often — each get a full-deck audit: translation builds a source-to-target mapping and checks text-box completeness, page numbers are inspected down to layouts and masters, and typography resolves Latin / East Asian fonts, size, bold, and inheritance.
 
@@ -63,9 +63,11 @@ The request picks the mode: an existing PPTX with "keep the original / minimal c
 5. **Verify**: deterministic audit, then render and inspect every page; export PDF only when requested and check it.
 6. **Deliver and edit the words**: `edit_texts.py` extracts all deck text into one Markdown file; edit, apply, re-export.
 
-The full procedure is in [`references/workflow.md`](../references/workflow.md); [`SKILL.md`](../SKILL.md) is the entry point and holds only triggers, non-negotiables, commands, and routing.
+The full procedure is in [`tracks/html-build.md`](../tracks/html-build.md); [`SKILL.md`](../SKILL.md) is the entry point and holds only triggers, non-negotiables, commands, and routing.
 
 ## Installation
+
+Download **deck-forge.zip** from the [latest release](https://github.com/jiefeis/deck-forge/releases/latest). Extract the single `deck-forge/` directory into your agent’s skills directory, or upload the ZIP where a skill archive is accepted. For a development checkout with tests and examples, use Git.
 
 ### Codex
 
@@ -91,7 +93,7 @@ python -m playwright install chromium
 python scripts/check_env.py
 ```
 
-`export_pptx.py diff` additionally needs `numpy`. Native PPTX rendering uses PowerPoint or WPS COM on Windows. Most OOXML auditors use only the Python standard library; Pillow powers pixel audits and contact sheets.
+`export_pptx.py diff` additionally needs `numpy`. For native rendering on Windows, install PowerPoint or WPS. The LibreOffice backend on Linux, macOS and Windows requires LibreOffice and `pip install pypdfium2`. Most OOXML auditors use only the Python standard library; Pillow powers pixel audits and contact sheets.
 
 ## Example prompts
 
@@ -124,6 +126,12 @@ Use deck-forge to turn the HTML deck it just generated into a PPTX I can edit.
 ## Audit and export tools
 
 ```bash
+# Unified checks write report.json, rendered pages and a contact sheet to a new directory.
+python scripts/forge.py verify-html deck/index.html --out html-qa
+python scripts/forge.py verify-pptx after.pptx --source before.pptx --scope scope.json --out native-qa
+python scripts/native_charts.py inspect before.pptx
+python scripts/native_charts.py apply before.pptx chart-edits.json after.pptx
+
 # Generated HTML deck: pre-export audit, lossless PDF, editable PPTX, text round-trip
 python scripts/audit_html_slides.py deck/index.html
 python scripts/export_pdf.py deck/index.html deck/deck.pdf
@@ -140,26 +148,23 @@ python scripts/audit_pptx_backups.py source.pptx final.pptx --map 3:50
 python scripts/audit_pptx_page_numbers.py deck.pptx
 python scripts/audit_pptx_typography.py deck.pptx
 
-# Complete self-check (skill structure validation + every regression test)
+# From a source checkout
 python scripts/run_self_checks.py
+python tools/package_skill.py --ref HEAD --output deck-forge.zip
 ```
 
 ## Repository layout
 
 ```text
-SKILL.md                 Entry point: triggers, non-negotiables, commands, routing
-AUTHORING.md             Source boundary, page sequence, visual system, fit, final trace
-LAYOUTS.md               Information shape → composition
-references/              17 rule files: storyline, text-to-visual, visual evidence, consulting
-                         diagrams, AI-slop cleanup, source and scope contracts, native editing,
-                         translation, reformat, visual QA, worked good/bad examples
-scripts/                 Generation, export, rendering, and read-only audit tools (20)
-tests/                   Synthetic PPTX / PDF / HTML and render regressions (19 suites)
-evals/                   14 behavioral pressure scenarios: mode, scope, fabrication, hidden pages,
-                         multi-source authority
-bold-template-pack/      34 progressively loaded design templates
-examples/                4 reference implementations: consulting diagrams, consulting visuals,
-                         text editing, exporter stress sample
+SKILL.md                 Route the request to one track
+tracks/                  HTML authoring, native PPTX editing, translation and verification
+assets/                  HTML scaffolding, exhibit guidance and design templates
+scripts/                 Generation, native chart editing, rendering and audits
+
+Development checkout
+examples/                 Four complete reference projects
+tests/ and evals/         Executable regressions and behavioral scenarios
+tools/package_skill.py    Build a runtime ZIP from a Git commit
 ```
 
 ## Limitations and license
