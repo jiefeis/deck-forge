@@ -4,13 +4,20 @@ For translation or an authorized copy edit, save a copy in the requested format.
 translation stays native. For an audit or version comparison, leave every input untouched. Keep
 reports, manifests and renders in a separate working folder.
 
+## Contents
+
+- [Identify the pages and content](#identify-the-pages-and-content)
+- [Translate and fit the existing roles](#translate-and-fit-the-existing-roles)
+- [Compare the saved artifacts](#compare-the-saved-artifacts)
+
 ## Identify the pages and content
 
 Record the exact source, target, hashes and operation. Compare actual content when names such as
 “v2” and “final” are ambiguous. Map physical page, stable slide ID, hidden state, visible ordinal,
 displayed marker, title, source page and content anchors. Use the package's presentation order.
-For a native translation, obtain a baseline with
-`python scripts/audit_pptx_structure.py manifest project/source.pptx --json -o scratch/before.json`.
+For a native translation, run `python scripts/forge.py preflight project/source.pptx --out scratch/baseline`
+to record the environment, SHA-256, physical page count and hidden pages. For a full object inventory
+use `python scripts/audit_pptx_structure.py manifest project/source.pptx --json -o scratch/before.json`.
 Corroborate reordered versions by titles, distinctive content and render evidence. A true-order
 fallback is provisional until the mapping is reviewed. Keep source facts, permitted terminology,
 page-level exceptions, output format and authorized text properties explicit.
@@ -42,12 +49,23 @@ and the authority to fix them separate.
    to read the passage in context. Review [client-facing copy examples](../assets/design/copy-examples.md)
    for diagnosis and proposal pages. If available, `humanizer-zh` can suggest phrase-level edits
    for a Chinese “去 AI 味” request. Preserve approved wording and review each suggestion in its box.
-5. For chart text, run `python scripts/native_charts.py inspect project/source.pptx`. Use the
-   returned physical page, shape ID and field names to create `{"edits":[{"page":1,"shape_id":"2","field":"series.0.category.0","from":"华东","to":"East"}]}`,
-   substituting actual source values. Run `python scripts/native_charts.py apply scratch/current-candidate.pptx scratch/edits.json scratch/chart-translated.pptx`
-   on the current candidate so earlier translations survive. Verify supported workbook-backed labels
-   and values together with the visible chart. Account for labels inside images, SmartArt, or unsupported
-   chart parts in a separate human review. Report any unresolved text and its exact location.
+5. For a whole PPTX, extract one translation plan. Fill in the `target` strings for the entries
+   to change, leaving names or already-translated text as `null`. Apply the plan to the exact
+   source it identifies. Both commands take a new output path.
+
+~~~sh
+python scripts/translate_pptx.py extract project/source.pptx scratch/translation.json
+python scripts/translate_pptx.py apply project/source.pptx scratch/translation.json project/translated.pptx
+~~~
+
+The plan includes slide text, tables, native chart titles, series names and text categories
+across physical slides, including hidden slides. Supported classic single-plot charts include
+column, bar, line, scatter, pie and doughnut. Edit only the entries in the requested scope.
+If the plan lists multiple caches for one workbook cell, its single target updates them together.
+Numeric data and numeric/date categories retain their values and formats. Editing a supported
+workbook-backed label updates both its chart cache and its embedded Excel cell. Review the
+reported limitations for external sources and unsupported charts. Account separately for text in
+images, SmartArt or other parts outside the plan.
 
 ## Compare the saved artifacts
 
@@ -58,7 +76,10 @@ python scripts/forge.py verify-pptx project/translated.pptx --source project/sou
 Use the actual translated physical pages and property allowlist. For plain slide text on pages 1–8,
 `{"version":1,"rules":[{"id":"translation","pages":"1-8","properties":["text"]}]}` illustrates the
 scope. Review any native chart/workbook changes against their specifically authorized fields and
-dependent parts. Include `media-data` only on slides that own the edited chart or workbook. Choose
+dependent parts. `verify-pptx` writes chart findings to `native-charts.json`. A broken data
+relationship, invalid cache point count or mismatched source cell fails verification. A presentation
+without native charts records a skipped check. Remote sources are never fetched for comparison.
+Include `media-data` only on slides that own the edited chart or workbook. Choose
 `zh` for an English-to-Chinese target. For an independent read-only check,
 `python scripts/audit_pptx_structure.py compare source.pptx target.pptx --allow-slides 1-8 --map-slides id --translation-check --target-language en --strict-translation`
 checks slide and box completeness, question titles and language residue. Box matches use shape ID,

@@ -26,10 +26,12 @@ An existing PPTX can be authoritative or just source material. If its role and t
 - When materials disagree, record which governs each dimension. Typically the current deck owns package state and live edits, the mother draft owns required claims and teaching sequence, the case file supplies evidence, and the template supplies design. The user's latest instructions govern purpose and scope.
 - Treat assistant summaries, review verdicts, proposed rewrites and tracked comments as proposals until the user adopts them. Reassess the affected outline and evidence when the user corrects an interpretation. Keep approved decisions and blanks.
 - Keep numbers, claims, units, quotations and attribution traceable. Use a labelled editable field for an answer the audience will fill in. Ask for missing facts that are required for delivery or mark the affected page provisional.
-- For edits, freeze the source SHA-256 and work on a copy. Before replacing a live file, check its hash again. If it changed, retain the candidate, rebaseline from the current file and remap the edits. Verify the delivered hash matches the audited candidate. Leave an app with unsaved edits open.
+- For an existing deck, `python scripts/forge.py preflight SOURCE --out QA_DIR` checks the environment and records the file's SHA-256 and page count. Work on a copy. Before replacing a live file, check its hash again. If it changed, retain the candidate, rebaseline from the current file and remap the edits. Verify the delivered hash matches the audited candidate. Leave an app with unsaved edits open.
 
 ## Run and deliver
 
 Commands in the tracks start at the installed folder containing this file. From another working directory, call the scripts by their absolute paths and quote paths containing spaces. Write new presentations and evidence to the user's project.
+
+Preflight writes `report.json` and the environment log to a new directory. It counts physical PPTX slides, rendered HTML slides or PDF pages (PDF requires `pypdfium2`). The SHA-256 covers the named input file.
 
 Verify the saved artifact after its final write. Trace claims back to their source spans, including subject, unit, period and whether a number is achieved, estimated or proposed. Inspect every rendered page and the specific interactions or native objects the user needs. Report the delivery path, page count, practical editing limits and any checks that could not run.

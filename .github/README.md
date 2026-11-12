@@ -129,10 +129,15 @@ python scripts/check_env.py
 
 ```bash
 # 一条命令生成 report.json、逐页图片和对照拼图，输出到新目录。
+python scripts/forge.py preflight before.pptx --out baseline
 python scripts/forge.py verify-html deck/index.html --out html-qa
 python scripts/forge.py verify-pptx after.pptx --source before.pptx --scope scope.json --out native-qa
 python scripts/native_charts.py inspect before.pptx
 python scripts/native_charts.py apply before.pptx chart-edits.json after.pptx
+
+# 整包翻译：在导出的 JSON 中填写 target，再从同一份源稿生成译稿。
+python scripts/translate_pptx.py extract before.pptx translation.json
+python scripts/translate_pptx.py apply before.pptx translation.json translated.pptx
 
 # 生成的 HTML deck：导出前确定性审计；无损 PDF；可编辑 PPTX；改字回流
 python scripts/audit_html_slides.py deck/index.html
@@ -159,6 +164,7 @@ python tools/package_skill.py --ref HEAD --output deck-forge.zip
 
 ```text
 SKILL.md                 根据交付物选择一份指南
+agents/                  技能在代理界面中的名称、简介和默认提示
 tracks/                  HTML 制作、原生 PPTX 修改、翻译与验收
 assets/                  HTML 模板、图表设计资料和风格库
 scripts/                 生成、原生图表读写、渲染与审计

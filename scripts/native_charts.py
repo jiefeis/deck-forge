@@ -2,6 +2,7 @@
 """Inspect and edit existing native column, bar, line and scatter charts in PPTX.
 
     native_charts.py inspect SOURCE.pptx
+    native_charts.py audit SOURCE.pptx [--json]
     native_charts.py apply SOURCE.pptx EDITS.json OUTPUT.pptx
 
 Inspect returns JSON with physical pages, shape IDs, chart types, source status
@@ -34,10 +35,12 @@ from pathlib import Path
 
 from lxml import etree
 
+from _chart_audit import audit_charts
 from _chart_workbook import (Workbook, checked_zip, copy_archive, range_cells, replace_runs,
                              require_content_type, xml_bytes, xml_part)
 from _pptx_charts import read_chart
 from _pptx_common import AuditError, _relationships
+from _pptx_translation import chart_translation_kind
 from audit_pptx_structure import build_manifest
 
 
@@ -105,12 +108,12 @@ def _incoming(archive, names):
     return counts
 
 
-def _open_chart(archive, record):
+def _open_chart(archive, record, *, text_only=False):
     if record["issues"]:
         raise AuditError(f"{record['part'] or 'chart'}: " + "; ".join(record["issues"]))
     require_content_type(archive, record["part"], "application/vnd.openxmlformats-officedocument.drawingml.chart+xml")
     root = xml_part(archive, record["part"])
-    chart = read_chart(root)
+    chart = read_chart(root, text_only=text_only)
     if chart.issues:
         raise AuditError("; ".join(chart.issues))
     source = record["workbook"]
@@ -137,8 +140,8 @@ def _open_chart(archive, record):
     return root, chart, book, bindings
 
 
-def _edit_chart(archive, record, edits):
-    root, chart, book, bindings = _open_chart(archive, record)
+def _edit_chart(archive, record, edits, *, text_only=False):
+    root, chart, book, bindings = _open_chart(archive, record, text_only=text_only)
     field_updates = {}
     cell_updates = {}
     for edit in edits:
@@ -164,6 +167,8 @@ def _edit_chart(archive, record, edits):
     changed = {}
     for key, value in field_updates.items():
         item = chart.fields[key]
+        if text_only and chart_translation_kind(key, item.describe()) is None:
+            raise AuditError(f"chart translation cannot change data field {key}")
         if not _same(item.kind, item.value(), value):
             replace_runs(item.nodes, str(value))
             changed[key] = value
@@ -265,13 +270,18 @@ def main(argv=None):
     commands = parser.add_subparsers(dest="command", required=True)
     inspect = commands.add_parser("inspect", help="inventory charts and their cached fields as JSON")
     inspect.add_argument("source", type=Path)
+    audit = commands.add_parser("audit", help="check chart relationships, caches and embedded worksheet cells")
+    audit.add_argument("source", type=Path)
+    audit.add_argument("--json", action="store_true", help="emit JSON (the default)")
     apply = commands.add_parser("apply", help="apply the reviewed JSON patch to a new PPTX")
     apply.add_argument("source", type=Path)
     apply.add_argument("edits", type=Path)
     apply.add_argument("output", type=Path)
     args = parser.parse_args(argv)
     try:
-        if args.command == "inspect":
+        if args.command == "audit":
+            result = audit_charts(args.source)
+        elif args.command == "inspect":
             result = inspect_charts(args.source)
         else:
             plan = json.loads(args.edits.read_text(encoding="utf-8-sig"), object_pairs_hook=_unique_keys)
@@ -281,7 +291,7 @@ def main(argv=None):
             etree.XMLSyntaxError) as exc:
         print(json.dumps({"error": str(exc)}, ensure_ascii=True), file=sys.stderr)
         return 1
-    return 0
+    return 1 if args.command == "audit" and not result["ok"] else 0
 
 
 if __name__ == "__main__":

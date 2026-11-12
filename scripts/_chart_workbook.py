@@ -17,11 +17,31 @@ XML_SPACE = "{http://www.w3.org/XML/1998/namespace}space"
 CELL = re.compile(r"\$?([A-Za-z]{1,3})\$?([1-9]\d{0,6})")
 
 
-def xml_part(archive, part):
+STRICT_NAMESPACES = {
+    "http://purl.oclc.org/ooxml/drawingml/main": NS["a"],
+    "http://purl.oclc.org/ooxml/drawingml/chart": NS["c"],
+    "http://purl.oclc.org/ooxml/spreadsheetml/main": NS["x"],
+    "http://purl.oclc.org/ooxml/presentationml/main": NS["p"],
+    "http://purl.oclc.org/ooxml/officeDocument/relationships": NS["r"],
+}
+
+
+def xml_part(archive, part, *, read_only=False):
     parser = etree.XMLParser(resolve_entities=False, load_dtd=False, no_network=True)
     root = etree.fromstring(archive.read(part), parser)
     if root.getroottree().docinfo.doctype:
         raise AuditError(f"unsupported DOCTYPE in {part}")
+    # Strict and Transitional vocabularies use the same fields here. The
+    # in-memory view is normalized only for readers that never serialize it.
+    if read_only and any(uri in STRICT_NAMESPACES for uri in root.nsmap.values()):
+        for node in root.iter(etree.Element):
+            tag = etree.QName(node)
+            if tag.namespace in STRICT_NAMESPACES:
+                node.tag = f"{{{STRICT_NAMESPACES[tag.namespace]}}}{tag.localname}"
+            for attr in list(node.attrib):
+                name = etree.QName(attr)
+                if name.namespace in STRICT_NAMESPACES:
+                    node.set(f"{{{STRICT_NAMESPACES[name.namespace]}}}{name.localname}", node.attrib.pop(attr))
     return root
 
 
@@ -38,26 +58,30 @@ def copy_archive(source, destination, changes):
             target.writestr(copy.copy(info), data)
 
 
-def checked_zip(archive):
+def checked_zip(archive, *, read_only=False):
     names = archive.namelist()
-    if len(set(names)) != len(names) or archive.testzip():
+    if len(set(names)) != len(names) or (not read_only and archive.testzip()):
         raise AuditError("invalid ZIP entries or corrupt package")
     if any(name.startswith("/") or "\\" in name or ".." in PurePosixPath(name).parts
            for name in names):
         raise AuditError("invalid package member path")
-    if any(name.lower().startswith("_xmlsignatures/") for name in names):
+    if not read_only and any(name.lower().startswith("_xmlsignatures/") for name in names):
         raise AuditError("signed packages cannot be edited without invalidating the signature")
     return set(names)
 
 
-def require_content_type(archive, part, expected):
-    root = xml_part(archive, "[Content_Types].xml")
+def part_content_type(root, part):
     namespace = "{http://schemas.openxmlformats.org/package/2006/content-types}"
     overrides = [node.get("ContentType") for node in root.findall(namespace + "Override")
                  if node.get("PartName") == "/" + part]
     defaults = [node.get("ContentType") for node in root.findall(namespace + "Default")
                 if node.get("Extension", "").lower() == part.rsplit(".", 1)[-1].lower()]
-    if (overrides or defaults) != [expected]:
+    types = overrides or defaults
+    return types[0] if len(types) == 1 else None
+
+
+def require_content_type(archive, part, *expected):
+    if part_content_type(xml_part(archive, "[Content_Types].xml"), part) not in expected:
         raise AuditError(f"missing, ambiguous or unsupported content type for {part}")
 
 
@@ -93,7 +117,7 @@ def cell_name(col, row):
     return letters + str(row)
 
 
-def range_cells(formula, count):
+def range_bounds(formula):
     sheet_text, bang, area = formula.rpartition("!")
     if sheet_text.startswith("'"):
         if not re.fullmatch(r"'(?:[^']|'')+'", sheet_text):
@@ -108,12 +132,17 @@ def range_cells(formula, count):
     first, colon, last = area.partition(":")
     col, row = cell_coordinates(first)
     end_col, end_row = cell_coordinates(last if colon else first)
+    return sheet.casefold(), col, row, end_col, end_row
+
+
+def range_cells(formula, count):
+    sheet, col, row, end_col, end_row = range_bounds(formula)
     if ((col != end_col and row != end_row) or end_col < col or end_row < row
             or (end_col - col + 1) * (end_row - row + 1) != count):
         raise AuditError(f"chart range does not match cache dimensions: {formula!r}")
     for offset in range(count):
-        yield sheet.casefold(), cell_name(col + (offset if col != end_col else 0),
-                                          row + (offset if row != end_row else 0))
+        yield sheet, cell_name(col + (offset if col != end_col else 0),
+                               row + (offset if row != end_row else 0))
 
 
 def _target(rels, names, suffix, rid=None, optional=False):
@@ -136,10 +165,33 @@ def _string_nodes(entry):
     return nodes
 
 
+def _worksheet_cells(root, read_only):
+    """SpreadsheetML may omit row/cell addresses and rely on worksheet order."""
+    if not read_only:
+        for cell in root.findall("x:sheetData/x:row/x:c", NS):
+            yield cell.get("r", ""), cell
+        return
+    next_row = 1
+    for row in root.findall("x:sheetData/x:row", NS):
+        row_number = int(row.get("r", next_row))
+        next_row = row_number + 1
+        col = 0
+        for cell in row.findall("x:c", NS):
+            address = cell.get("r")
+            if address:
+                col, cell_row = cell_coordinates(address)
+            else:
+                col, cell_row = col + 1, row_number
+            if not 1 <= cell_row <= 1048576 or col > 16384:
+                raise AuditError("worksheet cell is outside Excel limits")
+            yield cell_name(col, cell_row), cell
+
+
 class Workbook:
-    def __init__(self, data):
+    def __init__(self, data, *, read_only=False):
         self.archive = zipfile.ZipFile(io.BytesIO(data))
-        names = checked_zip(self.archive)
+        names = checked_zip(self.archive, read_only=read_only)
+        self.read_only = read_only
         self.trees = {}
         self.changed = set()
         self.sheets = {}
@@ -152,34 +204,48 @@ class Workbook:
         # changing just the chart worksheet cells.
         unsupported = ("xl/externallinks/", "xl/pivot", "xl/charts/", "xl/querytables/",
                        "xl/slicercaches/", "xl/connections.xml", "xl/calcchain.xml", "xl/vbaproject")
-        if any(name.lower().startswith(unsupported) for name in names):
+        if not read_only and any(name.lower().startswith(unsupported) for name in names):
             raise AuditError("embedded workbook contains external, calculated, or dependent data")
         part = _target(_relationships(self.archive, "", names), names, "officeDocument")
-        require_content_type(self.archive, part, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml")
+        main_types = ["application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"]
+        if read_only:
+            main_types.append("application/vnd.ms-excel.sheet.macroEnabled.main+xml")
+        require_content_type(self.archive, part, *main_types)
         book = self.tree(part)
-        if book.tag != q("x", "workbook") or book.find("x:externalReferences", NS) is not None:
+        if book.tag != q("x", "workbook") or (not read_only and book.find("x:externalReferences", NS) is not None):
             raise AuditError("unsupported or externally linked embedded workbook")
+        properties = book.find("x:workbookPr", NS)
+        self.date1904 = properties is not None and properties.get("date1904") in {"1", "true"}
         rels = _relationships(self.archive, part, names)
+        if read_only:
+            styles = _target(rels, names, "styles", optional=True)
+            self.number_formats = [xf.get("numFmtId", "0") for xf in self.tree(styles).findall(
+                "x:cellXfs/x:xf", NS)] if styles else ["0"]
         self.sst = _target(rels, names, "sharedStrings", optional=True)
         self.strings = self.tree(self.sst).findall("x:si", NS) if self.sst else []
         for sheet in book.findall("x:sheets/x:sheet", NS):
             key = sheet.get("name", "").casefold()
-            sheet_part = _target(rels, names, "worksheet", sheet.get(q("r", "id"), ""))
+            rid = sheet.get(q("r", "id"), "")
+            if read_only and any(r["id"] == rid and r["type"].endswith(
+                    ("/chartsheet", "/dialogsheet", "/xlMacrosheet", "/xlIntlMacrosheet")) for r in rels):
+                continue
+            sheet_part = _target(rels, names, "worksheet", rid)
             if not key or key in self.sheets or sheet_part in self.sheets.values():
                 raise AuditError("missing or ambiguous worksheet identity")
             self.sheets[key] = sheet_part
             root = self.tree(sheet_part)
-            if root.tag != q("x", "worksheet") or root.find(".//x:f", NS) is not None:
+            if root.tag != q("x", "worksheet") or (not read_only and root.find(".//x:f", NS) is not None):
                 raise AuditError("unsupported or formula-driven embedded worksheet")
-            if root.find("x:sheetProtection", NS) is not None:
+            if not read_only and root.find("x:sheetProtection", NS) is not None:
                 raise AuditError("protected embedded worksheet")
-            for cell in root.findall("x:sheetData/x:row/x:c", NS):
-                address = cell.get("r", "")
+            for address, cell in _worksheet_cells(root, read_only):
                 if not CELL.fullmatch(address) or (key, address) in self.cells:
                     raise AuditError("missing or duplicate worksheet cell address")
                 self.cells[key, address] = cell
-                if cell.get("t") == "s":
+                if not read_only and cell.get("t") == "s":
                     self.string_uses[self._string_index(cell)] += 1
+            if read_only:
+                continue
             sheet_rels = _relationships(self.archive, sheet_part, names)
             for ref in root.findall("x:tableParts/x:tablePart", NS):
                 table_part = _target(sheet_rels, names, "table", ref.get(q("r", "id"), ""))
@@ -187,8 +253,30 @@ class Workbook:
 
     def tree(self, part):
         if part not in self.trees:
-            self.trees[part] = xml_part(self.archive, part)
+            self.trees[part] = xml_part(self.archive, part, read_only=self.read_only)
         return self.trees[part]
+
+    def general_number_format(self, cell):
+        """Whether a read-only cell uses Excel's unformatted General numeric display."""
+        index = cell.get("s")
+        row = cell.getparent()
+        if index is None and row.get("customFormat") in {"1", "true"}:
+            index = row.get("s")
+        if index is None:
+            index = "0"
+            address = cell.get("r")
+            column = cell_coordinates(address)[0] if address else None
+            for definition in row.getparent().getparent().findall("x:cols/x:col", NS):
+                if definition.get("style") is None:
+                    continue
+                if column is None:
+                    return False
+                if int(definition.get("min", "0")) <= column <= int(definition.get("max", "0")):
+                    index = definition.get("style")
+                    break
+        if not index.isdecimal() or len(index) > 9 or int(index) >= len(self.number_formats):
+            return False
+        return self.number_formats[int(index)] == "0"
 
     def _index_table(self, key, part):
         table = self.tree(part)
@@ -227,25 +315,41 @@ class Workbook:
             return None, None
         typ = cell.get("t", "n")
         value = cell.find("x:v", NS)
+        if self.read_only:
+            if cell.find("x:f", NS) is not None and (value is None or value.text is None):
+                return "uncalculated", None
+            if value is None and cell.find("x:is", NS) is None:
+                return None, None
+            if typ in {"b", "e", "d"}:
+                return {"b": "boolean", "e": "error", "d": "date"}[typ], value.text if value is not None else None
         if typ == "n":
             return ("number", value.text) if value is not None and value.text else (None, None)
         if typ == "s":
-            nodes = _string_nodes(self.strings[self._string_index(cell)])
+            entry = self.strings[self._string_index(cell)]
         elif typ == "inlineStr":
             entry = cell.find("x:is", NS)
             if entry is None:
                 raise AuditError(f"invalid inline workbook string at {key}")
-            nodes = _string_nodes(entry)
         elif typ == "str" and value is not None:
-            nodes = [value]
+            entry = None
         else:
             raise AuditError(f"unsupported worksheet cell type {typ!r} at {key}")
+        if entry is None:
+            nodes = [value]
+        elif self.read_only:
+            nodes = entry.findall("x:t", NS) + entry.findall("x:r/x:t", NS)
+        else:
+            nodes = _string_nodes(entry)
         text = "".join(n.text or "" for n in nodes)
         if re.search(r"_x[0-9A-Fa-f]{4}_", text):
+            if self.read_only:
+                return "string", re.sub(r"_x([0-9A-Fa-f]{4})_", lambda m: chr(int(m[1], 16)), text)
             raise AuditError(f"escaped SpreadsheetML string needs manual handling at {key}")
         return "string", text
 
     def set(self, key, kind, text):
+        if self.read_only:
+            raise AuditError("read-only embedded workbook")
         cell = self.cells[key]
         old_kind, old_value = self.read(key)
         if old_kind != kind:

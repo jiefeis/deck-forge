@@ -14,7 +14,7 @@ on an existing template inherits its real masters, layouts and theme. Deliver th
 
 1. Work from a copy. Record source and final paths, SHA-256, package slide count and order, targets,
    allowed properties, numbering policy, and requested hidden backups. Use an explicit output path.
-2. Make a baseline manifest. Resolve physical order from `ppt/presentation.xml` through the presentation
+2. Run `python scripts/forge.py preflight project/before.pptx --out scratch/baseline` for the environment, source hash, slide order and hidden pages. Use the detailed manifest below for object-level work. Resolve physical order from `ppt/presentation.xml` through the presentation
    relationships. Slide XML filenames and displayed page numbers can have a different order.
 3. When pages were inserted, hidden or renumbered, map each target's physical page, stable slide ID,
    hidden state, visible ordinal, displayed marker, title and corresponding source page. Corroborate
@@ -112,7 +112,10 @@ python scripts/forge.py verify-pptx project/after.pptx --source project/before.p
 
 Pass `--backup-map N:M` for each requested source-to-hidden-backup pair. Use `--numbering` for
 specified page markers and `--expect-font ROLE=FONT,SIZE,BOLD` for a confirmed role. Use the same rendering
-engine for both files. The bundle checks the package and authorized changes, and provides page images
+engine for both files. The native chart audit checks the saved chart relationships, cached points
+and their source cells in the embedded workbook. Review any reported external or unsupported sources.
+For the chart report on its own, run `python scripts/native_charts.py audit project/after.pptx --json`.
+The bundle checks the package and authorized changes, and provides page images
 and an aligned contact sheet for review. Use PowerPoint/WPS on Windows or LibreOffice Impress with
 `pypdfium2` and Pillow. Where applicable the individual checks are
 `audit_pptx_structure.py`, `audit_pptx_properties.py`, `audit_pptx_backups.py`,

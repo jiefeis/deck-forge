@@ -329,13 +329,19 @@ def _shape_records(root: ET.Element) -> tuple[list[dict[str, object]], list[str]
     return records, duplicates
 
 
-def _classify(chain: tuple[str, ...], field: str) -> str:
+def _classify(chain: tuple[str, ...], field: str, *, drawing_text: bool = False) -> str:
     tags = set(chain)
     current = chain[-1] if chain else ""
     if "bg" in tags:
         return "background"
     if tags & TIMING_TAGS:
         return "timing"
+    if drawing_text and field in {"#text", "@xml:space"}:
+        run_in_body = chain[-4:-1] in {("txBody", "p", "r"), ("txBody", "p", "fld")}
+        if run_in_body and chain[-7:-4] == ("tbl", "tr", "tc"):
+            return "table-cell-text"
+        if run_in_body and "graphicFrame" not in tags:
+            return "text"
     if "tbl" in tags:
         return "media-data"
     if current == "t" and field == "#text":
@@ -364,6 +370,7 @@ def _flatten(
     def visit(node: ET.Element, path: str, chain: tuple[str, ...], is_root: bool) -> None:
         current = _local_name(node.tag)
         next_chain = (*chain, current)
+        drawing_text = node.tag == f"{{{A_NS}}}t"
         for raw_name, value in sorted(node.attrib.items()):
             local = _local_name(raw_name)
             if skip_show and is_root and local == "show":
@@ -371,9 +378,11 @@ def _flatten(
             namespace = _namespace(raw_name)
             prefix = "r:" if namespace == R_NS else ""
             field = f"@{prefix}{local}"
-            result[f"{path}/{field}"] = (value, _classify(next_chain, field))
+            if raw_name == "{http://www.w3.org/XML/1998/namespace}space":
+                field = "@xml:space"
+            result[f"{path}/{field}"] = (value, _classify(next_chain, field, drawing_text=drawing_text))
         if node.text is not None and not node.text.isspace():
-            result[f"{path}/#text"] = (node.text, _classify(next_chain, "#text"))
+            result[f"{path}/#text"] = (node.text, _classify(next_chain, "#text", drawing_text=drawing_text))
         counts: Counter[str] = Counter()
         for child in list(node):
             if skip_nested_shapes and child.tag in SHAPE_TAGS:
@@ -489,7 +498,16 @@ def audit_properties(
         details: str,
     ) -> None:
         key = str(slide_id)
-        rule_ids = _authorize(key, category, rules)
+        if category == "table-cell-text":
+            # Previously native table text was grouped with all table data.
+            # Keep that scope valid only for these exact cell text nodes.
+            text_rules = _authorize(key, "text", rules)
+            data_rules = _authorize(key, "media-data", rules)
+            rule_ids = list(dict.fromkeys(text_rules + data_rules))
+            category = "media-data" if data_rules and not text_rules else "text"
+            details = "native table cell text changed"
+        else:
+            rule_ids = _authorize(key, category, rules)
         item = {
             "slide_id": slide_id,
             "source_page": source_page,
