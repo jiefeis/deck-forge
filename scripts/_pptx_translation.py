@@ -24,6 +24,7 @@ import json
 import math
 import re
 import sys
+import unicodedata
 from fnmatch import fnmatchcase
 from pathlib import Path
 
@@ -32,7 +33,7 @@ SCRIPT_DIR = Path(__file__).resolve().parent
 if str(SCRIPT_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPT_DIR))
 
-from _pptx_common import AuditError  # noqa: E402
+from _pptx_common import AuditError, NS  # noqa: E402
 
 CJK_RE = re.compile(
     r"[\u2e80-\u2fff\u3040-\u30ff\u31f0-\u31ff\u3400-\u4dbf"
@@ -40,6 +41,69 @@ CJK_RE = re.compile(
 )
 URL_RE = re.compile(r"(?i)\b(?:https?://|www\.)\S+")
 EMAIL_RE = re.compile(r"(?i)\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b")
+MONTH = r"(?:jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|jun(?:e)?|jul(?:y)?|aug(?:ust)?|sept?(?:ember)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)"
+DATE_DIGITS = r"[\d〇零一二三四五六七八九十两]+"
+CALENDAR_LABEL = re.compile(
+    rf"(?:{DATE_DIGITS}年(?:度)?(?:\s*第?[一二三四1-4]季度)?(?:\s*{DATE_DIGITS}月)?"
+    rf"(?:\s*{DATE_DIGITS}[日号])?|{DATE_DIGITS}月(?:\s*{DATE_DIGITS}[日号])?|"
+    rf"{MONTH}\.?[\s,/-]+\d{{1,4}}(?:st|nd|rd|th)?(?:[\s,/-]+\d{{2,4}})?|"
+    rf"\d{{1,4}}[\s,/-]+{MONTH}\.?(?:[\s,/-]+\d{{2,4}})?|"
+    r"(?:fy\s*)?\d{4}[- /]?q[1-4]|q[1-4][- /']*(?:fy\s*)?\d{2,4}|fy\s*\d{4}|"
+    r"\d{4}-\d{2}-\d{2}t[\d:.+-]+z?)", re.I,
+)
+
+
+def protected_chart_category(field, info):
+    """Identify data/time categories without classifying other chart wording as data."""
+    if ".category." not in field:
+        return False
+    if info.get("date_category") or info["kind"] == "number":
+        return True
+    text = unicodedata.normalize("NFKC", info["value"]).strip().replace("−", "-")
+    if not text:
+        return False
+    # Numeric/date separators, signs, currencies and percentages often survive
+    # as string caches when Excel exports categories.
+    if any(ch.isdigit() for ch in text) and all(
+            ch.isdigit() or ch.isspace() or unicodedata.category(ch) == "Sc"
+            or ch in ".,:/+-%‰()'’–—" for ch in text):
+        return True
+    return bool(re.fullmatch(r"[+-]?(?:\d+(?:\.\d*)?|\.\d+)[eE][+-]?\d+", text)
+                or CALENDAR_LABEL.fullmatch(text))
+
+
+def chart_translation_kind(key, info):
+    if info["kind"] != "string" or protected_chart_category(key, info):
+        return None
+    if key == "title" or key.startswith("title."):
+        return "chart-title"
+    if key.startswith("axis."):
+        return "axis-title"
+    if ".label." in key:
+        return "data-label"
+    if key.endswith(".name"):
+        return "series-name"
+    if ".category." in key:
+        return "category"
+    return None
+
+
+def table_cells(slide_root):
+    """Yield native table cells in one physical slide, including grouped frames."""
+    for index, frame in enumerate(slide_root.findall(".//p:graphicFrame", NS), 1):
+        table = frame.find("a:graphic/a:graphicData/a:tbl", NS)
+        if table is None:
+            continue
+        props = frame.find("p:nvGraphicFramePr/p:cNvPr", NS)
+        shape = props.get("id", "") if props is not None else ""
+        name = props.get("name", "") if props is not None else ""
+        for row, tr in enumerate(table.findall("a:tr", NS), 1):
+            for column, cell in enumerate(tr.findall("a:tc", NS), 1):
+                body = cell.find("a:txBody", NS)
+                if body is not None:
+                    yield index, shape, name, row, column, body
+
+
 LATIN_WORD_RE = re.compile(r"[A-Za-z]+(?:['-][A-Za-z]+)*")
 ENGLISH_FUNCTION_WORDS = {
     "a",
@@ -887,6 +951,15 @@ def _text_box_warnings(
                 continue
             source_text = str(source_box["text"]).strip()
             text = str(target_box["text"]).strip()
+            if source_box.get("protected_category"):
+                if source_box["text"] != target_box["text"] or not target_box.get("protected_category"):
+                    warnings.append({
+                        "code": "translation-chart-category-data-changed", "severity": "warning",
+                        "source_page": source_page, "target_page": target_page,
+                        "text_box": target_box["key"],
+                        "message": f"numeric or date chart category {target_box['key']} changed",
+                    })
+                continue
             if source_text and not text:
                 warnings.append({
                     "code": "translation-chart-label-empty", "severity": "warning",
@@ -1053,6 +1126,8 @@ def _language_residue_warnings(
     if target_language == "en":
         for target_slide in target_slides:
             for box in target_slide["text_boxes"]:
+                if box.get("protected_category"):
+                    continue
                 text = str(box["text"])
                 if not CJK_RE.search(text):
                     continue
@@ -1075,6 +1150,8 @@ def _language_residue_warnings(
     elif target_language == "zh":
         for target_slide in target_slides:
             for box in target_slide["text_boxes"]:
+                if box.get("protected_category"):
+                    continue
                 prose = _obvious_english_prose(str(box["text"]))
                 if prose is None:
                     continue
@@ -1098,10 +1175,10 @@ def _language_residue_warnings(
 
 
 def _translation_view(slide):
-    """Present native string labels as shape-scoped boxes only to translation QA."""
-    if not slide.get("charts"):
+    """Present slide-owned tables and chart labels as boxes only to translation QA."""
+    if not slide.get("charts") and not slide.get("table_text_boxes"):
         return slide
-    boxes = list(slide["text_boxes"])
+    boxes = list(slide["text_boxes"]) + slide.get("table_text_boxes", [])
     seen = {}
     for index, chart in enumerate(slide["charts"], 1):
         shape = chart["shape_id"]
@@ -1110,10 +1187,12 @@ def _translation_view(slide):
         if seen[prefix] > 1:
             prefix += f"#{seen[prefix]}"
         for field, info in chart["fields"].items():
-            if info["kind"] == "string":
+            protected = protected_chart_category(field, info)
+            if info["kind"] == "string" or protected:
                 key = f"{prefix}/{field}"
                 boxes.append({"key": key, "match_id": key if shape else "",
                               "shape_id": shape, "name": chart["name"], "chart_field": field,
+                              "protected_category": protected,
                               "text": info["value"]})
     return {**slide, "text_boxes": boxes}
 

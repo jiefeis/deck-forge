@@ -14,7 +14,8 @@ Record HTML, PDF or both as the deliverables. An HTML-only job ends after the br
 ## Revise selected slides or export an existing file
 
 For a scoped revision, start from a byte-for-byte baseline and its SHA-256. Identify each target slide
-and allowed property. Patch those bytes, keeping untouched text, markup, motion, encoding and newline
+and allowed property. `python scripts/forge.py preflight project/before.html --out scratch/baseline`
+records the source hash and the slide count in Chromium. Patch those bytes, keeping untouched text, markup, motion, encoding and newline
 style. A shared CSS token, selector or controller affects every page that uses it. Compare the file
 actually written with the frozen source and check all affected pages and interactions. A colour-only
 request permits only the named colour changes. The whole-document text round-trip below reserializes

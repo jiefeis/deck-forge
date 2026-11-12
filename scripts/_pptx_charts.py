@@ -33,12 +33,20 @@ def _external_formula(formula):
     return "[" in formula or "]" in formula or "://" in formula or "\\" in formula
 
 
+def _calendar_format(code):
+    # Quoted/escaped literals and colour, condition or locale brackets are
+    # display decorations. A standalone Excel date/time token carries meaning.
+    tokens = re.sub(r'"[^"]*"|\\.|_.|\*.|\[(?![hms]+\])[^\]]*\]', "", code, flags=re.I)
+    return bool(re.search(r"(?<![A-Za-z])[ymdhs]+(?![A-Za-z])", tokens, re.I))
+
+
 @dataclass
 class ChartField:
     kind: str
     nodes: list[ET.Element]
     formula: str = ""
     storage: str = "literal"
+    date_category: bool = False
 
     def value(self):
         text = "".join(node.text or "" for node in self.nodes)
@@ -48,6 +56,8 @@ class ChartField:
         info = {"kind": self.kind, "value": self.value(), "storage": self.storage}
         if self.formula:
             info["formula"] = "(external reference)" if _external_formula(self.formula) else self.formula
+        if self.date_category:
+            info["date_category"] = True
         return info
 
 
@@ -83,7 +93,7 @@ class Chart:
         self.fields[key] = item
 
 
-def read_chart(root):
+def read_chart(root, *, text_only=False):
     chart = Chart()
     seen_formulas = set()
 
@@ -190,6 +200,13 @@ def read_chart(root):
     if plot is None:
         chart.incomplete("chart has no plot area")
         return chart
+    calendar_axes = set()
+    date_series = set()
+    for axis in list(plot.findall("c:dateAx", NS)) + list(plot.findall("c:catAx", NS)):
+        style = axis.find("c:numFmt", NS)
+        if axis.tag == q("c", "dateAx") or (style is not None and _calendar_format(style.get("formatCode", ""))):
+            axis_id = axis.find("c:axId", NS)
+            calendar_axes.add(axis_id.get("val", "") if axis_id is not None else "")
     for element in plot:
         tag = _local(element.tag)
         if tag in {"catAx", "valAx", "dateAx", "serAx"}:
@@ -209,6 +226,8 @@ def read_chart(root):
             val = direction.get("val") if direction is not None else None
             chart_type = {"bar": "bar", "col": "column"}.get(val, "unknown-bar-direction")
         chart.types.append(chart_type)
+        plot_axes = {node.get("val", "") for node in element.findall("c:axId", NS)}
+        date_axis = bool(calendar_axes and (not plot_axes or "" in calendar_axes or plot_axes & calendar_axes))
         read_labels(element, "plot")
         for series in element.findall("c:ser", NS):
             idx_node = series.find("c:idx", NS)
@@ -220,8 +239,21 @@ def read_chart(root):
             for child, role in (("tx", "name"), ("cat", "category"), ("val", "value"),
                                 ("xVal", "x"), ("yVal", "y")):
                 read_one(series, f"c:{child}", prefix + role, child == "tx")
-    if len(chart.types) != 1 or chart.types[0] not in {"bar", "column", "line", "scatter"}:
-        chart.issues.append("editing supports one column, bar, line, or scatter plot")
+            categories = series.find("c:cat", NS)
+            if categories is not None and (date_axis or any(
+                    _calendar_format(node.text or "") for node in categories.iter(q("c", "formatCode")))):
+                date_series.add(idx)
+    if date_series:
+        for key, item in chart.fields.items():
+            parts = key.split(".", 3)
+            if len(parts) == 4 and parts[0] == "series" and parts[1] in date_series and parts[2] == "category":
+                item.date_category = True
+    supported = {"bar", "column", "line", "scatter"}
+    if text_only:
+        supported.update({"pie", "doughnut"})
+    if len(chart.types) != 1 or chart.types[0] not in supported:
+        chart.issues.append("text translation supports one column, bar, line, scatter, pie, or doughnut plot"
+                            if text_only else "editing supports one column, bar, line, or scatter plot")
     if any(_local(node.tag) == "f" and node not in seen_formulas for node in root.iter()):
         chart.issues.append("chart contains a source formula outside the supported fields")
     if root.find("c:pivotSource", NS) is not None:
@@ -243,7 +275,7 @@ def _source_relationship(relationships, rid, names, suffixes):
     return {"status": "internal", "part": rel["resolved"]}
 
 
-def slide_charts(zf, slide_part, slide_root, names, roots):
+def slide_charts(zf, slide_part, slide_root, names, roots, *, text_only=False):
     """Resolve only chart objects actually referenced by this slide, including groups."""
     records = []
     shape_ids = Counter(p.get("id", "") for p in slide_root.iter(q("p", "cNvPr")))
@@ -272,7 +304,7 @@ def slide_charts(zf, slide_part, slide_root, names, roots):
                     record["workbook"] = {"status": "external"}
                 continue
             root = _root_for(zf, link["part"], roots)
-            chart = read_chart(root)
+            chart = read_chart(root, text_only=text_only)
             record.update(types=chart.types, issues=chart.issues, inspection_issues=chart.inspection_issues,
                           fields={key: item.describe() for key, item in chart.fields.items()})
             if not shape_id or shape_ids[shape_id] != 1 or len(objects) != 1:

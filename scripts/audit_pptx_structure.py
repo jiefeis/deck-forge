@@ -50,6 +50,7 @@ from _pptx_translation import (  # noqa: E402
     _load_translation_exceptions,
     _slide_mapping_evidence,
     _translation_warnings,
+    table_cells,
 )
 
 XML_SPACE ="{http://www.w3.org/XML/1998/namespace}space"
@@ -334,7 +335,7 @@ def _shared_parts(
     }
 
 
-def build_manifest(path: str | Path) -> dict[str, object]:
+def build_manifest(path: str | Path, *, chart_text_only: bool = False) -> dict[str, object]:
     """Build a JSON-serializable, true-slide-order manifest for ``path``."""
 
     pptx = Path(path).expanduser().resolve()
@@ -505,7 +506,12 @@ def build_manifest(path: str | Path) -> dict[str, object]:
                         slide_part=slide_part,
                     )
                 boxes = _text_boxes(slide_root, layout_root)
-                charts = slide_charts(zf, slide_part, slide_root, names, roots)
+                table_boxes = []
+                for index, shape, name, row, column, body in table_cells(slide_root):
+                    key = f"table:{shape or 'index' + str(index)}/row.{row}.column.{column}"
+                    table_boxes.append({"key": key, "match_id": key if shape else "",
+                                        "shape_id": shape, "name": name, "text": _text_body_text(body)})
+                charts = slide_charts(zf, slide_part, slide_root, names, roots, text_only=chart_text_only)
                 title, title_source = _title_from_boxes(boxes)
                 local_parts = {
                     part: _part_fingerprint(zf, part, fingerprints, roots)
@@ -534,6 +540,7 @@ def build_manifest(path: str | Path) -> dict[str, object]:
                         "title_source": title_source,
                         "text_box_count": len(boxes),
                         "text_boxes": boxes,
+                        "table_text_boxes": table_boxes,
                         "charts": charts,
                         "structure_fingerprint": _root_fingerprint(
                             slide_root,

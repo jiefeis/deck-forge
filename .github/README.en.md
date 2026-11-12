@@ -127,10 +127,15 @@ Use deck-forge to turn the HTML deck it just generated into a PPTX I can edit.
 
 ```bash
 # Unified checks write report.json, rendered pages and a contact sheet to a new directory.
+python scripts/forge.py preflight before.pptx --out baseline
 python scripts/forge.py verify-html deck/index.html --out html-qa
 python scripts/forge.py verify-pptx after.pptx --source before.pptx --scope scope.json --out native-qa
 python scripts/native_charts.py inspect before.pptx
 python scripts/native_charts.py apply before.pptx chart-edits.json after.pptx
+
+# Fill the target strings in the exported plan, then apply it to the same presentation.
+python scripts/translate_pptx.py extract before.pptx translation.json
+python scripts/translate_pptx.py apply before.pptx translation.json translated.pptx
 
 # Generated HTML deck: pre-export audit, lossless PDF, editable PPTX, text round-trip
 python scripts/audit_html_slides.py deck/index.html
@@ -157,6 +162,7 @@ python tools/package_skill.py --ref HEAD --output deck-forge.zip
 
 ```text
 SKILL.md                 Route the request to one track
+agents/                  Display name, description and default prompt for agent clients
 tracks/                  HTML authoring, native PPTX editing, translation and verification
 assets/                  HTML scaffolding, exhibit guidance and design templates
 scripts/                 Generation, native chart editing, rendering and audits
