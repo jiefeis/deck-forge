@@ -39,13 +39,13 @@ def make_pack(
     skip_dirs: tuple[str, ...] = (),
 ) -> None:
     """Build a minimal template pack under root."""
-    templates_dir = root / "bold-template-pack" / "templates"
+    templates_dir = root / "assets" / "bold-template-pack" / "templates"
     templates_dir.mkdir(parents=True)
     index = {
         "template_count": len(slugs) if template_count is None else template_count,
         "templates": [{"slug": slug} for slug in slugs],
     }
-    (root / "bold-template-pack" / "selection-index.json").write_text(
+    (root / "assets" / "bold-template-pack" / "selection-index.json").write_text(
         json.dumps(index), encoding="utf-8"
     )
     for slug in slugs:

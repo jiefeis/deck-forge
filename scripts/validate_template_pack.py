@@ -50,7 +50,7 @@ def token_frontmatter(text: str) -> str:
 
 def validate(skill_root: Path) -> list[str]:
     errors: list[str] = []
-    pack = skill_root / "bold-template-pack"
+    pack = skill_root / "assets" / "bold-template-pack"
     index_path = pack / "selection-index.json"
     templates_dir = pack / "templates"
     if not index_path.is_file():

@@ -29,11 +29,14 @@ from _pptx_common import (  # noqa: E402
     NS,
     AuditError,
     _parse_xml,
+    _relationships,
     _rels_part,
     _resolve_target,
+    _root_for,
     _shown,
     q,
 )
+from _pptx_charts import slide_charts  # noqa: E402
 
 # The translation QA subsystem (language heuristics, text-box matching, the
 # exceptions schema) lives in its own module: audit_pptx_backups,
@@ -59,54 +62,6 @@ GRAPH_STOP_PREFIXES = SHARED_PREFIXES + (
     "ppt/notesMasters/",
     "ppt/handoutMasters/",
 )
-
-
-def _root_for(
-    zf: zipfile.ZipFile,
-    part: str,
-    roots: dict[str, ET.Element] | None,
-) -> ET.Element:
-    """Parse ``part``, reusing ``roots`` when the caller supplied a cache.
-
-    build_manifest reads several parts (layouts, shared rels, the slide itself)
-    more than once per package; the trees are only ever read, never mutated.
-    """
-
-    if roots is None:
-        return _parse_xml(zf.read(part), part)
-    root = roots.get(part)
-    if root is None:
-        root = _parse_xml(zf.read(part), part)
-        roots[part] = root
-    return root
-
-
-def _relationships(
-    zf: zipfile.ZipFile,
-    source_part: str,
-    names: set[str],
-    roots: dict[str, ET.Element] | None = None,
-) -> list[dict[str, str]]:
-    rels_part = _rels_part(source_part)
-    if rels_part not in names:
-        return []
-    root = _root_for(zf, rels_part, roots)
-    result: list[dict[str, str]] = []
-    for rel in root.findall("rel:Relationship", NS):
-        target = rel.get("Target", "")
-        mode = rel.get("TargetMode", "")
-        result.append(
-            {
-                "id": rel.get("Id", ""),
-                "type": rel.get("Type", ""),
-                "target": target,
-                "target_mode": mode,
-                "resolved": ""
-                if mode.lower() == "external" or not target
-                else _resolve_target(source_part, target),
-            }
-        )
-    return result
 
 
 def _canonical_tree_for_fingerprint(element: ET.Element, strip_drawing_text: bool) -> object:
@@ -490,6 +445,7 @@ def build_manifest(path: str | Path) -> dict[str, object]:
                             "title_source": "none",
                             "text_box_count": 0,
                             "text_boxes": [],
+                            "charts": [],
                             "structure_fingerprint": "",
                             "text_fingerprint": _fingerprint_payload([]),
                             "local_fingerprint": _fingerprint_payload(empty_parts),
@@ -526,6 +482,7 @@ def build_manifest(path: str | Path) -> dict[str, object]:
                             "title_source": "none",
                             "text_box_count": 0,
                             "text_boxes": [],
+                            "charts": [],
                             "structure_fingerprint": "",
                             "text_fingerprint": _fingerprint_payload([]),
                             "local_fingerprint": _fingerprint_payload(empty_parts),
@@ -548,6 +505,7 @@ def build_manifest(path: str | Path) -> dict[str, object]:
                         slide_part=slide_part,
                     )
                 boxes = _text_boxes(slide_root, layout_root)
+                charts = slide_charts(zf, slide_part, slide_root, names, roots)
                 title, title_source = _title_from_boxes(boxes)
                 local_parts = {
                     part: _part_fingerprint(zf, part, fingerprints, roots)
@@ -576,6 +534,7 @@ def build_manifest(path: str | Path) -> dict[str, object]:
                         "title_source": title_source,
                         "text_box_count": len(boxes),
                         "text_boxes": boxes,
+                        "charts": charts,
                         "structure_fingerprint": _root_fingerprint(
                             slide_root,
                             strip_drawing_text=True,
@@ -1039,6 +998,7 @@ def compare_pptx(
                 "allow_extra": len(exception_config["allow_extra"]),
                 "allow_missing": len(exception_config["allow_missing"]),
                 "box_mappings": len(exception_config["box_mappings"]),
+                "allow_chart_terms": len(exception_config["allow_chart_terms"]),
             },
         },
         "slide_mappings": slide_mappings,
@@ -1110,6 +1070,9 @@ def manifest_to_text(manifest: dict[str, object]) -> str:
                 f"    Text box {box['key']} bbox=({bbox_text}) "
                 f"placeholder={box['placeholder_type'] or '-'}: {_excerpt(str(box['text']))!r}"
             )
+        for chart in slide.get("charts", []):
+            lines.append(f"    Chart {chart['shape_id']} ({', '.join(chart['types']) or 'unknown'}) "
+                         f"source={chart['workbook']['status']}, fields={len(chart['fields'])}")
     lines.extend(["", f"Protected shared parts: {len(manifest['shared_parts'])}"])
     for part, fingerprint in manifest["shared_parts"].items():
         lines.append(f"  {part}: {fingerprint}")

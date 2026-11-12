@@ -85,6 +85,10 @@ Translation exceptions JSON schema (version 1):
     "box_mappings": [
       {"id": "chart-label", "source_page": 20, "source_key": "id:42",
        "target_page": 44, "target_key": "id:109"}
+    ],
+    "allow_chart_terms": [
+      {"id": "brand", "target_page": 44, "key": "chart:7/series.0.name",
+       "text": "Contoso"}
     ]
   }
 
@@ -95,6 +99,10 @@ box_mappings use exact keys and run before automatic shape-id/placeholder/bbox
 matching. Wildcard rules with fewer than three literal letters/digits are
 rejected as too broad. Invalid, ambiguous, unmatched, conflicting, and unused
 rules are reported; --strict-translation makes those issues fail the audit.
+Native chart labels have keys chart:<frame shape ID>/<field>, as listed by
+native_charts.py inspect. They support the same page-scoped box rules.
+allow_chart_terms accepts only an exact target chart label and full text
+for an intentionally retained term flagged by the language scan.
 
 Slide mapping safety:
 With --map-slides auto, a true-order fallback between different stable slide
@@ -263,11 +271,13 @@ def _map_text_boxes(
     source_by_id: dict[str, list[dict[str, object]]] = {}
     target_by_id: dict[str, list[dict[str, object]]] = {}
     for box in source_boxes:
-        if box.get("shape_id"):
-            source_by_id.setdefault(str(box["shape_id"]), []).append(box)
+        identity = box.get("match_id", box.get("shape_id"))
+        if identity:
+            source_by_id.setdefault(str(identity), []).append(box)
     for box in target_boxes:
-        if box.get("shape_id"):
-            target_by_id.setdefault(str(box["shape_id"]), []).append(box)
+        identity = box.get("match_id", box.get("shape_id"))
+        if identity:
+            target_by_id.setdefault(str(identity), []).append(box)
     for shape_id in sorted(set(source_by_id) & set(target_by_id)):
         if len(source_by_id[shape_id]) == len(target_by_id[shape_id]) == 1:
             add_match(source_by_id[shape_id][0], target_by_id[shape_id][0], "shape-id")
@@ -387,6 +397,7 @@ def _load_translation_exceptions(
         "allow_extra": [],
         "allow_missing": [],
         "box_mappings": [],
+        "allow_chart_terms": [],
         "issues": [],
     }
     if value is None:
@@ -412,7 +423,7 @@ def _load_translation_exceptions(
             return config
         raw = raw_value
 
-    allowed_top_level = {"version", "allow_extra", "allow_missing", "box_mappings"}
+    allowed_top_level = {"version", "allow_extra", "allow_missing", "box_mappings", "allow_chart_terms"}
     unknown_top_level = sorted(set(raw) - allowed_top_level)
     if unknown_top_level:
         config["issues"].append(
@@ -582,6 +593,26 @@ def _load_translation_exceptions(
                     "target_key": raw_rule["target_key"],
                 }
             )
+    rules = raw.get("allow_chart_terms", [])
+    if not isinstance(rules, list):
+        config["issues"].append(_exception_issue(
+            "translation-exception-schema", "allow_chart_terms must be an array"))
+        return config
+    for i, rule in enumerate(rules):
+        token = f"allow_chart_terms[{i}]"
+        rule_id = str(rule.get("id") or token) if isinstance(rule, dict) else token
+        if (not isinstance(rule, dict) or set(rule) - {"id", "target_page", "key", "text"}
+                or not _valid_exception_page(rule.get("target_page"))
+                or not isinstance(rule.get("key"), str)
+                or not re.fullmatch(r"chart:[^/*?\[\]]+/[A-Za-z0-9_.-]+", rule["key"])
+                or not isinstance(rule.get("text"), str) or not rule["text"]
+                or rule_id in seen_ids):
+            config["issues"].append(_exception_issue(
+                "translation-exception-schema", f"{token} requires a unique id, target_page, "
+                "exact chart key and full text", rule_id=rule_id, rule_type="allow_chart_terms"))
+            continue
+        seen_ids.add(rule_id)
+        config["allow_chart_terms"].append({**rule, "id": rule_id})
     return config
 
 
@@ -805,6 +836,7 @@ def _text_box_warnings(
     exceptions: dict[str, object],
     used_rule_tokens: set[str],
     matched_rule_tokens: set[str],
+    target_language: str | None,
 ) -> tuple[
     list[dict[str, object]],
     list[dict[str, object]],
@@ -841,7 +873,7 @@ def _text_box_warnings(
             source_size,
             target_size,
         )
-        for _, _, record in explicit_matches + automatic_matches:
+        for source_box, target_box, record in explicit_matches + automatic_matches:
             box_mappings.append(
                 {
                     "source_page": source_page,
@@ -851,6 +883,32 @@ def _text_box_warnings(
                     **record,
                 }
             )
+            if not target_box.get("chart_field"):
+                continue
+            source_text = str(source_box["text"]).strip()
+            text = str(target_box["text"]).strip()
+            if source_text and not text:
+                warnings.append({
+                    "code": "translation-chart-label-empty", "severity": "warning",
+                    "source_page": source_page, "target_page": target_page,
+                    "text_box": target_box["key"],
+                    "message": f"translated chart label {target_box['key']} is empty",
+                })
+            # A one-word series/category can be meaningful English and does
+            # not satisfy the prose detector. Require evidence from its mapped
+            # source, leaving acronyms, codes and mixed-script labels alone.
+            elif (target_language == "zh" and source_text == text and not CJK_RE.search(text)
+                  and not URL_RE.search(text) and not EMAIL_RE.search(text)
+                  and any(len(word) >= 3 and any(c.islower() for c in word)
+                          for word in LATIN_WORD_RE.findall(text))
+                  and _obvious_english_prose(text) is None):
+                warnings.append({
+                    "code": "translation-chart-label-unchanged", "severity": "warning",
+                    "source_page": source_page, "target_page": target_page,
+                    "text_box": target_box["key"], "target_language": "zh",
+                    "excerpt": _excerpt(text),
+                    "message": f"target chart label {target_box['key']} retains {_excerpt(text)!r}",
+                })
         for box in missing_boxes:
             key = str(box["key"])
             matching_rules = [
@@ -1039,6 +1097,59 @@ def _language_residue_warnings(
     return warnings
 
 
+def _translation_view(slide):
+    """Present native string labels as shape-scoped boxes only to translation QA."""
+    if not slide.get("charts"):
+        return slide
+    boxes = list(slide["text_boxes"])
+    seen = {}
+    for index, chart in enumerate(slide["charts"], 1):
+        shape = chart["shape_id"]
+        prefix = f"chart:{shape or 'index' + str(index)}"
+        seen[prefix] = seen.get(prefix, 0) + 1
+        if seen[prefix] > 1:
+            prefix += f"#{seen[prefix]}"
+        for field, info in chart["fields"].items():
+            if info["kind"] == "string":
+                key = f"{prefix}/{field}"
+                boxes.append({"key": key, "match_id": key if shape else "",
+                              "shape_id": shape, "name": chart["name"], "chart_field": field,
+                              "text": info["value"]})
+    return {**slide, "text_boxes": boxes}
+
+
+def _apply_chart_term_rules(warnings, target_slides, rules, applied, issues):
+    if not rules:
+        return warnings
+    labels = {(s["page"], b["key"]): b["text"] for s in target_slides
+              for b in s["text_boxes"] if b.get("chart_field")}
+    retained = []
+    matched = set()
+    for warning in warnings:
+        full_text = labels.get((warning.get("target_page"), warning.get("text_box")))
+        candidates = [r for r in rules if warning.get("target_language")
+                      and r["target_page"] == warning.get("target_page")
+                      and r["key"] == warning.get("text_box") and r["text"] == full_text]
+        matched.update(r["id"] for r in candidates)
+        if len(candidates) == 1:
+            rule = candidates[0]
+            applied.append({"kind": "allow_chart_terms", "rule_id": rule["id"],
+                            "target_page": rule["target_page"], "shape_key": rule["key"]})
+            continue
+        if candidates:
+            issues.append(_exception_issue("translation-exception-ambiguous",
+                          "multiple exact rules match this chart term",
+                          rule_type="allow_chart_terms", target_page=warning["target_page"],
+                          text_box=warning["text_box"], rule_ids=[r["id"] for r in candidates]))
+        retained.append(warning)
+    for rule in rules:
+        if rule["id"] not in matched:
+            issues.append(_exception_issue("translation-exception-unused",
+                          f"{rule['id']}: rule matched no chart language finding",
+                          rule_type="allow_chart_terms", rule_id=rule["id"]))
+    return retained
+
+
 def _translation_warnings(
     pairs: list[tuple[dict[str, object], dict[str, object], str]],
     unmatched_source: list[dict[str, object]],
@@ -1057,6 +1168,10 @@ def _translation_warnings(
 ]:
     used_rule_tokens: set[str] = set()
     matched_rule_tokens: set[str] = set()
+    target_slides = [_translation_view(slide) for slide in target_slides]
+    target_by_page = {slide["page"]: slide for slide in target_slides}
+    pairs = [(_translation_view(source), target_by_page[target["page"]], method)
+             for source, target, method in pairs]
 
     explicit_by_pair, explicit_applied, explicit_issues = _explicit_box_mappings(
         pairs, exceptions, used_rule_tokens
@@ -1064,6 +1179,17 @@ def _translation_warnings(
     warnings = _slide_pair_warnings(
         pairs, unmatched_source, unmatched_target, mapping_policy
     )
+    source_slides = [source for source, _, _ in pairs] + unmatched_source
+    for side, slides in (("source", source_slides), ("target", target_slides)):
+        for slide in slides:
+            for chart in slide.get("charts", []):
+                if chart.get("inspection_issues"):
+                    warnings.append({
+                        "code": "translation-chart-uninspected", "severity": "warning",
+                        f"{side}_page": slide["page"], "shape_id": chart["shape_id"],
+                        "message": f"chart {chart['shape_id']} on {side} slide {slide['page']} "
+                                   "could not be fully inventoried: " + ", ".join(chart["inspection_issues"]),
+                    })
     box_warnings, box_mappings, box_applied, box_issues = _text_box_warnings(
         pairs,
         explicit_by_pair,
@@ -1072,9 +1198,12 @@ def _translation_warnings(
         exceptions,
         used_rule_tokens,
         matched_rule_tokens,
+        target_language,
     )
     warnings += box_warnings
     warnings += _language_residue_warnings(target_slides, target_language)
+    warnings = _apply_chart_term_rules(warnings, target_slides, exceptions["allow_chart_terms"],
+                                       box_applied, box_issues)
 
     unused_issues: list[dict[str, object]] = []
     for rule_type in ("allow_missing", "allow_extra"):

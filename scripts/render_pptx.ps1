@@ -45,6 +45,62 @@ function Release-ComObject {
     }
 }
 
+function Measure-SlideTextBounds {
+    param([object]$Slide, [int]$PhysicalIndex, [double]$SlideWidth, [double]$SlideHeight)
+    $measured = 0
+    $unavailable = 0
+    $warnings = @()
+    $shapes = $null
+    try {
+        $shapes = $Slide.Shapes
+        for ($shapeIndex = 1; $shapeIndex -le $shapes.Count; $shapeIndex++) {
+            $shape = $null
+            $frame = $null
+            $range = $null
+            try {
+                $shape = $shapes.Item($shapeIndex)
+                if ([int]$shape.HasTextFrame -eq 0) { continue }
+                $frame = $shape.TextFrame
+                if ([int]$frame.HasText -eq 0) { continue }
+                $range = $frame.TextRange
+                $left = [double]$range.BoundLeft
+                $top = [double]$range.BoundTop
+                $width = [double]$range.BoundWidth
+                $height = [double]$range.BoundHeight
+                if ($width -le 0 -or $height -le 0) { continue }
+                $measured++
+                $edges = [ordered]@{
+                    left = -$left
+                    top = -$top
+                    right = $left + $width - $SlideWidth
+                    bottom = $top + $height - $SlideHeight
+                }
+                $overflow = [ordered]@{}
+                foreach ($edge in $edges.Keys) {
+                    if ($edges[$edge] -gt 1.0) { $overflow[$edge] = [Math]::Round($edges[$edge], 2) }
+                }
+                if ($overflow.Count) {
+                    $warnings += [PSCustomObject]@{
+                        physical_index = $PhysicalIndex
+                        code = "text-outside-slide"
+                        measurement = "com-text-range-bounds"
+                        shape_index = $shapeIndex
+                        overflow_pt = $overflow
+                    }
+                }
+            }
+            catch { $unavailable++ }  # Some WPS shapes omit TextRange metrics.
+            finally {
+                Release-ComObject $range
+                Release-ComObject $frame
+                Release-ComObject $shape
+            }
+        }
+    }
+    finally { Release-ComObject $shapes }
+    return @{ measured = $measured; unavailable = $unavailable; warnings = $warnings }
+}
+
 function Start-PresentationApp {
     param([string]$Requested)
 
@@ -80,12 +136,13 @@ if ([IO.Path]::GetExtension($source).ToLowerInvariant() -ne ".pptx") {
 $output = [IO.Path]::GetFullPath($OutputDir)
 [void](New-Item -ItemType Directory -Path $output -Force)
 $existing = @(Get-ChildItem -LiteralPath $output -File -Filter "slide-*.png" -ErrorAction SilentlyContinue)
-if ($existing.Count -gt 0) {
-    throw "Output directory already contains slide-*.png files; use an empty directory: $output"
+if ($existing.Count -gt 0 -or (Test-Path -LiteralPath (Join-Path $output "render-manifest.json"))) {
+    throw "Output directory already contains a render; use a fresh directory: $output"
 }
 
 $sourceHashBefore = Get-Sha256Hex $source
-$scratch = Join-Path $env:TEMP ("deckforge-render-" + [guid]::NewGuid().ToString("N"))
+$scratchRoot = (Resolve-Path -LiteralPath ([IO.Path]::GetTempPath())).Path
+$scratch = [IO.Path]::GetFullPath((Join-Path $scratchRoot ("deckforge-render-" + [guid]::NewGuid().ToString("N"))))
 [void](New-Item -ItemType Directory -Path $scratch)
 $scratchPptx = Join-Path $scratch ([IO.Path]::GetFileName($source))
 Copy-Item -LiteralPath $source -Destination $scratchPptx
@@ -94,21 +151,33 @@ $app = $null
 $presentation = $null
 $slides = $null
 $engineName = $null
+$ownsApp = $false
+$existingApps = @(Get-Process -Name "POWERPNT", "wpp" -ErrorAction SilentlyContinue | ForEach-Object { $_.ProcessName })
 $rendered = @()
 $hiddenIndices = @()
+$layoutWarnings = @()
+$measuredTextRanges = 0
+$unavailableTextRanges = 0
 $slideCount = 0
 # Effective export height. When -Height is not passed explicitly it is derived
 # from the source slide aspect ratio (PageSetup) so non-16:9 decks are neither
 # stretched nor rejected. Kept separate from $Height so ValidateRange only
 # constrains user input.
 $renderHeight = $Height
+$slideWidthPt = 0.0
+$slideHeightPt = 0.0
 
 try {
     $started = Start-PresentationApp -Requested $Engine
     $engineName = $started.Name
     $app = $started.App
-    try { $app.DisplayAlerts = 0 } catch { }
-    try { $app.Visible = 0 } catch { }
+    $processName = if ($engineName -eq "powerpoint") { "POWERPNT" } else { "wpp" }
+    # COM can return an application the user is already working in.
+    $ownsApp = $processName -notin $existingApps -and $app.Presentations.Count -eq 0
+    if ($ownsApp) {
+        try { $app.DisplayAlerts = 0 } catch { }
+        try { $app.Visible = 0 } catch { }
+    }
 
     try {
         # Open a scratch copy. ReadOnly=-1, Untitled=0, WithWindow=0.
@@ -120,21 +189,17 @@ try {
         $presentation = $app.Presentations.Open($scratchPptx)
     }
 
-    if (-not $PSBoundParameters.ContainsKey('Height')) {
-        $pageSetup = $null
-        try {
-            $pageSetup = $presentation.PageSetup
-            $slideWidthPt = [double]$pageSetup.SlideWidth
-            $slideHeightPt = [double]$pageSetup.SlideHeight
-            if ($slideWidthPt -gt 0 -and $slideHeightPt -gt 0) {
-                $renderHeight = [int][Math]::Round($Width * $slideHeightPt / $slideWidthPt)
-            }
-        }
-        catch { }
-        finally {
-            Release-ComObject $pageSetup
+    $pageSetup = $null
+    try {
+        $pageSetup = $presentation.PageSetup
+        $slideWidthPt = [double]$pageSetup.SlideWidth
+        $slideHeightPt = [double]$pageSetup.SlideHeight
+        if (-not $PSBoundParameters.ContainsKey('Height') -and $slideWidthPt -gt 0 -and $slideHeightPt -gt 0) {
+            $renderHeight = [int][Math]::Round($Width * $slideHeightPt / $slideWidthPt)
         }
     }
+    catch { }
+    finally { Release-ComObject $pageSetup }
 
     $slides = $presentation.Slides
     $slideCount = [int]$slides.Count
@@ -156,6 +221,12 @@ try {
                 physical_index = $i
                 hidden = $isHidden
                 file = [IO.Path]::GetFileName($path)
+            }
+            if ($slideWidthPt -gt 0 -and $slideHeightPt -gt 0) {
+                $bounds = Measure-SlideTextBounds $slide $i $slideWidthPt $slideHeightPt
+                $measuredTextRanges += $bounds.measured
+                $unavailableTextRanges += $bounds.unavailable
+                $layoutWarnings += $bounds.warnings
             }
         }
         finally {
@@ -181,13 +252,17 @@ finally {
     if ($null -ne $presentation) {
         try { $presentation.Close() } catch { }
     }
-    if ($null -ne $app) {
-        try { $app.Quit() } catch { }
+    if ($null -ne $app -and $ownsApp) {
+        try { if ($app.Presentations.Count -eq 0) { $app.Quit() } } catch { }
     }
     Release-ComObject $slides
     Release-ComObject $presentation
     Release-ComObject $app
-    Remove-Item -LiteralPath $scratch -Recurse -Force -ErrorAction SilentlyContinue
+    $scratchParent = [IO.Directory]::GetParent($scratch).FullName
+    if ($scratchParent -eq [IO.DirectoryInfo]::new($scratchRoot).FullName.TrimEnd('\') -and
+        [IO.Path]::GetFileName($scratch) -match '^deckforge-render-[0-9a-f]{32}$') {
+        Remove-Item -LiteralPath $scratch -Recurse -Force -ErrorAction SilentlyContinue
+    }
 }
 
 $sourceHashAfter = Get-Sha256Hex $source
@@ -205,6 +280,14 @@ $manifest = [ordered]@{
     slide_count = $slideCount
     hidden_physical_indices = @($hiddenIndices)
     rendered = @($rendered)
+    text_bounds = @{
+        method = "com-text-range-bounds"
+        measured_text_ranges = $measuredTextRanges
+        unavailable_text_ranges = $unavailableTextRanges
+        tolerance_pt = 1.0
+        scope = "Top-level text frames with available layout bounds on rendered slides."
+    }
+    layout_warnings = @($layoutWarnings)
 }
 
 $manifestPath = Join-Path $output "render-manifest.json"

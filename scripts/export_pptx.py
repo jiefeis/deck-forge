@@ -402,8 +402,8 @@ def cmd_build(a):
             kinds[it["kind"]] = kinds.get(it["kind"], 0) + 1
     print(f"  OK  {a.out}  ({n} slides; " + ", ".join(f"{v} {k}" for k, v in sorted(kinds.items())) + ")")
     if not a.image_only:
-        print("  Next: render it with scripts/render_pptx.ps1 and run "
-              "`export_pptx.py diff <ref_png_dir> <render_dir>`; see references/html-to-pptx.md.")
+        print("  Next: render it with scripts/render_pptx.py and run "
+              "`export_pptx.py diff <ref_png_dir> <render_dir>`; see tracks/html-build.md.")
 
 
 # ---------------------------------------------------------------------------
@@ -456,7 +456,7 @@ def main(argv=None):
     b.add_argument("--font", default="Microsoft YaHei",
                    help="typeface written to every run (latin + east-asian); default is Windows-safe")
     b.add_argument("--image-only", action="store_true", help="one full-bleed screenshot per slide instead of shapes")
-    b.add_argument("--browser-executable", default=None, help="reuse a local chrome.exe (see SKILL.md)")
+    b.add_argument("--browser-executable", default=None, help="reuse an installed Chromium browser (see tracks/html-build.md)")
     b.set_defaults(fn=cmd_build)
     d = sub.add_parser("diff", help="compare deck page renders with PPTX renders")
     d.add_argument("ref_dir"); d.add_argument("target_dir")

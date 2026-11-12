@@ -24,12 +24,12 @@
 
 | 会翻车的地方 | Deck Forge 怎么做 | 规则在哪 |
 | --- | --- | --- |
-| **编故事**：为了填满模板，凑出数字、客户、结论 | 交付必需事实缺失时先向用户确认，受影响内容保持草稿；已批准留待填写的内容明确占位，页数跟着证据走。论证型 deck 先建标题链（金字塔 / SCQA），用户确认后才做页 | [`AUTHORING.md`](../AUTHORING.md)、[`references/storyline.md`](../references/storyline.md) |
-| **文字堆叠**：一段说明拆成四张等宽卡片，重点全加粗等于没加粗 | 从整理好的文字里认出归属、先后、比较、交接，转成容器、带条件的箭头、对话示意、勾叉表、比例条；退回文字也要有根据 | [`references/text-to-visual.md`](../references/text-to-visual.md)、[`LAYOUTS.md`](../LAYOUTS.md)、[`references/consulting-diagrams.md`](../references/consulting-diagrams.md) |
-| **假视觉**：用图标阵列、渐变色块冒充"有图" | 每页先写视觉简报；实物、场景、案例去拿真图或生成并标注的概念图；图表从数据画，几何按数值算 | [`references/visual-evidence.md`](../references/visual-evidence.md) |
-| **AI 味**：飞轮、抓手、闭环，排比句和"不是……而是……" | 按真实编辑稿蒸馏出的规则改文案：短、具体、对事不对人；客户面的诊断页和 BD 页各有一套 | [`references/deck-copy-and-ai-slop.md`](../references/deck-copy-and-ai-slop.md) |
-| **改坏原文件**："小改一下"变成整份重做，页序、隐藏页、母版关系悄悄丢了 | 原生 PPTX 在自己的包里改：先冻结页面与属性范围，改完用属性白名单、隐藏备份比对、结构清单证明只改了授权的地方 | [`references/edit-scope-contract.md`](../references/edit-scope-contract.md)、[`references/pptx-native-editing.md`](../references/pptx-native-editing.md) |
-| **没人逐页看**："测试通过"就交付 | 生成的 HTML 先过确定性审计（裁切、越界、缺字体、空白页），再逐页渲染看；PDF 无损截图且字体缺失即失败；原生 PPTX 用 PowerPoint / WPS 渲染每一页 | [`scripts/audit_html_slides.py`](../scripts/audit_html_slides.py)、[`references/visual-qa.md`](../references/visual-qa.md) |
+| **编故事**：为了填满模板，凑出数字、客户、结论 | 交付必需事实缺失时先向用户确认，受影响内容保持草稿；已批准留待填写的内容明确占位，页数跟着证据走。论证型 deck 先建标题链（金字塔 / SCQA），用户确认后才做页 | [`tracks/html-build.md`](../tracks/html-build.md) |
+| **文字堆叠**：一段说明拆成四张等宽卡片，重点全加粗等于没加粗 | 从整理好的文字里认出归属、先后、比较、交接，转成容器、带条件的箭头、对话示意、勾叉表、比例条；退回文字也要有根据 | [`tracks/html-build.md`](../tracks/html-build.md) |
+| **假视觉**：用图标阵列、渐变色块冒充"有图" | 每页先写视觉简报；实物、场景、案例去拿真图或生成并标注的概念图；图表从数据画，几何按数值算 | [`tracks/html-build.md`](../tracks/html-build.md) |
+| **AI 味**：飞轮、抓手、闭环，排比句和"不是……而是……" | 按真实编辑稿蒸馏出的规则改文案：短、具体、对事不对人；客户面的诊断页和 BD 页各有一套 | [`tracks/translate-and-qa.md`](../tracks/translate-and-qa.md) |
+| **改坏原文件**："小改一下"变成整份重做，页序、隐藏页、母版关系悄悄丢了 | 原生 PPTX 在自己的包里改：先冻结页面与属性范围，改完用属性白名单、隐藏备份比对、结构清单证明只改了授权的地方 | [`tracks/pptx-native.md`](../tracks/pptx-native.md) |
+| **没人逐页看**："测试通过"就交付 | 生成的 HTML 先过确定性审计（裁切、越界、缺字体、空白页），再逐页渲染看；PDF 无损截图且字体缺失即失败；原生 PPTX 用 PowerPoint / WPS 渲染每一页 | [`scripts/audit_html_slides.py`](../scripts/audit_html_slides.py)、[`tracks/translate-and-qa.md`](../tracks/translate-and-qa.md) |
 
 翻译、页码、字体这些看起来琐碎却常出事的地方也各有全量审计：翻译建源页 / 目标页映射并核对文本框完整性，页码查到 layout 和 master，字体解析中西文、字号、粗体和继承链。
 
@@ -63,9 +63,11 @@ flowchart LR
 5. **验证**：确定性审计 → 逐页渲染看 → 需要 PDF 再导出并检查。
 6. **交付并改字**：`edit_texts.py` 把全部文字抽成一个 Markdown，改完写回、重新导出。
 
-完整步骤在 [`references/workflow.md`](../references/workflow.md)；[`SKILL.md`](../SKILL.md) 是入口，只放触发条件、不可妥协项、命令和路由。
+完整步骤在 [`tracks/html-build.md`](../tracks/html-build.md)；[`SKILL.md`](../SKILL.md) 是入口，只放触发条件、不可妥协项、命令和路由。
 
 ## 安装
+
+从[最新发布](https://github.com/jiefeis/deck-forge/releases/latest)下载 **deck-forge.zip**。将其中的 `deck-forge/` 解压到技能目录；支持技能 ZIP 导入的平台可以直接上传。需要测试、评测场景与示例的开发者可用 Git 克隆。
 
 ### Codex
 
@@ -91,7 +93,7 @@ python -m playwright install chromium
 python scripts/check_env.py
 ```
 
-`export_pptx.py diff` 另需 `numpy`。原生 PPTX 渲染在 Windows 上使用 PowerPoint 或 WPS COM。大多数 OOXML 审核脚本只依赖 Python 标准库；Pillow 用于像素审计和 contact sheet。
+`export_pptx.py diff` 另需 `numpy`。Windows 可使用 PowerPoint 或 WPS 渲染原生 PPTX。Linux、macOS 和 Windows 的 LibreOffice 渲染需安装 LibreOffice，并运行 `pip install pypdfium2`。大多数 OOXML 审核脚本只依赖 Python 标准库；Pillow 用于像素审计和 contact sheet。
 
 ## 使用示例
 
@@ -126,6 +128,12 @@ python scripts/check_env.py
 ## 审核与导出工具
 
 ```bash
+# 一条命令生成 report.json、逐页图片和对照拼图，输出到新目录。
+python scripts/forge.py verify-html deck/index.html --out html-qa
+python scripts/forge.py verify-pptx after.pptx --source before.pptx --scope scope.json --out native-qa
+python scripts/native_charts.py inspect before.pptx
+python scripts/native_charts.py apply before.pptx chart-edits.json after.pptx
+
 # 生成的 HTML deck：导出前确定性审计；无损 PDF；可编辑 PPTX；改字回流
 python scripts/audit_html_slides.py deck/index.html
 python scripts/export_pdf.py deck/index.html deck/deck.pdf
@@ -142,23 +150,23 @@ python scripts/audit_pptx_backups.py source.pptx final.pptx --map 3:50
 python scripts/audit_pptx_page_numbers.py deck.pptx
 python scripts/audit_pptx_typography.py deck.pptx
 
-# 完整自检（技能结构校验 + 全部回归测试）
+# 在开发用 Git 仓库中执行
 python scripts/run_self_checks.py
+python tools/package_skill.py --ref HEAD --output deck-forge.zip
 ```
 
 ## 项目结构
 
 ```text
-SKILL.md                 技能入口：触发、不可妥协项、命令、路由
-AUTHORING.md             源边界、页面序列、设计系统、装不下时怎么办、最终核对
-LAYOUTS.md               信息形状 → 版式
-references/              17 份规则：故事线、文字→画面、视觉证据、咨询图表、去 AI 味、
-                         源文件与范围合同、原生编辑、翻译、reformat、视觉 QA、示例对照
-scripts/                 生成、导出、渲染和只读审核工具（20 个）
-tests/                   合成 PPTX / PDF / HTML 和渲染回归测试（19 组）
-evals/                   14 个行为压力场景：模式、范围、编造、隐藏页、多源权威
-bold-template-pack/      34 套渐进加载的设计模板
-examples/                4 个参考实现：咨询图表、咨询视觉、文字编辑、导出压力样本
+SKILL.md                 根据交付物选择一份指南
+tracks/                  HTML 制作、原生 PPTX 修改、翻译与验收
+assets/                  HTML 模板、图表设计资料和风格库
+scripts/                 生成、原生图表读写、渲染与审计
+
+开发用 Git 仓库另含
+examples/                 四个完整示例
+tests/ 和 evals/          可执行回归和行为评测场景
+tools/package_skill.py    从指定提交构建安装 ZIP
 ```
 
 ## 限制与许可

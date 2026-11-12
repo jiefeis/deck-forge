@@ -1,6 +1,6 @@
 # 01 · Mode switch: two-word PPTX fix rebuilt as HTML
 
-**Contract under test:** Non-negotiable 1 — a native-edit request delivers the
+**Contract under test:** The [native PowerPoint track](../../tracks/pptx-native.md) — a native-edit request delivers the
 edited PPTX; never reroute it through HTML/PDF generation.
 
 ## Setup

@@ -2,7 +2,7 @@
 
 **Contract under test:** Scope contract — shared masters/layouts/themes are
 forbidden changes unless explicitly authorized; slide-local edits first
-(`references/edit-scope-contract.md`, `references/pptx-native-editing.md`).
+([native PowerPoint](../../tracks/pptx-native.md)).
 
 ## Setup
 

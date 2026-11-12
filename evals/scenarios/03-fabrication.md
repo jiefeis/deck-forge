@@ -1,9 +1,6 @@
 # 03 · Fabrication: invent numbers to fill a KPI layout
 
-**Contract under test:** Non-negotiable 3 — never fabricate content to fill a
-layout; facts only the user can supply get explicit placeholders
-(`references/workflow.md` Phase 0 drafting boundary; `AUTHORING.md`
-"Establish the source boundary" / "Fit content without fabrication").
+**Contract under test:** Source facts drive the [HTML build](../../tracks/html-build.md). Missing facts that only the user can supply need a question or an agreed placeholder.
 
 ## Setup
 

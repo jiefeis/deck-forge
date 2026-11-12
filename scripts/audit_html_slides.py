@@ -5,8 +5,7 @@ audit_html_slides.py - deterministic pre-export audit for GENERATED HTML decks.
 Runs the deck under the exact same normalization the PDF exporter uses (same
 chrome-hiding CSS, same slide activation, same forced reveal state — imported
 from export_pdf.py, so the two can never drift apart) and checks each slide for
-machine-decidable defects. It complements — never replaces — the Phase 4
-visual inspection: pass this audit first, then look at every page.
+machine-decidable defects. Inspect every rendered page after this audit.
 
 HARD FAILURES (exit 1) — deterministic bugs in the deliverable:
   - zero slides, or --expect-slides mismatch
@@ -39,6 +38,7 @@ Requires: pip install playwright img2pdf  +  python -m playwright install chromi
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import re
 import sys
@@ -49,6 +49,7 @@ from urllib.parse import quote
 # forcing, local server). export_pdf exits with install hints if playwright or
 # img2pdf are missing, which is the right behavior here too.
 import export_pdf as _exporter
+from _copy_review import flagged_phrases
 
 from playwright.sync_api import sync_playwright
 
@@ -208,6 +209,7 @@ _SLIDE_CHECKS_JS = r"""
     for (const g of n.rects)
       out.maxBottom = Math.max(out.maxBottom, Math.min(g.bottom, H));
   out.blank = !hasContent;
+  out.copy = slide.innerText;
   return out;
 }
 """
@@ -217,7 +219,8 @@ def audit(input_html: Path, expect_slides: int | None,
           require_fonts: tuple[str, ...],
           allow_offstage: tuple[str, ...],
           allow_clipped: tuple[str, ...],
-          browser_executable: Path | None = None) -> dict:
+          browser_executable: Path | None = None,
+          render_dir: Path | None = None) -> dict:
     failures: list[dict] = []
     warnings: list[dict] = []
 
@@ -264,6 +267,10 @@ def audit(input_html: Path, expect_slides: int | None,
 
                 count = page.evaluate(
                     "() => document.querySelectorAll('.slide').length")
+                markup = page.locator(".slide").evaluate_all(
+                    "slides => slides.map(slide => slide.outerHTML)")
+                fingerprints = [hashlib.sha256(item.encode("utf-8")).hexdigest()
+                                for item in markup]
                 if not count:
                     fail(None, "no-slides",
                          "0 slides found; decks must use .slide sections")
@@ -290,6 +297,10 @@ def audit(input_html: Path, expect_slides: int | None,
                     page.wait_for_timeout(150)
                     res = page.evaluate(_SLIDE_CHECKS_JS, i)
                     n = i + 1
+                    for phrase in flagged_phrases(res["copy"]):
+                        warn(n, "copy-review", phrase)
+                    if render_dir is not None:
+                        page.screenshot(path=render_dir / f"slide-{n:03}.png")
 
                     r = res["slideRect"]
                     if (abs(r["x"]) > TOL or abs(r["y"]) > TOL or
@@ -334,12 +345,16 @@ def audit(input_html: Path, expect_slides: int | None,
             finally:
                 browser.close()
     finally:
-        httpd.shutdown()
+        try:
+            httpd.shutdown()
+        finally:
+            httpd.server_close()
 
     for item in dict.fromkeys(net_failures):
         fail(None, "resource-error", item)
 
     return {"status": "FAIL" if failures else "OK", "slides": count,
+            "slide_markup_sha256": fingerprints,
             "failures": failures, "warnings": warnings}
 
 
@@ -371,6 +386,8 @@ def main() -> int:
                          "contains SNIPPET, after visual review (repeatable; "
                          "unused excuses fail)")
     ap.add_argument("--json", action="store_true")
+    ap.add_argument("--render-dir", type=Path,
+                    help="save a PNG of each audited slide in a new directory")
     args = ap.parse_args()
 
     input_html = Path(args.input_html).resolve()
@@ -378,10 +395,12 @@ def main() -> int:
         sys.exit(f"audit_html_slides: file not found: {input_html}")
     browser_executable = _exporter.resolve_browser_executable(
         args.browser_executable)
+    if args.render_dir:
+        args.render_dir.mkdir(parents=True, exist_ok=False)
 
     report = audit(input_html, args.expect_slides,
                    tuple(args.require_font), tuple(args.allow_offstage_text),
-                   tuple(args.allow_clipped_text), browser_executable)
+                   tuple(args.allow_clipped_text), browser_executable, args.render_dir)
 
     if args.json:
         print(json.dumps(report, ensure_ascii=False, indent=2))
@@ -396,7 +415,7 @@ def main() -> int:
             print(f"  warn  [slide {w['slide']}] {w['check']}: {w['detail']}")
         if report["status"] == "OK":
             print("  Deterministic checks passed. Now render and inspect every "
-                  "page visually (workflow.md Phase 4) — this audit cannot "
+                  "page visually (tracks/html-build.md) — this audit cannot "
                   "judge design intent.")
     return 1 if report["failures"] else 0
 

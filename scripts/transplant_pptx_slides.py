@@ -979,7 +979,7 @@ def transplant(
                 "required_followup": [
                     "render the candidate and rebased target pages with the "
                     "same engine and require pixel equivalence "
-                    "(references/native-redesign-fidelity.md); the static "
+                    "(tracks/pptx-native.md); the static "
                     "theme gate rejects only explicit theme markup and "
                     "cannot rule out inherited-style rendering drift",
                     "rerun audit_pptx_structure.py compare and "
